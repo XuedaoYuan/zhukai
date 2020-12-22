@@ -12,9 +12,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  NProgress.start();
   // 添加需要的逻辑  比如keep-alive控制， token判断等
   next();
-  NProgress.start();
 });
 
 router.afterEach((to, from) => {
