@@ -1,6 +1,7 @@
 import Page404 from '@/views/Page404/Page404.vue';
 import Login from '@/views/Login/Login.vue';
 import layout from '@/views/layout/layout.vue';
+import EditChartView from '@/views/EditChartView';
 const routerConfig = [
   {
     path: '/',
@@ -26,6 +27,18 @@ const routerConfig = [
         component: () => import(/* webpackChunkName: "test" */ '../views/Test')
       }
     ]
+  },
+  {
+    path: '/edit-chart-view',
+    name: 'EditChartView',
+    component: EditChartView,
+    /* children: [
+      {
+        path: '',
+        component: EditChartView,
+        meta: {}
+      }
+    ] */
   }
 ];
 const routerConfigMenuOut = [
