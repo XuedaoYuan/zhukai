@@ -4,6 +4,8 @@
     <div>
       <el-button>button</el-button>
       <el-button type="primary">button</el-button>
+      <el-input v-model="value"></el-input>
+      <div>{{value}}</div>
     </div>
   </div>
 </template>
@@ -14,7 +16,9 @@ import concat from 'lodash/concat';
 export default {
   name: 'Test',
   data() {
-    return {};
+    return {
+      value: ''
+    };
   },
   created() {
     console.log(concat(1, 2, [3]));
