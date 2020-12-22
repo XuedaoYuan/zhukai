@@ -13,6 +13,7 @@ export default {
 
 <style scoped lang="stylus">
 .chart-view__container {
-  
+  height: 100%;
+  overflow: hidden;
 }
 </style>

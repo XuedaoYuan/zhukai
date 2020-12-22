@@ -7,7 +7,7 @@ module.exports = {
   lintOnSave: true,
   devServer: {
     historyApiFallback: {
-        index: '/index.html'
+      index: '/index.html'
     },
     publicPath: publicPath, // 和 baseUrl 保持一致
     proxy: {
@@ -20,6 +20,13 @@ module.exports = {
     }
   },
   productionSourceMap: false, // 生产打包时不输出map文件，增加打包速度
+  /* css: {
+    loaderOptions: {
+      stylus: {
+        data: `@import "@/styles/variables.stylus";`
+      }
+    }
+  }, */
   chainWebpack: (config) => {
     config.plugin('html').tap((args) => {
       args[0].title = '海南医保';
