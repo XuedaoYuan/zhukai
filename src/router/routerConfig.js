@@ -5,10 +5,16 @@ const routerConfig = [
   {
     path: '/',
     name: 'Index',
-    component: {
-      // 测试用而已
-      render: (h) => h('h1', {}, ['首页', h('span', { style: { color: 'red' } }, ['index'])])
-    }
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: {
+          // 测试用而已
+          render: (h) => h('h1', {}, ['首页', h('span', { style: { color: 'red' } }, ['index'])])
+        }
+      }
+    ]
   },
   {
     path: '/test',
