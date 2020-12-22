@@ -31,7 +31,7 @@ const routerConfig = [
   {
     path: '/edit-chart-view',
     name: 'EditChartView',
-    component: EditChartView,
+    component: EditChartView
     /* children: [
       {
         path: '',
@@ -39,6 +39,11 @@ const routerConfig = [
         meta: {}
       }
     ] */
+  },
+  {
+    path: '/TestVueGridLayout',
+    name: 'TestVueGridLayout',
+    component: () => import('@/views/EditChartView/TestVueGridLayout.vue')
   }
 ];
 const routerConfigMenuOut = [

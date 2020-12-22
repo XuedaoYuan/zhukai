@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-
+import echarts from './plugins/echarts';
 /* 公共样式 */
 import './styles/common.styl';
 /* 全局自定义指令 */
@@ -38,6 +38,8 @@ Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$prompt = MessageBox.prompt;
 // Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
+
+Vue.use(echarts);
 
 new Vue({
   router,
