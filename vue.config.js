@@ -41,7 +41,11 @@ module.exports = {
     // config.plugin('hash-module').use(new webpack.HashedModuleIdsPlugin());
     // config.plugin('ignore').use(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn|en-au/));
   },
-  configureWebpack: {
+  
+};
+
+
+/* configureWebpack: {
     optimization: {
       runtimeChunk: 'single',
       splitChunks: {
@@ -64,5 +68,4 @@ module.exports = {
         }
       }
     }
-  }
-};
+  }*/

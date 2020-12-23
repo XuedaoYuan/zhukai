@@ -46,7 +46,7 @@ const routerConfig = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "test" */ '../views/businessDataManagement/businessDataManagement')
+        component: () => import(/* webpackChunkName: "businessDataManagement" */ '../views/businessDataManagement/businessDataManagement')
       }
     ]
   },
@@ -57,7 +57,7 @@ const routerConfig = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "test" */ '../views/externalDataManagement/externalDataManagement')
+        component: () => import(/* webpackChunkName: "externalDataManagement" */ '../views/externalDataManagement/externalDataManagement')
       }
     ]
   },
