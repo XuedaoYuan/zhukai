@@ -20,6 +20,17 @@ const routerConfig = [
         component: () => import(/* webpackChunkName: "test" */ '../views/Test')
       }
     ]
+  },
+  {
+    path: '/basicDataManagement',
+    name: 'BasicDataManagement',
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import(/* webpackChunkName: "test" */ '../views/basicDataManagement/basicDataManagement')
+      }
+    ]
   }
 ];
 const routerConfigMenuOut = [

@@ -13,6 +13,7 @@
 <script>
 // lodash 推荐用法
 import concat from 'lodash/concat';
+import {testApi} from "@\api\Test\index.js"
 export default {
   name: 'Test',
   data() {
@@ -22,6 +23,7 @@ export default {
   },
   created() {
     console.log(concat(1, 2, [3]));
+    testApi()
   }
 };
 </script>

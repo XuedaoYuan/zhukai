@@ -71,5 +71,5 @@ export { axios as fetch };
 
 /* 可以注册为一个插件 */
 export default {
-  install: Vue => Vue.prototype.$axios = axios;
+  install: Vue => Vue.prototype.$axios = axios
 };

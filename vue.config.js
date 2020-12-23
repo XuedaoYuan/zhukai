@@ -12,9 +12,9 @@ module.exports = {
     publicPath: publicPath, // 和 baseUrl 保持一致
     proxy: {
       // 测试环境
-      '/api': {
+      '/': {
         ws: false,
-        target: 'http://172.18.20.105:8080', // 测试
+        target: 'http://192.168.1.101:8888', // 测试
         changeOrigin: true
       }
     }
