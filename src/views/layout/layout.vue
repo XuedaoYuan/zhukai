@@ -1,10 +1,20 @@
 /* 这部分自己布局 */
 <template>
   <div class="layout-container">
-    <div class="sidebar-container"></div>
+    <div class="sidebar-container">
+      <!-- 使用el-menu渲染即可 -->
+      <div class="nav">
+        <router-link to="/test">test</router-link>
+      </div>
+      <div class="nav">
+        <router-link to="/edit-chart-view">edit-chart-view</router-link>
+      </div>
+    </div>
     <div class="header-content-container">
       <div class="header-container">
         <h1>header</h1>
+        <el-button>asdas</el-button>
+        <el-button>asdas</el-button>
       </div>
       <div class="content-container">
         <router-view></router-view>
@@ -30,6 +40,16 @@ export default {
   .sidebar-container {
     flex: 0 0 180px;
     border-right: 1px solid #ccc;
+
+    > .nav {
+      margin: 10px 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    a {
+      color: #000;
+    }
   }
 
   .header-content-container {

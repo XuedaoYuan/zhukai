@@ -87,7 +87,7 @@
         <el-row>
           <el-col>
             <el-form-item label="数据源名称">
-              <el-input size="mini" v-model="sizeForm.sch"></el-input>
+              <el-input size="mini" v-model="sizeForm.dsName"></el-input>
             </el-form-item>
           </el-col>
           <el-col>
@@ -97,7 +97,7 @@
           </el-col>
           <el-col>
             <el-form-item label="数据源类型">
-              <el-input size="mini" v-model="sizeForm.sch"></el-input>
+              <el-input size="mini" v-model="sizeForm.dsType"></el-input>
             </el-form-item>
           </el-col>
           <el-col>
@@ -107,12 +107,12 @@
           </el-col>
           <el-col>
             <el-form-item label="IP">
-              <el-input size="mini" v-model="sizeForm.sch"></el-input>
+              <el-input size="mini" v-model="sizeForm.dsIp"></el-input>
             </el-form-item>
           </el-col>
           <el-col>
             <el-form-item label="端口号">
-              <el-input size="mini" v-model="sizeForm.sch"></el-input>
+              <el-input size="mini" v-model="sizeForm.dsPort"></el-input>
             </el-form-item>
           </el-col>
           <el-col>
@@ -129,7 +129,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">重 置</el-button>
-    <el-button type="primary" @click="dialogVisible = false">保 存</el-button>
+    <el-button type="primary" @click="addSave()">保 存</el-button>
   </span>
     </el-dialog>
   </div>
@@ -137,7 +137,7 @@
 
 <script>
 import Vue from "vue";
-import { queryPage } from "../../api/oms/new" ;
+import { queryPage } from "@/api/oms/new" ;
 const mock = [
   {merchantItemNo:1},
   {merchantItemNo:2},
@@ -157,13 +157,16 @@ name: "basicDataManagement",
     getDataList(){
       this.dataListLoading = true;
       let params = {
-
+        dsType:"基础数据",
+        pageSize: this.pageSize,
+        currentPage: this.pageIndex,
       };
       queryPage(params)
         .then(({ data }) => {
-          if (data && data.status === 1) {
-            this.dataList = data.data.dataList;
-            this.totalPage = data.data.totalCount;
+          if (data && data.dataList != "") {
+            console.log(data,"data")
+            this.dataList = data.dataList;
+            this.totalPage = data.totalCount;
           } else {
             this.dataList = [];
             this.totalPage = 0;
@@ -176,12 +179,16 @@ name: "basicDataManagement",
         });
 
     },
+    //新增、修改
     addOrUpdateHandle(jobId){
       if(!jobId){
         jobId = ''
       }
       this.sizeForm = jobId,
         this.dialogVisible = true
+    },
+    addSave() {
+      
     },
     // 多选
     selectionChangeHandle(val) {
@@ -241,7 +248,8 @@ name: "basicDataManagement",
       dialogVisible:false,
       dataListSelections: [],
       submitBoo: true,
-
+      pageIndex: 1,
+      pageSize: 10,
     }
   }
 }

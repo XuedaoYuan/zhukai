@@ -1,9 +1,10 @@
-import axios from 'axios'
+import { fetch } from "../../plugins/axios"
 
-export const queryPage = data => {
-    return axios({
-        url: "/oms/web/module1/basdatainfo/page",
-        method: "post",
-        data
-    });
-};
+export function queryPage(params) {
+    console.log(params)
+    return fetch({
+        url: '/oms/web/module1/basdatainfo/page',
+        method: "POST",
+        data: params
+    })
+}

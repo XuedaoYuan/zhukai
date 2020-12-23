@@ -1,14 +1,21 @@
 import Page404 from '@/views/Page404/Page404.vue';
 import Login from '@/views/Login/Login.vue';
 import layout from '@/views/layout/layout.vue';
+import EditChartView from '@/views/EditChartView';
 const routerConfig = [
   {
     path: '/',
     name: 'Index',
-    component: {
-      // 测试用而已
-      render: (h) => h('h1', {}, ['首页', h('span', { style: { color: 'red' } }, ['index'])])
-    }
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: {
+          // 测试用而已
+          render: (h) => h('h1', {}, ['首页', h('span', { style: { color: 'red' } }, ['index'])])
+        }
+      }
+    ]
   },
   {
     path: '/test',
@@ -31,6 +38,24 @@ const routerConfig = [
         component: () => import(/* webpackChunkName: "test" */ '../views/basicDataManagement/basicDataManagement')
       }
     ]
+  },
+  {
+
+    path: '/edit-chart-view',
+    name: 'EditChartView',
+    component: EditChartView
+    /* children: [
+      {
+        path: '',
+        component: EditChartView,
+        meta: {}
+      }
+    ] */
+  },
+  {
+    path: '/TestVueGridLayout',
+    name: 'TestVueGridLayout',
+    component: () => import('@/views/EditChartView/TestVueGridLayout.vue')
   }
 ];
 const routerConfigMenuOut = [
