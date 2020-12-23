@@ -3,7 +3,7 @@ import { fetch } from "../../plugins/axios"
 //
 export function queryPage(params) {
     return fetch({
-        url: '/oms/web/module1/basdatainfo/page',
+        url: '/oms/web/manage/basdatainfo/page',
         method: "POST",
         data: params
     })
@@ -12,7 +12,7 @@ export function queryPage(params) {
 export function save(params) {
     console.log(params)
     return fetch({
-        url: '/oms/web/module1/basdatainfo/save',
+        url: '/oms/web/manage/basdatainfo/save',
         method: "POST",
         data: params
     })
@@ -21,7 +21,7 @@ export function save(params) {
 export function deleteBatchById(params) {
     console.log(params)
     return fetch({
-        url: '/oms/web/module1/basdatainfo/delete',
+        url: '/oms/web/manage/basdatainfo/delete',
         method: "POST",
         data: params
     })

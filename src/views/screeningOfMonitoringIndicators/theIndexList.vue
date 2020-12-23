@@ -32,7 +32,6 @@
       border
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
-      @cell-dblclick="viewData"
       style="width: 100%; margin-top: 20px">
       <el-table-column
         type="index"
@@ -118,6 +117,8 @@ created() {
     return {
       dataList:[],
       dataListLoading:false,
+      currentPage4:1,
+      totalPage:0,
       pageIndex: 1,
       pageSize: 10,
     }
@@ -134,13 +135,15 @@ created() {
           if (data && data.dataList != "") {
             console.log(data,"data")
             this.dataList = data.dataList;
+            var arrs = []
             var newNum = this.dataList.map((ele, index) => {
             console.log(ele,index,"index")
             ele.bizDimInfoDTOList.map((el,inde) => {
               console.log(el,inde,"111inde")
+              arr.push(obj[inde]);
+              arr.unshift(obj[inde]);
             })
         })
-            var arrs = []
             console.log(arrs,"arrs")
             this.totalPage = data.totalCount;
           } else {
@@ -157,6 +160,15 @@ created() {
     },
     indexMethod(index) {
       return index + 1 + (this.pageIndex - 1) * this.pageSize;
+    },
+    selectionChangeHandle() {
+
+    },
+    handleCurrentChange() {
+
+    },
+    handleSizeChange() {
+
     },
   }
 }
