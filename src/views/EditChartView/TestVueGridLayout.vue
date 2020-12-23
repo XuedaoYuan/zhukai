@@ -5,42 +5,59 @@
       <div>
         <el-button ref="button"
                    @click="handleAddNew">add new</el-button>
+        <el-button ref="button"
+                   @click="handleAddNewDatePicker">add DatePicker</el-button>
       </div>
     </div>
-    <!-- <ChartBar1></ChartBar1> -->
-    <grid-layout :layout.sync="layout"
-                 :col-num="12"
-                 :row-height="20"
-                 :is-draggable="true"
-                 :is-resizable="true"
-                 :is-mirrored="false"
-                 :vertical-compact="false"
-                 :margin="[10, 10]"
-                 :use-css-transforms="true"
-                 :auto-size="true"
-                 :responsive="true">
-      <!--   @resize="resizeEvent"
+    <div class="content">
+      <div class="left">
+        <grid-layout :layout.sync="layout"
+                     :col-num="12"
+                     :row-height="20"
+                     :is-draggable="true"
+                     :is-resizable="true"
+                     :is-mirrored="false"
+                     :vertical-compact="false"
+                     :margin="[10, 10]"
+                     :use-css-transforms="true"
+                     :auto-size="true"
+                     :responsive="true">
+          <!--   @resize="resizeEvent"
                  @move="moveEvent"
                  @resized="resizedEvent"
                   -->
-      <grid-item v-for="(item, index) in layout"
-                 :x="item.x"
-                 :y="item.y"
-                 :w="item.w"
-                 :h="item.h"
-                 :i="item.i"
-                 :key="item.i"
-                 @resize="handleResizeEvent"
-                 @moved="handleMovedEvent">
-        <component :is="item.component"></component>
-      </grid-item>
-    </grid-layout>
+          <grid-item v-for="(item, index) in layout"
+                     :x="item.x"
+                     :y="item.y"
+                     :w="item.w"
+                     :h="item.h"
+                     :i="item.i"
+                     :key="item.i"
+                     @resize="handleResizeEvent"
+                     @moved="handleMovedEvent">
+            <component :is="item.component"
+                       :ref="'Component' + index + 'Ref'"></component>
+            <div class="mask_container"
+                 @click.stop="handleComponentClick(index)"></div>
+          </grid-item>
+        </grid-layout>
+      </div>
+      <div class="right">
+        <h4>配置项</h4>
+        <div>x: <el-input v-model.number="x"
+                    type="number"
+                    @change="handleXchange"></el-input> y: <el-input v-model="y"></el-input>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import VueGridLayout from 'vue-grid-layout';
 import ChartBar1 from './components/ChartBar1';
+import DatePicker from './components/DatePicker';
 const testLayout = [
   { x: 0, y: 0, w: 2, h: 4, i: '0', component: 'ChartBar1' },
   { x: 3, y: 0, w: 2, h: 4, i: '1' },
@@ -69,17 +86,21 @@ export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    ChartBar1
+    ChartBar1,
+    DatePicker
   },
   data() {
     return {
-      layout: [...testLayout]
+      layout: [...testLayout],
+      x: 0,
+      y: 0
     };
   },
   methods: {
     handleResizeEvent(i, newH, newW, newHPx, newWPx) {
       console.log('resize', i);
-      console.log(ChartBar1);
+      console.log();
+      this.$refs[`Component${i}Ref`][0].resize();
     },
     handleMovedEvent(i, newX, newY) {
       console.log(i);
@@ -95,6 +116,26 @@ export default {
         component: 'ChartBar1'
       };
       this.layout.push(layoutInstance);
+    },
+    handleAddNewDatePicker() {
+      const layoutInstance = {
+        x: 10,
+        y: 5,
+        w: 2,
+        h: 2,
+        i: this.layout.length,
+        component: 'DatePicker'
+      };
+      this.layout.push(layoutInstance);
+    },
+    handleComponentClick(index) {
+      const layoutInstance = this.layout[index];
+      this.handlingIndex = index;
+      this.x = layoutInstance.x;
+      this.y = layoutInstance.y;
+    },
+    handleXchange() {
+      this.layout[this.handlingIndex].x = this.x - 0;
     }
   }
 };
@@ -107,5 +148,30 @@ export default {
 
 .vue-grid-item {
   background-color: #ccc;
+  position: relative;
+
+  .mask_container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 1;
+  }
+}
+
+.content {
+  display: flex;
+
+  .left {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .right {
+    flex: 0 0 200px;
+    border-left: 1px solid #ccc;
+  }
 }
 </style>
