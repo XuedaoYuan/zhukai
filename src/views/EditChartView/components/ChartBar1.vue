@@ -53,8 +53,8 @@ export default {
   methods: {
     resize() {
       this.chartInstance.resize({
-        width: 'auto',
-        height: 'auto',
+        // width: 'auto',
+        // height: 'auto',
         silent: true
       });
     }
