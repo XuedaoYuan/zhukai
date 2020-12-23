@@ -1,23 +1,14 @@
 <template>
   <div>
-    <el-form label-width="90px">
-      <el-row>
-        <el-col :span="12">
-          <el-row style="height: 120px" >
-            <el-col>
-              <span>主题个数()</span>
-              <span style="margin-left: 30px">相关指标()</span>
-            </el-col>
-          </el-row>
-          <el-row>
-            <span>查看详细</span>
-          </el-row>
+    <el-row :gutter="20">
+      <el-col :span="14">
+        <div class="grid-content bg-purple"></div>
+        <router-link to="/listOfTopics">查看详情</router-link>
         </el-col>
-        <el-col :span="8">
-
-        </el-col>
-      </el-row>
-    </el-form>
+      <el-col :span="10" style="border:1px solid #000">
+        <router-link to="/theIndexList">查看详情</router-link>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -28,5 +19,27 @@ name: "screeningOfMonitoringIndicators"
 </script>
 
 <style scoped>
-
+ .el-row {
+    margin-bottom: 20px;
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
 </style>

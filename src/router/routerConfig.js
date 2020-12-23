@@ -40,6 +40,43 @@ const routerConfig = [
     ]
   },
   {
+    path: '/businessDataManagement',
+    name: 'businessDataManagement',
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import(/* webpackChunkName: "test" */ '../views/businessDataManagement/businessDataManagement')
+      }
+    ]
+  },
+  {
+    path: '/externalDataManagement',
+    name: 'externalDataManagement',
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import(/* webpackChunkName: "test" */ '../views/externalDataManagement/externalDataManagement')
+      }
+    ]
+  },
+  {
+    path: '/screeningOfMonitoringIndicators',
+    name: 'screeningOfMonitoringIndicators',
+    component: () => import('@/views/screeningOfMonitoringIndicators/screeningOfMonitoringIndicators.vue')
+  },
+  {
+    path: '/listOfTopics',
+    name: 'listOfTopics',
+    component: () => import('@/views/screeningOfMonitoringIndicators/listOfTopics.vue')
+  },
+  {
+    path: '/theIndexList',
+    name: 'theIndexList',
+    component: () => import('@/views/screeningOfMonitoringIndicators/theIndexList.vue')
+  },
+  {
 
     path: '/edit-chart-view',
     name: 'EditChartView',

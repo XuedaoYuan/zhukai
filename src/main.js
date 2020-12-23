@@ -21,7 +21,12 @@ import {
   FormItem,
   Loading,
   Message,
-  MessageBox
+  MessageBox,
+  Col,
+  Row,
+  Select,
+  Tabs,
+  TabPane,
 } from 'element-ui';
 Vue.prototype.$ELEMENT = { size: 'mini', zIndex: 3000 };
 Vue.use(Button);
@@ -32,6 +37,13 @@ Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Form);
 Vue.use(FormItem);
+Vue.use(Col);
+Vue.use(Row);
+Vue.use(Select);
+Vue.use(Tabs);
+Vue.use(TabPane);
+
+
 // Vue.prototype.$msgbox = MessageBox;
 // Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$confirm = MessageBox.confirm;

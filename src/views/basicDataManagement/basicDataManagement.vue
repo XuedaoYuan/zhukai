@@ -28,7 +28,7 @@
         label="数据源名称"
       ></el-table-column>
       <el-table-column
-        prop="No"
+        prop="soucType"
         width="80" show-overflow-tooltip
         header-align="center"
         align="center"
@@ -76,7 +76,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click.native.prevent="addOrUpdateHandle(scope.row)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.jobId)">测试</el-button>
+          <el-button type="text" size="small" @click="Handle(scope.row.jobId)">测试</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -92,7 +92,7 @@
           </el-col>
           <el-col>
             <el-form-item label="来源">
-              <el-input size="mini" v-model="sizeForm.sch"></el-input>
+              <el-input size="mini" v-model="sizeForm.soucType"></el-input>
             </el-form-item>
           </el-col>
           <el-col>
@@ -137,7 +137,7 @@
 
 <script>
 import Vue from "vue";
-import { queryPage } from "@/api/oms/new" ;
+import { queryPage, save, deleteBatchById } from "@/api/oms/new" ;
 const mock = [
   {merchantItemNo:1},
   {merchantItemNo:2},
@@ -182,13 +182,15 @@ name: "basicDataManagement",
     //新增、修改
     addOrUpdateHandle(jobId){
       if(!jobId){
-        jobId = ''
+        jobId = this.sizeForm
       }
       this.sizeForm = jobId,
         this.dialogVisible = true
     },
     addSave() {
-      
+      let params = this.sizeForm
+      save(params)
+      this.dialogVisible = false
     },
     // 多选
     selectionChangeHandle(val) {
@@ -207,7 +209,7 @@ name: "basicDataManagement",
       const ids = id
         ? [id]
         : this.dataListSelections.map(item => {
-          return item.id;
+          return item.basDataInfoId;
         });
       this.$confirm(`您确定要删除吗?`, "提示", {
         confirmButtonText: "确定",
@@ -238,13 +240,22 @@ name: "basicDataManagement",
           console.log(e);
         });
     },
+    Handle(){
+
+    },
   },
   data(){
     return {
       dataList: [],
       dataListLoading: false,
       currentPage4: 4,
-      sizeForm: {},
+      sizeForm: {
+        dsType:'',
+        dsName:'',
+        soucType:'',
+        dsIp:'',
+        dsPort:'',
+      },
       dialogVisible:false,
       dataListSelections: [],
       submitBoo: true,

@@ -14,7 +14,8 @@ module.exports = {
       // 测试环境
       '/': {
         ws: false,
-        target: 'http://192.168.1.101:8888', // 测试
+        // target: 'http://192.168.1.101:8888', // 本地
+        target: 'http://114.55.3.21:8888', //測試
         changeOrigin: true
       }
     }
