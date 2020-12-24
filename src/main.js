@@ -27,6 +27,8 @@ import {
   Select,
   Tabs,
   TabPane,
+  Tag,
+  Option,
 } from 'element-ui';
 Vue.prototype.$ELEMENT = { size: 'mini', zIndex: 3000 };
 Vue.use(Button);
@@ -42,6 +44,8 @@ Vue.use(Row);
 Vue.use(Select);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Tag);
+Vue.use(Option);
 
 
 // Vue.prototype.$msgbox = MessageBox;

@@ -77,6 +77,16 @@ const routerConfig = [
     component: () => import('@/views/screeningOfMonitoringIndicators/theIndexList.vue')
   },
   {
+    path: '/serviceMonitoringManagement',
+    name: 'serviceMonitoringManagement',
+    component: () => import('@/views/serviceMonitoringManagement/serviceMonitoringManagement.vue')
+  },
+  {
+    path: '/logQuery',
+    name: 'logQuery',
+    component: () => import('@/views/logQuery/logQuery.vue')
+  },
+  {
 
     path: '/edit-chart-view',
     name: 'EditChartView',

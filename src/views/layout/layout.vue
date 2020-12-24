@@ -9,6 +9,27 @@
       <div class="nav">
         <router-link to="/edit-chart-view">edit-chart-view</router-link>
       </div>
+      <div class="nav">
+        <router-link to="/basicDataManagement">基础数据管理</router-link>
+      </div>
+      <div class="nav">
+        <router-link to="/businessDataManagement">业务数据管理</router-link>
+      </div>
+      <div class="nav">
+        <router-link to="/externalDataManagement">外部数据管理</router-link>
+      </div>
+      <div class="nav">
+        <router-link to="/listOfTopics">主题列表</router-link>
+      </div>
+      <div class="nav">
+        <router-link to="/theIndexList">指标列表</router-link>
+      </div>
+      <div class="nav">
+        <router-link to="/serviceMonitoringManagement">服务监测</router-link>
+      </div>
+      <div class="nav">
+        <router-link to="/logQuery">日志管理</router-link>
+      </div>
     </div>
     <div class="header-content-container">
       <div class="header-container">
