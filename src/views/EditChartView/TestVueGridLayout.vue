@@ -13,7 +13,7 @@
       <div class="left">
         <grid-layout :layout.sync="layout"
                      :col-num="12"
-                     :row-height="20"
+                     :row-height="10"
                      :is-draggable="true"
                      :is-resizable="true"
                      :is-mirrored="false"
@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     handleResizeEvent(i, newH, newW, newHPx, newWPx) {
-      console.log('resize', i);
+      console.log('resize', i, newH, newW, newHPx, newWPx);
       console.log();
       this.$refs[`Component${i}Ref`][0].resize();
     },
@@ -144,25 +144,19 @@ export default {
 <style scoped lang="stylus">
 .TestVueGridLayout__container {
   height: 100%;
-}
-
-.vue-grid-item {
-  background-color: #ccc;
-  position: relative;
-
-  .mask_container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: transparent;
-    z-index: 1;
-  }
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
   display: flex;
+  flex: 1;
+  overflow: hidden;
+  border: 1px solid red;
+
+  > div {
+    height: 100%;
+  }
 
   .left {
     flex: 1;
@@ -171,7 +165,7 @@ export default {
 
   .right {
     flex: 0 0 200px;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid red;
   }
 }
 </style>

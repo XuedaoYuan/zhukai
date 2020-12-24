@@ -34,7 +34,7 @@ const config = {
       componentName: '',
 
       /* 组件配置 */
-      // 组件本身的属性  比如标题的title color等
+      // 组件本身的属性  比如标题的title color等  这块根据自己的组件自己定义好自己的规则即可
       componentConfig: {}
     }
   ]

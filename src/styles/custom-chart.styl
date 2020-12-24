@@ -1,0 +1,31 @@
+/* 大屏配置的自定义全局样式 */
+.el-date-editor.hsa-el-date-picker {
+    width: 100% !important;
+    height: 100%;
+    display: block;
+    background-color: #ccc;
+
+    .el-input__inner {
+        height: 100%;
+        background-color: #ccc;
+    }
+}
+
+.vue-grid-item {
+    background-color: #ccc;
+    position: relative;
+
+    & > .vue-resizable-handle {
+        z-index: 2;
+    }
+
+    .mask_container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: transparent;
+        z-index: 1;
+    }
+}
