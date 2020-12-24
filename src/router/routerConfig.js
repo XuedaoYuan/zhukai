@@ -64,27 +64,57 @@ const routerConfig = [
   {
     path: '/screeningOfMonitoringIndicators',
     name: 'screeningOfMonitoringIndicators',
-    component: () => import('@/views/screeningOfMonitoringIndicators/screeningOfMonitoringIndicators.vue')
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/screeningOfMonitoringIndicators/screeningOfMonitoringIndicators.vue')
+      }
+    ]
   },
   {
     path: '/listOfTopics',
     name: 'listOfTopics',
-    component: () => import('@/views/screeningOfMonitoringIndicators/listOfTopics.vue')
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/screeningOfMonitoringIndicators/listOfTopics.vue')
+      }
+    ]
   },
   {
     path: '/theIndexList',
     name: 'theIndexList',
-    component: () => import('@/views/screeningOfMonitoringIndicators/theIndexList.vue')
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/screeningOfMonitoringIndicators/theIndexList.vue')
+      }
+    ]
   },
   {
     path: '/serviceMonitoringManagement',
     name: 'serviceMonitoringManagement',
-    component: () => import('@/views/serviceMonitoringManagement/serviceMonitoringManagement.vue')
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/serviceMonitoringManagement/serviceMonitoringManagement.vue')
+      }
+    ]
   },
   {
     path: '/logQuery',
     name: 'logQuery',
-    component: () => import('@/views/logQuery/logQuery.vue')
+    component: layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/logQuery/logQuery.vue')
+      }
+    ]
   },
   {
 

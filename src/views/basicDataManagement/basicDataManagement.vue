@@ -146,6 +146,16 @@
         </template>
       </el-table-column> -->
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalPage"
+    >
+    </el-pagination>
     <el-dialog :visible.sync="dialogVisible" width="30%">
       <el-form label-width="90px" :model="sizeForm">
         <el-row>
@@ -301,6 +311,15 @@ export default {
           console.log(e);
         });
     },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList();
+    },
+    handleCurrentChange(val) {
+      this.pageIndex = val;
+      this.getDataList();
+    },
     rest() {
       this.dataForm = {
         saleOrderNo: "",
@@ -319,6 +338,7 @@ export default {
     return {
       dataList: [],
       dataListLoading: false,
+      totalPage:0,
       currentPage4: 4,
       dataForm: {
         saleOrderNo:"",
