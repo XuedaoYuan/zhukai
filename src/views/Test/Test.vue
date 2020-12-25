@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>test</h1>
+    <h1 class="h1_title">test</h1>
     <div>
       <el-divider content-position="left">测试全局el注册组件</el-divider>
 
       <el-button>button</el-button>
       <el-button type="primary">button</el-button>
-      <el-input v-model="value" placeholder="please input"></el-input>
+      <el-input v-model="value"
+                placeholder="please input"></el-input>
       <div>{{value}}</div>
       <el-divider content-position="left">Vuex Demo</el-divider>
       <h2>count: {{count}}-----doubleCount:{{doubleCount}}</h2>
@@ -22,7 +23,7 @@
 <script>
 // lodash 推荐用法
 import concat from 'lodash/concat';
-import {testApi} from "@/api/Test/index.js"
+import { testApi } from '@/api/Test/index.js';
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex';
 import { Divider } from 'element-ui';
 export default {
@@ -42,7 +43,7 @@ export default {
   },
   created() {
     console.log(concat(1, 2, [3]));
-    testApi()
+    testApi();
   },
   methods: {
     ...mapMutations('hsa/test', ['addCount']),
@@ -60,4 +61,8 @@ export default {
 };
 </script>
 
-<style scoped lang="stylus"></style>
+<style scoped lang="stylus">
+.h1_title {
+  color: $main-color;
+}
+</style>

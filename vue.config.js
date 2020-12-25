@@ -2,6 +2,16 @@
 let publicPath = '/';
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const webpack = require('webpack');
+const path = require('path');
+
+function addStyleResource(rule) {
+  rule
+    .use('style-resource')
+    .loader('style-resources-loader')
+    .options({
+      patterns: [path.resolve(__dirname, './src/styles/variables.styl')]
+    });
+}
 module.exports = {
   publicPath: publicPath, // 根据你的实际情况更改这里
   lintOnSave: true,
@@ -21,18 +31,20 @@ module.exports = {
     }
   },
   productionSourceMap: false, // 生产打包时不输出map文件，增加打包速度
-  /* css: {
+  css: {
     loaderOptions: {
       stylus: {
         data: `@import "@/styles/variables.stylus";`
       }
     }
-  }, */
+  },
   chainWebpack: (config) => {
     config.plugin('html').tap((args) => {
       args[0].title = 'hsa-demo';
       return args;
     });
+    const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
+    types.forEach((type) => addStyleResource(config.module.rule('stylus').oneOf(type)));
     /* config.plugin('webpack-report').use(BundleAnalyzerPlugin, [
       {
         analyzerMode: 'static'
@@ -40,10 +52,8 @@ module.exports = {
     ]); */
     // config.plugin('hash-module').use(new webpack.HashedModuleIdsPlugin());
     // config.plugin('ignore').use(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn|en-au/));
-  },
-  
+  }
 };
-
 
 /* configureWebpack: {
     optimization: {
