@@ -30,7 +30,7 @@ export function deleteBatchById(params) {
 export function bizkpiinfo(params) {
     console.log(params)
     return fetch({
-        url: '/oms/web/manage/bizkpiinfo/page.json',
+        url: '/oms/web/manage/bizkpiinfo/page',
         method: "POST",
         data: params
     })
@@ -49,6 +49,16 @@ export function servmnitinfo(params) {
     console.log(params)
     return fetch({
         url: '/oms/web/manage/servmnitinfo/page',
+        method: "POST",
+        data: params
+    })
+}
+//日志管理
+export function loginfo(params) {
+    console.log(fetch,"fetch")
+    console.log(params)
+    return fetch({
+        url: '/oms/web/manage/loginfo/page',
         method: "POST",
         data: params
     })

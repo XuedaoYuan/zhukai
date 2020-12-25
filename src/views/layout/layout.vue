@@ -64,8 +64,20 @@
 </template>
 
 <script>
+import { Container, Header, Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup } from "element-ui"
 export default {
   name: "layout",
+  components: {
+    "el-container":Container,
+    "el-header":Header,
+    "el-aside":Aside,
+    "el-main":Main,
+    "el-menu":Menu,
+    "el-submenu":Submenu,
+    "el-menu-item":MenuItem,
+    "el-menu-item-group":MenuItemGroup,
+    
+  },
   data() {
     return {};
   },
