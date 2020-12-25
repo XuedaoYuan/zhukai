@@ -1,28 +1,28 @@
 <template>
   <div>
-    <el-form label-width="90px">
-      <el-row>
-        <el-col :span="8" style="font-weight: bold">
+    <el-form label-width="90px" :model="dataForm">
+      <el-row style="margin-top: 20px; height: 60px">
+        <el-col :span="6" style="font-weight: bold">
           <el-form-item label="服务名称:">
-            <el-input clearable size="mini" placeholder="服务名称"></el-input>
+            <el-input clearable size="mini" placeholder="服务名称" v-model="dataForm.servName"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8" style="font-weight: bold">
+        <el-col :span="6" style="font-weight: bold">
           <el-form-item label="组件类型:">
-            <el-input clearable size="mini" placeholder="组件类型"></el-input>
+            <el-input clearable size="mini" placeholder="组件类型" v-model="dataForm.comtType"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-button>查询</el-button>
+        <el-col :span="6" :offset="6">
+          <el-button @click="searchDataList()">查询</el-button>
         </el-col>
       </el-row>
       <el-row :gutter="20" style="font-weight: bold">
-        <el-col :span="8" style="border: 1px solid #000">
-          服务接入数<span style="color: #2FD4CD">&nbsp;330</span>
+        <el-col :span="8" :offset="2">
+          服务接入数<span style="color: #2fd4cd">&nbsp;330</span>
         </el-col>
-        <el-col :span="14">
-          服务正常数<span style="color: #27BC20;">&nbsp;265</span>
-          服务异常数<span style="color: #CD250E">&nbsp;65</span>
+        <el-col :span="8" :offset="4">
+          服务正常数<span style="color: #27bc20">&nbsp;265</span>
+          服务异常数<span style="color: #cd250e">&nbsp;65</span>
         </el-col>
       </el-row>
     </el-form>
@@ -32,35 +32,38 @@
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
       @cell-dblclick="viewData"
-      style="width: 100%;margin-top: 20px">
+      style="width: 100%; margin-top: 20px"
+    >
       <el-table-column
-        prop="merchantItemNo"
-        width="150" show-overflow-tooltip
+        prop="servName"
+        width="150"
+        show-overflow-tooltip
         header-align="center"
         align="center"
         label="服务名称"
       ></el-table-column>
       <el-table-column
-        prop="merchantItemNo"
+        prop="servAddr"
         header-align="center"
         align="center"
         label="服务地址"
       ></el-table-column>
       <el-table-column
-        prop="merchantItemNo"
-        width="150" show-overflow-tooltip
+        prop="servStas"
+        width="150"
+        show-overflow-tooltip
         header-align="center"
         align="center"
         label="服务状态"
       ></el-table-column>
       <el-table-column
-        prop="merchantItemNo"
+        prop="servType"
         header-align="center"
         align="center"
         label="服务类型"
       ></el-table-column>
       <el-table-column
-        prop="merchantItemNo"
+        prop="comtType"
         header-align="center"
         align="center"
         label="组件类型"
@@ -70,17 +73,60 @@
 </template>
 
 <script>
+import { servmnitinfo } from "@/api/oms/new";
+
 export default {
-name: "serviceMonitoringManagement",
-  data(){
+  name: "serviceMonitoringManagement",
+  data() {
     return {
-      dataList:[],
-      dataListLoading:false,
-    }
+      dataForm: {
+        servName:"",
+        comtType:"",
+      },
+      dataList: [],
+      dataListLoading: false,
+      pageIndex: 1,
+      pageSize: 10,
+    };
+  },
+
+  created() {
+    this.getDataList();
+  },
+
+  methods: {
+    getDataList() {
+      this.dataListLoading = true;
+      let params = {
+        servName: this.dataForm.servName,
+        comtType: this.dataForm.comtType,
+        pageSize: this.pageSize,
+        currentPage: this.pageIndex,
+      };
+      servmnitinfo(params)
+        .then(({ data }) => {
+          if (data && data.dataList != "") {
+            console.log(data, "data");
+            this.dataList = data.dataList;
+            this.totalPage = data.totalCount;
+          } else {
+            this.dataList = [];
+            this.totalPage = 0;
+          }
+          this.dataListLoading = false;
+        })
+        .catch((e) => {
+          console.log(e);
+          this.dataListLoading = false;
+        });
+    },
+    searchDataList() {
+      this.pageIndex = 1,
+      this.getDataList();
+    },
   }
-}
+};
 </script>
 
 <style scoped>
-
 </style>

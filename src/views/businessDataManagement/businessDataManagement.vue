@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div>
-      <div style="margin-bottom: 20px; margin-left: 20px; text-align: left">
+    <div style="margin-bottom: 20px; margin-left: 20px; text-align: left">
+      <!-- <div style="margin-bottom: 20px; margin-left: 20px; text-align: left">
         <el-button type="primary" size="mini" @click="addOrUpdateHandle()"
           >新增</el-button
         >
@@ -12,7 +12,25 @@
           @click="deleteHandle()"
           >删除</el-button
         >
-      </div>
+      </div> -->
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-form label-width="90px" style="margin-top: 20px" :model="dataForm">
+            <el-form-item label="表名注释:">
+              <el-input
+                v-model="dataForm.saleOrderNo"
+                clearable
+                size="mini"
+                placeholder=""
+              ></el-input>
+            </el-form-item>
+          </el-form>
+        </el-col>
+        <el-col :span="6" :offset="10" style="margin-top: 20px">
+          <el-button type="" size="mini" @click="rest()">重置</el-button>
+          <el-button type="primary" size="mini" @click="searchDataList()">查询</el-button>
+        </el-col>
+      </el-row>
     </div>
     <el-table
       :data="dataList"
@@ -21,12 +39,20 @@
       @selection-change="selectionChangeHandle"
       style="width: 100%"
     >
-      <el-table-column
+      <!-- <el-table-column
         type="selection"
         fixed="left"
         header-align="center"
         align="center"
         width="50"
+      ></el-table-column> -->
+      <el-table-column
+        type="index"
+        :index="indexMethod"
+        header-align="center"
+        align="center"
+        width="50"
+        label="序号"
       ></el-table-column>
       <el-table-column
         prop="dsName"
@@ -36,14 +62,14 @@
         align="center"
         label="数据源名称"
       ></el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="soucType"
         width="80"
         show-overflow-tooltip
         header-align="center"
         align="center"
         label="来源"
-      ></el-table-column>
+      ></el-table-column> -->
       <el-table-column
         prop="dsType"
         width="100"
@@ -53,13 +79,31 @@
         label="数据源类型"
       ></el-table-column>
       <el-table-column
+        prop="tabname"
+        header-align="center"
+        align="center"
+        label="表名"
+      ></el-table-column>
+      <el-table-column
+        prop="tabNameAnno"
+        header-align="center"
+        align="center"
+        label="表名注释"
+      ></el-table-column>
+      <el-table-column
+        prop="cnt"
+        header-align="center"
+        align="center"
+        label="数据量"
+      ></el-table-column>
+      <!-- <el-table-column
         prop="dsIp"
         width="200"
         show-overflow-tooltip
         header-align="center"
         align="center"
         label="IP"
-      ></el-table-column>
+      ></el-table-column> -->
       <el-table-column
         prop="dsPort"
         width="100"
@@ -69,20 +113,20 @@
         label="端口号"
       ></el-table-column>
       <el-table-column
+        prop="updtTime"
+        header-align="center"
+        align="center"
+        label="更新时间"
+      ></el-table-column>
+      <!-- <el-table-column
         prop="merchantItemNo"
         width="150"
         show-overflow-tooltip
         header-align="center"
         align="center"
         label="数据库名"
-      ></el-table-column>
-      <el-table-column
-        prop="tabname"
-        header-align="center"
-        align="center"
-        label="表名"
-      ></el-table-column>
-      <el-table-column
+      ></el-table-column> -->
+      <!-- <el-table-column
         fixed="right"
         header-align="center"
         align="center"
@@ -100,8 +144,18 @@
             >测试</el-button
           >
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalPage"
+    >
+    </el-pagination>
     <el-dialog :visible.sync="dialogVisible" width="30%">
       <el-form label-width="90px" :model="sizeForm">
         <el-row>
@@ -168,7 +222,7 @@ const mock = [
   { merchantItemNo: 7 },
 ];
 export default {
-  name: "basicDataManagement",
+  name: "businessDataManagement",
   created() {
     this.getDataList();
   },
@@ -177,6 +231,7 @@ export default {
       this.dataListLoading = true;
       let params = {
         soucType: "业务数据",
+        saleOrderNo:this.dataForm.saleOrderNo,
         pageSize: this.pageSize,
         currentPage: this.pageIndex,
       };
@@ -257,6 +312,27 @@ export default {
           console.log(e);
         });
     },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList();
+    },
+    handleCurrentChange(val) {
+      this.pageIndex = val;
+      this.getDataList();
+    },
+    rest() {
+      this.dataForm = {
+        saleOrderNo: "",
+      }
+    },
+    searchDataList() {
+      this.pageIndex = 1,
+      this.getDataList();
+    },
+    indexMethod(index) {
+      return index + 1 + (this.pageIndex - 1) * this.pageSize;
+    },
     Handle() {},
   },
   data() {
@@ -264,6 +340,9 @@ export default {
       dataList: [],
       dataListLoading: false,
       currentPage4: 4,
+      dataForm: {
+        saleOrderNo:"",
+      },
       sizeForm: {
         dsType: "",
         dsName: "",

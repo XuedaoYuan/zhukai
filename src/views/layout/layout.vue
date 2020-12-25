@@ -1,71 +1,101 @@
-/* 这部分自己布局 */
 <template>
-  <div class="layout-container">
-    <div class="sidebar-container">
-      <!-- 使用el-menu渲染即可 -->
-      <div class="nav">
-        <router-link to="/test">test</router-link>
-      </div>
-      <div class="nav">
-        <router-link to="/edit-chart-view">edit-chart-view</router-link>
-      </div>
-    </div>
-    <div class="header-content-container">
-      <div class="header-container">
-        <h1>header</h1>
-        <el-button>asdas</el-button>
-        <el-button>asdas</el-button>
-      </div>
-      <div class="content-container">
-        <router-view></router-view>
-      </div>
-    </div>
-  </div>
+  <el-container>
+    <el-header><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
+    <el-container>
+      <el-aside width="210px">
+        <el-row class="tac">
+          <el-col>
+            <el-menu
+              default-active="2"
+              class="el-menu-vertical-demo"
+              background-color="#104895"
+              text-color="#fff"
+              active-text-color="#ffd04b"
+            >
+              <el-submenu index="1">
+                <template slot="title">
+                  <i class="el-icon-location"></i>
+                  <span>数据管理</span>
+                </template>
+                <el-menu-item-group>
+                  <!-- <template slot="title">分组一</template> -->
+                  <el-menu-item index="1-1"><router-link to="/basicDataManagement"><span style="color:#fff">基础数据管理</span></router-link></el-menu-item>
+                  <el-menu-item index="1-2"><router-link to="/businessDataManagement"><span style="color:#fff">业务数据管理</span></router-link></el-menu-item>
+                  <el-menu-item index="1-3"><router-link to="/externalDataManagement"><span style="color:#fff">外部数据管理</span></router-link></el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="2">
+                <template slot="title">
+                  <i class="el-icon-menu"></i>
+                  <span>指标管理</span>
+                </template>
+                <el-menu-item-group>
+                  <!-- <template slot="title">分组一</template> -->
+                  <el-menu-item index="2-1"><router-link to="/listOfTopics"><span style="color:#fff">主题列表</span></router-link></el-menu-item>
+                  <el-menu-item index="2-2"><router-link to="/theIndexList"><span style="color:#fff">指标列表</span></router-link></el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="3">
+                <template slot="title">
+                  <i class="el-icon-full-screen"></i>
+                  <span>服务监测管理</span>
+                </template>
+                <el-menu-item-group>
+                  <!-- <template slot="title">分组一</template> -->
+                  <el-menu-item index="3-1"><router-link to="/serviceMonitoringManagement"><span style="color:#fff">服务监测</span></router-link></el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <!-- <el-submenu index="4">
+                <template slot="title">
+                  <i class="el-icon-notebook-1"></i>
+                  <span>日志管理</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="4-1"><router-link to="/logQuery"><span style="color:#fff">日志查询</span></router-link></el-menu-item>
+                </el-menu-item-group>
+              </el-submenu> -->
+            </el-menu>
+          </el-col>
+        </el-row>
+      </el-aside>
+      <el-main><router-view></router-view></el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
 export default {
-  name: 'layout',
+  name: "layout",
   data() {
     return {};
-  }
+  },
 };
 </script>
 
-<style scoped lang="stylus">
-.layout-container {
+<style>
+.el-header {
+  background-color: #1b64bb;
+  position: relative;
+  width: 100%;
+  height: 56px;
   display: flex;
-  height: 100%;
-
-  .sidebar-container {
-    flex: 0 0 180px;
-    border-right: 1px solid #ccc;
-
-    > .nav {
-      margin: 10px 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
-
-    a {
-      color: #000;
-    }
-  }
-
-  .header-content-container {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-
-    .header-container {
-      flex: 0 0 60px;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .content-container {
-      flex: 1;
-      overflow: hidden;
-    }
-  }
-}</style>
+	/* justify-content: center; */
+	align-items: center;
+}
+.el-aside {
+  background-color: #104895;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  bottom: 0;
+}
+.el-main {
+  position: absolute;
+  left: 200px;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  overflow-y: scroll;
+}
+</style>
