@@ -87,7 +87,7 @@
         label="表名"
       ></el-table-column>
       <el-table-column
-        prop="tabNameAnno"
+        prop="tabnameAnno"
         header-align="center"
         align="center"
         label="表名注释"
