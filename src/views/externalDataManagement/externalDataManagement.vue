@@ -18,7 +18,7 @@
           <el-form label-width="90px" style="margin-top: 20px" :model="dataForm">
             <el-form-item label="表名注释:">
               <el-input
-                v-model="dataForm.saleOrderNo"
+                v-model="dataForm.tabnameAnno"
                 clearable
                 size="mini"
                 placeholder=""
@@ -234,7 +234,7 @@ export default {
       dataListLoading: false,
       currentPage4: 1,
       dataForm: {
-        saleOrderNo:"",
+        tabnameAnno:"",
       },
       sizeForm: {
         dsType: "",
@@ -258,7 +258,7 @@ export default {
       this.dataListLoading = true;
       let params = {
         soucType: "外部数据",
-        saleOrderNo:this.dataForm.saleOrderNo,
+        tabnameAnno:this.dataForm.tabnameAnno,
         pageSize: this.pageSize,
         currentPage: this.pageIndex,
       };
@@ -350,7 +350,7 @@ export default {
     },
     rest() {
       this.dataForm = {
-        saleOrderNo: "",
+        tabnameAnno: "",
       }
     },
     searchDataList() {
