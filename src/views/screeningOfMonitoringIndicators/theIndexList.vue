@@ -61,6 +61,7 @@
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
       style="width: 100%; margin-top: 20px"
+      :header-cell-style="{background:'#F0F2F5'}"
     >
       <el-table-column
         type="index"

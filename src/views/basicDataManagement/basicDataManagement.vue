@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="margin-bottom: 20px; margin-left: 20px; text-align: left">
+    <div style="margin-bottom: 20px; margin-left: 20px; text-align: right">
       <!-- <div style="margin-bottom: 20px; margin-left: 20px; text-align: left">
         <el-button type="primary" size="mini" @click="addOrUpdateHandle()"
           >新增</el-button
@@ -26,18 +26,20 @@
             </el-form-item>
           </el-form>
         </el-col>
-        <el-col :span="6" :offset="10" style="margin-top: 20px">
+        <el-col :span="4" :offset="12" style="margin-top: 20px">
           <el-button type="" size="mini" @click="rest()">重置</el-button>
           <el-button type="primary" size="mini" @click="searchDataList()">查询</el-button>
         </el-col>
       </el-row>
     </div>
+    <el-divider></el-divider>
     <el-table
       :data="dataList"
       border
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
       style="width: 100%"
+      :header-cell-style="{background:'#F0F2F5'}"
     >
       <!-- <el-table-column
         type="selection"
@@ -154,6 +156,7 @@
       :page-size="100"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalPage"
+      style="margin-right:10px"
     >
     </el-pagination>
     <el-dialog :visible.sync="dialogVisible" width="30%">
@@ -211,6 +214,7 @@
 
 <script>
 import { queryPage, save, deleteBatchById } from "@/api/oms/new";
+import { Divider } from 'element-ui'
 const mock = [
   { merchantItemNo: 1 },
   { merchantItemNo: 2 },
@@ -222,6 +226,32 @@ const mock = [
 ];
 export default {
   name: "basicDataManagement",
+  components: {
+    "el-divider":Divider
+  },
+  data() {
+    return {
+      dataList: [],
+      dataListLoading: false,
+      totalPage:0,
+      currentPage4: 1,
+      dataForm: {
+        saleOrderNo:"",
+      },
+      sizeForm: {
+        dsType: "",
+        dsName: "",
+        soucType: "",
+        dsIp: "",
+        dsPort: "",
+      },
+      dialogVisible: false,
+      dataListSelections: [],
+      submitBoo: true,
+      pageIndex: 1,
+      pageSize: 10,
+    };
+  },
   created() {
     this.getDataList();
   },
@@ -334,31 +364,12 @@ export default {
     },
     Handle() {},
   },
-  data() {
-    return {
-      dataList: [],
-      dataListLoading: false,
-      totalPage:0,
-      currentPage4: 4,
-      dataForm: {
-        saleOrderNo:"",
-      },
-      sizeForm: {
-        dsType: "",
-        dsName: "",
-        soucType: "",
-        dsIp: "",
-        dsPort: "",
-      },
-      dialogVisible: false,
-      dataListSelections: [],
-      submitBoo: true,
-      pageIndex: 1,
-      pageSize: 10,
-    };
-  },
+  
 };
 </script>
 
 <style scoped>
+.el-pagination {
+    text-align: right; 
+}
 </style>
