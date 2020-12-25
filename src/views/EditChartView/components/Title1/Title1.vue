@@ -1,6 +1,11 @@
 <template>
-  <div class="title1__container">
-    <span>{{componentConfig.title}}</span>
+  <div class="title1__container"
+       v-show="componentConfig.showStatus">
+    <span :style="{
+        color: componentConfig.color,
+        textAlign: componentConfig.textAlign,
+        fontSize: componentConfig.fontSize,
+        fontFamily: componentConfig.fontFamily}">{{componentConfig.title}}</span>
   </div>
 </template>
 
@@ -16,7 +21,8 @@ export default {
         color: '#fff',
         textAlign: 'center',
         fontSize: '16px',
-        fontFamily: 'Microsoft Yahei, sans-serif'
+        fontFamily: 'Microsoft Yahei, sans-serif',
+        showStatus: true
       })
     }
   },
@@ -28,6 +34,11 @@ export default {
 
 <style scoped lang="stylus">
 .title1__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
   span {
     font-family: Microsoft Yahei, sans-serif;
   }

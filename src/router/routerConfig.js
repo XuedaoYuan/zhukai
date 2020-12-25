@@ -5,11 +5,11 @@ import EditChartView from '@/views/EditChartView';
 const routerConfig = [
   {
     path: '/',
-    name: 'Index',
     component: layout,
     children: [
       {
         path: '',
+        name: 'Index',
         component: {
           // 测试用而已
           render: (h) => h('h1', {}, ['首页', h('span', { style: { color: 'red' } }, ['index'])])
@@ -19,11 +19,11 @@ const routerConfig = [
   },
   {
     path: '/test',
-    name: 'Test',
     component: layout,
     children: [
       {
         path: '',
+        name: 'Test',
         component: () => import(/* webpackChunkName: "test" */ '../views/Test')
       }
     ]
@@ -46,7 +46,10 @@ const routerConfig = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "businessDataManagement" */ '../views/businessDataManagement/businessDataManagement')
+        component: () =>
+          import(
+            /* webpackChunkName: "businessDataManagement" */ '../views/businessDataManagement/businessDataManagement'
+          )
       }
     ]
   },
@@ -57,7 +60,10 @@ const routerConfig = [
     children: [
       {
         path: '',
-        component: () => import(/* webpackChunkName: "externalDataManagement" */ '../views/externalDataManagement/externalDataManagement')
+        component: () =>
+          import(
+            /* webpackChunkName: "externalDataManagement" */ '../views/externalDataManagement/externalDataManagement'
+          )
       }
     ]
   },
@@ -117,7 +123,6 @@ const routerConfig = [
     ]
   },
   {
-
     path: '/edit-chart-view',
     name: 'EditChartView',
     component: EditChartView

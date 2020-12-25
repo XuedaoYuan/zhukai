@@ -5,6 +5,7 @@
       <div>
         <el-button @click="handleAddNew">add new</el-button>
         <el-button @click="handleAddNewDatePicker">add DatePicker</el-button>
+        <el-button @click="handleAddTitle1">add title1</el-button>
         <span>---尺寸</span>
         <el-radio-group v-model="boardSize"
                         @change="handleBoardSizeChange">
@@ -58,7 +59,8 @@
                        @moved="handleMovedEvent">
               <template v-if="item.componentName">
                 <component :is="item.componentName"
-                           :ref="'Component' + index + 'Ref'"></component>
+                           :ref="'Component' + index + 'Ref'"
+                           :componentConfig="item.componentConfig"></component>
               </template>
               <div :class="['mask_container', index === handlingIndex ? 'component-selected' : '']"
                    @click.stop="handleComponentClick(index)"></div>
@@ -69,13 +71,38 @@
       </div>
       <div class="right">
         <h4>配置项</h4>
-        <div>
-          x: <el-input v-model.number="x"
-                    type="number"
-                    @change="handleXchange"></el-input>
-          y:
-          <el-input v-model="y"></el-input>
-        </div>
+        <el-collapse class="hsa-chart-el-collapse">
+          <el-collapse-item title="组件全局配置"
+                            name="1">
+            <div class="xywh-config__container">
+              <div>
+                <span>x:</span>
+                <el-input v-model.number="x"
+                          type="number"
+                          @change="handleXchange"></el-input>
+              </div>
+              <div>
+                <span>y:</span>
+                <el-input v-model="y"></el-input>
+              </div>
+            </div>
+            <div class="xywh-config__container">
+              <div>
+                <span>w:</span>
+                <el-input v-model.number="x"
+                          type="number"
+                          @change="handleXchange"></el-input>
+              </div>
+              <div>
+                <span>h:</span>
+                <el-input v-model="y"></el-input>
+              </div>
+            </div>
+          </el-collapse-item>
+          <Title1Config v-if="handlingIndex > 0 && boardConfig.components[handlingIndex].componentName === 'Title1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig"></Title1Config>
+
+        </el-collapse>
+
       </div>
     </div>
 
@@ -86,8 +113,12 @@
 import VueGridLayout from 'vue-grid-layout';
 import ChartBar1 from './components/ChartBar1';
 import DatePicker from './components/DatePicker';
-import { Radio, RadioGroup } from 'element-ui';
+import Title1 from './components/Title1/Title1';
+import Title1Config from './components/Title1/Title1Config';
+import { Radio, RadioGroup, Collapse, CollapseItem } from 'element-ui';
 import throttle from 'lodash/throttle';
+import cloneDeep from 'lodash/cloneDeep';
+import COMPONENT_CONFIG from './component_config';
 /* 看板尺寸 */
 const boardSizeList = [
   [2560, 1440],
@@ -123,7 +154,11 @@ export default {
     ChartBar1,
     DatePicker,
     'el-radio': Radio,
-    'el-radio-group': RadioGroup
+    'el-radio-group': RadioGroup,
+    'el-collapse': Collapse,
+    'el-collapse-item': CollapseItem,
+    Title1,
+    Title1Config
   },
   data() {
     return {
@@ -267,6 +302,12 @@ export default {
       };
       this.boardConfig.components.push(layoutInstance);
     },
+    handleAddTitle1() {
+      debugger;
+      const component = cloneDeep(COMPONENT_CONFIG['title1']);
+      component.i = this.boardConfig.components.length;
+      this.boardConfig.components.push(component);
+    },
     handleComponentClick(index) {
       const layoutInstance = this.boardConfig.components[index];
       this.handlingIndex = index;
@@ -333,6 +374,16 @@ export default {
 
   &.redToGreen {
     background-image: linear-gradient(to right, red, green);
+  }
+}
+
+.xywh-config__container {
+  display: flex;
+
+  & > div {
+    flex: 1;
+    display: flex;
+    align-items: center;
   }
 }
 </style>
