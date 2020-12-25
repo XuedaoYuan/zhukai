@@ -1,6 +1,7 @@
 <template>
   <div class="date-picker__container">
     <el-date-picker clearable
+                    type="date"
                     class="hsa-el-date-picker"
                     v-model="date"></el-date-picker>
   </div>
@@ -15,7 +16,7 @@ export default {
   },
   data() {
     return {
-      date: ''
+      date: new Date()
     };
   }
 };

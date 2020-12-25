@@ -30,7 +30,7 @@ module.exports = {
   }, */
   chainWebpack: (config) => {
     config.plugin('html').tap((args) => {
-      args[0].title = '海南医保';
+      args[0].title = 'hsa-demo';
       return args;
     });
     /* config.plugin('webpack-report').use(BundleAnalyzerPlugin, [

@@ -5,6 +5,7 @@ import store from './store';
 import echarts from './plugins/echarts';
 /* 公共样式 */
 import './styles/common.styl';
+import './styles/custom-chart.styl';
 /* 全局自定义指令 */
 import '@/directives/index.js';
 
@@ -46,7 +47,6 @@ Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Tag);
 Vue.use(Option);
-
 
 
 
