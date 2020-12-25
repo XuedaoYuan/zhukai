@@ -29,14 +29,6 @@ import {
   TabPane,
   Tag,
   Option,
-  Container,
-  Header,
-  Aside,
-  Main,
-  Menu,
-  Submenu,
-  MenuItem,
-  MenuItemGroup,
 } from 'element-ui';
 Vue.prototype.$ELEMENT = { size: 'mini', zIndex: 3000 };
 Vue.use(Button);
@@ -54,14 +46,6 @@ Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Tag);
 Vue.use(Option);
-Vue.use(Container);
-Vue.use(Header);
-Vue.use(Aside);
-Vue.use(Main);
-Vue.use(Menu);
-Vue.use(MenuItem);
-Vue.use(Submenu);
-Vue.use(MenuItemGroup);
 
 
 
