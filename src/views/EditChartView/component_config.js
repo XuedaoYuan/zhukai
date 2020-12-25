@@ -17,7 +17,7 @@ const COMPONENT_CONFIG = {
       title: '看板标题',
       color: '#fff',
       textAlign: 'center',
-      fontSize: '16px',
+      fontSize: 16,
       fontFamily: 'Microsoft Yahei, sans-serif',
       showStatus: true
     }

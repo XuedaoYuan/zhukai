@@ -79,27 +79,37 @@
                 <span>x:</span>
                 <el-input v-model.number="x"
                           type="number"
+                          :min="0"
                           @change="handleXchange"></el-input>
               </div>
               <div>
                 <span>y:</span>
-                <el-input v-model="y"></el-input>
+                <el-input v-model.number="y"
+                          :min="0"
+                          type="number"
+                          @change="handleYchange"></el-input>
               </div>
             </div>
             <div class="xywh-config__container">
               <div>
                 <span>w:</span>
-                <el-input v-model.number="x"
+                <el-input v-model.number="w"
                           type="number"
-                          @change="handleXchange"></el-input>
+                          :min="0"
+                          @change="handleWchange"></el-input>
               </div>
               <div>
                 <span>h:</span>
-                <el-input v-model="y"></el-input>
+                <el-input v-model.number="h"
+                          type="number"
+                          :min="0"
+                          @change="handleHchange"></el-input>
               </div>
             </div>
           </el-collapse-item>
-          <Title1Config v-if="handlingIndex > 0 && boardConfig.components[handlingIndex].componentName === 'Title1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig"></Title1Config>
+          <Title1Config v-if="handlingIndex > 0 && boardConfig.components[handlingIndex].componentName === 'Title1'"
+                        :componentConfig="boardConfig.components[handlingIndex].componentConfig"
+                        @change="handleConfigChange"></Title1Config>
 
         </el-collapse>
 
@@ -167,6 +177,8 @@ export default {
       // layout: [...testLayout],
       x: 0,
       y: 0,
+      w: 0,
+      h: 0,
       handlingIndex: -1,
       boardSize: 1,
       // 整个看板的配置
@@ -270,12 +282,7 @@ export default {
       const realHeight = (parseInt(style.width) * height) / width;
       MaintBoardDom.style.height = realHeight + 'px';
     },
-    // i, newH, newW, newHPx, newWPx
-    handleResizeEvent($event) {
-      console.log($event);
-      // console.log('resize', i, newH, newW, newHPx, newWPx);
-      // this.$refs[`Component${i}Ref`][0].resize();
-    },
+
     handleMovedEvent(i, newX, newY) {
       console.log(i);
       console.log(newX);
@@ -303,7 +310,6 @@ export default {
       this.boardConfig.components.push(layoutInstance);
     },
     handleAddTitle1() {
-      debugger;
       const component = cloneDeep(COMPONENT_CONFIG['title1']);
       component.i = this.boardConfig.components.length;
       this.boardConfig.components.push(component);
@@ -313,9 +319,32 @@ export default {
       this.handlingIndex = index;
       this.x = layoutInstance.x;
       this.y = layoutInstance.y;
+      this.w = layoutInstance.w;
+      this.h = layoutInstance.h;
     },
     handleXchange() {
       this.boardConfig.components[this.handlingIndex].x = this.x - 0;
+    },
+    handleYchange() {
+      this.boardConfig.components[this.handlingIndex].y = this.y - 0;
+    },
+    handleWchange() {
+      this.boardConfig.components[this.handlingIndex].w = this.w - 0;
+    },
+    handleHchange() {
+      this.boardConfig.components[this.handlingIndex].h = this.h - 0;
+    },
+    // i, newH, newW, newHPx, newWPx
+    handleResizeEvent($event) {
+      console.log($event);
+      // console.log('resize', i, newH, newW, newHPx, newWPx);
+      // this.$refs[`Component${i}Ref`][0].resize();
+    },
+    handleConfigChange(config) {
+      // this.handlingIndex;
+      this.boardConfig.components[this.handlingIndex].componentConfig = {
+        ...config
+      };
     }
   }
 };
