@@ -6,8 +6,7 @@
 
       <el-button>button</el-button>
       <el-button type="primary">button</el-button>
-      <el-input v-model="value"
-                placeholder="please input"></el-input>
+      <el-input v-model="value" placeholder="please input"></el-input>
       <div>{{value}}</div>
       <el-divider content-position="left">Vuex Demo</el-divider>
       <h2>count: {{count}}-----doubleCount:{{doubleCount}}</h2>
@@ -15,6 +14,9 @@
         <el-button @click="hadnleAdd_1_Sync">add 1 sync</el-button>
         <el-button @click="hadnleAdd_10_Async">add 10 async</el-button>
         <el-button @click="hadnleAdd_20_AsyncByDispatch">add 20 async by dispatch</el-button>
+      </div>
+      <div>
+        <el-button @click="$eventBus.$emit('testmsg')">$emit</el-button>
       </div>
     </div>
   </div>
@@ -44,6 +46,13 @@ export default {
   created() {
     console.log(concat(1, 2, [3]));
     testApi();
+
+    this.$eventBus.$on('testmsg', (event) => {
+      console.log(1);
+    });
+    this.$eventBus.$on('testmsg', (event) => {
+      console.log(2);
+    });
   },
   methods: {
     ...mapMutations('hsa/test', ['addCount']),

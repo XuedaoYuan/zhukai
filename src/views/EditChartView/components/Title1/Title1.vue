@@ -5,7 +5,7 @@
     <span :style="{
         color: componentConfig.color,
         fontSize: componentConfig.fontSize + 'px',
-        fontFamily: componentConfig.fontFamily}">{{componentConfig.title}}{{componentConfig.fontSize}}</span>
+        fontFamily: componentConfig.fontFamily}">{{componentConfig.title}}</span>
   </div>
 </template>
 

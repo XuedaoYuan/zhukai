@@ -11,6 +11,8 @@ import '@/directives/index.js';
 
 Vue.config.productionTip = false;
 
+Vue.prototype.$eventBus = new Vue();
+
 import {
   Button,
   Pagination,
@@ -29,7 +31,7 @@ import {
   Tabs,
   TabPane,
   Tag,
-  Option,
+  Option
 } from 'element-ui';
 Vue.prototype.$ELEMENT = { size: 'mini', zIndex: 3000 };
 Vue.use(Button);
@@ -47,8 +49,6 @@ Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Tag);
 Vue.use(Option);
-
-
 
 // Vue.prototype.$msgbox = MessageBox;
 // Vue.prototype.$alert = MessageBox.alert;
