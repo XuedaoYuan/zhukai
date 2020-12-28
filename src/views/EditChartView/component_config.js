@@ -7,12 +7,14 @@ const COMPONENT_CONFIG = {
     y: 0,
     w: 240, // w和col-num有关
     h: 4, // h和row-height有关
-    i: 'title1',
+    i: '',
     type: '',
     businessType: '',
     businessTheme: '',
     // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
     componentName: 'Title1',
+    // 组件的中文名
+    componentAliasName: '标题1',
     componentConfig: {
       title: '看板标题',
       color: '#fff',
@@ -20,6 +22,24 @@ const COMPONENT_CONFIG = {
       fontSize: 16,
       fontFamily: 'Microsoft Yahei, sans-serif',
       showStatus: true
+    }
+  },
+  testLink: {
+    x: 180,
+    y: 2,
+    w: 60, // w和col-num有关
+    h: 8, // h和row-height有关
+    i: '',
+    type: '',
+    businessType: '',
+    businessTheme: '',
+    // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
+    componentName: 'TestLink',
+    // 组件的中文名
+    componentAliasName: '测试联动组件',
+    componentConfig: {
+      title: '测试联动组件',
+      linkedListKey: [0]
     }
   }
 };

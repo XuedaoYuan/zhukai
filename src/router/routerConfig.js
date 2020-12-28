@@ -38,16 +38,21 @@ const routerConfig = [
         path: 'basicDataManagement',
         component: () => import(/* webpackChunkName: "test" */ '../views/basicDataManagement/basicDataManagement'),
         meta: { title: '基础数据管理' }
-
       },
       {
         path: '/businessDataManagement',
-        component: () => import(/* webpackChunkName: "businessDataManagement" */ '../views/businessDataManagement/businessDataManagement'),
+        component: () =>
+          import(
+            /* webpackChunkName: "businessDataManagement" */ '../views/businessDataManagement/businessDataManagement'
+          ),
         meta: { title: '业务数据管理' }
       },
       {
         path: '/externalDataManagement',
-        component: () => import(/* webpackChunkName: "externalDataManagement" */ '../views/externalDataManagement/externalDataManagement'),
+        component: () =>
+          import(
+            /* webpackChunkName: "externalDataManagement" */ '../views/externalDataManagement/externalDataManagement'
+          ),
         meta: { title: '外部数据管理' }
       },
       {
@@ -74,7 +79,6 @@ const routerConfig = [
         path: '/logQuery',
         component: () => import('@/views/logQuery/logQuery.vue'),
         meta: { title: '日志查询' }
-
       }
     ]
   },
@@ -174,9 +178,26 @@ const routerConfig = [
     ] */
   },
   {
+    path: '/board-config-manage',
+    name: 'boardConfigManage',
+    component: layout,
+    children: [
+      {
+        path: 'status/:status',
+        name: 'boardConfigManageStatus',
+        component: () => import('@/views/BoardConfigManage')
+      }
+    ]
+  },
+  {
     path: '/TestVueGridLayout',
     name: 'TestVueGridLayout',
     component: () => import('@/views/EditChartView/TestVueGridLayout.vue')
+  },
+  {
+    path: '/board-preview',
+    name: 'BoardPreview',
+    component: () => import('@/views/EditChartView/BoardPreview.vue')
   }
 ];
 const routerConfigMenuOut = [

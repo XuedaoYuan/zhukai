@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div ref="TestRef" class="test_container">
     <h1 class="h1_title">test</h1>
     <div>
       <el-divider content-position="left">测试全局el注册组件</el-divider>
-
       <el-button>button</el-button>
       <el-button type="primary">button</el-button>
       <el-input v-model="value" placeholder="please input"></el-input>
@@ -17,8 +16,10 @@
       </div>
       <div>
         <el-button @click="$eventBus.$emit('testmsg')">$emit</el-button>
+        <el-button @click="handleCapture">Capture</el-button>
       </div>
     </div>
+    <div class="canvas_container" v-if="canvasShow" @click="canvasShow = false" ref="CanvasContainerRef"></div>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import concat from 'lodash/concat';
 import { testApi } from '@/api/Test/index.js';
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex';
 import { Divider } from 'element-ui';
+import html2canvas from 'html2canvas';
 export default {
   name: 'Test',
   components: {
@@ -36,7 +38,8 @@ export default {
   },
   data() {
     return {
-      value: ''
+      value: '',
+      canvasShow: false
     };
   },
   computed: {
@@ -53,6 +56,8 @@ export default {
     this.$eventBus.$on('testmsg', (event) => {
       console.log(2);
     });
+    console.log('===');
+    // console.log(html2canvas);
   },
   methods: {
     ...mapMutations('hsa/test', ['addCount']),
@@ -65,6 +70,20 @@ export default {
     },
     hadnleAdd_20_AsyncByDispatch() {
       this.addCountAsync2({ n: 20 });
+    },
+    handleCapture() {
+      html2canvas(this.$refs['TestRef'], {
+        useCORS: true
+      }).then((canvas) => {
+        this.canvasShow = true;
+        this.$nextTick(() => {
+          /* const imgUrl = canvas.toDataURL('image/png')
+          const img = document.createElement("img")
+          img.setAttribute("src", imgUrl)
+          this.$refs['CanvasContainerRef'].appendChild(img); */
+          this.$refs['CanvasContainerRef'].appendChild(canvas);
+        });
+      });
     }
   }
 };
@@ -73,5 +92,21 @@ export default {
 <style scoped lang="stylus">
 .h1_title {
   color: $main-color;
+}
+
+.test_container {
+  position: relative;
+}
+
+.canvas_container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

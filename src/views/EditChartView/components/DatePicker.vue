@@ -3,7 +3,9 @@
     <el-date-picker clearable
                     type="date"
                     class="hsa-el-date-picker"
-                    v-model="date"></el-date-picker>
+                    v-model="date"
+                    value-format="yyyy-MM-dd"
+                    @change="handleChange"></el-date-picker>
   </div>
 </template>
 
@@ -11,6 +13,12 @@
 import { DatePicker } from 'element-ui';
 export default {
   name: 'DatePicker',
+  props: {
+    i: {
+      type: String | Number,
+      required: true
+    }
+  },
   components: {
     'el-date-picker': DatePicker
   },
@@ -18,6 +26,14 @@ export default {
     return {
       date: new Date()
     };
+  },
+  created() {
+    this.handleChange();
+  },
+  methods: {
+    handleChange() {
+      this.$eventBus.$emit(this.i + '', this.date);
+    }
   }
 };
 </script>

@@ -31,6 +31,28 @@
         &.component-selected {
             border: 1px solid blue;
         }
+
+        &:hover {
+            .delete-icon {
+                display: block;
+            }
+        }
+
+        .delete-icon {
+            position: absolute;
+            z-index: 2;
+            width: 14px;
+            height: 14px;
+            background-color: red;
+            top: -14px;
+            right: 0;
+            font-size: 14px;
+            line-height: 1;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+        }
     }
 }
 

@@ -3,9 +3,14 @@
     <div>
       <div><span>{{boardConfig.components}}</span></div>
       <div>
+        <el-button @click="handlePreview"
+                   type="warning">预览</el-button>
+        <el-button @click="handleSave"
+                   type="primary">保存</el-button>
         <el-button @click="handleAddNew">add new</el-button>
         <el-button @click="handleAddNewDatePicker">add DatePicker</el-button>
         <el-button @click="handleAddTitle1">add title1</el-button>
+        <el-button @click="handleAddTestLink">add testLink</el-button>
         <span>---尺寸</span>
         <el-radio-group v-model="boardSize"
                         @change="handleBoardSizeChange">
@@ -21,7 +26,6 @@
              class="bg-icon blue"></div>
         <div @click="handleChangeBgColor(['lightgreen'])"
              class="bg-icon lightgreen"></div>
-
         <div @click="handleChangeBgColor(['red', 'green'])"
              class="bg-icon redToGreen"></div>
 
@@ -60,10 +64,14 @@
               <template v-if="item.componentName">
                 <component :is="item.componentName"
                            :ref="'Component' + index + 'Ref'"
+                           :i="item.i"
                            :componentConfig="item.componentConfig"></component>
               </template>
               <div :class="['mask_container', index === handlingIndex ? 'component-selected' : '']"
-                   @click.stop="handleComponentClick(index)"></div>
+                   @click.stop="handleComponentClick(index)">
+                <div @click.stop="handleDelete(index)"
+                     class="delete-icon">X</div>
+              </div>
             </grid-item>
           </grid-layout>
         </div>
@@ -111,6 +119,10 @@
                         :componentConfig="boardConfig.components[handlingIndex].componentConfig"
                         @change="handleConfigChange"></Title1Config>
 
+          <TestLinkConfig v-if="handlingIndex > 0 && boardConfig.components[handlingIndex].componentName === 'TestLink'"
+                          :components="boardConfig.components"
+                          @change="handleTestLinkConfigChange"></TestLinkConfig>
+
         </el-collapse>
 
       </div>
@@ -125,6 +137,8 @@ import ChartBar1 from './components/ChartBar1';
 import DatePicker from './components/DatePicker';
 import Title1 from './components/Title1/Title1';
 import Title1Config from './components/Title1/Title1Config';
+import TestLink from './components/TestLink/TestLink';
+import TestLinkConfig from './components/TestLink/TestLinkConfig';
 import { Radio, RadioGroup, Collapse, CollapseItem } from 'element-ui';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
@@ -136,26 +150,10 @@ const boardSizeList = [
   [1366, 768],
   [1440, 1024]
 ];
-const testLayout = [
+/* const testLayout = [
   { x: 0, y: 30, w: 30, h: 3, i: '3' },
   { x: 0, y: 20, w: 40, h: 3, i: '4' }
-  /*
-  { x: 10, y: 0, w: 2, h: 3, i: '5' },
-  { x: 0, y: 5, w: 2, h: 5, i: '6' },
-  { x: 2, y: 5, w: 2, h: 5, i: '7' },
-  { x: 4, y: 5, w: 2, h: 5, i: '8' },
-  { x: 6, y: 3, w: 2, h: 4, i: '9' },
-  { x: 8, y: 4, w: 2, h: 4, i: '10' },
-  { x: 10, y: 4, w: 2, h: 4, i: '11' },
-  { x: 0, y: 10, w: 2, h: 5, i: '12' },
-  { x: 2, y: 10, w: 2, h: 5, i: '13' },
-  { x: 4, y: 8, w: 2, h: 4, i: '14' },
-  { x: 6, y: 8, w: 2, h: 4, i: '15' },
-  { x: 8, y: 10, w: 2, h: 5, i: '16' },
-  { x: 10, y: 4, w: 2, h: 2, i: '17' },
-  { x: 0, y: 9, w: 2, h: 3, i: '18' },
-  { x: 2, y: 6, w: 2, h: 2, i: '19' } */
-];
+]; */
 export default {
   name: 'TestVueGridLayout',
   components: {
@@ -168,13 +166,14 @@ export default {
     'el-collapse': Collapse,
     'el-collapse-item': CollapseItem,
     Title1,
-    Title1Config
+    Title1Config,
+    TestLink,
+    TestLinkConfig
   },
   data() {
     return {
       colNum: 240,
       rowHeight: 10,
-      // layout: [...testLayout],
       x: 0,
       y: 0,
       w: 0,
@@ -314,6 +313,18 @@ export default {
       component.i = this.boardConfig.components.length;
       this.boardConfig.components.push(component);
     },
+    handleAddTestLink() {
+      const component = cloneDeep(COMPONENT_CONFIG['testLink']);
+      component.i = this.boardConfig.components.length;
+      this.boardConfig.components.push(component);
+    },
+    handleDelete(index) {
+      this.boardConfig.components.splice(index, 1);
+      if (this.handlingIndex === index) {
+        this.handlingIndex = -1;
+      }
+      this.$forceUpdate();
+    },
     handleComponentClick(index) {
       const layoutInstance = this.boardConfig.components[index];
       this.handlingIndex = index;
@@ -345,6 +356,17 @@ export default {
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...config
       };
+    },
+    handleTestLinkConfigChange(val) {
+      this.boardConfig.components[
+        this.handlingIndex
+      ].componentConfig.linkedListKey.push(val);
+    },
+    handlePreview() {
+      window.open('/#/board-preview');
+    },
+    handleSave() {
+      localStorage.setItem('boardConfig', JSON.stringify(this.boardConfig));
     }
   }
 };
