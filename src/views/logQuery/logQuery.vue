@@ -4,8 +4,8 @@
       <el-form label-width="90px" :model="dataForm">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="模块菜单:">
-              <el-select size="mini" v-model="dataForm.modu"></el-select>
+            <el-form-item label="模块:">
+              <el-input size="mini" v-model="dataForm.modu"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -14,24 +14,38 @@
                 v-model="dataForm.acssTime"
                 type="date"
                 placeholder="选择日期"
+                value-format="yyyy-MM-dd HH:mm:ss"
               >
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="6" :offset="2" style="text-align: right; margin-right: 10px">
+          <el-col :span="6" :offset="4" style="text-align: right;">
             <el-button type="" size="mini" @click="rest()">重置</el-button>
             <el-button type="primary" icon="el-icon-search" @click="searchDataList()" >查询</el-button>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-button @click="toggleSelection">反选</el-button>
+          </el-col>
+          <el-col span="6" :offset="12" style="text-align: right;">
+            <el-button type="primary" @click="exportXlsxFn">导出Excel</el-button>
+          </el-col>
+        </el-row>
       </el-form>
+    </div>
+    <div style="margin-bottom:10px">
+     
     </div>
     <div>
       <el-table
+        ref="multipleTable"
         :data="dataList"
         border
         v-loading="dataListLoading"
         @selection-change="selectionChangeHandle"
         style="width: 100%"
+        :header-cell-style="{background:'#F0F2F5'}"
       >
         <el-table-column
           type="selection"
@@ -88,13 +102,9 @@
         ></el-table-column>
       </el-table>
     </div>
-    <div>
-      <el-button>反选</el-button>
-      <el-button @click="exportXlsxFn">导出Excel</el-button>
-      <el-button>关闭</el-button>
-    </div>
     <form :action="exportUrl" method="post" target="_self" style="display:none;">
-      <input name="settlementPaymentDays" v-model="settlementPaymentDays" />
+      <input name="modu" v-model="dataForm.modu" />
+      <input name="acssTime" v-model="dataForm.acssTime" />
       <input name="token" v-model="token" />
       <button type="submit" id="export">立即创建</button>
     </form>
@@ -116,7 +126,9 @@ export default {
       exportUrl: "/oms/web/manage/loginfo/exportExcel",
       token: sessionStorage.getItem("token"),
       value1: "",
+      totalNumber: Number,
       dataList: [],
+      Arr:[],
       dataForm: {
         modu: "",
         acssTime: "",
@@ -142,7 +154,7 @@ export default {
       loginfo(params)
         .then(({ data }) => {
           if (data && data.dataList != "") {
-            console.log(data, "data");
+            console.log(this, "data");
             this.dataList = data.dataList;
             this.totalPage = data.totalCount;
           } else {
@@ -156,6 +168,14 @@ export default {
           this.dataListLoading = false;
         });
     },
+    toggleSelection (Arr) {
+      this.$nextTick(()=> {
+        console.log(this)
+        this.dataList.forEach((item,index) =>{
+          this.$refs.multipleTable.toggleRowSelection(this.dataList[index])
+        })
+      })
+    },
     rest() {
       this.dataForm = {
         modu: "",
@@ -168,6 +188,9 @@ export default {
     },
     searchDataList() {
       (this.pageIndex = 1), this.getDataList();
+    },
+    selectionChangeHandle(val) {
+      this.Arr = val
     },
   },
 };

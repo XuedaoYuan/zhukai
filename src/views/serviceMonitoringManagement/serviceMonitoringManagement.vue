@@ -33,6 +33,7 @@
       @selection-change="selectionChangeHandle"
       @cell-dblclick="viewData"
       style="width: 100%; margin-top: 20px"
+      :header-cell-style="{background:'#F0F2F5'}"
     >
       <el-table-column
         prop="servName"
