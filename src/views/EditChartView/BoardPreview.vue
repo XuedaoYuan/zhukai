@@ -40,7 +40,8 @@ import throttle from 'lodash/throttle';
 /* 展示组件 */
 import Title1 from './components/Title1/Title1';
 import DatePicker from './components/DatePicker';
-import TestLink from "./components/TestLink/TestLink"
+import TestLink from './components/TestLink/TestLink';
+import ChartBar1 from './components/ChartBar1';
 export default {
   name: 'BoardPreview',
   components: {
@@ -48,13 +49,18 @@ export default {
     GridItem: VueGridLayout.GridItem,
     Title1,
     DatePicker,
-    TestLink
+    TestLink,
+    ChartBar1
   },
   data() {
     return {
       colNum: 240,
       rowHeight: 10,
       boardConfig: {
+        /* 大屏名称 */
+        boardTitle: '',
+        /* 大屏Code标识 */
+        boardCode: '',
         /* 大屏分辨率 */
         screenRatio: {
           width: 1920,
@@ -103,7 +109,6 @@ export default {
   },
   created() {
     this.handleInit();
-    document.title = '预览';
   },
   mounted() {
     this.initResize();
@@ -117,6 +122,7 @@ export default {
       const boardConfigString = localStorage.getItem('boardConfig');
       if (boardConfigString) {
         this.boardConfig = JSON.parse(boardConfigString);
+        document.title = this.boardConfig.boardTitle;
       }
     },
     initResize() {

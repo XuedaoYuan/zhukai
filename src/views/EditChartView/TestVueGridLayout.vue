@@ -1,7 +1,16 @@
 <template>
   <div class="TestVueGridLayout__container">
-    <div>
-      <div><span>{{boardConfig.components}}</span></div>
+    <div class="header__container">
+
+      <div>
+        <span>看板名称</span>
+        <el-input :style="{width: '200px'}"
+                  v-model="boardConfig.boardTitle">
+        </el-input>
+        <span>看板编码</span>
+        <el-input :style="{width: '200px'}"
+                  v-model="boardConfig.boardCode"></el-input>
+      </div>
       <div>
         <el-button @click="handlePreview"
                    type="warning">预览</el-button>
@@ -33,6 +42,7 @@
       <div>boardBgStyle:{{boardBgStyle}}</div>
     </div>
     <div class="content">
+      <SideBar></SideBar>
       <div class="left">
         <div class="mian-board__container"
              :style="boardBgStyle"
@@ -114,12 +124,12 @@
                           @change="handleHchange"></el-input>
               </div>
             </div>
+
           </el-collapse-item>
-          <Title1Config v-if="handlingIndex > 0 && boardConfig.components[handlingIndex].componentName === 'Title1'"
+          <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'Title1'"
                         :componentConfig="boardConfig.components[handlingIndex].componentConfig"
                         @change="handleConfigChange"></Title1Config>
-
-          <TestLinkConfig v-if="handlingIndex > 0 && boardConfig.components[handlingIndex].componentName === 'TestLink'"
+          <TestLinkConfig v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'TestLink'"
                           :components="boardConfig.components"
                           @change="handleTestLinkConfigChange"></TestLinkConfig>
 
@@ -133,16 +143,13 @@
 
 <script>
 import VueGridLayout from 'vue-grid-layout';
-import ChartBar1 from './components/ChartBar1';
-import DatePicker from './components/DatePicker';
-import Title1 from './components/Title1/Title1';
-import Title1Config from './components/Title1/Title1Config';
-import TestLink from './components/TestLink/TestLink';
-import TestLinkConfig from './components/TestLink/TestLinkConfig';
+
 import { Radio, RadioGroup, Collapse, CollapseItem } from 'element-ui';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import COMPONENT_CONFIG from './component_config';
+/* 侧边栏 */
+import SideBar from './components/SideBar';
 /* 看板尺寸 */
 const boardSizeList = [
   [2560, 1440],
@@ -159,16 +166,17 @@ export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    ChartBar1,
-    DatePicker,
     'el-radio': Radio,
     'el-radio-group': RadioGroup,
     'el-collapse': Collapse,
     'el-collapse-item': CollapseItem,
-    Title1,
-    Title1Config,
-    TestLink,
-    TestLinkConfig
+    SideBar,
+    ChartBar1: () => import('./components/ChartBar1'),
+    DatePicker: () => import('./components/DatePicker'),
+    Title1: () => import('./components/Title1/Title1'),
+    Title1Config: () => import('./components/Title1/Title1Config'),
+    TestLink: () => import('./components/TestLink/TestLink'),
+    TestLinkConfig: () => import('./components/TestLink/TestLinkConfig')
   },
   data() {
     return {
@@ -182,6 +190,10 @@ export default {
       boardSize: 1,
       // 整个看板的配置
       boardConfig: {
+        /* 大屏名称 */
+        boardTitle: '',
+        /* 大屏Code标识 */
+        boardCode: '',
         /* 大屏分辨率 */
         screenRatio: {
           width: 1920,
@@ -190,7 +202,8 @@ export default {
         /* 背景 */
         background: {
           // 背景图片，优先级高于背景色
-          backgroundImage: '',
+          backgroundImage:
+            'http://114.55.3.21:9000/oms/oms-ui/hsp-yxjc-h5/screenEdit/img/darkBackground.bc8d3945.png',
           // 背景色，一个元素就是单色，2个元素就是渐变色 渐变方向从左到右
           backgroundColor: ['#000', '#ccc']
         },
@@ -266,6 +279,7 @@ export default {
   methods: {
     handleChangeBgColor(colors) {
       this.boardConfig.background.backgroundColor = colors;
+      this.boardConfig.background.backgroundImage = null;
     },
     handleBoardSizeChange() {
       this.boardConfig.screenRatio.width = boardSizeList[this.boardSize][0];
@@ -394,7 +408,7 @@ export default {
     overflow-y: auto;
 
     .mian-board__container {
-      background-color: lightgreen;
+      background-color: #fff;
     }
   }
 

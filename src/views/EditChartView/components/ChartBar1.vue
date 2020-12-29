@@ -63,6 +63,7 @@ export default {
     this.chartInstance.clear();
     this.chartInstance.dispose();
     this.chartInstance = null;
+    console.log('%c cleared', 'color: red;');
   }
 };
 </script>
