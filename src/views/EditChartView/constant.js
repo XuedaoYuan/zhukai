@@ -1,1 +1,1 @@
-export const LINK_EVENT_PREFIX = 'EVENT';
+export const LINK_EVENT_PREFIX = 'linkeventprefix';

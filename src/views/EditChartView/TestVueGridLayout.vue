@@ -157,6 +157,7 @@ const boardSizeList = [
   [1366, 768],
   [1440, 1024]
 ];
+
 /* const testLayout = [
   { x: 0, y: 30, w: 30, h: 3, i: '3' },
   { x: 0, y: 20, w: 40, h: 3, i: '4' }
@@ -207,6 +208,8 @@ export default {
           // 背景色，一个元素就是单色，2个元素就是渐变色 渐变方向从左到右
           backgroundColor: ['#000', '#ccc']
         },
+        /* 组件的id， 每次都会自增 */
+        componentIdIndex: 0,
         // 组件的一些配置选项, 必然是多个组件
         components: [
           {
@@ -307,7 +310,7 @@ export default {
         y: 10,
         w: 40,
         h: 8,
-        i: this.boardConfig.components.length
+        i: ++this.boardConfig.componentIdIndex
       };
       this.boardConfig.components.push(layoutInstance);
     },
@@ -317,19 +320,19 @@ export default {
         y: 10,
         w: 40,
         h: 4,
-        i: this.boardConfig.components.length,
+        i: ++this.boardConfig.componentIdIndex,
         componentName: 'DatePicker'
       };
       this.boardConfig.components.push(layoutInstance);
     },
     handleAddTitle1() {
       const component = cloneDeep(COMPONENT_CONFIG['title1']);
-      component.i = this.boardConfig.components.length;
+      component.i = ++this.boardConfig.componentIdIndex;
       this.boardConfig.components.push(component);
     },
     handleAddTestLink() {
       const component = cloneDeep(COMPONENT_CONFIG['testLink']);
-      component.i = this.boardConfig.components.length;
+      component.i = ++this.boardConfig.componentIdIndex;
       this.boardConfig.components.push(component);
     },
     handleDelete(index) {
