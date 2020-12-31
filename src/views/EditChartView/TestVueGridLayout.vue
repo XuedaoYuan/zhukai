@@ -1,86 +1,50 @@
 <template>
   <div class="TestVueGridLayout__container">
     <div class="header__container">
-
-      <div>
-        <span>看板名称</span>
-        <el-input :style="{width: '200px'}"
-                  v-model="boardConfig.boardTitle">
-        </el-input>
-        <span>看板编码</span>
-        <el-input :style="{width: '200px'}"
-                  v-model="boardConfig.boardCode"></el-input>
+      <div class="back_icon" @click="handleBack">
+        <span>&lt;</span>
       </div>
-      <div>
-        <el-button @click="handlePreview"
-                   type="warning">预览</el-button>
-        <el-button @click="handleSave"
-                   type="primary">保存</el-button>
+      <div class="label">大屏名称：</div>
+      <input type="text" placeholder="请输入大屏名称" :style="{width: '200px'}" v-model="boardConfig.boardTitle" />
+      <div class="label ml40">code标识：</div>
+      <input type="text" placeholder="请输入code标识" :style="{width: '200px'}" v-model="boardConfig.boardCode" />
+      
+      <!--<div>
+        <el-button @click="handlePreview" type="warning">预览</el-button>
+        <el-button @click="handleSave" type="primary">保存</el-button>
         <el-button @click="handleAddNew">add new</el-button>
         <el-button @click="handleAddNewDatePicker">add DatePicker</el-button>
         <el-button @click="handleAddTitle1">add title1</el-button>
         <el-button @click="handleAddTestLink">add testLink</el-button>
         <span>---尺寸</span>
-        <el-radio-group v-model="boardSize"
-                        @change="handleBoardSizeChange">
+        <el-radio-group v-model="boardSize" @change="handleBoardSizeChange">
 
-          <el-radio v-for="(item, index) in boardSizeList"
-                    :label="index"
-                    :key="index">{{item[0]}}*{{item[1]}}</el-radio>
+          <el-radio v-for="(item, index) in boardSizeList" :label="index" :key="index">{{item[0]}}*{{item[1]}}</el-radio>
         </el-radio-group>
         <span>=====背景</span>
-        <div @click="handleChangeBgColor(['red'])"
-             class="bg-icon red"></div>
-        <div @click="handleChangeBgColor(['blue'])"
-             class="bg-icon blue"></div>
-        <div @click="handleChangeBgColor(['lightgreen'])"
-             class="bg-icon lightgreen"></div>
-        <div @click="handleChangeBgColor(['red', 'green'])"
-             class="bg-icon redToGreen"></div>
+        <div @click="handleChangeBgColor(['red'])" class="bg-icon red"></div>
+        <div @click="handleChangeBgColor(['blue'])" class="bg-icon blue"></div>
+        <div @click="handleChangeBgColor(['lightgreen'])" class="bg-icon lightgreen"></div>
+        <div @click="handleChangeBgColor(['red', 'green'])" class="bg-icon redToGreen"></div>
 
       </div>
-      <div>boardBgStyle:{{boardBgStyle}}</div>
+      <div>boardBgStyle:{{boardBgStyle}}</div> -->
     </div>
     <div class="content">
       <SideBar></SideBar>
       <div class="left">
-        <div class="mian-board__container"
-             :style="boardBgStyle"
-             ref="MaintBoardRef">
-          <grid-layout :layout.sync="boardConfig.components"
-                       :col-num="colNum"
-                       :row-height="rowHeight"
-                       :is-draggable="true"
-                       :is-resizable="true"
-                       :is-mirrored="false"
-                       :vertical-compact="false"
-                       :margin="[0, 0]"
-                       :use-css-transforms="true"
-                       :auto-size="false"
-                       :responsive="false">
+        <div class="mian-board__container" :style="boardBgStyle" ref="MaintBoardRef">
+          <grid-layout :layout.sync="boardConfig.components" :col-num="colNum" :row-height="rowHeight" :is-draggable="true" :is-resizable="true" :is-mirrored="false" :vertical-compact="false" :margin="[0, 0]" :use-css-transforms="true" :auto-size="false" :responsive="false">
             <!--   @resize="resizeEvent"
                  @move="moveEvent"
                  @resized="resizedEvent"
                   -->
-            <grid-item v-for="(item, index) in boardConfig.components"
-                       :x="item.x"
-                       :y="item.y"
-                       :w="item.w"
-                       :h="item.h"
-                       :i="item.i"
-                       :key="item.i"
-                       @resize="handleResizeEvent($event)"
-                       @moved="handleMovedEvent">
+            <grid-item v-for="(item, index) in boardConfig.components" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" :key="item.i" @resize="handleResizeEvent($event)" @moved="handleMovedEvent">
               <template v-if="item.componentName">
-                <component :is="item.componentName"
-                           :ref="'Component' + index + 'Ref'"
-                           :i="item.i"
-                           :componentConfig="item.componentConfig"></component>
+                <component :is="item.componentName" :ref="'Component' + index + 'Ref'" :i="item.i" :componentConfig="item.componentConfig"></component>
               </template>
-              <div :class="['mask_container', index === handlingIndex ? 'component-selected' : '']"
-                   @click.stop="handleComponentClick(index)">
-                <div @click.stop="handleDelete(index)"
-                     class="delete-icon">X</div>
+              <div :class="['mask_container', index === handlingIndex ? 'component-selected' : '']" @click.stop="handleComponentClick(index)">
+                <div @click.stop="handleDelete(index)" class="delete-icon">X</div>
               </div>
             </grid-item>
           </grid-layout>
@@ -90,48 +54,31 @@
       <div class="right">
         <h4>配置项</h4>
         <el-collapse class="hsa-chart-el-collapse">
-          <el-collapse-item title="组件全局配置"
-                            name="1">
+          <el-collapse-item title="组件全局配置" name="1">
             <div class="xywh-config__container">
               <div>
                 <span>x:</span>
-                <el-input v-model.number="x"
-                          type="number"
-                          :min="0"
-                          @change="handleXchange"></el-input>
+                <el-input v-model.number="x" type="number" :min="0" @change="handleXchange"></el-input>
               </div>
               <div>
                 <span>y:</span>
-                <el-input v-model.number="y"
-                          :min="0"
-                          type="number"
-                          @change="handleYchange"></el-input>
+                <el-input v-model.number="y" :min="0" type="number" @change="handleYchange"></el-input>
               </div>
             </div>
             <div class="xywh-config__container">
               <div>
                 <span>w:</span>
-                <el-input v-model.number="w"
-                          type="number"
-                          :min="0"
-                          @change="handleWchange"></el-input>
+                <el-input v-model.number="w" type="number" :min="0" @change="handleWchange"></el-input>
               </div>
               <div>
                 <span>h:</span>
-                <el-input v-model.number="h"
-                          type="number"
-                          :min="0"
-                          @change="handleHchange"></el-input>
+                <el-input v-model.number="h" type="number" :min="0" @change="handleHchange"></el-input>
               </div>
             </div>
 
           </el-collapse-item>
-          <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'Title1'"
-                        :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                        @change="handleConfigChange"></Title1Config>
-          <TestLinkConfig v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'TestLink'"
-                          :components="boardConfig.components"
-                          @change="handleTestLinkConfigChange"></TestLinkConfig>
+          <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'Title1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig" @change="handleConfigChange"></Title1Config>
+          <TestLinkConfig v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'TestLink'" :components="boardConfig.components" @change="handleTestLinkConfigChange"></TestLinkConfig>
 
         </el-collapse>
 
@@ -384,74 +331,14 @@ export default {
     },
     handleSave() {
       localStorage.setItem('boardConfig', JSON.stringify(this.boardConfig));
+    },
+    handleBack() {
+      // this.$router.go(-1)
     }
   }
 };
 </script>
 
 <style scoped lang="stylus">
-.TestVueGridLayout__container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.content {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-  border: 1px solid red;
-
-  > div {
-    height: 100%;
-  }
-
-  .left {
-    flex: 1;
-    overflow-y: auto;
-
-    .mian-board__container {
-      background-color: #fff;
-    }
-  }
-
-  .right {
-    flex: 0 0 200px;
-    border-left: 1px solid red;
-  }
-}
-
-.bg-icon {
-  display: inline-block;
-  margin-left: 10px;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-
-  &.red {
-    background-color: red;
-  }
-
-  &.blue {
-    background-color: blue;
-  }
-
-  &.lightgreen {
-    background-color: lightgreen;
-  }
-
-  &.redToGreen {
-    background-image: linear-gradient(to right, red, green);
-  }
-}
-
-.xywh-config__container {
-  display: flex;
-
-  & > div {
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
-}
+@import './EditChartView.styl';
 </style>

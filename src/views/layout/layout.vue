@@ -58,7 +58,7 @@
       </el-aside>
       <el-main>
         <div class="content-box" :class="{'content-collapse':collapse}">
-              <v-tags></v-tags>
+              <!-- <v-tags></v-tags> -->
               <div class="content">
                   <transition name="move" mode="out-in">
                       <keep-alive :include="tagsList">
@@ -78,8 +78,8 @@
 <script>
 import { Container, Header, Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup,Backtop } from "element-ui"
 // import MainContent from './main-content'
-import bus from './bus';
-import vTags from './Tags.vue';
+// import bus from './bus';
+// import vTags from './Tags.vue';
 
 export default {
   name: "layout",
@@ -94,7 +94,7 @@ export default {
     "el-menu-item-group":MenuItemGroup,
     "el-backtop": Backtop,
     // MainContent,
-    vTags,
+    // vTags,
   },
   data() {
     return {
@@ -103,7 +103,7 @@ export default {
     };
   },
   created() {
-        bus.$on('collapse-content', msg => {
+       /*  bus.$on('collapse-content', msg => {
             this.collapse = msg;
         });
 
@@ -115,7 +115,7 @@ export default {
             }
             console.log(arr,"arr")
             this.tagsList = arr;
-        });
+        }); */
     }
 };
 </script>

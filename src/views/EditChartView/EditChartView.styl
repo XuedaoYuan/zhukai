@@ -1,0 +1,116 @@
+.TestVueGridLayout__container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header__container {
+    height: 44px;
+    background: linear-gradient(180deg, #004574 0%, #002140 100%);
+    border: 1px solid #295278;
+    display: flex;
+    align-items: center;
+
+    .back_icon {
+        height: 100%;
+        width: 80px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+            transform: scaleY(2);
+            display: block;
+            font-size: 18px;
+            line-height: 1;
+            color: #61A7E9;
+            margin-top: -4px;
+        }
+    }
+
+    .label {
+        font-size: 12px;
+        font-weight: 400;
+        color: #61A7E9;
+
+        &.ml40 {
+            margin-left: 40px;
+        }
+    }
+
+    input {
+        outline: none;
+        border: 1px solid transparent;
+        background-color: transparent;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 2;
+        padding-left: 10px;
+        border-radius: 4px;
+
+        &:focus, &:active {
+            border-color: #fff;
+        }
+    }
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    border: 1px solid red;
+
+    > div {
+        height: 100%;
+    }
+
+    .left {
+        flex: 1;
+        overflow-y: auto;
+
+        .mian-board__container {
+            background-color: #fff;
+        }
+    }
+
+    .right {
+        flex: 0 0 200px;
+        border-left: 1px solid red;
+    }
+}
+
+.bg-icon {
+    display: inline-block;
+    margin-left: 10px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+
+    &.red {
+        background-color: red;
+    }
+
+    &.blue {
+        background-color: blue;
+    }
+
+    &.lightgreen {
+        background-color: lightgreen;
+    }
+
+    &.redToGreen {
+        background-image: linear-gradient(to right, red, green);
+    }
+}
+
+.xywh-config__container {
+    display: flex;
+
+    & > div {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+}
