@@ -5,12 +5,22 @@
         <span>&lt;</span>
       </div>
       <div class="label">大屏名称：</div>
-      <input type="text" placeholder="请输入大屏名称" :style="{width: '200px'}" v-model="boardConfig.boardTitle" />
+      <input
+        type="text"
+        placeholder="请输入大屏名称"
+        :style="{ width: '200px' }"
+        v-model="boardConfig.boardTitle"
+      />
       <div class="label ml40">code标识：</div>
-      <input type="text" placeholder="请输入code标识" :style="{width: '200px'}" v-model="boardConfig.boardCode" />
-      
+      <input
+        type="text"
+        placeholder="请输入code标识"
+        :style="{ width: '200px' }"
+        v-model="boardConfig.boardCode"
+      />
+
       <!--<div>
-        <el-button @click="handlePreview" type="warning">预览</el-button>
+      <el-button @click="handlePreview" type="warning">预览</el-button>
         <el-button @click="handleSave" type="primary">保存</el-button>
         <el-button @click="handleAddNew">add new</el-button>
         <el-button @click="handleAddNewDatePicker">add DatePicker</el-button>
@@ -31,25 +41,63 @@
       <div>boardBgStyle:{{boardBgStyle}}</div> -->
     </div>
     <div class="content">
-      <SideBar></SideBar>
+      <SideBar @handleTest1Click="handleTest1Click" />
       <div class="left">
-        <div class="mian-board__container" :style="boardBgStyle" ref="MaintBoardRef">
-          <grid-layout :layout.sync="boardConfig.components" :col-num="colNum" :row-height="rowHeight" :is-draggable="true" :is-resizable="true" :is-mirrored="false" :vertical-compact="false" :margin="[0, 0]" :use-css-transforms="true" :auto-size="false" :responsive="false">
+        <div
+          class="mian-board__container"
+          :style="boardBgStyle"
+          ref="MaintBoardRef"
+        >
+          <grid-layout
+            :layout.sync="boardConfig.components"
+            :col-num="colNum"
+            :row-height="rowHeight"
+            :is-draggable="true"
+            :is-resizable="true"
+            :is-mirrored="false"
+            :vertical-compact="false"
+            :margin="[0, 0]"
+            :use-css-transforms="true"
+            :auto-size="false"
+            :responsive="false"
+          >
             <!--   @resize="resizeEvent"
                  @move="moveEvent"
                  @resized="resizedEvent"
                   -->
-            <grid-item v-for="(item, index) in boardConfig.components" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" :key="item.i" @resize="handleResizeEvent($event)" @moved="handleMovedEvent">
+            <grid-item
+              v-for="(item, index) in boardConfig.components"
+              :x="item.x"
+              :y="item.y"
+              :w="item.w"
+              :h="item.h"
+              :i="item.i"
+              :key="item.i"
+              @resize="handleResizeEvent($event)"
+              @moved="handleMovedEvent"
+            >
               <template v-if="item.componentName">
-                <component :is="item.componentName" :ref="'Component' + index + 'Ref'" :i="item.i" :componentConfig="item.componentConfig"></component>
+                <component
+                  :is="item.componentName"
+                  :ref="'Component' + index + 'Ref'"
+                  :i="item.i"
+                  :componentConfig="item.componentConfig"
+                ></component>
               </template>
-              <div :class="['mask_container', index === handlingIndex ? 'component-selected' : '']" @click.stop="handleComponentClick(index)">
-                <div @click.stop="handleDelete(index)" class="delete-icon">X</div>
+              <div
+                :class="[
+                  'mask_container',
+                  index === handlingIndex ? 'component-selected' : '',
+                ]"
+                @click.stop="handleComponentClick(index)"
+              >
+                <div @click.stop="handleDelete(index)" class="delete-icon">
+                  X
+                </div>
               </div>
             </grid-item>
           </grid-layout>
         </div>
-
       </div>
       <div class="right">
         <h4>配置项</h4>
@@ -58,51 +106,83 @@
             <div class="xywh-config__container">
               <div>
                 <span>x:</span>
-                <el-input v-model.number="x" type="number" :min="0" @change="handleXchange"></el-input>
+                <el-input
+                  v-model.number="x"
+                  type="number"
+                  :min="0"
+                  @change="handleXchange"
+                ></el-input>
               </div>
               <div>
                 <span>y:</span>
-                <el-input v-model.number="y" :min="0" type="number" @change="handleYchange"></el-input>
+                <el-input
+                  v-model.number="y"
+                  :min="0"
+                  type="number"
+                  @change="handleYchange"
+                ></el-input>
               </div>
             </div>
             <div class="xywh-config__container">
               <div>
                 <span>w:</span>
-                <el-input v-model.number="w" type="number" :min="0" @change="handleWchange"></el-input>
+                <el-input
+                  v-model.number="w"
+                  type="number"
+                  :min="0"
+                  @change="handleWchange"
+                ></el-input>
               </div>
               <div>
                 <span>h:</span>
-                <el-input v-model.number="h" type="number" :min="0" @change="handleHchange"></el-input>
+                <el-input
+                  v-model.number="h"
+                  type="number"
+                  :min="0"
+                  @change="handleHchange"
+                ></el-input>
               </div>
             </div>
-
           </el-collapse-item>
-          <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'Title1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig" @change="handleConfigChange"></Title1Config>
-          <TestLinkConfig v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'TestLink'" :components="boardConfig.components" @change="handleTestLinkConfigChange"></TestLinkConfig>
-
+          <Title1Config
+            v-if="
+              handlingIndex >= 0 &&
+              boardConfig.components[handlingIndex].componentName === 'Title1'
+            "
+            :componentConfig="
+              boardConfig.components[handlingIndex].componentConfig
+            "
+            @change="handleConfigChange"
+          ></Title1Config>
+          <TestLinkConfig
+            v-if="
+              handlingIndex >= 0 &&
+              boardConfig.components[handlingIndex].componentName === 'TestLink'
+            "
+            :components="boardConfig.components"
+            @change="handleTestLinkConfigChange"
+          ></TestLinkConfig>
         </el-collapse>
-
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import VueGridLayout from 'vue-grid-layout';
+import VueGridLayout from "vue-grid-layout";
 
-import { Radio, RadioGroup, Collapse, CollapseItem } from 'element-ui';
-import throttle from 'lodash/throttle';
-import cloneDeep from 'lodash/cloneDeep';
-import COMPONENT_CONFIG from './component_config';
+import { Radio, RadioGroup, Collapse, CollapseItem } from "element-ui";
+import throttle from "lodash/throttle";
+import cloneDeep from "lodash/cloneDeep";
+import COMPONENT_CONFIG from "./component_config";
 /* 侧边栏 */
-import SideBar from './components/SideBar';
+import SideBar from "./components/SideBar";
 /* 看板尺寸 */
 const boardSizeList = [
   [2560, 1440],
   [1920, 1080],
   [1366, 768],
-  [1440, 1024]
+  [1440, 1024],
 ];
 
 /* const testLayout = [
@@ -110,21 +190,21 @@ const boardSizeList = [
   { x: 0, y: 20, w: 40, h: 3, i: '4' }
 ]; */
 export default {
-  name: 'TestVueGridLayout',
+  name: "TestVueGridLayout",
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    'el-radio': Radio,
-    'el-radio-group': RadioGroup,
-    'el-collapse': Collapse,
-    'el-collapse-item': CollapseItem,
+    "el-radio": Radio,
+    "el-radio-group": RadioGroup,
+    "el-collapse": Collapse,
+    "el-collapse-item": CollapseItem,
     SideBar,
-    ChartBar1: () => import('./components/ChartBar1'),
-    DatePicker: () => import('./components/DatePicker'),
-    Title1: () => import('./components/Title1/Title1'),
-    Title1Config: () => import('./components/Title1/Title1Config'),
-    TestLink: () => import('./components/TestLink/TestLink'),
-    TestLinkConfig: () => import('./components/TestLink/TestLinkConfig')
+    ChartBar1: () => import("./components/ChartBar1"),
+    DatePicker: () => import("./components/DatePicker"),
+    Title1: () => import("./components/Title1/Title1"),
+    Title1Config: () => import("./components/Title1/Title1Config"),
+    TestLink: () => import("./components/TestLink/TestLink"),
+    TestLinkConfig: () => import("./components/TestLink/TestLinkConfig"),
   },
   data() {
     return {
@@ -139,21 +219,21 @@ export default {
       // 整个看板的配置
       boardConfig: {
         /* 大屏名称 */
-        boardTitle: '',
+        boardTitle: "",
         /* 大屏Code标识 */
-        boardCode: '',
+        boardCode: "",
         /* 大屏分辨率 */
         screenRatio: {
           width: 1920,
-          height: 1080
+          height: 1080,
         },
         /* 背景 */
         background: {
           // 背景图片，优先级高于背景色
-          backgroundImage:
-            'http://114.55.3.21:9000/oms/oms-ui/hsp-yxjc-h5/screenEdit/img/darkBackground.bc8d3945.png',
+          // backgroundImage:
+          // 'http://114.55.3.21:9000/oms/oms-ui/hsp-yxjc-h5/screenEdit/img/darkBackground.bc8d3945.png',
           // 背景色，一个元素就是单色，2个元素就是渐变色 渐变方向从左到右
-          backgroundColor: ['#000', '#ccc']
+          backgroundColor: ["#000", "#ccc"],
         },
         /* 组件的id， 每次都会自增 */
         componentIdIndex: 0,
@@ -166,22 +246,22 @@ export default {
             w: 40, // w和col-num有关
             h: 8, // h和row-height有关
             /* grid-layout 栅格元素ID 因为用了sync修饰符，所以这里必须写成i*/
-            i: '0',
+            i: "0",
             /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
             根据不同的类型还要存储不同结构的数据 */
-            type: '',
+            type: "",
             /* 业务类型，可用于筛选，不一定要 */
-            businessType: '',
+            businessType: "",
             /* 业务主题， 同上 */
-            businessTheme: '',
+            businessTheme: "",
             // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-            componentName: 'ChartBar1',
+            componentName: "ChartBar1",
             /* 组件配置 */
             // 组件本身的属性  比如标题的title color等  这块根据自己的组件自己定义好自己的规则即可
-            componentConfig: {}
-          }
-        ]
-      }
+            componentConfig: {},
+          },
+        ],
+      },
     };
   },
   computed: {
@@ -191,27 +271,27 @@ export default {
       if (background.backgroundImage) {
         style = {
           backgroundImage: `url(${background.backgroundImage})`,
-          backgroundSize: '100% 100%',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center center'
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
         };
       } else if (
         background.backgroundColor &&
         background.backgroundColor.length > 1
       ) {
         style = {
-          backgroundImage: `linear-gradient(to right, ${background.backgroundColor[0]} , ${background.backgroundColor[1]})`
+          backgroundImage: `linear-gradient(to right, ${background.backgroundColor[0]} , ${background.backgroundColor[1]})`,
         };
       } else if (
         background.backgroundColor &&
         background.backgroundColor.length === 1
       ) {
         style = {
-          backgroundColor: background.backgroundColor[0]
+          backgroundColor: background.backgroundColor[0],
         };
       }
       return style;
-    }
+    },
   },
   created() {
     this.boardSizeList = [...boardSizeList];
@@ -221,12 +301,23 @@ export default {
     this.handleResetMainBoardSizeThrottle = throttle(
       this.handleResetMainBoardSize
     );
-    window.addEventListener('resize', this.handleResetMainBoardSizeThrottle);
+    window.addEventListener("resize", this.handleResetMainBoardSizeThrottle);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.handleResetMainBoardSizeThrottle);
+    window.removeEventListener("resize", this.handleResetMainBoardSizeThrottle);
   },
   methods: {
+    handleTest1Click() {
+      const layoutInstance = {
+        x: 200,
+        y: 10,
+        w: 40,
+        h: 4,
+        i: ++this.boardConfig.componentIdIndex,
+        componentName: "DatePicker",
+      };
+      this.boardConfig.components.push(layoutInstance);
+    },
     handleChangeBgColor(colors) {
       this.boardConfig.background.backgroundColor = colors;
       this.boardConfig.background.backgroundImage = null;
@@ -237,13 +328,13 @@ export default {
       this.handleResetMainBoardSize();
     },
     handleResetMainBoardSize() {
-      const MaintBoardDom = this.$refs['MaintBoardRef'];
+      const MaintBoardDom = this.$refs["MaintBoardRef"];
       const width = this.boardConfig.screenRatio.width;
       const height = this.boardConfig.screenRatio.height;
       const style = window.getComputedStyle(MaintBoardDom);
       // 看板尺寸 按比例设置
       const realHeight = (parseInt(style.width) * height) / width;
-      MaintBoardDom.style.height = realHeight + 'px';
+      MaintBoardDom.style.height = realHeight + "px";
     },
 
     handleMovedEvent(i, newX, newY) {
@@ -257,7 +348,7 @@ export default {
         y: 10,
         w: 40,
         h: 8,
-        i: ++this.boardConfig.componentIdIndex
+        i: ++this.boardConfig.componentIdIndex,
       };
       this.boardConfig.components.push(layoutInstance);
     },
@@ -268,17 +359,17 @@ export default {
         w: 40,
         h: 4,
         i: ++this.boardConfig.componentIdIndex,
-        componentName: 'DatePicker'
+        componentName: "DatePicker",
       };
       this.boardConfig.components.push(layoutInstance);
     },
     handleAddTitle1() {
-      const component = cloneDeep(COMPONENT_CONFIG['title1']);
+      const component = cloneDeep(COMPONENT_CONFIG["title1"]);
       component.i = ++this.boardConfig.componentIdIndex;
       this.boardConfig.components.push(component);
     },
     handleAddTestLink() {
-      const component = cloneDeep(COMPONENT_CONFIG['testLink']);
+      const component = cloneDeep(COMPONENT_CONFIG["testLink"]);
       component.i = ++this.boardConfig.componentIdIndex;
       this.boardConfig.components.push(component);
     },
@@ -318,7 +409,7 @@ export default {
     handleConfigChange(config) {
       // this.handlingIndex;
       this.boardConfig.components[this.handlingIndex].componentConfig = {
-        ...config
+        ...config,
       };
     },
     handleTestLinkConfigChange(val) {
@@ -327,15 +418,15 @@ export default {
       ].componentConfig.linkedListKey.push(val);
     },
     handlePreview() {
-      window.open('/#/board-preview');
+      window.open("/#/board-preview");
     },
     handleSave() {
-      localStorage.setItem('boardConfig', JSON.stringify(this.boardConfig));
+      localStorage.setItem("boardConfig", JSON.stringify(this.boardConfig));
     },
     handleBack() {
       // this.$router.go(-1)
-    }
-  }
+    },
+  },
 };
 </script>
 
