@@ -41,7 +41,7 @@
       <div>boardBgStyle:{{boardBgStyle}}</div> -->
     </div>
     <div class="content">
-      <SideBar @handleTest1Click="handleTest1Click" />
+      <SideBar @pie1Click="handlePie1Click" />
       <div class="main">
         <div
           class="mian-board__container"
@@ -102,7 +102,7 @@
       <div class="right">
         <el-tabs v-model="configType" class="custom-tabs" type="card">
           <el-tab-pane label="组件配置" name="componentConfig">
-            <el-collapse class="hsa-chart-el-collapse">
+            <el-collapse class="custom-collapse">
               <el-collapse-item title="组件全局配置" name="1">
                 <div class="xywh-config__container">
                   <div>
@@ -145,6 +145,17 @@
                   </div>
                 </div>
               </el-collapse-item>
+              <Pie1Config
+                v-if="
+                  handlingIndex >= 0 &&
+                  boardConfig.components[handlingIndex].componentName === 'Pie1'
+                "
+                :componentConfig="
+                  boardConfig.components[handlingIndex].componentConfig
+                "
+                :handlingIndex="handlingIndex"
+                @change="handlePie1ConfigChange"
+              />
               <Title1Config
                 v-if="
                   handlingIndex >= 0 &&
@@ -213,6 +224,8 @@ export default {
     Title1Config: () => import("./components/Title1/Title1Config"),
     TestLink: () => import("./components/TestLink/TestLink"),
     TestLinkConfig: () => import("./components/TestLink/TestLinkConfig"),
+    Pie1: () => import("./components/Pie1/Pie1"),
+    Pie1Config: () => import("./components/Pie1/Pie1Config"),
   },
   data() {
     return {
@@ -247,29 +260,7 @@ export default {
         /* 组件的id， 每次都会自增 */
         componentIdIndex: 0,
         // 组件的一些配置选项, 必然是多个组件
-        components: [
-          {
-            /* 栅格位置大小信息 */
-            x: 10,
-            y: 0,
-            w: 40, // w和col-num有关
-            h: 8, // h和row-height有关
-            /* grid-layout 栅格元素ID 因为用了sync修饰符，所以这里必须写成i*/
-            i: "0",
-            /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
-            根据不同的类型还要存储不同结构的数据 */
-            type: "",
-            /* 业务类型，可用于筛选，不一定要 */
-            businessType: "",
-            /* 业务主题， 同上 */
-            businessTheme: "",
-            // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-            componentName: "ChartBar1",
-            /* 组件配置 */
-            // 组件本身的属性  比如标题的title color等  这块根据自己的组件自己定义好自己的规则即可
-            componentConfig: {},
-          },
-        ],
+        components: [],
       },
     };
   },
@@ -316,16 +307,10 @@ export default {
     window.removeEventListener("resize", this.handleResetMainBoardSizeThrottle);
   },
   methods: {
-    handleTest1Click() {
-      const layoutInstance = {
-        x: 200,
-        y: 10,
-        w: 40,
-        h: 4,
-        i: ++this.boardConfig.componentIdIndex,
-        componentName: "DatePicker",
-      };
-      this.boardConfig.components.push(layoutInstance);
+    handlePie1Click() {
+      const component = cloneDeep(COMPONENT_CONFIG.pie1);
+      component.i = ++this.boardConfig.componentIdIndex;
+      this.boardConfig.components.push(component);
     },
     handleChangeBgColor(colors) {
       this.boardConfig.background.backgroundColor = colors;
@@ -417,6 +402,17 @@ export default {
     },
     handleConfigChange(config) {
       // this.handlingIndex;
+      this.boardConfig.components[this.handlingIndex].componentConfig = {
+        ...config,
+      };
+    },
+    handlePie1ConfigChange(config) {
+      console.log(
+        "config ==> ",
+        config,
+        this.handlingIndex,
+        this.boardConfig.components
+      );
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...config,
       };

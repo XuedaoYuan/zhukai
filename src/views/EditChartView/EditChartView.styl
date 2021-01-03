@@ -116,6 +116,32 @@
                 }
             }
         }
+
+        /deep/ .custom-collapse {
+            border: none;
+
+            .el-collapse-item__header {
+                color: #fff;
+                background-color: #133759;
+                border-bottom: 1px solid #295278;
+                padding: 0 10px;
+                height: 36px;
+                font-size: 13px;
+                font-family: PingFangSC-Medium, PingFang SC;
+                font-weight: 500;
+                color: #FFFFFF;
+                line-height: 13px;
+            }
+
+            .el-collapse-item__wrap {
+                background: transparent;
+                padding: 10px;
+
+                .el-collapse-item__content {
+                    padding: 0;
+                }
+            }
+        }
     }
 }
 
@@ -144,6 +170,7 @@
 }
 
 .xywh-config__container {
+    color: #9AB4CE;
     display: flex;
 
     & > div {

@@ -15,8 +15,8 @@
     <el-divider></el-divider>
     <div class="component-list">
       <img
-        src="../../assets/test.1.png"
-        @click="$emit('handleTest1Click')"
+        src="../../assets/pie1.png"
+        @click="$emit('pie1Click')"
         width="182"
         alt=""
       />

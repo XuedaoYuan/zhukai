@@ -24,6 +24,16 @@
                   <el-menu-item index="1-3"><router-link to="/externalDataManagement"><span style="color:#fff">外部数据管理</span></router-link></el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
+              <el-submenu index="2">
+                <!-- 大屏编辑测试菜单 -->
+                <template slot="title">
+                  <i class="el-icon-location"></i>
+                  <span>大屏管理(Test)</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="2-1"><router-link to="/TestVueGridLayout"><span style="color:#fff">大屏编辑</span></router-link></el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
               <!-- <el-submenu index="2">
                 <template slot="title">
                   <i class="el-icon-menu"></i>

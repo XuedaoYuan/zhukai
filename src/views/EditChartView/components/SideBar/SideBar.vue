@@ -56,7 +56,7 @@
       popper-class="popover"
     >
       <component-popover 
-        @handleTest1Click="$emit('handleTest1Click')"
+        @pie1Click="$emit('pie1Click')"
       />
       <div class="side-item" slot="reference">
         <img
