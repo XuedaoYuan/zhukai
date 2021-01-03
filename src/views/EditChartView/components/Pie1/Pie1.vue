@@ -62,7 +62,10 @@ export default {
   },
   watch: {
     "componentConfig.titleShow": function (val, oldVal) {
-      this.chartResize();
+      this.resize();
+    },
+    "componentConfig.fontSize": function (val, oldVal) {
+      this.resize();
     },
   },
   computed: {
@@ -79,7 +82,7 @@ export default {
     });
   },
   methods: {
-    chartResize() {
+    resize() {
       this.$nextTick(() => {
         this.chartInstance.resize();
       });

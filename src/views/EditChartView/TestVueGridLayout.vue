@@ -73,13 +73,13 @@
               :h="item.h"
               :i="item.i"
               :key="item.i"
-              @resize="handleResizeEvent($event)"
+              @resize="handleResizeEvent"
               @moved="handleMovedEvent"
             >
               <template v-if="item.componentName">
                 <component
                   :is="item.componentName"
-                  :ref="'Component' + index + 'Ref'"
+                  :ref="'Component' + item.i + 'Ref'"
                   :i="item.i"
                   :componentConfig="item.componentConfig"
                 ></component>
@@ -395,10 +395,8 @@ export default {
       this.boardConfig.components[this.handlingIndex].h = this.h - 0;
     },
     // i, newH, newW, newHPx, newWPx
-    handleResizeEvent($event) {
-      console.log($event);
-      // console.log('resize', i, newH, newW, newHPx, newWPx);
-      // this.$refs[`Component${i}Ref`][0].resize();
+    handleResizeEvent(i) {
+      this.$refs[`Component${i}Ref`][0].resize();
     },
     handleConfigChange(config) {
       // this.handlingIndex;
