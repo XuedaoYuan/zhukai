@@ -42,7 +42,7 @@
     </div>
     <div class="content">
       <SideBar @handleTest1Click="handleTest1Click" />
-      <div class="left">
+      <div class="main">
         <div
           class="mian-board__container"
           :style="boardBgStyle"
@@ -100,69 +100,77 @@
         </div>
       </div>
       <div class="right">
-        <h4>配置项</h4>
-        <el-collapse class="hsa-chart-el-collapse">
-          <el-collapse-item title="组件全局配置" name="1">
-            <div class="xywh-config__container">
-              <div>
-                <span>x:</span>
-                <el-input
-                  v-model.number="x"
-                  type="number"
-                  :min="0"
-                  @change="handleXchange"
-                ></el-input>
-              </div>
-              <div>
-                <span>y:</span>
-                <el-input
-                  v-model.number="y"
-                  :min="0"
-                  type="number"
-                  @change="handleYchange"
-                ></el-input>
-              </div>
-            </div>
-            <div class="xywh-config__container">
-              <div>
-                <span>w:</span>
-                <el-input
-                  v-model.number="w"
-                  type="number"
-                  :min="0"
-                  @change="handleWchange"
-                ></el-input>
-              </div>
-              <div>
-                <span>h:</span>
-                <el-input
-                  v-model.number="h"
-                  type="number"
-                  :min="0"
-                  @change="handleHchange"
-                ></el-input>
-              </div>
-            </div>
-          </el-collapse-item>
-          <Title1Config
-            v-if="
-              handlingIndex >= 0 &&
-              boardConfig.components[handlingIndex].componentName === 'Title1'
-            "
-            :componentConfig="
-              boardConfig.components[handlingIndex].componentConfig
-            "
-            @change="handleConfigChange"
-          ></Title1Config>
-          <TestLinkConfig
-            v-if="
-              handlingIndex >= 0 &&
-              boardConfig.components[handlingIndex].componentName === 'TestLink'
-            "
-            :components="boardConfig.components"
-            @change="handleTestLinkConfigChange"
-          ></TestLinkConfig>
-        </el-collapse>
+        <el-tabs v-model="configType" class="custom-tabs" type="card">
+          <el-tab-pane label="组件配置" name="componentConfig">
+            <el-collapse class="hsa-chart-el-collapse">
+              <el-collapse-item title="组件全局配置" name="1">
+                <div class="xywh-config__container">
+                  <div>
+                    <span>x:</span>
+                    <el-input
+                      v-model.number="x"
+                      type="number"
+                      :min="0"
+                      @change="handleXchange"
+                    ></el-input>
+                  </div>
+                  <div>
+                    <span>y:</span>
+                    <el-input
+                      v-model.number="y"
+                      :min="0"
+                      type="number"
+                      @change="handleYchange"
+                    ></el-input>
+                  </div>
+                </div>
+                <div class="xywh-config__container">
+                  <div>
+                    <span>w:</span>
+                    <el-input
+                      v-model.number="w"
+                      type="number"
+                      :min="0"
+                      @change="handleWchange"
+                    ></el-input>
+                  </div>
+                  <div>
+                    <span>h:</span>
+                    <el-input
+                      v-model.number="h"
+                      type="number"
+                      :min="0"
+                      @change="handleHchange"
+                    ></el-input>
+                  </div>
+                </div>
+              </el-collapse-item>
+              <Title1Config
+                v-if="
+                  handlingIndex >= 0 &&
+                  boardConfig.components[handlingIndex].componentName ===
+                    'Title1'
+                "
+                :componentConfig="
+                  boardConfig.components[handlingIndex].componentConfig
+                "
+                @change="handleConfigChange"
+              ></Title1Config>
+              <TestLinkConfig
+                v-if="
+                  handlingIndex >= 0 &&
+                  boardConfig.components[handlingIndex].componentName ===
+                    'TestLink'
+                "
+                :components="boardConfig.components"
+                @change="handleTestLinkConfigChange"
+              ></TestLinkConfig>
+            </el-collapse>
+          </el-tab-pane>
+          <el-tab-pane label="数据来源配置" name="dataConfig">
+            数据来源配置
+          </el-tab-pane>
+        </el-tabs>
       </div>
     </div>
   </div>
@@ -208,6 +216,7 @@ export default {
   },
   data() {
     return {
+      configType: "componentConfig",
       colNum: 240,
       rowHeight: 10,
       x: 0,
@@ -233,7 +242,7 @@ export default {
           // backgroundImage:
           // 'http://114.55.3.21:9000/oms/oms-ui/hsp-yxjc-h5/screenEdit/img/darkBackground.bc8d3945.png',
           // 背景色，一个元素就是单色，2个元素就是渐变色 渐变方向从左到右
-          backgroundColor: ["#000", "#ccc"],
+          backgroundColor: ["#143555"],
         },
         /* 组件的id， 每次都会自增 */
         componentIdIndex: 0,

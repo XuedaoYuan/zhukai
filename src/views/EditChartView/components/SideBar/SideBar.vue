@@ -101,6 +101,7 @@ export default {
   height: 100%;
   background: #002140;
   border: 1px solid #295278;
+  border-top: none;
   padding-top: 30px;
 
   .side-item {
