@@ -166,7 +166,11 @@
           </el-tab-pane>
           <el-tab-pane label="数据来源配置"
                        name="dataConfig">
-            数据来源配置
+            <data-config 
+              v-if="handlingIndex >= 0" 
+              :data="boardConfig.components[handlingIndex].componentConfig.data" 
+              @staticDataChange="handleStaticDataChange"
+            />
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -221,7 +225,8 @@ export default {
     TestLink: () => import('./components/TestLink/TestLink'),
     TestLinkConfig: () => import('./components/TestLink/TestLinkConfig'),
     Pie1: () => import('./components/Pie1/Pie1'),
-    Pie1Config: () => import('./components/Pie1/Pie1Config')
+    Pie1Config: () => import('./components/Pie1/Pie1Config'),
+    DataConfig: () => import('./components/DataConfig')
   },
   data() {
     return {
@@ -315,6 +320,12 @@ export default {
     window.removeEventListener('resize', this.handleResetMainBoardSizeThrottle);
   },
   methods: {
+    // 静态数据变更时触发
+    handleStaticDataChange(data){
+      this.boardConfig.components[this.handlingIndex].componentConfig.data = {
+        ...data
+      };
+    },
     /* 计算组件的初始 top(y) 值 */
     getInitialYVal(component) {
       return (
@@ -458,12 +469,6 @@ export default {
       };
     },
     handlePie1ConfigChange(config) {
-      console.log(
-        'config ==> ',
-        config,
-        this.handlingIndex,
-        this.boardConfig.components
-      );
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...config
       };
