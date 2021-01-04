@@ -50,7 +50,8 @@ export default {
     Title1,
     DatePicker,
     TestLink,
-    ChartBar1
+    ChartBar1,
+    Pie1: () => import('./components/Pie1/Pie1')
   },
   data() {
     return {
@@ -91,17 +92,17 @@ export default {
         };
       } else if (
         background.backgroundColor &&
-        background.backgroundColor.length > 1
+        background.backgroundColor.indexOf('linear-gradient') > -1
       ) {
         style = {
-          backgroundImage: `linear-gradient(to right, ${background.backgroundColor[0]} , ${background.backgroundColor[1]})`
+          backgroundImage: background.backgroundColor
         };
       } else if (
         background.backgroundColor &&
-        background.backgroundColor.length === 1
+        background.backgroundColor.indexOf('#') > -1
       ) {
         style = {
-          backgroundColor: background.backgroundColor[0]
+          backgroundColor: background.backgroundColor
         };
       }
       return style;
@@ -119,7 +120,13 @@ export default {
   methods: {
     /*  初始化 */
     handleInit() {
-      const boardConfigString = localStorage.getItem('boardConfig');
+      const query = this.$route.query;
+      let code = query.code;
+      code = decodeURIComponent(code);
+      if (!code) {
+        return;
+      }
+      const boardConfigString = localStorage.getItem(code);
       if (boardConfigString) {
         this.boardConfig = JSON.parse(boardConfigString);
         document.title = this.boardConfig.boardTitle;

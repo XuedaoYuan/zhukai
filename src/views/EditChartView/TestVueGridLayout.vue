@@ -1,24 +1,38 @@
 <template>
   <div class="TestVueGridLayout__container">
     <div class="header__container">
-      <div class="back_icon"
-           @click="handleBack">
-        <span>&lt;</span>
+      <div class="left_container">
+        <div class="back_icon"
+             @click="handleBack">
+          <span>&lt;</span>
+        </div>
+        <div class="label">大屏名称：</div>
+        <input type="text"
+               placeholder="请输入大屏名称"
+               :style="{ width: '200px' }"
+               v-model="boardConfig.boardTitle" />
+        <div class="label ml40">code标识：</div>
+        <input type="text"
+               placeholder="请输入code标识"
+               :style="{ width: '200px' }"
+               v-model="boardConfig.boardCode" />
       </div>
-      <div class="label">大屏名称：</div>
-      <input type="text"
-             placeholder="请输入大屏名称"
-             :style="{ width: '200px' }"
-             v-model="boardConfig.boardTitle" />
-      <div class="label ml40">code标识：</div>
-      <input type="text"
-             placeholder="请输入code标识"
-             :style="{ width: '200px' }"
-             v-model="boardConfig.boardCode" />
+
+      <div class="right_container">
+        <div class="preview-btn header-btn"
+             @click="handlePreview">
+          <img src="./assets/eye.png"
+               alt="">
+          预览
+        </div>
+        <div class="save-btn header-btn"
+             @click="handleSave">保存</div>
+        <div class="check-btn header-btn">提交审核</div>
+      </div>
 
       <!--<div>
       <el-button @click="handlePreview" type="warning">预览</el-button>
-        <el-button @click="handleSave" type="primary">保存</el-button>
+        <el-button  type="primary">保存</el-button>
         <el-button @click="handleAddNew">add new</el-button>
         <el-button @click="handleAddNewDatePicker">add DatePicker</el-button>
         <el-button @click="handleAddTitle1">add title1</el-button>
@@ -32,7 +46,6 @@
         <div @click="handleChangeBgColor(['red'])" class="bg-icon red"></div>
         <div @click="handleChangeBgColor(['blue'])" class="bg-icon blue"></div>
         <div @click="handleChangeBgColor(['lightgreen'])" class="bg-icon lightgreen"></div>
-        <div @click="handleChangeBgColor(['red', 'green'])" class="bg-icon redToGreen"></div>
 
       </div>
       <div>boardBgStyle:{{boardBgStyle}}</div> -->
@@ -40,7 +53,9 @@
     <div class="content">
       <SideBar @pie1Click="handlePie1Click">
         <template v-slot:bgPopover>
-          <bg-popover></bg-popover>
+          <bg-popover :background="boardConfig.background"
+                      @setBgColor="handleSetBgColor"
+                      @setBgImage="handleSetBgImage"></bg-popover>
         </template>
       </SideBar>
       <div class="main">
@@ -170,6 +185,9 @@ import findIndex from 'lodash/findIndex';
 import COMPONENT_CONFIG from './component_config';
 /* 侧边栏 */
 import SideBar from './components/SideBar';
+/* 背景图片 */
+const darkBackground = require('./assets/darkBackground.png');
+const lightBackground = require('./assets/lightBackground.png');
 /* 看板尺寸 */
 const boardSizeList = [
   [2560, 1440],
@@ -232,8 +250,8 @@ export default {
           // 背景图片，优先级高于背景色
           // backgroundImage:
           // 'http://114.55.3.21:9000/oms/oms-ui/hsp-yxjc-h5/screenEdit/img/darkBackground.bc8d3945.png',
-          // 背景色，一个元素就是单色，2个元素就是渐变色 渐变方向从左到右
-          backgroundColor: ['#143555']
+          // 背景色，linear-gradient 开头就是渐变， 否则就是单色
+          backgroundColor: '#1C2B4E'
         },
         /* 组件的id， 每次都会自增 */
         componentIdIndex: 0,
@@ -267,17 +285,17 @@ export default {
         };
       } else if (
         background.backgroundColor &&
-        background.backgroundColor.length > 1
+        background.backgroundColor.indexOf('linear-gradient') > -1
       ) {
         style = {
-          backgroundImage: `linear-gradient(to right, ${background.backgroundColor[0]} , ${background.backgroundColor[1]})`
+          backgroundImage: background.backgroundColor
         };
       } else if (
         background.backgroundColor &&
-        background.backgroundColor.length === 1
+        background.backgroundColor.indexOf('#') > -1
       ) {
         style = {
-          backgroundColor: background.backgroundColor[0]
+          backgroundColor: background.backgroundColor
         };
       }
       return style;
@@ -310,9 +328,27 @@ export default {
       component.y = this.getInitialYVal(component);
       this.boardConfig.components.push(component);
     },
-    handleChangeBgColor(colors) {
-      this.boardConfig.background.backgroundColor = colors;
+    handleSetBgColor(color) {
+      this.boardConfig.background.backgroundColor = color;
       this.boardConfig.background.backgroundImage = null;
+    },
+    handleSetBgImage(type) {
+      if (type === 'dark') {
+        this.$set(
+          this.boardConfig.background,
+          'backgroundImage',
+          darkBackground
+        );
+        // this.boardConfig.background.backgroundImage = darkBackground;
+      } else if (type === 'light') {
+        this.$set(
+          this.boardConfig.background,
+          'backgroundImage',
+          lightBackground
+        );
+        // this.boardConfig.background.backgroundImage = lightBackground;
+      }
+      this.boardConfig.background.backgroundColor = '';
     },
     handleBoardSizeChange() {
       this.boardConfig.screenRatio.width = boardSizeList[this.boardSize][0];
@@ -343,8 +379,6 @@ export default {
         this.$nextTick(() => {
           this.boardConfig.components[index].y = y - 0;
         });
-        // this.$set(this.boardConfig.components[index], 'y', y)
-        // thos.$forceUpdate()
       }
     },
     handleAddNew() {
@@ -440,10 +474,19 @@ export default {
       ].componentConfig.linkedListKey.push(val);
     },
     handlePreview() {
-      window.open('/#/board-preview');
+      const boardCode = encodeURIComponent(this.boardConfig.boardCode);
+      window.open('/#/board-preview?code=' + boardCode);
     },
     handleSave() {
-      localStorage.setItem('boardConfig', JSON.stringify(this.boardConfig));
+      if (this.boardConfig.boardCode) {
+        localStorage.setItem(
+          this.boardConfig.boardCode,
+          JSON.stringify(this.boardConfig)
+        );
+        this.$message.success('保存成功');
+      } else {
+        this.$message.warning('请先填写Code标识');
+      }
     },
     handleBack() {
       // this.$router.go(-1)

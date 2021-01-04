@@ -1,16 +1,140 @@
 <template>
-    <div>as</div>
+  <div class="bg__container">
+    <div class="title">单体颜色</div>
+    <div class="single-color__container">
+      <div v-for="(color, index) in singleColorList"
+           :key="index"
+           @click="handleSetBgColor(color)"
+           :class="['dot', background.backgroundColor === color ? 'active' : '']">
+        <div class="inner"
+             :style="{backgroundColor: color}"></div>
+      </div>
+    </div>
+    <div class="title">渐变颜色</div>
+    <div class="single-color__container">
+      <div v-for="(color, index) in grandientColorList"
+           :key="index"
+           @click="handleSetBgColor(color)"
+           :class="['dot', background.backgroundColor === color ? 'active' : '']">
+        <div class="inner "
+             :style="{backgroundImage: color}"></div>
+      </div>
+    </div>
+    <div class="title">使用图片</div>
+    <div class="img_container">
+      <img :src="darkDemo"
+           class="mr10"
+           alt=""
+           @click="handleSetBgImage('dark')">
+      <img :src="lightDemo"
+           alt=""
+           @click="handleSetBgImage('light')">
+    </div>
+  </div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
+const darkDemo = require('../../assets/darkDemo.png');
+const lightDemo = require('../../assets/lightBackground.png');
+export default {
+  props: {
+    background: {
+      type: Object,
+      required: true,
+      default: () => ({
+        backgroundImage: '',
+        backgroundColor: '#1C2B4E'
+      })
+    }
+  },
+  data() {
+    return {
+      singleColorList: [
+        '#C3D7E2',
+        '#8DBFE6',
+        '#29659D',
+        '#2C3F95',
+        '#1C2B4E',
+        '#132673',
+        '#1C3C5F'
+      ],
+      grandientColorList: [
+        'linear-gradient(90deg, rgb(20, 55, 107) 13%, rgb(30, 112, 135) 98%)',
+        'linear-gradient(90deg, rgb(36, 95, 184) 13%, rgb(63, 164, 192) 98%)',
+        'linear-gradient(-43deg, rgb(140, 233, 246) 9%, rgb(78, 160, 243) 92%)',
+        'linear-gradient(90deg, rgb(24, 51, 91) 13%, rgb(11, 58, 144) 98%)',
+        'linear-gradient(90deg, rgb(44, 36, 184) 13%, rgb(63, 86, 192) 98%)',
+        'linear-gradient(255deg, rgb(77, 170, 247) 0%, rgb(65, 136, 243) 100%)'
+      ]
+    };
+  },
+  created() {
+    this.darkDemo = darkDemo;
+    this.lightDemo = lightDemo;
+  },
+  methods: {
+    handleSetBgColor(color) {
+      this.$emit('setBgColor', color);
+    },
+    handleSetBgImage(type) {
+      this.$emit('setBgImage', type);
+    }
+  }
+};
+</script>
+
+<style scoped lang="stylus">
+.bg__container {
+  width: 220px;
+  background-color: #031A32;
+  border: 1px solid #295278;
+  padding: 7px 14px 30px;
+
+  .title {
+    font-size: 12px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #CDE6FF;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .img_container {
+    img {
+      width: 90px;
+    }
+
+    .mr10 {
+      margin-right: 10px;
+    }
+  }
+
+  .single-color__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-bottom: 20px;
+
+    .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      padding: 2px;
+
+      &.active {
+        border: 1px solid #1c76d6;
+      }
+
+      .inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        // border: 1px solid transparent;
       }
     }
   }
-</script>
-
-<style scoped>
-
+}
 </style>

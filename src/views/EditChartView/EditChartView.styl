@@ -10,6 +10,63 @@
     border: 1px solid #295278;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    .left_container {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .right_container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .header-btn {
+            font-size: 12px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 1;
+            padding: 6px 20px;
+            border-radius: 2px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.5s ease;
+        }
+
+        .preview-btn {
+            background-color: rgba(103, 194, 58, 1);
+
+            &:active, &:focus {
+                background-color: rgba(103, 194, 58, 0.9);
+            }
+
+            img {
+                width: 16px;
+                height: 12px;
+                vertical-align: middle;
+            }
+        }
+
+        .save-btn {
+            background-color: #3875B9;
+
+            &:active, &:focus {
+                background-color: rgba(56, 117, 185, 0.9);
+            }
+        }
+
+        .check-btn {
+            background-color: #E6A23C;
+
+            &:active, &:focus {
+                background-color: rgba(230, 162, 60, 0.9);
+            }
+        }
+    }
 
     .back_icon {
         height: 100%;

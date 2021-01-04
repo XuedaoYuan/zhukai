@@ -2,9 +2,11 @@
   <div class="side-bar__container">
     <el-popover
       placement="right-start"
-      width="400"
+      width="220"
       :visible-arrow="false"
+      popper-class="bg-popover"
       @show="activeItem = 'bg'"
+      
     >
       <slot name="bgPopover"></slot>
       <div class="side-item" slot="reference">
