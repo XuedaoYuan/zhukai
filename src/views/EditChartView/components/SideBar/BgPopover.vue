@@ -23,12 +23,17 @@
     <div class="title">使用图片</div>
     <div class="img_container">
       <img :src="darkDemo"
-           class="mr10"
            alt=""
+           :class="{mr10: true, active: backgroundType==='dark'}"
            @click="handleSetBgImage('dark')">
       <img :src="lightDemo"
            alt=""
+           :class="{active: backgroundType==='light'}"
            @click="handleSetBgImage('light')">
+    </div>
+    <div>
+      <el-button type="primary"
+                 size="small">上传图片</el-button>
     </div>
   </div>
 </template>
@@ -37,6 +42,7 @@
 const darkDemo = require('../../assets/darkDemo.png');
 const lightDemo = require('../../assets/lightBackground.png');
 export default {
+  name: 'BgPopover',
   props: {
     background: {
       type: Object,
@@ -65,7 +71,8 @@ export default {
         'linear-gradient(90deg, rgb(24, 51, 91) 13%, rgb(11, 58, 144) 98%)',
         'linear-gradient(90deg, rgb(44, 36, 184) 13%, rgb(63, 86, 192) 98%)',
         'linear-gradient(255deg, rgb(77, 170, 247) 0%, rgb(65, 136, 243) 100%)'
-      ]
+      ],
+      backgroundType: ''
     };
   },
   created() {
@@ -74,9 +81,11 @@ export default {
   },
   methods: {
     handleSetBgColor(color) {
+      this.backgroundType = '';
       this.$emit('setBgColor', color);
     },
     handleSetBgImage(type) {
+      this.backgroundType = type;
       this.$emit('setBgImage', type);
     }
   }
@@ -85,7 +94,7 @@ export default {
 
 <style scoped lang="stylus">
 .bg__container {
-  width: 220px;
+  width: 100%;
   background-color: #031A32;
   border: 1px solid #295278;
   padding: 7px 14px 30px;
@@ -100,8 +109,14 @@ export default {
   }
 
   .img_container {
+    margin-bottom: 10px;
+
     img {
       width: 90px;
+
+      &.active {
+        border: 1px solid #1c76d6;
+      }
     }
 
     .mr10 {

@@ -42,13 +42,9 @@
 
           <el-radio v-for="(item, index) in boardSizeList" :label="index" :key="index">{{item[0]}}*{{item[1]}}</el-radio>
         </el-radio-group>
-        <span>=====背景</span>
-        <div @click="handleChangeBgColor(['red'])" class="bg-icon red"></div>
-        <div @click="handleChangeBgColor(['blue'])" class="bg-icon blue"></div>
-        <div @click="handleChangeBgColor(['lightgreen'])" class="bg-icon lightgreen"></div>
 
       </div>
-      <div>boardBgStyle:{{boardBgStyle}}</div> -->
+     -->
     </div>
     <div class="content">
       <SideBar @pie1Click="handlePie1Click">
@@ -56,6 +52,9 @@
           <bg-popover :background="boardConfig.background"
                       @setBgColor="handleSetBgColor"
                       @setBgImage="handleSetBgImage"></bg-popover>
+        </template>
+        <template v-slot:sizePopover>
+          <size-popover></size-popover>
         </template>
       </SideBar>
       <div class="main">
@@ -214,6 +213,7 @@ export default {
     'el-collapse-item': CollapseItem,
     SideBar,
     'bg-popover': () => import('./components/SideBar/BgPopover'),
+    'size-popover': () => import('./components/SideBar/SizePopover'),
     ChartBar1: () => import('./components/ChartBar1'),
     DatePicker: () => import('./components/DatePicker'),
     Title1: () => import('./components/Title1/Title1'),

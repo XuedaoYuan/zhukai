@@ -37,10 +37,12 @@
     </el-popover>
     <el-popover
       placement="right-start"
-      width="400"
+      width="500"
       :visible-arrow="false"
+       popper-class="bg-popover"
       @show="activeItem = 'size'"
     >
+      <slot name="sizePopover"></slot>
       <div class="side-item" slot="reference">
         <img
           src="../../assets/size.png"
