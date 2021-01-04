@@ -8,6 +8,7 @@ const COMPONENT_CONFIG = {
     w: 240, // w和col-num有关
     h: 4, // h和row-height有关
     i: '',
+    static: true,
     type: '',
     businessType: '',
     businessTheme: '',
@@ -31,6 +32,7 @@ const COMPONENT_CONFIG = {
     h: 8, // h和row-height有关
     i: '',
     type: '',
+    static: true,
     businessType: '',
     businessTheme: '',
     // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
@@ -44,12 +46,13 @@ const COMPONENT_CONFIG = {
   },
   pie1: {
     /* 栅格位置大小信息 */
-    x: 10,
+    x: 180,
     y: 0,
     w: 60, // w和col-num有关
     h: 20, // h和row-height有关
     /* grid-layout 栅格元素ID 因为用了sync修饰符，所以这里必须写成i*/
     i: 0,
+    static: true,
     /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
     type: "",

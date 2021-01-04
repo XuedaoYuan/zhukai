@@ -6,6 +6,7 @@
       :visible-arrow="false"
       @show="activeItem = 'bg'"
     >
+      <slot name="bgPopover"></slot>
       <div class="side-item" slot="reference">
         <img
           src="../../assets/bg.png"
@@ -76,10 +77,11 @@ import { Popover } from "element-ui";
 export default {
   components: {
     "el-popover": Popover,
-    "bg-popover": () => import("./BgPopover"),
+    // "bg-popover": () => import("./BgPopover"),
     "config-popover": () => import("./ConfigPopover"),
     "size-popover": () => import("./SizePopover"),
     "component-popover": () => import("./ComponentPopover"),
+    
   },
   data() {
     return {
@@ -109,6 +111,7 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
+    cursor: pointer;
 
     & .active {
       border: 1px dashed white;
