@@ -97,7 +97,9 @@
                    @mouseenter="handleMaskEnter(index)">
                 <div @click.stop="handleDelete(index)"
                      class="delete-icon">
-                  X
+                  <img class="delete-img"
+                       src="./assets/delete.png"
+                       alt="">
                 </div>
               </div>
             </grid-item>
@@ -510,8 +512,11 @@ export default {
       ].componentConfig.linkedListKey.push(val);
     },
     handlePreview() {
-      const boardCode = encodeURIComponent(this.boardConfig.boardCode);
-      window.open('/#/board-preview?code=' + boardCode);
+      localStorage.setItem('preview', JSON.stringify(this.boardConfig));
+      const boardCode = encodeURIComponent('preview');
+      setTimeout(() => {
+        window.open('/#/board-preview?code=' + boardCode);
+      }, 0);
     },
     handleSave() {
       if (this.boardConfig.boardCode) {

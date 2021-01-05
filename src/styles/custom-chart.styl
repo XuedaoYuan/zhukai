@@ -29,31 +29,38 @@
         bottom: 0;
         background-color: transparent;
         z-index: 1;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
 
         &.component-selected {
-            border: 1px solid #fff;
+            border-color: #fff;
         }
 
         &:hover {
             .delete-icon {
                 display: block;
+                opacity: 1;
             }
         }
 
         .delete-icon {
             position: absolute;
             z-index: 2;
-            width: 14px;
-            height: 14px;
-            background-color: red;
-            top: -14px;
+            width: 20px;
+            height: 24px;
+            line-height: 18px;
+            background-color: transparent;
+            top: -20px;
             right: 0;
-            font-size: 14px;
-            line-height: 1;
-            text-align: center;
-            color: #fff;
             cursor: pointer;
             display: none;
+            opacity: 0;
+            text-align: center;
+            transition: all 0.3s ease;
+
+            .delete-img {
+                width: 16px;
+            }
         }
     }
 }
