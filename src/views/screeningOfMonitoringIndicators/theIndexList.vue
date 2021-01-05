@@ -6,7 +6,7 @@
           <el-col :span="8">
             <el-form-item label="指标名称/编码:">
               <el-input
-                v-model="dataForm.servName"
+                v-model="dataForm.bizKpiName"
                 clearable
                 size="mini"
                 placeholder=""
@@ -26,6 +26,12 @@
               </el-select>
             </el-form-item>
           </el-col>
+          
+        </el-row>
+        <el-row style="margin-top: 10px">
+          <!-- <el-col :span="10" style="margin-left: 20px;text-align: left">
+            <el-button style="width: 70px" type="success" size="mini">新增</el-button>
+          </el-col> -->
           <el-col :span="8">
             <el-form-item label="实时性">
               <el-select size="mini" v-model="dataForm.rtFlag">
@@ -38,12 +44,8 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row style="margin-top: 10px">
-          <!-- <el-col :span="10" style="margin-left: 20px;text-align: left">
-            <el-button style="width: 70px" type="success" size="mini">新增</el-button>
-          </el-col> -->
-          <el-col :span="10" :offset="20">
+          <el-col :span="6" :offset="10" style="text-align: right">
+            <el-button type="" size="mini" @click="rest()">重置</el-button>
             <el-button
               style="width: 70px"
               type="primary"
@@ -104,13 +106,12 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="merchantItemNo"
         width="200"
         show-overflow-tooltip
         header-align="center"
         align="center"
         label="相关主题"
-      ></el-table-column>
+      >{{this.arr1}}</el-table-column>
       <el-table-column
         prop="bizDimName"
         width="200"
@@ -118,7 +119,7 @@
         header-align="center"
         align="center"
         label="维度"
-      ></el-table-column>
+      >{{this.arr}}</el-table-column>
       <el-table-column
         prop="updtTime"
         header-align="center"
@@ -145,6 +146,7 @@
       :page-size="100"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalPage"
+      style="margin-right:10px"
     >
     </el-pagination>
   </div>
@@ -161,8 +163,10 @@ export default {
   data() {
     return {
       dataList: [],
+      arr: {},
+      arr1: {},
       dataForm: {
-        servName: "",
+        bizKpiName: "",
         bizSbjName: "",
         rtFlag: "",
       },
@@ -197,6 +201,8 @@ export default {
     getDataList() {
       this.dataListLoading = true;
       let params = {
+        bizKpiCodg: this.dataForm.bizKpiName,
+        bizKpiName: this.dataForm.bizKpiName,
         bizSbjName: this.dataForm.bizSbjName,
         rtFlag: this.dataForm.rtFlag,
         pageSize: this.pageSize,
@@ -208,15 +214,23 @@ export default {
             console.log(data, "data");
             this.dataList = data.dataList;
             var arrs = [];
+            var arrss = [];
             var newNum = this.dataList.map((ele, index) => {
               console.log(ele, index, "index");
               ele.bizDimInfoDTOList.map((el, inde) => {
                 console.log(el, inde, "111inde");
-                arr.push(obj[inde]);
-                arr.unshift(obj[inde]);
+                arrs.push(el.bizDimName);
+                // arrs.unshift(arrs[inde]);
+              });
+              ele.bizSbjInfoDTOList.map((le, indx) => {
+                console.log(le, indx, "le");
+                arrss.push(le.bizSbjName);
+                // arrs.unshift(arrs[inde]);
               });
             });
             console.log(arrs, "arrs");
+            this.arr = arrs.join()
+            this.arr1 = arrss.join()
             this.totalPage = data.totalCount;
           } else {
             this.dataList = [];
@@ -235,12 +249,29 @@ export default {
     searchDataList() {
       (this.pageIndex = 1), this.getDataList();
     },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList();
+    },
+    handleCurrentChange(val) {
+      this.pageIndex = val;
+      this.getDataList();
+    },
+    rest() {
+      this.dataForm = {
+        bizKpiName: "", 
+        bizSbjName: "", 
+        rtFlag: "",
+      }
+    },
     selectionChangeHandle() {},
-    handleCurrentChange() {},
-    handleSizeChange() {},
   },
 };
 </script>
 
 <style scoped>
+.el-pagination {
+    text-align: right; 
+}
 </style>

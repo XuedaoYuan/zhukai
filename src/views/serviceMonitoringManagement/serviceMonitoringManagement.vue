@@ -2,27 +2,28 @@
   <div>
     <el-form label-width="90px" :model="dataForm">
       <el-row style="margin-top: 20px; height: 60px">
-        <el-col :span="6" style="font-weight: bold">
+        <el-col :span="8" style="font-weight: bold">
           <el-form-item label="服务名称:">
             <el-input clearable size="mini" placeholder="服务名称" v-model="dataForm.servName"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6" style="font-weight: bold">
+        <el-col :span="8" style="font-weight: bold">
           <el-form-item label="组件类型:">
             <el-input clearable size="mini" placeholder="组件类型" v-model="dataForm.comtType"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6" :offset="6">
-          <el-button @click="searchDataList()">查询</el-button>
+        <el-col :span="6" :offset="2" style="text-align:right">
+            <el-button type="" size="mini" @click="rest()">重置</el-button>
+          <el-button type="primary" @click="searchDataList()">查询</el-button>
         </el-col>
       </el-row>
       <el-row :gutter="20" style="font-weight: bold">
         <el-col :span="8" :offset="2">
-          服务接入数<span style="color: #2fd4cd">&nbsp;330</span>
+          服务接入数<span style="color: #2fd4cd">&nbsp;{{this.datas.servCountCnt}}</span>
         </el-col>
         <el-col :span="8" :offset="4">
-          服务正常数<span style="color: #27bc20">&nbsp;265</span>
-          服务异常数<span style="color: #cd250e">&nbsp;65</span>
+          服务正常数<span style="color: #27bc20">&nbsp;{{this.datas.servNormalCnt}}</span>
+          服务异常数<span style="color: #cd250e">&nbsp;{{this.datas.servAbnormalCnt}}</span>
         </el-col>
       </el-row>
     </el-form>
@@ -70,11 +71,22 @@
         label="组件类型"
       ></el-table-column>
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalPage"
+      style="margin-right:10px"
+    >
+    </el-pagination>
   </div>
 </template>
 
 <script>
-import { servmnitinfo } from "@/api/oms/new";
+import { servmnitinfo, countCnt } from "@/api/oms/new";
 
 export default {
   name: "serviceMonitoringManagement",
@@ -85,7 +97,10 @@ export default {
         comtType:"",
       },
       dataList: [],
+      datas: [],
       dataListLoading: false,
+      totalPage:0,
+      currentPage4: 1,
       pageIndex: 1,
       pageSize: 10,
     };
@@ -104,6 +119,18 @@ export default {
         pageSize: this.pageSize,
         currentPage: this.pageIndex,
       };
+      countCnt()
+        .then(({ data }) => {
+          if (data && data != "") {
+            console.log(data, "1");
+            this.datas = data;
+          } else {
+            this.datas = [];
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
       servmnitinfo(params)
         .then(({ data }) => {
           if (data && data.dataList != "") {
@@ -125,9 +152,27 @@ export default {
       this.pageIndex = 1,
       this.getDataList();
     },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList();
+    },
+    handleCurrentChange(val) {
+      this.pageIndex = val;
+      this.getDataList();
+    },
+    rest() {
+      this.dataForm = {
+        comtType: "", 
+        servName: "",
+      }
+    },
   }
 };
 </script>
 
 <style scoped>
+.el-pagination {
+    text-align: right; 
+}
 </style>

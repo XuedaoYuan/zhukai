@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div style="margin-top:20px">
       <el-form label-width="90px" :model="dataForm">
         <el-row>
           <el-col :span="8">
@@ -101,6 +101,17 @@
           label="备注"
         ></el-table-column>
       </el-table>
+      <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalPage"
+      style="margin-right:10px"
+    >
+    </el-pagination>
     </div>
     <form :action="exportUrl" method="post" target="_self" style="display:none;">
       <input name="modu" v-model="dataForm.modu" />
@@ -134,6 +145,8 @@ export default {
         acssTime: "",
       },
       dataListLoading: false,
+      totalPage:0,
+      currentPage4: 1,
       pageIndex: 1,
       pageSize: 10,
     };
@@ -176,6 +189,15 @@ export default {
         })
       })
     },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList();
+    },
+    handleCurrentChange(val) {
+      this.pageIndex = val;
+      this.getDataList();
+    },
     rest() {
       this.dataForm = {
         modu: "",
@@ -197,4 +219,7 @@ export default {
 </script>
 
 <style scoped>
+.el-pagination {
+    text-align: right; 
+}
 </style>

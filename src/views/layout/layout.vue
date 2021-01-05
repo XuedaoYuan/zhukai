@@ -34,12 +34,13 @@
                   <el-menu-item index="2-1"><router-link to="/TestVueGridLayout"><span style="color:#fff">大屏编辑</span></router-link></el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
-              <!-- <el-submenu index="2">
+              <!-- <el-submenu index="5">
                 <template slot="title">
                   <i class="el-icon-menu"></i>
                   <span>指标管理</span>
                 </template>
                 <el-menu-item-group>
+                  <el-menu-item index="5-1"><router-link to="/screeningOfMonitoringIndicators"><span style="color:#fff">指标筛选</span></router-link></el-menu-item>
                   <el-menu-item index="2-1"><router-link to="/listOfTopics"><span style="color:#fff">主题列表</span></router-link></el-menu-item>
                   <el-menu-item index="2-2"><router-link to="/theIndexList"><span style="color:#fff">指标列表</span></router-link></el-menu-item>
                 </el-menu-item-group>
@@ -155,5 +156,6 @@ export default {
   top: 60px;
   bottom: 0;
   overflow-y: scroll;
+  overflow-x:hidden;
 }
 </style>
