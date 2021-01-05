@@ -48,7 +48,7 @@
                 :visible-arrow="false"
                 @show="activeItem = 'component'"
                 popper-class="popover">
-      <component-popover @pie1Click="$emit('pie1Click')" />
+      <slot name="componentPopover"></slot>
       <div class="side-item"
            slot="reference">
         <img src="../../assets/component.png"
@@ -66,10 +66,6 @@ import { Popover } from 'element-ui';
 export default {
   components: {
     'el-popover': Popover,
-    // "bg-popover": () => import("./BgPopover"),
-    'config-popover': () => import('./ConfigPopover'),
-    'size-popover': () => import('./SizePopover'),
-    'component-popover': () => import('./ComponentPopover')
   },
   data() {
     return {

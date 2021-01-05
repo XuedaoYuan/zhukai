@@ -6,7 +6,7 @@
              :src="size1Img"
              alt="">
         <div class="text">
-          <p class="title">{{'未命名'}}</p>
+          <p class="title">{{title}}</p>
           <p class="size">{{screenRatio.width}}*{{screenRatio.height}}</p>
         </div>
         <img class="arraw_right"
@@ -89,7 +89,7 @@ export default {
         height: 1080,
         isCustom: false
       })
-    },
+    }
     /* boardTitle: {
       type: String,
       required: true,
@@ -103,12 +103,17 @@ export default {
       }
       return [];
     },
-    title: function(){
-      if(this.screenRatio.isCustom) return '自定义'
-      let title = ''
-      for(let i = 0, len = config.length; i < len; i++){
-        const item = config[i]
-        // if(item.)
+    title: function () {
+      if (this.screenRatio.isCustom) return '自定义';
+      let title = '';
+      for (let i = 0, len = config.length; i < len; i++) {
+        const item = config[i];
+        if (
+          item.size[0] === this.screenRatio.width &&
+          item.size[1] === this.screenRatio.height
+        ) {
+          return item.label;
+        }
       }
     }
   },
@@ -136,13 +141,17 @@ export default {
   },
   methods: {
     handleChangeSize(item) {
-      this.$emit('change', item.size);
+      this.$emit('change', { custom: false, size: item.size });
     },
     handleChangeSizeCustom() {
-      this.$emit('change', 'custom');
+      this.$emit('change', { custom: true, size: [this.w, this.h] });
     },
-    handleWchange() {},
-    handleHchange() {}
+    handleWchange() {
+      this.$emit('change', { custom: true, size: [this.w, this.h] });
+    },
+    handleHchange() {
+      this.$emit('change', { custom: true, size: [this.w, this.h] });
+    }
   }
 };
 </script>

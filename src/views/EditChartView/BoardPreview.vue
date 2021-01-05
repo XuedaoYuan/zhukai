@@ -26,7 +26,6 @@
                      :i="item.i"
                      :componentConfig="item.componentConfig"></component>
         </template>
-
       </grid-item>
     </grid-layout>
   </div>

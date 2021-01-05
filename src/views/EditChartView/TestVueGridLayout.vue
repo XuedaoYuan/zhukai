@@ -27,7 +27,8 @@
         </div>
         <div class="save-btn header-btn"
              @click="handleSave">保存</div>
-        <div class="check-btn header-btn">提交审核</div>
+        <div class="check-btn header-btn"
+             @click="handleSubmitCheck">提交审核</div>
       </div>
 
       <!--<div>
@@ -44,7 +45,7 @@
      -->
     </div>
     <div class="content">
-      <SideBar @pie1Click="handlePie1Click">
+      <SideBar>
         <!-- 背景 -->
         <template v-slot:bgPopover>
           <bg-popover :background="boardConfig.background"
@@ -55,6 +56,10 @@
         <template v-slot:sizePopover>
           <size-popover :screenRatio="boardConfig.screenRatio"
                         @change="handleSizeChange"></size-popover>
+        </template>
+        <!-- 组件 -->
+        <template v-slot:componentPopover>
+          <component-popover @component-insert="handleComponentInsert"></component-popover>
         </template>
       </SideBar>
       <div class="main">
@@ -74,7 +79,7 @@
                        :responsive="false">
             <!--   @resize="resizeEvent"
                  @move="moveEvent"
-                 @resized="resizedEvent"
+                "
                   -->
             <grid-item v-for="(item, index) in boardConfig.components"
                        :x="item.x"
@@ -85,6 +90,7 @@
                        :key="item.i"
                        :static="item.static ? true : false"
                        @resize="handleResizeEvent"
+                       @resized="handleResizedEvent"
                        @moved="handleMovedEvent">
               <template v-if="item.componentName">
                 <component :is="item.componentName"
@@ -162,16 +168,12 @@
                           :componentConfig="boardConfig.components[handlingIndex].componentConfig"
                           :handlingIndex="handlingIndex"
                           @change="handlePie1ConfigChange" />
-              <Title1Config v-if="
-                  handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='Title1'"
+              <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName ==='Title1'"
                             :componentConfig="boardConfig.components[handlingIndex].componentConfig"
                             @change="handleConfigChange"></Title1Config>
               <TestLinkConfig v-if="
                   handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ===
-                    'TestLink'
-                "
+                  boardConfig.components[handlingIndex].componentName ==='TestLink'"
                               :components="boardConfig.components"
                               @change="handleTestLinkConfigChange"></TestLinkConfig>
             </el-collapse>
@@ -201,13 +203,6 @@ import SideBar from './components/SideBar';
 /* 背景图片 */
 const darkBackground = require('./assets/darkBackground.png');
 const lightBackground = require('./assets/lightBackground.png');
-/* 看板尺寸 */
-const boardSizeList = [
-  [2560, 1440],
-  [1920, 1080],
-  [1366, 768],
-  [1440, 1024]
-];
 
 /* 布局容器的高度 */
 let layoutContainerHeight = 0;
@@ -226,6 +221,7 @@ export default {
     SideBar,
     'bg-popover': () => import('./components/SideBar/BgPopover'),
     'size-popover': () => import('./components/SideBar/SizePopover'),
+    'component-popover': () => import('./components/SideBar/ComponentPopover'),
     ChartBar1: () => import('./components/ChartBar1'),
     DatePicker: () => import('./components/DatePicker'),
     Title1: () => import('./components/Title1/Title1'),
@@ -319,7 +315,14 @@ export default {
     }
   },
   created() {
-    this.boardSizeList = [...boardSizeList];
+    /* 如果有参数的话我们认为是编辑 */
+    this.initBoardConfig();
+    if (this.saveTimer) {
+      clearInterval(this.saveTimer);
+    }
+    this.saveTimer = setInterval(() => {
+      this.automaticSave();
+    }, 45000);
   },
   mounted() {
     this.handleResetMainBoardSize();
@@ -330,8 +333,21 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResetMainBoardSizeThrottle);
+    if (this.saveTimer) {
+      clearInterval(this.saveTimer);
+    }
   },
   methods: {
+    initBoardConfig() {
+      const query = this.$route.query;
+      if (query && query.code) {
+        const code = decodeURIComponent(query.code);
+        const config = localStorage.getItem(code);
+        if (config) {
+          this.boardConfig = JSON.parse(config);
+        }
+      }
+    },
     // 静态数据变更时触发
     handleStaticDataChange(data) {
       this.boardConfig.components[this.handlingIndex].componentConfig.data = {
@@ -344,12 +360,17 @@ export default {
         (layoutContainerHeight - this.rowHeight * component.h) / this.rowHeight
       );
     },
-    /* 添加pie1组件 */
-    handlePie1Click() {
-      const component = cloneDeep(COMPONENT_CONFIG.pie1);
-      component.i = ++this.boardConfig.componentIdIndex;
-      component.y = this.getInitialYVal(component);
-      this.boardConfig.components.push(component);
+    /* 新增组件 */
+    handleComponentInsert(componentName) {
+      /* 获取配置好的默认配置 */
+      const componentDefaultConfig = COMPONENT_CONFIG[componentName];
+      if (componentDefaultConfig) {
+        // 拷贝一份配置
+        const component = cloneDeep(componentDefaultConfig);
+        component.i = ++this.boardConfig.componentIdIndex;
+        component.y = this.getInitialYVal(component);
+        this.boardConfig.components.push(component);
+      }
     },
     handleSetBgColor(color) {
       this.boardConfig.background.backgroundColor = color;
@@ -373,15 +394,10 @@ export default {
       }
       this.boardConfig.background.backgroundColor = '';
     },
-    handleSizeChange(size) {
-      if (size === 'custom') {
-        // 说明点了自定义
-        this.boardConfig.screenRatio.isCustom = true;
-        return;
-      }
-      this.boardConfig.screenRatio.isCustom = false;
-      this.boardConfig.screenRatio.width = size[0];
-      this.boardConfig.screenRatio.height = size[1];
+    handleSizeChange(sizeConfig) {
+      this.boardConfig.screenRatio.isCustom = sizeConfig.custom;
+      this.boardConfig.screenRatio.width = sizeConfig.size[0];
+      this.boardConfig.screenRatio.height = sizeConfig.size[1];
       this.handleResetMainBoardSize();
     },
     handleResetMainBoardSize() {
@@ -492,8 +508,18 @@ export default {
       }
     },
     // i, newH, newW, newHPx, newWPx
+    /* 正在调整大小 */
     handleResizeEvent(i) {
-      this.$refs[`Component${i}Ref`][0].resize();
+      // this.$refs[`Component${i}Ref`][0].resize();
+    },
+    /* 大小调整完成 */
+    handleResizedEvent(i, newH, newW, newHPx, newWPx) {
+      const index = findIndex(this.boardConfig.components, (o) => o.i === i);
+      if (index > -1) {
+        this.handlingIndex = index;
+        this.w = newW;
+        this.h = newH;
+      }
     },
     handleConfigChange(config) {
       // this.handlingIndex;
@@ -511,6 +537,7 @@ export default {
         this.handlingIndex
       ].componentConfig.linkedListKey.push(val);
     },
+    /* 预览 */
     handlePreview() {
       localStorage.setItem('preview', JSON.stringify(this.boardConfig));
       const boardCode = encodeURIComponent('preview');
@@ -518,13 +545,32 @@ export default {
         window.open('/#/board-preview?code=' + boardCode);
       }, 0);
     },
-    handleSave() {
+    /* 自动保存 */
+    automaticSave() {
       if (this.boardConfig.boardCode) {
         localStorage.setItem(
           this.boardConfig.boardCode,
           JSON.stringify(this.boardConfig)
         );
+      }
+    },
+    /* 保存 */
+    handleSave() {
+      if (this.boardConfig.boardCode && this.boardConfig.boardTitle) {
+        localStorage.setItem(
+          this.boardConfig.boardCode,
+          JSON.stringify(this.boardConfig)
+        );
         this.$message.success('保存成功');
+      } else {
+        this.$message.warning('请填写大屏名称和Code标识');
+      }
+    },
+    /* 提交审核 */
+    handleSubmitCheck() {
+      if (this.boardConfig.boardCode && this.boardConfig.boardTitle) {
+        //  ...
+        this.$message.success('提交审核成功');
       } else {
         this.$message.warning('请先填写Code标识');
       }
