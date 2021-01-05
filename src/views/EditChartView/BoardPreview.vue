@@ -65,14 +65,15 @@ export default {
         /* 大屏分辨率 */
         screenRatio: {
           width: 1920,
-          height: 1080
+          height: 1080,
+          isCustom: false
         },
         /* 背景 */
         background: {
           // 背景图片，优先级高于背景色
           backgroundImage: '',
           // 背景色，一个元素就是单色，2个元素就是渐变色 渐变方向从左到右
-          backgroundColor: []
+          backgroundColor: ''
         },
         // 组件的一些配置选项, 必然是多个组件
         components: []
@@ -146,7 +147,12 @@ export default {
       const style = window.getComputedStyle(MaintBoardDom);
       // 看板尺寸 按比例设置
       const realHeight = (parseInt(style.width) * height) / width;
+      const boardDomHeight = this.boardConfig.screenRatio.boardDomHeight;
       MaintBoardDom.style.height = realHeight + 'px';
+      this.$nextTick(() => {
+        this.rowHeight = (realHeight / boardDomHeight) * 10;
+        console.log('this.rowHeight', this.rowHeight);
+      });
     }
   }
 };

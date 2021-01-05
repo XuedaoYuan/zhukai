@@ -124,6 +124,7 @@
     .main {
         flex: 1;
         overflow-y: auto;
+        overflow-x: hidden;
         padding: 20px;
         background: #031B32;
 
@@ -133,10 +134,11 @@
     }
 
     .right {
-        flex: 0 0 247px;
-        background: #002140;
+        flex: 0 0 248px;
+        background-color: #002140;
         border: 1px solid #295278;
         border-top: none;
+        overflow: hidden;
 
         /deep/ .custom-tabs {
             >.el-tabs__header {
@@ -226,12 +228,20 @@
 }
 
 .xywh-config__container {
-    color: #9AB4CE;
     display: flex;
+    align-items: center;
 
-    & > div {
+    &.mt10 {
+        margin-top: 10px;
+    }
+
+    .position-label {
+        font-size: 14px;
+        color: #9AB4CE;
+    }
+
+    .input_container {
         flex: 1;
-        display: flex;
-        align-items: center;
+        margin-left: 10px;
     }
 }

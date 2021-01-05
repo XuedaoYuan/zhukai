@@ -38,23 +38,23 @@
         <el-button @click="handleAddTitle1">add title1</el-button>
         <el-button @click="handleAddTestLink">add testLink</el-button>
         <span>---尺寸</span>
-        <el-radio-group v-model="boardSize" @change="handleBoardSizeChange">
-
-          <el-radio v-for="(item, index) in boardSizeList" :label="index" :key="index">{{item[0]}}*{{item[1]}}</el-radio>
-        </el-radio-group>
+        
 
       </div>
      -->
     </div>
     <div class="content">
       <SideBar @pie1Click="handlePie1Click">
+        <!-- 背景 -->
         <template v-slot:bgPopover>
           <bg-popover :background="boardConfig.background"
                       @setBgColor="handleSetBgColor"
                       @setBgImage="handleSetBgImage"></bg-popover>
         </template>
+        <!-- 尺寸 -->
         <template v-slot:sizePopover>
-          <size-popover></size-popover>
+          <size-popover :screenRatio="boardConfig.screenRatio"
+                        @change="handleSizeChange"></size-popover>
         </template>
       </SideBar>
       <div class="main">
@@ -114,35 +114,45 @@
               <el-collapse-item title="组件全局配置"
                                 name="1">
                 <div class="xywh-config__container">
-                  <div>
-                    <span>x:</span>
+                  <div class="position-label">位置</div>
+                  <div class="input_container">
                     <el-input v-model.number="x"
                               type="number"
                               :min="0"
-                              @change="handleXchange"></el-input>
+                              class="position-size-input"
+                              @change="handleXchange">
+                      <template v-slot:suffix>X</template>
+                    </el-input>
                   </div>
-                  <div>
-                    <span>y:</span>
+                  <div class="input_container">
                     <el-input v-model.number="y"
                               :min="0"
                               type="number"
-                              @change="handleYchange"></el-input>
+                              class="position-size-input"
+                              @change="handleYchange">
+                      <template v-slot:suffix>Y</template>
+                    </el-input>
                   </div>
                 </div>
-                <div class="xywh-config__container">
-                  <div>
-                    <span>w:</span>
+                <div class="xywh-config__container mt10">
+                  <div class="position-label">大小</div>
+                  <div class="input_container">
                     <el-input v-model.number="w"
                               type="number"
                               :min="0"
-                              @change="handleWchange"></el-input>
+                              class="position-size-input"
+                              @change="handleWchange">
+                      <template v-slot:suffix>W</template>
+                    </el-input>
                   </div>
-                  <div>
-                    <span>h:</span>
+                  <div class="input_container">
                     <el-input v-model.number="h"
                               type="number"
                               :min="0"
-                              @change="handleHchange"></el-input>
+                              class="position-size-input"
+                              @change="handleHchange">
+                      <template v-slot:suffix>H</template>
+                    </el-input>
                   </div>
                 </div>
               </el-collapse-item>
@@ -166,11 +176,9 @@
           </el-tab-pane>
           <el-tab-pane label="数据来源配置"
                        name="dataConfig">
-            <data-config 
-              v-if="handlingIndex >= 0" 
-              :data="boardConfig.components[handlingIndex].componentConfig.data" 
-              @staticDataChange="handleStaticDataChange"
-            />
+            <data-config v-if="handlingIndex >= 0"
+                         :data="boardConfig.components[handlingIndex].componentConfig.data"
+                         @staticDataChange="handleStaticDataChange" />
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -181,7 +189,7 @@
 <script>
 import VueGridLayout from 'vue-grid-layout';
 
-import { Radio, RadioGroup, Collapse, CollapseItem } from 'element-ui';
+import { Collapse, CollapseItem } from 'element-ui';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
@@ -211,8 +219,6 @@ export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    'el-radio': Radio,
-    'el-radio-group': RadioGroup,
     'el-collapse': Collapse,
     'el-collapse-item': CollapseItem,
     SideBar,
@@ -248,7 +254,11 @@ export default {
         /* 大屏分辨率 */
         screenRatio: {
           width: 1920,
-          height: 1080
+          height: 1080,
+          /* 是否是自定义尺寸 */
+          isCustom: false,
+          /* 编辑时真实的高度 */
+          boardDomHeight: 1080
         },
         /* 背景 */
         background: {
@@ -321,7 +331,7 @@ export default {
   },
   methods: {
     // 静态数据变更时触发
-    handleStaticDataChange(data){
+    handleStaticDataChange(data) {
       this.boardConfig.components[this.handlingIndex].componentConfig.data = {
         ...data
       };
@@ -361,9 +371,15 @@ export default {
       }
       this.boardConfig.background.backgroundColor = '';
     },
-    handleBoardSizeChange() {
-      this.boardConfig.screenRatio.width = boardSizeList[this.boardSize][0];
-      this.boardConfig.screenRatio.height = boardSizeList[this.boardSize][1];
+    handleSizeChange(size) {
+      if (size === 'custom') {
+        // 说明点了自定义
+        this.boardConfig.screenRatio.isCustom = true;
+        return;
+      }
+      this.boardConfig.screenRatio.isCustom = false;
+      this.boardConfig.screenRatio.width = size[0];
+      this.boardConfig.screenRatio.height = size[1];
       this.handleResetMainBoardSize();
     },
     handleResetMainBoardSize() {
@@ -372,8 +388,11 @@ export default {
       const height = this.boardConfig.screenRatio.height;
       const style = window.getComputedStyle(MaintBoardDom);
       // 看板尺寸 按比例设置
-      const realHeight = (parseInt(style.width) * height) / width;
+      const MaintBoardDomWidth = parseInt(style.width);
+      // 记录真实的width
+      const realHeight = (MaintBoardDomWidth * height) / width;
       layoutContainerHeight = realHeight;
+      this.boardConfig.screenRatio.boardDomHeight = layoutContainerHeight;
       MaintBoardDom.style.height = realHeight + 'px';
     },
 
@@ -447,16 +466,28 @@ export default {
       this.$set(this.boardConfig.components[index], 'static', false);
     },
     handleXchange() {
-      this.boardConfig.components[this.handlingIndex].x = this.x - 0;
+      const ins = this.boardConfig.components[this.handlingIndex];
+      if (ins) {
+        ins.x = this.x - 0;
+      }
     },
     handleYchange() {
-      this.boardConfig.components[this.handlingIndex].y = this.y - 0;
+      const ins = this.boardConfig.components[this.handlingIndex];
+      if (ins) {
+        ins.y = this.y - 0;
+      }
     },
     handleWchange() {
-      this.boardConfig.components[this.handlingIndex].w = this.w - 0;
+      const ins = this.boardConfig.components[this.handlingIndex];
+      if (ins) {
+        ins.w = this.w - 0;
+      }
     },
     handleHchange() {
-      this.boardConfig.components[this.handlingIndex].h = this.h - 0;
+      const ins = this.boardConfig.components[this.handlingIndex];
+      if (ins) {
+        ins.h = this.h - 0;
+      }
     },
     // i, newH, newW, newHPx, newWPx
     handleResizeEvent(i) {
