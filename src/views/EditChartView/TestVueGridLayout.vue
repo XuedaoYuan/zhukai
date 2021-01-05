@@ -65,6 +65,7 @@
       <div class="main">
         <div class="mian-board__container"
              :style="boardBgStyle"
+             @click="handleBoardClick"
              ref="MaintBoardRef">
           <grid-layout :layout.sync="boardConfig.components"
                        :col-num="colNum"
@@ -170,8 +171,8 @@
                           @change="handlePie1ConfigChange" />
               <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName ==='Title1'"
                             :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                            @change="handleConfigChange"></Title1Config>
-              <TestLinkConfig v-if="
+                            @change="handleTitleConfigChange"></Title1Config>
+              <TestLinkConfig v-if=" 
                   handlingIndex >= 0 &&
                   boardConfig.components[handlingIndex].componentName ==='TestLink'"
                               :components="boardConfig.components"
@@ -365,11 +366,23 @@ export default {
       /* 获取配置好的默认配置 */
       const componentDefaultConfig = COMPONENT_CONFIG[componentName];
       if (componentDefaultConfig) {
-        // 拷贝一份配置
         const component = cloneDeep(componentDefaultConfig);
         component.i = ++this.boardConfig.componentIdIndex;
-        component.y = this.getInitialYVal(component);
+
+        switch (componentName) {
+          // 可以针对不同的组件设定不同的位置
+          case 'title1': {
+            component.y = 0;
+            break;
+          }
+
+          default: {
+            component.y = this.getInitialYVal(component);
+            break;
+          }
+        }
         this.boardConfig.components.push(component);
+        // 拷贝一份配置
       }
     },
     handleSetBgColor(color) {
@@ -461,12 +474,16 @@ export default {
       component.i = ++this.boardConfig.componentIdIndex;
       this.boardConfig.components.push(component);
     },
+    /* 删除组件 */
     handleDelete(index) {
       this.boardConfig.components.splice(index, 1);
       if (this.handlingIndex === index) {
         this.handlingIndex = -1;
       }
       this.$forceUpdate();
+    },
+    handleBoardClick() {
+      this.handlingIndex = -1;
     },
     handleComponentClick(index) {
       const layoutInstance = this.boardConfig.components[index];
@@ -476,6 +493,7 @@ export default {
       this.w = layoutInstance.w;
       this.h = layoutInstance.h;
     },
+
     handleMaskEnter(index) {
       const layoutInstance = this.boardConfig.components[index];
       if (layoutInstance.static === false) {
@@ -521,7 +539,7 @@ export default {
         this.h = newH;
       }
     },
-    handleConfigChange(config) {
+    handleTitleConfigChange(config) {
       // this.handlingIndex;
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...config

@@ -21,7 +21,8 @@ const COMPONENT_CONFIG = {
       color: '#fff',
       textAlign: 'center',
       fontSize: 16,
-      fontFamily: 'Microsoft Yahei, sans-serif',
+      fontFamily: 'Microsoft Yahei',
+      fontWeight: 'normal',
       showStatus: true
     }
   },
@@ -55,68 +56,68 @@ const COMPONENT_CONFIG = {
     static: true,
     /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
-    type: "",
+    type: '',
     /* 业务类型，可用于筛选，不一定要 */
-    businessType: "",
+    businessType: '',
     /* 业务主题， 同上 */
-    businessTheme: "",
+    businessTheme: '',
     // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-    componentName: "Pie1",
+    componentName: 'Pie1',
     /* 组件配置 */
     // 组件本身的属性  比如标题的title color等  这块根据自己的组件自己定义好自己的规则即可
     componentConfig: {
       titleShow: true,
-      title: "测试标题",
-      color: "#fff",
-      textAlign: "left",
-      fontSize: "16px",
-      fontFamily: "Microsoft Yahei",
+      title: '测试标题',
+      color: '#fff',
+      textAlign: 'left',
+      fontSize: '16px',
+      fontFamily: 'Microsoft Yahei',
       showStatus: true,
-      fontWeight: "bold",
+      fontWeight: 'bold',
       data: {
         tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b}: {c} ({d}%)",
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         legend: {
-          orient: "vertical",
+          orient: 'vertical',
           left: 10,
-          data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"],
+          data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
           textStyle: {
-            color: "#fff",
-          },
+            color: '#fff'
+          }
         },
         series: [
           {
-            name: "访问来源",
-            type: "pie",
-            radius: ["50%", "70%"],
+            name: '访问来源',
+            type: 'pie',
+            radius: ['50%', '70%'],
             avoidLabelOverlap: false,
             label: {
               show: false,
-              position: "center",
+              position: 'center'
             },
             emphasis: {
               label: {
                 show: true,
-                fontSize: "30",
-                fontWeight: "bold",
-              },
+                fontSize: '30',
+                fontWeight: 'bold'
+              }
             },
             labelLine: {
-              show: false,
+              show: false
             },
             data: [
-              { value: 335, name: "直接访问" },
-              { value: 310, name: "邮件营销" },
-              { value: 234, name: "联盟广告" },
-              { value: 135, name: "视频广告" },
-              { value: 1548, name: "搜索引擎" },
-            ],
-          },
-        ],
+              { value: 335, name: '直接访问' },
+              { value: 310, name: '邮件营销' },
+              { value: 234, name: '联盟广告' },
+              { value: 135, name: '视频广告' },
+              { value: 1548, name: '搜索引擎' }
+            ]
+          }
+        ]
       }
-    },
+    }
   }
 };
 export default COMPONENT_CONFIG;

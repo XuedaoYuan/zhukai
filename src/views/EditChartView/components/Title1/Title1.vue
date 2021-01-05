@@ -2,10 +2,13 @@
   <div class="title1__container"
        v-show="componentConfig.showStatus"
        :style="{justifyContent: justifyContent}">
+    <div class="bg"></div>
     <span :style="{
+        fontWeight: componentConfig.fontWeight,
         color: componentConfig.color,
         fontSize: componentConfig.fontSize + 'px',
         fontFamily: componentConfig.fontFamily}">{{componentConfig.title}}</span>
+
   </div>
 </template>
 
@@ -21,6 +24,7 @@ export default {
         color: '#fff',
         textAlign: 'center',
         fontSize: 16,
+        fontWeight: 'normal',
         fontFamily: 'Microsoft Yahei, sans-serif',
         showStatus: true
       })
@@ -54,9 +58,25 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  .bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    background-image: url('../../assets/title1_bg.png');
+    background-size: 100% 100%;
+    background-origin: center center;
+    background-repeat: no-repeat;
+    z-index: 1;
+  }
 
   span {
     font-family: Microsoft Yahei, sans-serif;
+    position: relative;
+    z-index: 2;
   }
 }
 </style>
