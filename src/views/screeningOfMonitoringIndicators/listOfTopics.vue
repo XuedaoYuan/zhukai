@@ -112,5 +112,7 @@ created() {
 </script>
 
 <style scoped>
-
+.el-pagination {
+    text-align: right; 
+}
 </style>
