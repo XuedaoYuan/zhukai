@@ -1,9 +1,9 @@
 <template>
   <div class="title1__container"
-       v-show="componentConfig.showStatus"
        :style="{justifyContent: justifyContent}">
     <div class="bg"></div>
-    <span :style="{
+    <span v-show="componentConfig.showStatus"
+          :style="{
         fontWeight: componentConfig.fontWeight,
         color: componentConfig.color,
         fontSize: componentConfig.fontSize + 'px',
