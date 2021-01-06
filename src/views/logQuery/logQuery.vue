@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fundamental-demo">
     <div style="margin-top:20px">
       <el-form label-width="90px" :model="dataForm">
         <el-row>
@@ -28,7 +28,7 @@
           <el-col :span="6">
             <el-button @click="toggleSelection">反选</el-button>
           </el-col>
-          <el-col span="6" :offset="12" style="text-align: right;">
+          <el-col :span="6" :offset="12" style="text-align: right;">
             <el-button type="primary" @click="exportXlsxFn">导出Excel</el-button>
           </el-col>
         </el-row>

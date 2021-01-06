@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color:#fff;padding:10px">
     <div style="margin-bottom: 20px; margin-left: 20px; text-align: right">
       <!-- <div style="margin-bottom: 20px; margin-left: 20px; text-align: left">
         <el-button type="primary" size="mini" @click="addOrUpdateHandle()"

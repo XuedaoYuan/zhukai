@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fundamental-demo">
     <el-form label-width="90px" :model="dataForm">
       <el-row style="margin-top: 20px; height: 60px">
         <el-col :span="8" style="font-weight: bold">
@@ -32,7 +32,6 @@
       border
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
-      @cell-dblclick="viewData"
       style="width: 100%; margin-top: 20px"
       :header-cell-style="{background:'#F0F2F5'}"
     >
@@ -166,6 +165,9 @@ export default {
         comtType: "", 
         servName: "",
       }
+    },
+    selectionChangeHandle() {
+
     },
   }
 };

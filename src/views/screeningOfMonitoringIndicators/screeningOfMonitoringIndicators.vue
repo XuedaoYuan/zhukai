@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%;">
+  <div class="fundamental-demo">
     <el-form>
       <el-row style="height: 100%" type="flex">
         <el-col :span="12">
@@ -71,7 +71,7 @@
               ></el-col
             >
             <el-col
-              ><div id="main" style="width: 100%; height: 280px"></div
+              ><div id="main" style="width: 100%; height: 280px;margin-bottom:30px"></div
             ></el-col>
             <el-col>
               <div class="tet">

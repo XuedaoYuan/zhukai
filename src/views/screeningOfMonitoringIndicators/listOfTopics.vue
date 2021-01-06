@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fundamental-demo">
     <el-tabs v-model="activeName">
       <el-tab-pane label="主题列表" name="first">
         <el-table
