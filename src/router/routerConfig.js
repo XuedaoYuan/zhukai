@@ -194,7 +194,7 @@ const routerConfig = [
   {
     path: '/edit-chart-view',
     name: 'EditChartView',
-    component: () => import('@/views/EditChartView/TestVueGridLayout.vue')
+    component: () => import('@/views/EditChartView/EditChartView.vue')
   },
   {
     path: '/board-preview',
