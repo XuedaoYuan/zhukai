@@ -186,6 +186,11 @@ const routerConfig = [
         path: 'status/:status',
         name: 'boardConfigManageStatus',
         component: () => import('@/views/BoardConfigManage')
+      },
+      {
+        path: 'add',
+        name: 'BoardAdd',
+        component: () => import('@/views/EditChartView/AddBoard.vue')
       }
     ]
   },

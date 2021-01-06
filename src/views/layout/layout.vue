@@ -1,8 +1,10 @@
 <template>
   <el-container>
-    <el-header><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
+    <el-header class="hsa-header_container"
+               v-show="false"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
     <el-container>
-      <el-aside width="210px">
+      <el-aside class="hsa-aside_container"
+                width="200px">
         <el-row class="tac">
           <el-col>
             <el-menu router
@@ -38,13 +40,19 @@
                   <i class="el-icon-location"></i>
                   <span>大屏控制模块</span>
                 </template>
-                <el-menu-item index="">
+                <!-- <el-menu-item index="">
                   <template v-slot:title>
                     <router-link class="TestVueGridLayout-link"
                                  to="/TestVueGridLayout"
                                  target="_blank">大屏编辑</router-link>
                   </template>
+                </el-menu-item> -->
+                <el-menu-item index="/board-config-manage/add">
+                  <template v-slot:title>
+                    <span>大屏配置管理</span>
+                  </template>
                 </el-menu-item>
+
               </el-submenu>
               <!-- <el-submenu index="5">
                 <template slot="title">
@@ -79,20 +87,22 @@
           </el-col>
         </el-row>
       </el-aside>
-      <el-main>
-        <div class="content-box"
+      <div class="hsa-tabs__container">预留标签栏</div>
+      <el-main class="hsa-main_container">
+        <!-- <div class="content-box"
              :class="{'content-collapse':collapse}">
-          <!-- <v-tags></v-tags> -->
+          <v-tags></v-tags>
           <div class="content">
-            <transition name="move"
-                        mode="out-in">
-              <keep-alive :include="tagsList">
-                <router-view></router-view>
-              </keep-alive>
-            </transition>
+            
             <el-backtop target=".content"></el-backtop>
           </div>
-        </div>
+        </div> -->
+
+        <transition name="transitionRouter">
+          <keep-alive :include="tagsList">
+            <router-view></router-view>
+          </keep-alive>
+        </transition>
       </el-main>
       <!-- <el-main><router-view></router-view></el-main> -->
       <!-- <main-content /> -->
@@ -180,8 +190,16 @@ export default {
 }
 </style>
 
-<style>
-.el-header {
+<style lang="stylus">
+.transitionRouter-enter-active, .transitionRouter-leave-active {
+  transition: all 0.4s ease-in;
+}
+
+.transitionRouter-enter, .transitionRouter-leave {
+  transform: translate3d(100%, 0, 0);
+}
+
+.el-header.hsa-header_container {
   background-color: #1b64bb;
   position: relative;
   width: 100%;
@@ -190,21 +208,35 @@ export default {
   /* justify-content: center; */
   align-items: center;
 }
-.el-aside {
-  background-color: #104895;
+
+.el-aside.hsa-aside_container {
+  /* background-color: #104895; */
   display: block;
   position: absolute;
   left: 0;
   top: 60px;
   bottom: 0;
 }
-.el-main {
+
+.hsa-tabs__container {
   position: absolute;
   left: 200px;
   right: 0;
   top: 60px;
+  height: 50px;
+  background-color: #fff;
+  width: 100%;
+}
+
+.el-main.hsa-main_container {
+  position: absolute;
+  left: 200px;
+  right: 0;
+  top: 110px;
   bottom: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+  padding: 16px;
+  background-color: #f1f2f6;
 }
 </style>
