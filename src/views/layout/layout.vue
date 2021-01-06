@@ -1,7 +1,6 @@
 <template>
   <el-container>
-    <el-header class="hsa-header_container"
-               v-show="false"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
+    <el-header class="hsa-header_container"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
     <el-container>
       <el-aside class="hsa-aside_container"
                 width="200px">
