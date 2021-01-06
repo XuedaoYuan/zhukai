@@ -318,6 +318,8 @@ export default {
   created() {
     /* 如果有参数的话我们认为是编辑 */
     this.initBoardConfig();
+    document.title = '大屏编辑';
+    /* 下面是自动保存草稿功能 */
     if (this.saveTimer) {
       clearInterval(this.saveTimer);
     }

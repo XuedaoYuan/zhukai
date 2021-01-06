@@ -5,34 +5,46 @@
       <el-aside width="210px">
         <el-row class="tac">
           <el-col>
-            <el-menu
-              default-active="2"
-              class="el-menu-vertical-demo"
-              background-color="#104895"
-              text-color="#fff"
-              active-text-color="#ffd04b"
-            >
-              <el-submenu index="1">
-                <template slot="title">
+            <el-menu router
+                     :default-active="defaultActive"
+                     class="el-menu-vertical-demo"
+                     background-color="#104895"
+                     text-color="#fff"
+                     active-text-color="#ffd04b">
+              <el-submenu index="/">
+                <template v-slot:title>
                   <i class="el-icon-location"></i>
                   <span>数据管理</span>
                 </template>
-                <el-menu-item-group>
-                  <!-- <template slot="title">分组一</template> -->
-                  <el-menu-item index="1-1"><router-link to="/basicDataManagement"><span style="color:#fff">基础数据管理</span></router-link></el-menu-item>
-                  <el-menu-item index="1-2"><router-link to="/businessDataManagement"><span style="color:#fff">业务数据管理</span></router-link></el-menu-item>
-                  <el-menu-item index="1-3"><router-link to="/externalDataManagement"><span style="color:#fff">外部数据管理</span></router-link></el-menu-item>
-                </el-menu-item-group>
+                <el-menu-item index="/basicDataManagement">
+                  <template v-slot:title>
+                    <span>基础数据管理</span>
+                  </template>
+                </el-menu-item>
+                <el-menu-item index="/businessDataManagement">
+                  <template v-slot:title>
+                    <span>业务数据管理</span>
+                  </template>
+                </el-menu-item>
+                <el-menu-item index="/externalDataManagement">
+                  <template v-slot:title>
+                    <span>外部数据管理</span>
+                  </template>
+                </el-menu-item>
               </el-submenu>
-              <el-submenu index="2">
+              <el-submenu index="/board-config-manage">
                 <!-- 大屏编辑测试菜单 -->
                 <template slot="title">
                   <i class="el-icon-location"></i>
-                  <span>大屏管理(Test)</span>
+                  <span>大屏控制模块</span>
                 </template>
-                <el-menu-item-group>
-                  <el-menu-item index="2-1"><router-link to="/TestVueGridLayout"><span style="color:#fff">大屏编辑</span></router-link></el-menu-item>
-                </el-menu-item-group>
+                <el-menu-item index="">
+                  <template v-slot:title>
+                    <router-link class="TestVueGridLayout-link"
+                                 to="/TestVueGridLayout"
+                                 target="_blank">大屏编辑</router-link>
+                  </template>
+                </el-menu-item>
               </el-submenu>
               <!-- <el-submenu index="5">
                 <template slot="title">
@@ -68,18 +80,20 @@
         </el-row>
       </el-aside>
       <el-main>
-        <div class="content-box" :class="{'content-collapse':collapse}">
-              <!-- <v-tags></v-tags> -->
-              <div class="content">
-                  <transition name="move" mode="out-in">
-                      <keep-alive :include="tagsList">
-                          <router-view></router-view>
-                      </keep-alive>
-                  </transition>
-                  <el-backtop target=".content"></el-backtop>
-              </div>
+        <div class="content-box"
+             :class="{'content-collapse':collapse}">
+          <!-- <v-tags></v-tags> -->
+          <div class="content">
+            <transition name="move"
+                        mode="out-in">
+              <keep-alive :include="tagsList">
+                <router-view></router-view>
+              </keep-alive>
+            </transition>
+            <el-backtop target=".content"></el-backtop>
           </div>
-        </el-main>
+        </div>
+      </el-main>
       <!-- <el-main><router-view></router-view></el-main> -->
       <!-- <main-content /> -->
     </el-container>
@@ -87,34 +101,45 @@
 </template>
 
 <script>
-import { Container, Header, Aside, Main, Menu, Submenu, MenuItem, MenuItemGroup,Backtop } from "element-ui"
+import {
+  Container,
+  Header,
+  Aside,
+  Main,
+  Menu,
+  Submenu,
+  MenuItem,
+  MenuItemGroup,
+  Backtop
+} from 'element-ui';
 // import MainContent from './main-content'
 // import bus from './bus';
 // import vTags from './Tags.vue';
 
 export default {
-  name: "layout",
+  name: 'layout',
   components: {
-    "el-container":Container,
-    "el-header":Header,
-    "el-aside":Aside,
-    "el-main":Main,
-    "el-menu":Menu,
-    "el-submenu":Submenu,
-    "el-menu-item":MenuItem,
-    "el-menu-item-group":MenuItemGroup,
-    "el-backtop": Backtop,
+    'el-container': Container,
+    'el-header': Header,
+    'el-aside': Aside,
+    'el-main': Main,
+    'el-menu': Menu,
+    'el-submenu': Submenu,
+    'el-menu-item': MenuItem,
+    'el-menu-item-group': MenuItemGroup,
+    'el-backtop': Backtop
     // MainContent,
     // vTags,
   },
   data() {
     return {
       tagsList: [],
-      collapse: false
+      collapse: false,
+      defaultActive: '/'
     };
   },
   created() {
-       /*  bus.$on('collapse-content', msg => {
+    /*  bus.$on('collapse-content', msg => {
             this.collapse = msg;
         });
 
@@ -127,9 +152,33 @@ export default {
             console.log(arr,"arr")
             this.tagsList = arr;
         }); */
+    this.handleSetDefaultActive();
+  },
+  watch: {
+    $route(from, to) {
+      this.handleSetDefaultActive();
     }
+  },
+  methods: {
+    handleSetDefaultActive() {
+      const routePath = this.$route.path;
+      this.defaultActive = routePath;
+    }
+  }
 };
 </script>
+<style lang="stylus" scoped>
+.TestVueGridLayout-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  text-align: left;
+  padding-left: 40px;
+  color: #fff;
+}
+</style>
 
 <style>
 .el-header {
@@ -138,8 +187,8 @@ export default {
   width: 100%;
   height: 56px;
   display: flex;
-	/* justify-content: center; */
-	align-items: center;
+  /* justify-content: center; */
+  align-items: center;
 }
 .el-aside {
   background-color: #104895;
@@ -156,6 +205,6 @@ export default {
   top: 60px;
   bottom: 0;
   overflow-y: scroll;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 </style>
