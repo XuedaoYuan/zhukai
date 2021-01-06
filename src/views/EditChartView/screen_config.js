@@ -39,3 +39,16 @@ const config = {
     }
   ]
 };
+
+/* 
+id int 可以设定为传了id是编辑， 否则是新增
+boardTitle String 大屏名称，也就是看板中文名字
+boardCode String 看板code编码
+type Enum 'board' | template 保存的类型  是大屏 还是 模板
+status Enum 状态的编码  使用中 待审核 待发布 退回 已删除 理解业务流程后端可以自己定 
+statusName 状态的中文名使用中 待审核 待发布 退回 已删除 
+createDate yyyy-MM-dd 创建日期
+updateDate yyyy-MM-dd 更新日期
+xxxDate yyyy-MM-dd 流程改变的日期，有需要可以记录下来，比如审核通过的日期
+boardConfig String ，主要用于保存看板的各种配置项，需要数据库一个比较长的类型，比如varchar或者text
+*/
