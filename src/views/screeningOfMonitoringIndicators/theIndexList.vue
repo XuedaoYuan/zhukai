@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fundamental-demo">
     <div>
       <el-form label-width="110px" style="margin-top: 20px" :model="dataForm">
         <el-row type="flex" :gutter="20">

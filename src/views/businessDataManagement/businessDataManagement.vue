@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fundamental-demo">
     <div style="margin-bottom: 20px; margin-left: 20px; text-align: right">
       <!-- <div style="margin-bottom: 20px; margin-left: 20px; text-align: left">
         <el-button type="primary" size="mini" @click="addOrUpdateHandle()"
@@ -247,6 +247,7 @@ export default {
       dialogVisible: false,
       dataListSelections: [],
       submitBoo: true,
+      totalPage: 1,
       pageIndex: 1,
       pageSize: 10,
     };
