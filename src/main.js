@@ -28,10 +28,10 @@ import {
   Col,
   Row,
   Select,
+  Option,
   Tabs,
   TabPane,
-  Tag,
-  Option,
+  Tag
 } from 'element-ui';
 Vue.prototype.$ELEMENT = { size: 'mini', zIndex: 3000 };
 Vue.use(Button);

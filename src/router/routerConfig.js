@@ -165,38 +165,35 @@ const routerConfig = [
   //     }
   //   ]
   // },
-  {
-    path: '/edit-chart-view',
-    name: 'EditChartView',
-    component: EditChartView
-    /* children: [
-      {
-        path: '',
-        component: EditChartView,
-        meta: {}
-      }
-    ] */
-  },
+
   {
     path: '/board-config-manage',
-    name: 'boardConfigManage',
+    redirect: '/board-config-manage/index',
+    name: 'BoardConfigManage',
     component: layout,
     children: [
       {
-        path: 'status/:status',
-        name: 'boardConfigManageStatus',
-        component: () => import('@/views/BoardConfigManage')
+        path: 'index',
+        name: 'BoardConfigManageIndex',
+        component: () => import('@/views/BoardConfigManage/BoardConfigManage.vue')
       },
+      /* 新增大屏 */
       {
         path: 'add',
         name: 'BoardAdd',
-        component: () => import('@/views/EditChartView/AddBoard.vue')
+        component: () => import('@/views/BoardConfigManage/AddBoard.vue')
+      },
+      /* 新增模板 */
+      {
+        path: 'add-template',
+        name: 'TemplateAdd',
+        component: () => import('@/views/BoardConfigManage/AddTemplate.vue')
       }
     ]
   },
   {
-    path: '/TestVueGridLayout',
-    name: 'TestVueGridLayout',
+    path: '/edit-chart-view',
+    name: 'EditChartView',
     component: () => import('@/views/EditChartView/TestVueGridLayout.vue')
   },
   {

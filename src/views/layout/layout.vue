@@ -2,16 +2,10 @@
   <el-container>
     <el-header class="hsa-header_container"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
     <el-container>
-      <el-aside class="hsa-aside_container"
-                width="200px">
+      <el-aside class="hsa-aside_container" width="200px">
         <el-row class="tac">
           <el-col>
-            <el-menu router
-                     :default-active="defaultActive"
-                     class="el-menu-vertical-demo"
-                     background-color="#104895"
-                     text-color="#fff"
-                     active-text-color="#ffd04b">
+            <el-menu router :default-active="defaultActive" class="el-menu-vertical-demo" background-color="#104895" text-color="#fff" active-text-color="#ffd04b">
               <el-submenu index="/">
                 <template v-slot:title>
                   <i class="el-icon-location"></i>
@@ -46,7 +40,7 @@
                                  target="_blank">大屏编辑</router-link>
                   </template>
                 </el-menu-item> -->
-                <el-menu-item index="/board-config-manage/add">
+                <el-menu-item index="/board-config-manage/index">
                   <template v-slot:title>
                     <span>大屏配置管理</span>
                   </template>
@@ -97,7 +91,7 @@
           </div>
         </div> -->
 
-        <transition name="transitionRouter">
+        <transition name="slide-fade">
           <keep-alive :include="tagsList">
             <router-view></router-view>
           </keep-alive>
@@ -171,6 +165,10 @@ export default {
   methods: {
     handleSetDefaultActive() {
       const routePath = this.$route.path;
+      if (routePath.indexOf('board-config-manage') > -1) {
+        this.defaultActive = '/board-config-manage/index';
+        return;
+      }
       this.defaultActive = routePath;
     }
   }
@@ -190,12 +188,22 @@ export default {
 </style>
 
 <style lang="stylus">
-.transitionRouter-enter-active, .transitionRouter-leave-active {
-  transition: all 0.4s ease-in;
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
 }
 
-.transitionRouter-enter, .transitionRouter-leave {
-  transform: translate3d(100%, 0, 0);
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-leave-to {
+  transform: translateY(-100px);
+  opacity: 0;
+}
+
+.slide-fade-enter {
+  transform: translateY(100px);
+  opacity: 0;
 }
 
 .el-header.hsa-header_container {
@@ -209,12 +217,14 @@ export default {
 }
 
 .el-aside.hsa-aside_container {
-  /* background-color: #104895; */
+  background-color: #104895;
   display: block;
   position: absolute;
   left: 0;
   top: 60px;
   bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .hsa-tabs__container {
