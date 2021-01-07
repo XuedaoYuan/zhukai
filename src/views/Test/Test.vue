@@ -71,15 +71,30 @@ export default {
     hadnleAdd_20_AsyncByDispatch() {
       this.addCountAsync2({ n: 20 });
     },
+    dataURLtoBlob(dataurl) {
+      var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    },
+
     handleCapture() {
       html2canvas(this.$refs['TestRef'], {
         useCORS: true
       }).then((canvas) => {
         this.canvasShow = true;
         this.$nextTick(() => {
-          /* const imgUrl = canvas.toDataURL('image/png')
-          const img = document.createElement("img")
-          img.setAttribute("src", imgUrl)
+          /* const imgUrl = canvas.toDataURL('image/png');
+          const formData = new FormData();
+          const blob = this.dataURLtoBlob(imgUrl)
+          formData.append('file', blob)
+          const img = document.createElement('img');
+          img.setAttribute('src', imgUrl);
           this.$refs['CanvasContainerRef'].appendChild(img); */
           this.$refs['CanvasContainerRef'].appendChild(canvas);
         });
