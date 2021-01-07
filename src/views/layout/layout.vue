@@ -27,6 +27,49 @@
                   </template>
                 </el-menu-item>
               </el-submenu>
+              <!-- <el-submenu index="/zb">
+                <template v-slot:title>
+                  <i class="el-icon-location"></i>
+                  <span>指标管理</span>
+                </template>
+                <el-menu-item index="/screeningOfMonitoringIndicators">
+                  <template v-slot:title>
+                    <span>指标筛选</span>
+                  </template>
+                </el-menu-item>
+                <el-menu-item index="/listOfTopics">
+                  <template v-slot:title>
+                    <span>主题列表</span>
+                  </template>
+                </el-menu-item>
+                <el-menu-item index="/theIndexList">
+                  <template v-slot:title>
+                    <span>指标列表</span>
+                  </template>
+                </el-menu-item>
+              </el-submenu>
+              <el-submenu index="/fwjc">
+                <template v-slot:title>
+                  <i class="el-icon-location"></i>
+                  <span>服务监测管理</span>
+                </template>
+                <el-menu-item index="/serviceMonitoringManagement">
+                  <template v-slot:title>
+                    <span>服务监测</span>
+                  </template>
+                </el-menu-item>
+              </el-submenu>
+              <el-submenu index="/rz">
+                <template v-slot:title>
+                  <i class="el-icon-location"></i>
+                  <span>日志管理</span>
+                </template>
+                <el-menu-item index="/logQuery">
+                  <template v-slot:title>
+                    <span>日志查询</span>
+                  </template>
+                </el-menu-item>
+              </el-submenu> -->
               <el-submenu index="/board-config-manage">
                 <!-- 大屏编辑测试菜单 -->
                 <template slot="title">
@@ -40,7 +83,7 @@
                                  target="_blank">大屏编辑</router-link>
                   </template>
                 </el-menu-item> -->
-                <el-menu-item index="/board-config-manage/index">
+                <el-menu-item index="/board-config-manage/status/:status">
                   <template v-slot:title>
                     <span>大屏配置管理</span>
                   </template>
