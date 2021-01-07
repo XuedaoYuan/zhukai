@@ -83,7 +83,7 @@
                                  target="_blank">大屏编辑</router-link>
                   </template>
                 </el-menu-item> -->
-                <el-menu-item index="/board-config-manage/status/:status">
+                <el-menu-item index="/board-config-manage/index">
                   <template v-slot:title>
                     <span>大屏配置管理</span>
                   </template>
