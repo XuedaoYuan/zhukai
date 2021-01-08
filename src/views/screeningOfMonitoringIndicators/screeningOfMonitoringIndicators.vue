@@ -141,7 +141,7 @@ export default {
         .catch((e) => {
           console.log(e);
         });
-      selectAll()
+      selectAll(params)
         .then(({ data }) => {
           if (data && data.dataList != "") {
             console.log(data, "data1");
@@ -155,7 +155,7 @@ export default {
         .catch((e) => {
           console.log(e);
         });
-      bizdiminfo()
+      bizdiminfo(params)
         .then(({ data }) => {
           if (data && data.dataList != "") {
             console.log(data, "data3");
