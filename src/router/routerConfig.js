@@ -2,6 +2,7 @@ import Page404 from '@/views/Page404/Page404.vue';
 import Login from '@/views/Login/Login.vue';
 import layout from '@/views/layout/layout.vue';
 import EditChartView from '@/views/EditChartView';
+import { routerForBoard } from './routerForBoard';
 const routerConfig = [
   {
     path: '/',
@@ -81,7 +82,7 @@ const routerConfig = [
         meta: { title: '日志查询' }
       }
     ]
-  },
+  }
   // {
   //   path: '/businessDataManagement',
   //   name: 'businessDataManagement',
@@ -165,42 +166,6 @@ const routerConfig = [
   //     }
   //   ]
   // },
-
-  {
-    path: '/board-config-manage',
-    redirect: '/board-config-manage/index',
-    name: 'BoardConfigManage',
-    component: layout,
-    children: [
-      {
-        path: 'index',
-        name: 'BoardConfigManageIndex',
-        component: () => import('@/views/BoardConfigManage/BoardConfigManage.vue')
-      },
-      /* 新增大屏 */
-      {
-        path: 'add',
-        name: 'BoardAdd',
-        component: () => import('@/views/BoardConfigManage/AddBoard.vue')
-      },
-      /* 新增模板 */
-      {
-        path: 'add-template',
-        name: 'TemplateAdd',
-        component: () => import('@/views/BoardConfigManage/AddTemplate.vue')
-      }
-    ]
-  },
-  {
-    path: '/edit-chart-view',
-    name: 'EditChartView',
-    component: () => import('@/views/EditChartView/EditChartView.vue')
-  },
-  {
-    path: '/board-preview',
-    name: 'BoardPreview',
-    component: () => import('@/views/EditChartView/BoardPreview.vue')
-  }
 ];
 const routerConfigMenuOut = [
   {
@@ -215,5 +180,5 @@ const routerConfigMenuOut = [
   }
 ];
 
-const routes = [...routerConfig, ...routerConfigMenuOut];
+const routes = [...routerConfig, ...routerForBoard, ...routerConfigMenuOut];
 export default routes;

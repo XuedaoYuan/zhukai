@@ -2,20 +2,20 @@
   <div class="manage-board__container" v-loading="loading">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="全部大屏" name="0"></el-tab-pane>
-      <el-tab-pane label="使用中" name="1"></el-tab-pane>
-      <el-tab-pane label="待审核" name="2"></el-tab-pane>
-      <el-tab-pane label="待发布" name="3"></el-tab-pane>
-      <el-tab-pane label="退回" name="4"></el-tab-pane>
-      <el-tab-pane label="已删除" name="5"></el-tab-pane>
+      <el-tab-pane label="使用中" :name="IN_USE"></el-tab-pane>
+      <el-tab-pane label="待审核" :name="CHECK_PENDING"></el-tab-pane>
+      <el-tab-pane label="待发布" :name="PUBLISH_PENDING"></el-tab-pane>
+      <el-tab-pane label="退回" :name="RETURN_BACK"></el-tab-pane>
+      <el-tab-pane label="已删除" :name="DELETED"></el-tab-pane>
     </el-tabs>
     <div class="search__container">
       <div class="search_form">
         <el-form :model="form" label-width="90px" inline>
           <el-form-item label="大屏名称：">
-            <el-input clearable @change="handleGetDataList" :style="{width: '200px'}" placeholder="请输入大屏名称" v-model="form.boardName"></el-input>
+            <el-input clearable @change="handleGetDataList" :style="{width: '200px'}" placeholder="请输入大屏名称" v-model="form.screenName"></el-input>
           </el-form-item>
           <el-form-item label="创建日期：">
-            <el-date-picker :style="{width: '200px'}" @change="handleGetDataList" value-format="yyyy-MM-dd" placeholder="请选择日期" type="date" v-model="form.createDate"></el-date-picker>
+            <el-date-picker :style="{width: '200px'}" @change="handleGetDataList" value-format="yyyy-MM-dd HH:mm:ss" default-time="00:00:00" placeholder="请选择日期" type="datetime" v-model="form.crteTime"></el-date-picker>
           </el-form-item>
         </el-form>
       </div>
@@ -25,30 +25,15 @@
       </div>
     </div>
     <div class="content__container">
-      <div class="item_container">
-        <div class="title-date">
-          <div class="title">阿斯达是的阿达</div>
-          <div class="date">2020-09-09</div>
+      <template v-if="boardList && boardList.length > 0">
+        <div class="item_container" v-for="item in boardList" :key="item.screenId">
+          <div class="title-date">
+            <div class="title" v-if="item.moduleConfig">{{item.moduleConfig.templateName}}</div>
+            <div class="date" v-if="item.moduleConfig ">{{item.moduleConfig.createdTime}}</div>
+          </div>
         </div>
-      </div>
-      <div class="item_container">
-        <div class="title-date">
-          <div class="title">阿斯达是的阿达</div>
-          <div class="date">2020-09-09</div>
-        </div>
-      </div>
-      <div class="item_container">
-        <div class="title-date">
-          <div class="title">阿斯达是的阿达</div>
-          <div class="date">2020-09-09</div>
-        </div>
-      </div>
-      <div class="item_container">
-        <div class="title-date">
-          <div class="title">阿斯达是的阿达</div>
-          <div class="date">2020-09-09</div>
-        </div>
-      </div>
+      </template>
+
       <div class="item_container add_board-box" @click="handleAddBoard">
         <img src="../../assets/add.png" width="52" class="add-icon" />
         <p class="add-text">新增大屏</p>
@@ -59,6 +44,7 @@
 
 <script>
 import { DatePicker } from 'element-ui';
+import { getScreenList } from '@/views/EditChartView/api/index.js';
 const CHECK_PENDING = '1'; // 待审核
 const PUBLISH_PENDING = '2'; // 待发布
 const RETURN_BACK = '3'; // 退回
@@ -74,14 +60,25 @@ export default {
       loading: false,
       activeName: '0',
       form: {
-        boardName: '',
-        createDate: ''
-      }
+        status: false,
+        screenName: '',
+        crteTime: ''
+      },
+      boardList: [
+        /*  {
+          crter: null,
+          currStas: {},
+          moduleConfig: {},
+          rejectReason: '',
+          screenId: ''
+        } */
+      ]
     };
   },
   watch: {
     activeName: function (newVal) {
-      console.log(newVal);
+      this.form.status = newVal
+      this.handleGetDataList()
     }
   },
   created() {
@@ -106,9 +103,26 @@ export default {
       //   console.log(tab);
     },
     handleGetDataList() {
+      const requestData = {};
+
+      for (let key in this.form) {
+        const val = this.form[key];
+        if (val || val === 0) {
+          requestData[key] = val;
+        }
+      }
       this.loading = true;
-      Promise.resolve()
-        .then(() => {})
+      getScreenList(requestData)
+        .then((res) => {
+          if (
+            res.code === 0 &&
+            res.type === 'success' &&
+            res.data &&
+            res.data.dataList
+          ) {
+            this.boardList = [...res.data.dataList];
+          }
+        })
         .finally(() => {
           this.loading = false;
         });

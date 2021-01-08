@@ -1,8 +1,8 @@
 <template>
   <el-container>
-    <el-header class="hsa-header_container"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
+    <el-header v-show="false" class="hsa-header_container"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
     <el-container>
-      <el-aside class="hsa-aside_container" width="200px">
+      <el-aside v-show="false" class="hsa-aside_container" width="200px">
         <el-row class="tac">
           <el-col>
             <el-menu router :default-active="defaultActive" class="el-menu-vertical-demo" background-color="#104895" text-color="#fff" active-text-color="#ffd04b">

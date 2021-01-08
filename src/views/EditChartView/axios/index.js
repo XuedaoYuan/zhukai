@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axiosConstructor from 'axios';
+const axios = axiosConstructor.create()
 axios.defaults.timeout = 60000;
 axios.defaults.retry = 3;
 axios.defaults.retryDelay = 2000;

@@ -25,8 +25,8 @@ module.exports = {
       '/': {
         ws: false,
         // target: 'http://192.168.1.101:8888', // 本地
-        // target: 'http://114.55.3.21:8888', //測試
-        target: 'http://llf0523.cn.utools.club', //小K的ip
+        target: 'http://114.55.3.21:8877', //測試
+        // target: 'http://llf0523.cn.utools.club', //小K的ip
         changeOrigin: true
       }
     }
