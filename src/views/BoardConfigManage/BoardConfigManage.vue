@@ -59,6 +59,11 @@
 
 <script>
 import { DatePicker } from 'element-ui';
+const CHECK_PENDING = '1'; // 待审核
+const PUBLISH_PENDING = '2'; // 待发布
+const RETURN_BACK = '3'; // 退回
+const DELETED = '4'; // 已删除
+const IN_USE = '5'; //  使用中
 export default {
   name: 'BoardConfigManage',
   components: {
@@ -81,6 +86,11 @@ export default {
   },
   created() {
     this.handleGetDataList();
+    this.CHECK_PENDING = CHECK_PENDING;
+    this.PUBLISH_PENDING = PUBLISH_PENDING;
+    this.RETURN_BACK = RETURN_BACK;
+    this.DELETED = DELETED;
+    this.IN_USE = IN_USE;
   },
   methods: {
     handleReset() {
