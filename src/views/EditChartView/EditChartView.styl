@@ -55,6 +55,11 @@
         .save-btn {
             background-color: #3875B9;
 
+            &.save-btn-disabled {
+                background-color: rgba(56, 117, 185, 0.7);
+                cursor: not-allowed;
+            }
+
             &:active, &:focus {
                 background-color: rgba(56, 117, 185, 0.9);
             }
@@ -128,6 +133,10 @@
         overflow-x: hidden;
         padding: 20px;
         background: #031B32;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         .mian-board__container {
             // height: 100%;

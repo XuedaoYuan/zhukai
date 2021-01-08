@@ -1,12 +1,12 @@
 <template>
   <div class="manage-board__container" v-loading="loading">
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="全部大屏" name="0"></el-tab-pane>
-      <el-tab-pane label="使用中" :name="IN_USE"></el-tab-pane>
-      <el-tab-pane label="待审核" :name="CHECK_PENDING"></el-tab-pane>
-      <el-tab-pane label="待发布" :name="PUBLISH_PENDING"></el-tab-pane>
-      <el-tab-pane label="退回" :name="RETURN_BACK"></el-tab-pane>
-      <el-tab-pane label="已删除" :name="DELETED"></el-tab-pane>
+      <el-tab-pane :label="'全部大屏('+statForm.stasCount+')'" name="0"></el-tab-pane>
+      <el-tab-pane :label="'使用中('+statForm.inUse+')'" :name="IN_USE"></el-tab-pane>
+      <el-tab-pane :label="'待审核('+statForm.toBeReviewed+')'" :name="CHECK_PENDING"></el-tab-pane>
+      <el-tab-pane :label="'待发布('+statForm.toBeReleased+')'" :name="PUBLISH_PENDING"></el-tab-pane>
+      <el-tab-pane :label="'退回('+statForm.returnScr+')'" :name="RETURN_BACK"></el-tab-pane>
+      <el-tab-pane :label="'已删除('+statForm.deleted+')'" :name="DELETED"></el-tab-pane>
     </el-tabs>
     <div class="search__container">
       <div class="search_form">
@@ -25,26 +25,31 @@
       </div>
     </div>
     <div class="content__container">
-      <template v-if="boardList && boardList.length > 0">
-        <div class="item_container" v-for="item in boardList" :key="item.screenId">
-          <div class="title-date">
-            <div class="title" v-if="item.moduleConfig">{{item.moduleConfig.templateName}}</div>
-            <div class="date" v-if="item.moduleConfig ">{{item.moduleConfig.createdTime}}</div>
-          </div>
-        </div>
-      </template>
-
       <div class="item_container add_board-box" @click="handleAddBoard">
         <img src="../../assets/add.png" width="52" class="add-icon" />
         <p class="add-text">新增大屏</p>
       </div>
+      <template v-if="boardList && boardList.length > 0">
+        <div class="item_container" v-for="item in boardList" :key="item.scrId" @click="handleBoardClick(item)">
+          <img class="bg-img" v-if="item.scrThum" :src="item.scrThum" alt="">
+          <div class="title-date">
+            <div class="title" v-if="item.scrName">{{item.scrName}}</div>
+            <div class="title" v-else>未命名</div>
+            <div class="date" v-if="item.updtTime ">{{item.updtTime}}</div>
+            <div class="date" v-else>--</div>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import { DatePicker } from 'element-ui';
-import { getScreenList } from '@/views/EditChartView/api/index.js';
+import {
+  getScreenList,
+  getScreenCount
+} from '@/views/EditChartView/api/index.js';
 const CHECK_PENDING = '1'; // 待审核
 const PUBLISH_PENDING = '2'; // 待发布
 const RETURN_BACK = '3'; // 退回
@@ -60,29 +65,39 @@ export default {
       loading: false,
       activeName: '0',
       form: {
-        status: false,
+        // status: false,
         screenName: '',
         crteTime: ''
       },
+      statForm: {
+        deleted: 0,
+        inUse: 0,
+        returnScr: 0,
+        stasCount: 0,
+        toBeReleased: 0,
+        toBeReviewed: 0
+      },
       boardList: [
-        /*  {
+        /* {
           crter: null,
-          currStas: {},
-          moduleConfig: {},
-          rejectReason: '',
-          screenId: ''
+          rejectReason: null,
+          scrId: '',
+          scrName: '',
+          updtTime,
+          scrThum: ''
         } */
       ]
     };
   },
   watch: {
     activeName: function (newVal) {
-      this.form.status = newVal
-      this.handleGetDataList()
+      // this.form.status = newVal;
+      this.handleGetDataList();
     }
   },
   created() {
     this.handleGetDataList();
+    this.handleGetCouunt();
     this.CHECK_PENDING = CHECK_PENDING;
     this.PUBLISH_PENDING = PUBLISH_PENDING;
     this.RETURN_BACK = RETURN_BACK;
@@ -90,6 +105,14 @@ export default {
     this.IN_USE = IN_USE;
   },
   methods: {
+    
+    handleGetCouunt() {
+      getScreenCount().then((res) => {
+        if (res.code === 0 && res.type === 'success') {
+          this.statForm = { ...res.data };
+        }
+      });
+    },
     handleReset() {
       for (let key in this.form) {
         this.form[key] = '';
@@ -97,6 +120,7 @@ export default {
       this.handleGetDataList();
     },
     handleSearch() {
+      this.handleGetCouunt();
       this.handleGetDataList();
     },
     handleClick(tab) {
@@ -111,16 +135,15 @@ export default {
           requestData[key] = val;
         }
       }
+      if (this.activeName !== '0') {
+        requestData.status = this.activeName;
+      } else {
+      }
       this.loading = true;
       getScreenList(requestData)
         .then((res) => {
-          if (
-            res.code === 0 &&
-            res.type === 'success' &&
-            res.data &&
-            res.data.dataList
-          ) {
-            this.boardList = [...res.data.dataList];
+          if (res.code === 0 && res.type === 'success' && res.data) {
+            this.boardList = [...res.data];
           }
         })
         .finally(() => {
@@ -131,7 +154,10 @@ export default {
       this.$router.push({
         path: '/board-config-manage/add'
       });
-    }
+    },
+    handleBoardClick(item){
+      window.open(`/#/edit-chart-view?code=${item.scrId}`);
+    },  
   }
 };
 </script>
@@ -180,6 +206,17 @@ export default {
     position: relative;
     cursor: pointer;
 
+    .bg-img {
+      width: 336px;
+      height: 190px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+    }
+
     .title-date {
       position: absolute;
       left: 0;
@@ -188,6 +225,7 @@ export default {
       bottom: 0;
       background-color: rgba(255, 255, 255, 0.3);
       padding-top: 7px;
+      z-index: 2;
 
       .title {
         font-size: 20px;

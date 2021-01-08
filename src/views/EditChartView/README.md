@@ -7,18 +7,16 @@
 5. `src/views/BoardConfigManage`是大屏配置管理的几个页面
 6. `EditChartView.vue` 大屏编辑的主控件
 
-##### 大屏和模板的新建、编辑逻辑
+大屏和模板的新建、编辑逻辑
 
-主路由都是`/edit-chart-view`,利用参数来区分
+主路由都是`/edit-chart-view`,利用参数query来区分
 
-|          | 参数type | 参数code | url                                        |
-| -------- | -------- | -------- | ------------------------------------------ |
-| 大屏新建 | board    | 无       | `/edit-chart-view?type=board`              |
-| 大屏编辑 | board    | 有       | `/edit-chart-view?type=board&code=xxxx`    |
-| 模板新建 | template | 无       | `/edit-chart-view?type=template`           |
-| 模板编辑 | template | 有       | `/edit-chart-view?type=template&code=xxxx` |
+|          | 参数code | url                          |
+| -------- | -------- | ---------------------------- |
+| 大屏新建 | 无       | `/edit-chart-view`           |
+| 大屏编辑 | 有       | `/edit-chart-view?code=xxxx` |
 
-根据不同的type可能需要对保存和提交审核做一些区分
+有code 就去后端拿详情的数据, 然后渲染
 
 ##### 待办
 

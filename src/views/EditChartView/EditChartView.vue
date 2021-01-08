@@ -16,7 +16,7 @@
           <img src="./assets/eye.png" alt="">
           预览
         </div>
-        <div class="save-btn header-btn" @click="handleSave">保存</div>
+        <div :class="['save-btn', 'header-btn', saveLoading ? 'save-btn-disabled' : '']" @click="handleSave"> <i v-show="saveLoading" :style="{marginRight: '4px'}" class="el-icon-loading"></i>保存</div>
         <div class="check-btn header-btn" @click="handleSubmitCheck">提交审核</div>
       </div>
 
@@ -126,6 +126,8 @@ import findIndex from 'lodash/findIndex';
 import COMPONENT_CONFIG from './component_config';
 /* 侧边栏 */
 import SideBar from './components/SideBar';
+import { saveBoard, uploadFile, getBoardConfigDetail } from './api';
+import html2canvas from 'html2canvas';
 /* 背景图片 */
 const darkBackground = require('./assets/darkBackground.png');
 const lightBackground = require('./assets/lightBackground.png');
@@ -160,6 +162,8 @@ export default {
   },
   data() {
     return {
+      // 保存的loading
+      saveLoading: false,
       configType: 'componentConfig',
       colNum: 240,
       rowHeight: 10,
@@ -169,6 +173,28 @@ export default {
       h: 0,
       handlingIndex: -1,
       boardSize: 1,
+      // 这个form主要是用于编辑的时候用的
+      editForm: {
+        crteTime: '',
+        currentPage: 1,
+        moduSbj: null,
+        moduType: null,
+        needCount: true,
+        opterId: null,
+        opterName: null,
+        order: null,
+        orderField: null,
+        pageSize: 20,
+        rejectRea: null,
+        rid: '',
+        scrChkStas: '',
+        scrCodg: '',
+        scrId: '',
+        scrName: '',
+        scrThum: '',
+        updtTime: '',
+        ver: null
+      },
       // 整个看板的配置
       boardConfig: {
         /* 大屏名称 */
@@ -269,11 +295,31 @@ export default {
     initBoardConfig() {
       const query = this.$route.query;
       if (query && query.code) {
-        const code = decodeURIComponent(query.code);
-        const config = localStorage.getItem(code);
-        if (config) {
+        const code = query.code;
+        getBoardConfigDetail(code).then((res) => {
+          if (res && res.code === 0 && res.data) {
+            for (let key in res.data) {
+              if (key !== 'cfg') {
+                this.editForm[key] = res.data[key];
+              }
+            }
+            if (res.data.cfg) {
+              try {
+                const config = JSON.parse(res.data.cfg);
+                if (
+                  Object.prototype.toString.call(config) === '[object Object]'
+                ) {
+                  this.boardConfig = config;
+                }
+              } catch (error) {
+                console.log(error);
+              }
+            }
+          }
+        });
+        /* if (config) {
           this.boardConfig = JSON.parse(config);
-        }
+        } */
       }
     },
     // 静态数据变更时触发
@@ -499,14 +545,80 @@ export default {
         );
       }
     },
+    // base64编码的内容变成二进制，同时unit8编码
+    dataURLtoBlob(dataurl) {
+      var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    },
     /* 保存 */
     handleSave() {
+      if (this.saveLoading) return;
       if (this.boardConfig.boardCode && this.boardConfig.boardTitle) {
-        localStorage.setItem(
+        /* 1、先生成图片上传 */
+        try {
+          this.saveLoading = true;
+          html2canvas(this.$refs['MaintBoardRef'], {
+            scale: 1,
+            useCORS: true
+          }).then((canvas) => {
+            const imgDataURL = canvas.toDataURL('image/png');
+            const formData = new FormData();
+            const blob = this.dataURLtoBlob(imgDataURL);
+            const fileName = new Date().getTime() + '.png';
+            formData.append('file', blob, fileName);
+            uploadFile(formData)
+              .then((res) => {
+                if (res && res.code === 0 && res.data) {
+                  // 图片的缩略图
+                  const scrThum = process.env.VUE_APP_IMG_HOST + res.data;
+                  const postData = {
+                    cfg: JSON.stringify(this.boardConfig),
+                    scrName: this.boardConfig.boardTitle,
+                    scrCodg: this.boardConfig.boardCode,
+                    scrThum
+                  };
+                  /* 判断是不是编辑, 存在scrId即认为是编辑 */
+                  if (this.editForm.rid || this.editForm.scrId) {
+                    postData.scrId = this.editForm.scrId;
+                    postData.rid = this.editForm.rid;
+                  }
+                  // 保存
+                  saveBoard(postData)
+                    .then((boardRes) => {
+                      if (boardRes.code === 0 && boardRes.type === 'success') {
+                        this.$message.success('保存成功');
+                      }
+                    })
+                    .finally(() => {
+                      this.saveLoading = false;
+                    });
+                } else {
+                  this.saveLoading = false;
+                }
+              })
+              .catch((err) => {
+                this.saveLoading = false;
+              })
+              .finally(() => {
+                // this.saveLoading = false;
+              });
+          });
+        } catch (error) {
+          this.saveLoading = false;
+          this.$message.warning('缩略图生成失败');
+        } finally {
+        }
+        /* localStorage.setItem(
           this.boardConfig.boardCode,
           JSON.stringify(this.boardConfig)
-        );
-        this.$message.success('保存成功');
+        ); */
       } else {
         this.$message.warning('请填写大屏名称和Code标识');
       }

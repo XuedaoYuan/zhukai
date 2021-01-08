@@ -11,7 +11,7 @@
       <div class="title-text">可使用模板(4)</div>
       <div class="btns">
         <el-button size="mini" type="info" @click="$router.go(-1)">取消创建</el-button>
-        <el-button size="mini" type="success" @click="handleAddTemplate">新增模板</el-button>
+        <!-- <el-button size="mini" type="success" @click="handleAddTemplate">新增模板</el-button> -->
       </div>
     </div>
     <div class="content_container">

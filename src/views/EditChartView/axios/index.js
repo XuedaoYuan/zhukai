@@ -1,7 +1,8 @@
 import axiosConstructor from 'axios';
-const axios = axiosConstructor.create()
+import { Message } from 'element-ui';
+const axios = axiosConstructor.create();
 axios.defaults.timeout = 60000;
-axios.defaults.retry = 3;
+axios.defaults.retry = 1;
 axios.defaults.retryDelay = 2000;
 
 function axiosRetryInterceptor(err) {
@@ -60,6 +61,11 @@ axios.interceptors.request.use(
 // axios.interceptors.response.use(res => res.data, err => Promise.reject(err))
 axios.interceptors.response.use((res) => {
   // 根据后端需求做一些统一处理
+  if (res.data.code === 0) {
+    return res.data;
+  } else if (res.data.code !== 0 && res.data.message) {
+    Message.error(res.data.message)
+  }
   return res.data;
 }, axiosRetryInterceptor);
 
