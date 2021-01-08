@@ -61,6 +61,18 @@ export function saveBoard(data) {
 }
 
 /**
+ * 更新看板信息
+ * @param {*} data
+ */
+export function updateBoard(data) {
+  return fetch({
+    url: '/web/manage/scrinfomanu/update',
+    method: 'POST',
+    data
+  });
+}
+
+/**
  * 上传文件接口
  *
  * @export
