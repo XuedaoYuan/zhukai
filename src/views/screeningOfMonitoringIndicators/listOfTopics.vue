@@ -1,5 +1,12 @@
 <template>
   <div class="fundamental-demo">
+    <div style="height:50px">
+      <el-breadcrumb separator="/" class="breadcrumbder">
+        <el-breadcrumb-item><b>指标管理</b></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path: '/screeningOfMonitoringIndicators'}">监测指标筛选</el-breadcrumb-item>
+        <el-breadcrumb-item>主题列表</el-breadcrumb-item>
+      </el-breadcrumb></div>
+      <el-divider></el-divider>
     <el-tabs v-model="activeName">
       <el-tab-pane label="主题列表" name="first">
         <el-table
@@ -54,8 +61,15 @@
 
 <script>
 import { bizsbjinfo } from "@/api/oms/new" ;
+import { Breadcrumb, BreadcrumbItem, Divider } from 'element-ui'
+
 export default {
 name: "listOfTopics",
+components: {
+    "el-breadcrumb": Breadcrumb,
+    "el-breadcrumb-item": BreadcrumbItem,
+    "el-divider": Divider,
+  },
 created() {
     this.getDataList();
   },
@@ -114,5 +128,8 @@ created() {
 <style scoped>
 .el-pagination {
     text-align: right; 
+}
+.breadcrumbder {
+  line-height: 50px;
 }
 </style>

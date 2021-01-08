@@ -1,6 +1,13 @@
 <template>
   <div class="fundamental-demo">
     <div>
+      <div style="height:50px">
+      <el-breadcrumb separator="/" class="breadcrumbder">
+        <el-breadcrumb-item><b>指标管理</b></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path: '/screeningOfMonitoringIndicators'}">监测指标筛选</el-breadcrumb-item>
+        <el-breadcrumb-item>指标列表</el-breadcrumb-item>
+      </el-breadcrumb></div>
+      <el-divider></el-divider>
       <el-form label-width="110px" style="margin-top: 20px" :model="dataForm">
         <el-row type="flex" :gutter="20">
           <el-col :span="8">
@@ -154,9 +161,15 @@
 
 <script>
 import { bizkpiinfo } from "@/api/oms/new";
+import { Breadcrumb, BreadcrumbItem, Divider } from 'element-ui'
 
 export default {
   name: "theIndexList",
+  components: {
+    "el-breadcrumb": Breadcrumb,
+    "el-breadcrumb-item": BreadcrumbItem,
+    "el-divider": Divider,
+  },
   created() {
     this.getDataList();
   },
@@ -273,5 +286,9 @@ export default {
 <style scoped>
 .el-pagination {
     text-align: right; 
+}
+.breadcrumbder {
+  /* height: 50px; */
+  line-height: 50px;
 }
 </style>
