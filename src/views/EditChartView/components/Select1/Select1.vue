@@ -1,26 +1,28 @@
 <template>
-  <div class="date-picker1__wrapper__976567dd"
-       ref="DatePicker1WrapperRef">
-    <div class="date-picker__container__0975qsae"
+  <div class="select1__wrapper__976567dd">
+    <div class="select1__container__0975qsae"
          :style="{
         transform: 'scale('+componentConfig.scale+')'
     }">
-      <div class="title">选择日期：</div>
-      <el-date-picker clearable
-                      size="medium"
-                      type="date"
-                      class="hsa-el-date-picker"
-                      v-model="date"
-                      value-format="yyyy-MM-dd"
-                      @change="handleChange"></el-date-picker>
+      <div class="title">选择：</div>
+      <el-select clearable
+                 size="medium"
+                 v-model="value"
+                 value-format="yyyy-MM-dd"
+                 @change="handleChange">
+        <el-option value="1"
+                   label="1"></el-option>
+        <el-option value="2"
+                   label="2"></el-option>
+      </el-select>
+
     </div>
   </div>
 </template>
 
 <script>
-import { DatePicker } from 'element-ui';
 export default {
-  name: 'DatePicker1',
+  name: 'Select1',
   props: {
     i: {
       type: String | Number,
@@ -29,18 +31,16 @@ export default {
     componentConfig: {
       type: Object,
       default: () => ({
-        title: '选择日期',
+        title: '选择',
         showStatus: true,
-        scale: 1,
+        scale: 1
       })
     }
   },
-  components: {
-    'el-date-picker': DatePicker
-  },
+  components: {},
   data() {
     return {
-      date: new Date()
+      value: ''
     };
   },
   created() {
@@ -49,19 +49,19 @@ export default {
   mounted() {},
   methods: {
     handleChange() {
-      this.$eventBus.$emit(this.i + '', this.date);
+      this.$eventBus.$emit(this.i + '', this.value);
     }
   }
 };
 </script>
 
 <style lang="stylus">
-.date-picker1__wrapper__976567dd {
+.select1__wrapper__976567dd {
   height: 100%;
   width: 100%;
 }
 
-.date-picker__container__0975qsae {
+.select1__container__0975qsae {
   width: 248px;
   display: flex;
   align-items: center;
@@ -74,12 +74,12 @@ export default {
     line-height: 1;
     color: #e2f8ff;
     // margin-right: 20px;
-    flex: 0 0 80px;
+    // flex: 0 0 80px;
     height: 36px;
     line-height: 36px;
   }
 
-  div.el-date-editor {
+  div.el-select {
     flex: 1;
     height: 36px;
 

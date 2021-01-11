@@ -1,9 +1,30 @@
 <template>
-  <div class="BoardPreview__container" ref="MaintBoardRef" :style="boardBgStyle">
-    <grid-layout :layout.sync="boardConfig.components" :col-num="colNum" :row-height="rowHeight" :is-draggable="false" :is-resizable="false" :is-mirrored="false" :vertical-compact="false" :margin="[0, 0]" :use-css-transforms="false" :auto-size="false" :responsive="false">
-      <grid-item v-for="(item, index) in boardConfig.components" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" :key="item.i">
+  <div class="BoardPreview__container"
+       ref="MaintBoardRef"
+       :style="boardBgStyle">
+    <grid-layout :layout.sync="boardConfig.components"
+                 :col-num="colNum"
+                 :row-height="rowHeight"
+                 :is-draggable="false"
+                 :is-resizable="false"
+                 :is-mirrored="false"
+                 :vertical-compact="false"
+                 :margin="[0, 0]"
+                 :use-css-transforms="false"
+                 :auto-size="false"
+                 :responsive="false">
+      <grid-item v-for="(item, index) in boardConfig.components"
+                 :x="item.x"
+                 :y="item.y"
+                 :w="item.w"
+                 :h="item.h"
+                 :i="item.i"
+                 :key="item.i">
         <template v-if="item.componentName">
-          <component :is="item.componentName" :ref="'Component' + index + 'Ref'" :i="item.i" :componentConfig="item.componentConfig"></component>
+          <component :is="item.componentName"
+                     :ref="'Component' + index + 'Ref'"
+                     :i="item.i"
+                     :componentConfig="item.componentConfig"></component>
         </template>
       </grid-item>
     </grid-layout>
@@ -30,7 +51,8 @@ export default {
     TestLink,
     ChartBar1,
     Pie1: () => import('./components/Pie1/Pie1'),
-    DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue')
+    DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
+    Select1: () => import('./components/Select1/Select1.vue')
   },
   data() {
     return {
@@ -115,7 +137,8 @@ export default {
     initResize() {
       this.handleResetMainBoardSize();
       this.handleResetMainBoardSizeThrottle = throttle(
-        this.handleResetMainBoardSize, 100
+        this.handleResetMainBoardSize,
+        100
       );
       window.addEventListener('resize', this.handleResetMainBoardSizeThrottle);
     },
@@ -124,9 +147,9 @@ export default {
       const width = this.boardConfig.screenRatio.width;
       const height = this.boardConfig.screenRatio.height;
       const style = window.getComputedStyle(MaintBoardDom);
-      const realWidth = parseFloat(style.width)
+      const realWidth = parseFloat(style.width);
       // 看板尺寸 按比例设置
-      const realHeight = ( realWidth * height) / width;
+      const realHeight = (realWidth * height) / width;
       MaintBoardDom.style.height = realHeight + 'px';
       this.$nextTick(() => {
         this.rowHeight = (realWidth / width) * 10;

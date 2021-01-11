@@ -230,7 +230,6 @@ export default {
     'size-popover': () => import('./components/SideBar/SizePopover'),
     'component-popover': () => import('./components/SideBar/ComponentPopover'),
     ChartBar1: () => import('./components/ChartBar1'),
-    DatePicker: () => import('./components/DatePicker'),
     Title1: () => import('./components/Title1/Title1'),
     Title1Config: () => import('./components/Title1/Title1Config'),
     TestLink: () => import('./components/TestLink/TestLink'),
@@ -238,6 +237,7 @@ export default {
     Pie1: () => import('./components/Pie1/Pie1'),
     Pie1Config: () => import('./components/Pie1/Pie1Config'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
+    Select1: () => import('./components/Select1/Select1.vue'),
     DataConfig: () => import('./components/DataConfig')
   },
   data() {
@@ -433,9 +433,19 @@ export default {
             const MaintBoardDomWidth =
               (this.rowHeight / 10) * this.boardConfig.screenRatio.width;
             const realDomWidth = (MaintBoardDomWidth / 240) * component.w;
-            const realDomHeight = this.rowHeight * component.h;
-            component.componentConfig.scaleX = realDomWidth / 248;
-            component.componentConfig.scaleY = realDomHeight / 36;
+            const scale = realDomWidth / 248;
+            component.componentConfig.scale = scale;
+            component.h = (36 * scale) / this.rowHeight;
+            component.y = this.getInitialYVal(component);
+            break;
+          }
+          case 'select1': {
+            const MaintBoardDomWidth =
+              (this.rowHeight / 10) * this.boardConfig.screenRatio.width;
+            const realDomWidth = (MaintBoardDomWidth / 240) * component.w;
+            const scale = realDomWidth / 248;
+            component.componentConfig.scale = scale;
+            component.h = (36 * scale) / this.rowHeight;
             component.y = this.getInitialYVal(component);
             break;
           }
@@ -603,15 +613,32 @@ export default {
       }
       /* 针对一些需要变化的内容做调整 */
       switch (component.componentName) {
-        case 'DatePicker1':
-          const scaleX = newWPx / 248;
-          const scaleY = newHPx / 36;
+        case 'DatePicker1': {
+          const scale = newWPx / 248;
+          const h = (36 * scale) / this.rowHeight;
+          this.$nextTick(() => {
+            this.boardConfig.components[index].h = h;
+            this.h = h;
+          });
           this.boardConfig.components[index].componentConfig = {
             ...component.componentConfig,
-            scaleX,
-            scaleY
+            scale
           };
           break;
+        }
+        case 'Select1': {
+          const scale = newWPx / 248;
+          const h = (36 * scale) / this.rowHeight;
+          this.$nextTick(() => {
+            this.boardConfig.components[index].h = h;
+            this.h = h;
+          });
+          this.boardConfig.components[index].componentConfig = {
+            ...component.componentConfig,
+            scale: scale
+          };
+          break;
+        }
 
         default:
           break;

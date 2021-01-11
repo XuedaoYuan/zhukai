@@ -37,7 +37,7 @@
    ​
 
 2. 在`src/views/EditChartView/component_config.js`新建一个key，这里保存的是这个组件新增时的默认配置.
-   其中**componentName**为这个组件的名字，必须保持一致叫**Title2**。componentAliasName是组建的中文名字， 这个可以自己取名，比如叫 标题2。xy是位置。 wh是宽高，240就是全款，其他值按照比例。h的基数目前默认为**10**，4的话就是40px。
+   其中**componentName**为这个组件的名字，必须保持一致叫**Title2**。componentAliasName是组建的中文名字， 这个可以自己取名，比如叫 标题2。xy是位置。 wh是宽高，240就是全款，其他值按照比例。h的基数目前默认为**10**，4的话就是40px。不过这要求屏幕的实际宽度和设定的宽度一致， 否则就是按等比例缩放的。
    最主要的是 **componentConfig**， 这是针对这个组件的一些配置项，可以修改。如果是css样式，最好还是遵循camelCase的写法。
 
    ```js
@@ -99,3 +99,8 @@
    在`src/views/EditChartView/components/SideBar/ComponentPopover.vue` 组件中添加img。**这部分后续可能会从后端过来，**只要配置数据库即可。
 
 6. 到此为止基本的一个组件就完成了
+
+7. DatePicker、Select1等组件的等比例缩放
+   在 `handleComponentInsert` 里面初始化scale和h
+
+   在`handleResizedEvent`里面更新scale和h
