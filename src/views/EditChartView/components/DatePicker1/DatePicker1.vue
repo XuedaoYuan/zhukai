@@ -1,10 +1,18 @@
 <template>
-  <div class="date-picker1__wrapper__976567dd" ref="DatePicker1WrapperRef">
-    <div class="date-picker__container__0975qsae" :style="{
-        transform: 'scale('+componentconfig.scaleX+', '+componentconfig.scaleY+')'
+  <div class="date-picker1__wrapper__976567dd"
+       ref="DatePicker1WrapperRef">
+    <div class="date-picker__container__0975qsae"
+         :style="{
+        transform: 'scale('+componentConfig.scaleX+', '+componentConfig.scaleY+')'
     }">
       <div class="title">选择日期：</div>
-      <el-date-picker clearable size="medium" type="date" class="hsa-el-date-picker" v-model="date" value-format="yyyy-MM-dd" @change="handleChange"></el-date-picker>
+      <el-date-picker clearable
+                      size="medium"
+                      type="date"
+                      class="hsa-el-date-picker"
+                      v-model="date"
+                      value-format="yyyy-MM-dd"
+                      @change="handleChange"></el-date-picker>
     </div>
   </div>
 </template>
@@ -18,12 +26,12 @@ export default {
       type: String | Number,
       required: true
     },
-    componentconfig: {
+    componentConfig: {
       type: Object,
       default: () => ({
         title: '选择日期',
         showStatus: true,
-        scaleX: 2,
+        scaleX: 1,
         scaleY: 1
       })
     }
@@ -39,22 +47,8 @@ export default {
   created() {
     this.handleChange();
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.handleInitScale();
-    });
-  },
+  mounted() {},
   methods: {
-    //   初始化缩放
-    handleInitScale() {
-      const DatePicker1WrapperRef = this.$refs['DatePicker1WrapperRef'];
-      const style = window.getComputedStyle(DatePicker1WrapperRef);
-      const width = parseFloat(style.width);
-      const height = parseFloat(style.height);
-      const scaleX = width / 248;
-      const scaleY = height / 36;
-      this.$eventBus.$emit('date_picker1_scale_change', { scaleX, scaleY });
-    },
     handleChange() {
       this.$eventBus.$emit(this.i + '', this.date);
     }

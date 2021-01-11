@@ -50,7 +50,7 @@ const COMPONENT_CONFIG = {
     x: 180,
     y: 0,
     w: 60, // w和col-num有关
-    h: 20, // h和row-height有关
+    h: 30, // h和row-height有关
     /* grid-layout 栅格元素ID 因为用了sync修饰符，所以这里必须写成i*/
     i: 0,
     static: true,
@@ -123,7 +123,7 @@ const COMPONENT_CONFIG = {
     x: 185,
     y: 0,
     w: 55,
-    h: 4,
+    h: 6,
     i: 0,
     static: true,
     /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。

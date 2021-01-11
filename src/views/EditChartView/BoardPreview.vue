@@ -115,7 +115,7 @@ export default {
     initResize() {
       this.handleResetMainBoardSize();
       this.handleResetMainBoardSizeThrottle = throttle(
-        this.handleResetMainBoardSize
+        this.handleResetMainBoardSize, 100
       );
       window.addEventListener('resize', this.handleResetMainBoardSizeThrottle);
     },
@@ -124,12 +124,12 @@ export default {
       const width = this.boardConfig.screenRatio.width;
       const height = this.boardConfig.screenRatio.height;
       const style = window.getComputedStyle(MaintBoardDom);
+      const realWidth = parseFloat(style.width)
       // 看板尺寸 按比例设置
-      const realHeight = (parseInt(style.width) * height) / width;
-      const boardDomHeight = this.boardConfig.screenRatio.boardDomHeight;
+      const realHeight = ( realWidth * height) / width;
       MaintBoardDom.style.height = realHeight + 'px';
       this.$nextTick(() => {
-        this.rowHeight = (realHeight / boardDomHeight) * 10;
+        this.rowHeight = (realWidth / width) * 10;
         console.log('this.rowHeight', this.rowHeight);
       });
     }

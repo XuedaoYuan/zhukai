@@ -35,7 +35,6 @@
 
       <!--<div>
         <el-button @click="handleAddNewDatePicker">add DatePicker</el-button>
-        <el-button @click="handleAddTitle1">add title1</el-button>
         <el-button @click="handleAddTestLink">add testLink</el-button>
         <span>---尺寸</span>
         
@@ -288,9 +287,7 @@ export default {
           width: 1920,
           height: 1080,
           /* 是否是自定义尺寸 */
-          isCustom: false,
-          /* 编辑时真实的高度 */
-          boardDomHeight: 1080
+          isCustom: false
         },
         /* 背景 */
         background: {
@@ -363,7 +360,8 @@ export default {
   mounted() {
     this.handleResetMainBoardSize();
     this.handleResetMainBoardSizeThrottle = throttle(
-      this.handleResetMainBoardSize
+      this.handleResetMainBoardSize,
+      100
     );
     window.addEventListener('resize', this.handleResetMainBoardSizeThrottle);
   },
@@ -432,6 +430,12 @@ export default {
           }
           case 'datePicker1': {
             // this.$eventBus.$on("date_picker1_scale_change", )
+            const MaintBoardDomWidth =
+              (this.rowHeight / 10) * this.boardConfig.screenRatio.width;
+            const realDomWidth = (MaintBoardDomWidth / 240) * component.w;
+            const realDomHeight = this.rowHeight * component.h;
+            component.componentConfig.scaleX = realDomWidth / 248;
+            component.componentConfig.scaleY = realDomHeight / 36;
             component.y = this.getInitialYVal(component);
             break;
           }
@@ -479,12 +483,16 @@ export default {
       const height = this.boardConfig.screenRatio.height;
       const style = window.getComputedStyle(MaintBoardDom);
       // 看板尺寸 按比例设置
-      const MaintBoardDomWidth = parseInt(style.width);
+      const MaintBoardDomWidth = parseFloat(style.width);
       // 记录真实的width
       const realHeight = (MaintBoardDomWidth * height) / width;
       layoutContainerHeight = realHeight;
-      this.boardConfig.screenRatio.boardDomHeight = layoutContainerHeight;
+      // this.boardConfig.screenRatio.boardDomHeight = layoutContainerHeight;
       MaintBoardDom.style.height = realHeight + 'px';
+      this.$nextTick(() => {
+        this.rowHeight = (MaintBoardDomWidth / width) * 10;
+        console.log('this.rowHeight', this.rowHeight);
+      });
     },
     handleMoveEvent(i, newX, newY) {
       console.log(
@@ -513,11 +521,6 @@ export default {
           this.boardConfig.components[index].y = y - 0;
         });
       }
-    },
-    handleAddTitle1() {
-      const component = cloneDeep(COMPONENT_CONFIG['title1']);
-      component.i = ++this.boardConfig.componentIdIndex;
-      this.boardConfig.components.push(component);
     },
     handleAddTestLink() {
       const component = cloneDeep(COMPONENT_CONFIG['testLink']);
@@ -577,19 +580,41 @@ export default {
     },
     // i, newH, newW, newHPx, newWPx
     /* 正在调整大小 */
-    handleResizeEvent(i) {
+    handleResizeEvent(i, newH, newW, newHPx, newWPx) {
+      console.log(
+        `%c resize, newH=${newH}, newW=${newW}, newHPx=${newHPx}, newWPx=${newWPx}`,
+        'color: green;'
+      );
       // this.$refs[`Component${i}Ref`][0].resize();
+      // let index = findIndex(this.boardConfig.components, (o) => o.i === i);
     },
     /* 大小调整完成 */
     handleResizedEvent(i, newH, newW, newHPx, newWPx) {
-      console.log(i, newH, newW, newHPx, newWPx);
+      console.log(
+        `%c resized, newH=${newH}, newW=${newW}, newHPx=${newHPx}, newWPx=${newWPx}`,
+        'color: red;'
+      );
       const index = findIndex(this.boardConfig.components, (o) => o.i === i);
       const component = this.boardConfig.components[index];
       if (index > -1) {
         this.w = newW;
         this.h = newH;
         this.handlingIndex = index;
-        // this.$forceUpdate()
+      }
+      /* 针对一些需要变化的内容做调整 */
+      switch (component.componentName) {
+        case 'DatePicker1':
+          const scaleX = newWPx / 248;
+          const scaleY = newHPx / 36;
+          this.boardConfig.components[index].componentConfig = {
+            ...component.componentConfig,
+            scaleX,
+            scaleY
+          };
+          break;
+
+        default:
+          break;
       }
     },
     handleTitleConfigChange(config) {
