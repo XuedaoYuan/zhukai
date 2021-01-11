@@ -1,16 +1,4 @@
 /* 大屏配置的自定义全局样式 */
-.el-date-editor.hsa-el-date-picker {
-    width: 100% !important;
-    height: 100%;
-    display: block;
-    background-color: #ccc;
-
-    .el-input__inner {
-        height: 100%;
-        background-color: #ccc;
-    }
-}
-
 .vue-grid-item {
     // background-color: #ccc;
     position: relative;
@@ -18,7 +6,7 @@
     // background-image: url('../views/EditChartView/assets/bg-border.png');
     // background-size: 100% 100%;
     & > .vue-resizable-handle {
-        z-index: 2;
+        z-index: 10000;
     }
 
     .mask_container {
@@ -28,12 +16,16 @@
         top: 0;
         bottom: 0;
         background-color: transparent;
-        z-index: 1;
+        z-index: 9999;
         border: 1px solid transparent;
         transition: all 0.3s ease;
 
         &.component-selected {
-            border-color: #fff;
+            border-color: rgb(92, 173, 255);
+        }
+
+        &.component-moved {
+            border-color: rgb(92, 173, 255);
         }
 
         &:hover {

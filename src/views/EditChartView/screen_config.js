@@ -52,3 +52,51 @@ updateDate yyyy-MM-dd 更新日期
 xxxDate yyyy-MM-dd 流程改变的日期，有需要可以记录下来，比如审核通过的日期
 boardConfig String ，主要用于保存看板的各种配置项，需要数据库一个比较长的类型，比如varchar或者text
 */
+
+
+// 图表存储的数据
+/* const a = {
+  data: {
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 10,
+      data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+      textStyle: {
+        color: '#fff'
+      }
+    },
+    series: [
+      {
+        name: '访问来源',
+        type: 'pie',
+        radius: ['50%', '70%'],
+        avoidLabelOverlap: false,
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '30',
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: 335, name: '直接访问' },
+          { value: 310, name: '邮件营销' },
+          { value: 234, name: '联盟广告' },
+          { value: 135, name: '视频广告' },
+          { value: 1548, name: '搜索引擎' }
+        ]
+      }
+    ]
+  }
+}; */

@@ -1,47 +1,26 @@
 <template>
-  <el-collapse-item class="title1-config"
-                    title="标题">
-    <el-row type="flex"
-            justify="space-between">
+  <el-collapse-item class="title1-config" title="标题">
+    <el-row type="flex" justify="space-between">
       标题
-      <el-checkbox v-model="config.showStatus"
-                   @change="handleChange">显示</el-checkbox>
+      <el-checkbox v-model="config.showStatus" @change="handleChange">显示</el-checkbox>
     </el-row>
     <el-row>
-      <el-input v-model="config.title"
-                @change="handleChange"></el-input>
+      <el-input v-model="config.title" @change="handleChange"></el-input>
     </el-row>
-    <el-row type="flex"
-            align="middle">
-      <el-color-picker show-alpha
-                       v-model="config.color"
-                       @change="handleChange"></el-color-picker>
-      <el-input-number :min="10"
-                       :max="30"
-                       :precision="0"
-                       controls-position="right"
-                       v-model="config.fontSize"
-                       @change="handleChange"></el-input-number>
-      <el-select v-model="config.fontFamily"
-                 @change="handleChange">
-        <el-option v-for="item in fontFamilyOptions"
-                   :key="item.value"
-                   :label="item.label"
-                   :value="item.value"></el-option>
+    <el-row type="flex" align="middle">
+      <el-color-picker show-alpha v-model="config.color" @change="handleChange"></el-color-picker>
+      <el-input-number :min="10" :max="30" :precision="0" controls-position="right" v-model="config.fontSize" @change="handleChange"></el-input-number>
+      <el-select v-model="config.fontFamily" @change="handleChange">
+        <el-option v-for="item in fontFamilyOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
       </el-select>
     </el-row>
-    <el-row type="flex"
-            align="middle">
-      <el-radio-group v-model="config.textAlign"
-                      @change="handleChange">
+    <el-row type="flex" align="middle">
+      <el-radio-group v-model="config.textAlign" @change="handleChange">
         <el-radio-button label="left">左</el-radio-button>
         <el-radio-button label="center">中</el-radio-button>
         <el-radio-button label="right">右</el-radio-button>
       </el-radio-group>
-      <el-checkbox-button v-model="config.fontWeight"
-                          @change="handleChange"
-                          true-label="bold"
-                          false-label="normal">B</el-checkbox-button>
+      <el-checkbox-button v-model="config.fontWeight" @change="handleChange" true-label="bold" false-label="normal">B</el-checkbox-button>
     </el-row>
   </el-collapse-item>
 </template>
