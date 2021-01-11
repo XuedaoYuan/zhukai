@@ -1,6 +1,6 @@
 <template>
-  <el-collapse-item class="title1-config"
-                    title="标题">
+  <el-collapse-item class="select1-config"
+                    title="下拉框标题">
     <el-row type="flex"
             justify="space-between">
       标题
@@ -32,12 +32,11 @@
     </el-row>
     <el-row type="flex"
             align="middle">
-      <el-radio-group v-model="config.textAlign"
-                      @change="handleChange">
+      <!--  <el-radio-group v-model="config.textAlign" @change="handleChange">
         <el-radio-button label="left">左</el-radio-button>
         <el-radio-button label="center">中</el-radio-button>
         <el-radio-button label="right">右</el-radio-button>
-      </el-radio-group>
+      </el-radio-group> -->
       <el-checkbox-button v-model="config.fontWeight"
                           @change="handleChange"
                           true-label="bold"
@@ -57,7 +56,7 @@ import {
   CheckboxButton
 } from 'element-ui';
 export default {
-  name: 'Title1Config',
+  name: 'Select1Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,
@@ -72,10 +71,9 @@ export default {
       type: Object,
       required: true,
       default: () => ({
-        title: '看板标题',
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: 16,
+        title: '选择',
+        color: '#ffffff',
+        fontSize: 14,
         fontFamily: 'Microsoft Yahei',
         fontWeight: 'normal',
         showStatus: true,
@@ -106,9 +104,9 @@ export default {
       config: {
         title: '看板标题',
         color: '#fff',
-        textAlign: 'center',
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'Microsoft Yahei',
+        fontWeight: 'normal',
         showStatus: true,
         scale: 1
       }
@@ -126,7 +124,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.title1-config {
+.select1-config {
   /deep/ .el-collapse-item__content {
     color: #b0cdeb;
   }

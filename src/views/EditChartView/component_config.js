@@ -164,6 +164,10 @@ const COMPONENT_CONFIG = {
     componentAliasName: '下拉框',
     componentConfig: {
       title: '选择',
+      color: '#fff',
+      fontSize: 14,
+      fontFamily: 'Microsoft Yahei',
+      fontWeight: 'normal',
       showStatus: true,
       scale: 1
     }

@@ -5,7 +5,10 @@
          :style="{
         transform: 'scale('+componentConfig.scale+')'
     }">
-      <div class="title">选择：</div>
+      <div class="title" :style="{
+        color: componentConfig.color,
+        fontWeight: componentConfig.fontWeight
+      }">选择：</div>
       <el-select clearable
                  size="medium"
                  v-model="value"
@@ -34,6 +37,10 @@ export default {
       type: Object,
       default: () => ({
         title: '选择',
+        color: '#fff',
+        fontSize: 14,
+        fontFamily: 'Microsoft Yahei',
+        fontWeight: 'normal',
         showStatus: true,
         scale: 1
       })

@@ -177,6 +177,10 @@
                   boardConfig.components[handlingIndex].componentName ==='TestLink'"
                               :components="boardConfig.components"
                               @change="handleTestLinkConfigChange"></TestLinkConfig>
+              <Select1Config v-if="handlingIndex >= 0 &&
+                  boardConfig.components[handlingIndex].componentName ==='Select1'"
+                             :componentConfig="boardConfig.components[handlingIndex].componentConfig"
+                             @change="handleSelect1Change"></Select1Config>
             </el-collapse>
           </el-tab-pane>
           <el-tab-pane label="数据来源配置"
@@ -208,7 +212,7 @@ import {
   getBoardConfigDetail
 } from './api';
 import html2canvas from 'html2canvas';
-import mixin from "./EditChartViewMixin"
+import mixin from './EditChartViewMixin';
 /* 背景图片 */
 const darkBackground = require('./assets/darkBackground.png');
 const lightBackground = require('./assets/lightBackground.png');
@@ -240,6 +244,7 @@ export default {
     Pie1Config: () => import('./components/Pie1/Pie1Config'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
     Select1: () => import('./components/Select1/Select1.vue'),
+    Select1Config: () => import('./components/Select1/Select1Config.vue'),
     DataConfig: () => import('./components/DataConfig')
   },
   mixins: [mixin],
@@ -594,9 +599,16 @@ export default {
         this.handlingIndex = index;
       }
     },
-  
+
     handleTitleConfigChange(config) {
       // this.handlingIndex;
+      const component = this.boardConfig.components[this.handlingIndex];
+      this.boardConfig.components[this.handlingIndex].componentConfig = {
+        ...config,
+        scale: component.scale
+      };
+    },
+    handleSelect1Change(config) {
       const component = this.boardConfig.components[this.handlingIndex];
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...config,
