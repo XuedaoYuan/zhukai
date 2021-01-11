@@ -24,6 +24,7 @@
           <component :is="item.componentName"
                      :ref="'Component' + index + 'Ref'"
                      :i="item.i"
+                     @resize="onComponentResize"
                      :componentConfig="item.componentConfig"></component>
         </template>
       </grid-item>
@@ -41,6 +42,7 @@ import Title1 from './components/Title1/Title1';
 import DatePicker from './components/DatePicker';
 import TestLink from './components/TestLink/TestLink';
 import ChartBar1 from './components/ChartBar1';
+import mixin from './EditChartViewMixin';
 export default {
   name: 'BoardPreview',
   components: {
@@ -54,6 +56,7 @@ export default {
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
     Select1: () => import('./components/Select1/Select1.vue')
   },
+  mixins: [mixin],
   data() {
     return {
       colNum: 240,

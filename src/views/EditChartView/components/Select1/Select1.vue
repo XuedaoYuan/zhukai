@@ -1,5 +1,6 @@
 <template>
-  <div class="select1__wrapper__976567dd">
+  <div class="select1__wrapper__976567dd"
+       ref="Select1WrapperRef">
     <div class="select1__container__0975qsae"
          :style="{
         transform: 'scale('+componentConfig.scale+')'
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import throttle from 'lodash/throttle';
 export default {
   name: 'Select1',
   props: {
@@ -45,9 +47,28 @@ export default {
   },
   created() {
     this.handleChange();
+    this._resizehandlerThrottle = throttle(this.resizehandler, 100);
   },
-  mounted() {},
+  mounted() {
+    this._resizeObserver = new ResizeObserver(this._resizehandlerThrottle);
+    this._resizeObserver.observe(this.$refs['Select1WrapperRef']);
+  },
+  beforeDestroy() {
+    if (this._resizeObserver) {
+      this._resizeObserver.disconnect();
+      this._resizeObserver = null;
+    }
+  },
   methods: {
+    resizehandler(entries) {
+      const dOMRectReadOnly = entries[0];
+      const contentRect = dOMRectReadOnly.contentRect;
+      this.$emit('resize', {
+        contentRect,
+        i: this.i,
+        componentName: 'Select1'
+      });
+    },
     handleChange() {
       this.$eventBus.$emit(this.i + '', this.value);
     }

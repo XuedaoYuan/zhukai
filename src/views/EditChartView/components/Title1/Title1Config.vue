@@ -57,7 +57,8 @@ export default {
         fontSize: 16,
         fontFamily: 'Microsoft Yahei',
         fontWeight: 'normal',
-        showStatus: true
+        showStatus: true,
+        scale: 1,
       })
     }
   },
@@ -79,7 +80,8 @@ export default {
         textAlign: 'center',
         fontSize: 16,
         fontFamily: 'Microsoft Yahei',
-        showStatus: true
+        showStatus: true,
+        scale: 1
       }
     };
   },

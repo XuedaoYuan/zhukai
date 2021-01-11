@@ -96,7 +96,8 @@
                 <component :is="item.componentName"
                            :ref="'Component' + item.i + 'Ref'"
                            :i="item.i"
-                           :componentConfig="item.componentConfig"></component>
+                           :componentConfig="item.componentConfig"
+                           @resize="onComponentResize"></component>
               </template>
               <div :class="['mask_container',index === handlingIndex ? 'component-selected' : '', isMoved ? 'component-moved' : '']"
                    @click.stop="handleComponentClick(index)"
@@ -207,6 +208,7 @@ import {
   getBoardConfigDetail
 } from './api';
 import html2canvas from 'html2canvas';
+import mixin from "./EditChartViewMixin"
 /* 背景图片 */
 const darkBackground = require('./assets/darkBackground.png');
 const lightBackground = require('./assets/lightBackground.png');
@@ -240,6 +242,7 @@ export default {
     Select1: () => import('./components/Select1/Select1.vue'),
     DataConfig: () => import('./components/DataConfig')
   },
+  mixins: [mixin],
   data() {
     return {
       // 保存的loading
@@ -428,27 +431,6 @@ export default {
             component.y = 0;
             break;
           }
-          case 'datePicker1': {
-            // this.$eventBus.$on("date_picker1_scale_change", )
-            const MaintBoardDomWidth =
-              (this.rowHeight / 10) * this.boardConfig.screenRatio.width;
-            const realDomWidth = (MaintBoardDomWidth / 240) * component.w;
-            const scale = realDomWidth / 248;
-            component.componentConfig.scale = scale;
-            component.h = (36 * scale) / this.rowHeight;
-            component.y = this.getInitialYVal(component);
-            break;
-          }
-          case 'select1': {
-            const MaintBoardDomWidth =
-              (this.rowHeight / 10) * this.boardConfig.screenRatio.width;
-            const realDomWidth = (MaintBoardDomWidth / 240) * component.w;
-            const scale = realDomWidth / 248;
-            component.componentConfig.scale = scale;
-            component.h = (36 * scale) / this.rowHeight;
-            component.y = this.getInitialYVal(component);
-            break;
-          }
 
           default: {
             component.y = this.getInitialYVal(component);
@@ -611,43 +593,14 @@ export default {
         this.h = newH;
         this.handlingIndex = index;
       }
-      /* 针对一些需要变化的内容做调整 */
-      switch (component.componentName) {
-        case 'DatePicker1': {
-          const scale = newWPx / 248;
-          const h = (36 * scale) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          this.boardConfig.components[index].componentConfig = {
-            ...component.componentConfig,
-            scale
-          };
-          break;
-        }
-        case 'Select1': {
-          const scale = newWPx / 248;
-          const h = (36 * scale) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          this.boardConfig.components[index].componentConfig = {
-            ...component.componentConfig,
-            scale: scale
-          };
-          break;
-        }
-
-        default:
-          break;
-      }
     },
+  
     handleTitleConfigChange(config) {
       // this.handlingIndex;
+      const component = this.boardConfig.components[this.handlingIndex];
       this.boardConfig.components[this.handlingIndex].componentConfig = {
-        ...config
+        ...config,
+        scale: component.scale
       };
     },
     handlePie1ConfigChange(config) {

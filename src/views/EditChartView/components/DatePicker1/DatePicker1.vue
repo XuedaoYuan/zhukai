@@ -19,6 +19,7 @@
 
 <script>
 import { DatePicker } from 'element-ui';
+import throttle from 'lodash/throttle';
 export default {
   name: 'DatePicker1',
   props: {
@@ -31,7 +32,7 @@ export default {
       default: () => ({
         title: '选择日期',
         showStatus: true,
-        scale: 1,
+        scale: 1
       })
     }
   },
@@ -45,9 +46,30 @@ export default {
   },
   created() {
     this.handleChange();
+    this._resizehandlerThrottle = throttle(this.resizehandler, 100);
   },
-  mounted() {},
+  mounted() {
+    this._resizeObserver = new ResizeObserver(this._resizehandlerThrottle);
+    this._resizeObserver.observe(this.$refs['DatePicker1WrapperRef']);
+  },
+  beforeDestroy() {
+    if (this._resizeObserver) {
+      this._resizeObserver.disconnect();
+      this._resizeObserver = null;
+    }
+  },
   methods: {
+    resizehandler(entries) {
+      const dOMRectReadOnly = entries[0];
+      const contentRect = dOMRectReadOnly.contentRect;
+      this.$emit('resize', {
+        contentRect,
+        i: this.i,
+        initialW: 248,
+        initialH: 36,
+        componentName: 'DatePicker1'
+      });
+    },
     handleChange() {
       this.$eventBus.$emit(this.i + '', this.date);
     }

@@ -3,10 +3,10 @@
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: {
-    x: 0,
+    x: 60,
     y: 0,
-    w: 240, // w和col-num有关
-    h: 4, // h和row-height有关
+    w: 120, // w和col-num有关
+    h: 3, // h和row-height有关
     i: '',
     static: true,
     type: '',
@@ -23,7 +23,8 @@ const COMPONENT_CONFIG = {
       fontSize: 16,
       fontFamily: 'Microsoft Yahei',
       fontWeight: 'normal',
-      showStatus: true
+      showStatus: true,
+      scale: 1
     }
   },
   testLink: {
@@ -63,6 +64,8 @@ const COMPONENT_CONFIG = {
     businessTheme: '',
     // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
     componentName: 'Pie1',
+    // 组件的中文名
+    componentAliasName: '饼图1',
     /* 组件配置 */
     // 组件本身的属性  比如标题的title color等  这块根据自己的组件自己定义好自己的规则即可
     componentConfig: {
@@ -135,6 +138,7 @@ const COMPONENT_CONFIG = {
     businessTheme: '',
     // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
     componentName: 'DatePicker1',
+    componentAliasName: '日期选择器1',
     componentConfig: {
       title: '选择日期',
       showStatus: true,
@@ -157,6 +161,7 @@ const COMPONENT_CONFIG = {
     businessTheme: '',
     // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
     componentName: 'Select1',
+    componentAliasName: '下拉框',
     componentConfig: {
       title: '选择',
       showStatus: true,
