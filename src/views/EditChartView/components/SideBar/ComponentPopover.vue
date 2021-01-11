@@ -17,21 +17,21 @@
              @click="handleComponentClick('pie1')"
              width="182"
              alt="pie1" />
-        <img src="./imgs/select1.png"
-             @click="handleComponentClick('select1')"
-             width="182"
-             alt="select1" />
-        <span @click="handleComponentClick('datePicker1')">datePicker1</span>
+
       </div>
       <div class="right-container">
         <img src="./imgs/title1.png"
              @click="handleComponentClick('title1')"
              width="100%"
              alt="title1" />
-        <img src="./imgs/pie1.png"
-             @click="handleComponentClick('pie1')"
+        <img src="./imgs/select1.png"
+             @click="handleComponentClick('select1')"
              width="182"
-             alt="pie1" />
+             alt="select1" />
+        <img src="./imgs/datePicker1.png"
+             @click="handleComponentClick('datePicker1')"
+             width="182"
+             alt="datePicker1" />
       </div>
 
     </div>
