@@ -3,12 +3,16 @@
        ref="Select1WrapperRef">
     <div class="select1__container__0975qsae"
          :style="{
-        transform: 'scale('+componentConfig.scale+')'
-    }">
-      <div class="title" :style="{
-        color: componentConfig.color,
-        fontWeight: componentConfig.fontWeight
-      }">选择：</div>
+            transform: 'scale('+componentConfig.scale+')'
+         }">
+      <div class="title"
+           v-if="componentConfig.showStatus"
+           :style="{
+              color: componentConfig.color,
+              fontWeight: componentConfig.fontWeight,
+              fontSize: componentConfig.fontSize + 'px',
+              fontFamily: componentConfig.fontFamily
+            }">{{componentConfig.title}}：</div>
       <el-select clearable
                  size="medium"
                  v-model="value"
