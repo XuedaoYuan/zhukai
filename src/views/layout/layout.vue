@@ -27,7 +27,7 @@
                   </template>
                 </el-menu-item>
               </el-submenu>
-              <!-- <el-submenu index="/zb">
+              <el-submenu index="/zb">
                 <template v-slot:title>
                   <i class="el-icon-location"></i>
                   <span>指标管理</span>
@@ -69,28 +69,19 @@
                     <span>日志查询</span>
                   </template>
                 </el-menu-item>
-              </el-submenu> -->
+              </el-submenu>
               <el-submenu index="/board-config-manage">
-                <!-- 大屏编辑测试菜单 -->
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>大屏控制模块</span>
                 </template>
-                <!-- <el-menu-item index="">
-                  <template v-slot:title>
-                    <router-link class="TestVueGridLayout-link"
-                                 to="/TestVueGridLayout"
-                                 target="_blank">大屏编辑</router-link>
-                  </template>
-                </el-menu-item> -->
                 <el-menu-item index="/board-config-manage/index">
                   <template v-slot:title>
                     <span>大屏配置管理</span>
                   </template>
                 </el-menu-item>
-
               </el-submenu>
-              <!-- <el-submenu index="5">
+              <el-submenu index="5">
                 <template slot="title">
                   <i class="el-icon-menu"></i>
                   <span>指标管理</span>
@@ -118,7 +109,7 @@
                 <el-menu-item-group>
                   <el-menu-item index="4-1"><router-link to="/logQuery"><span style="color:#fff">日志查询</span></router-link></el-menu-item>
                 </el-menu-item-group>
-              </el-submenu> -->
+              </el-submenu>
             </el-menu>
           </el-col>
         </el-row>
