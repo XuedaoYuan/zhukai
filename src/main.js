@@ -60,6 +60,17 @@ Vue.prototype.$message = Message;
 
 Vue.use(echarts);
 
+Vue.config.errorHandler = function(err, vm, info) {
+  // handle error
+  // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
+  // 只在 2.2.0+ 可用
+  console.log('%c ==================>>>>>>error start<<<<<<=====================', 'color: red');
+  console.error(err);
+  console.log(vm);
+  console.warn(info)
+  console.log('%c ==================>>>>>>error start<<<<<<=====================', 'color: red');
+};
+
 new Vue({
   router,
   store,

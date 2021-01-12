@@ -173,7 +173,26 @@ const COMPONENT_CONFIG = {
       fontFamily: 'Microsoft Yahei',
       fontWeight: 'normal',
       showStatus: true,
-      scale: 1
+      scale: 1,
+      data: {
+        businessType: '静态数据', // 指标库导入、静态数据、自定义API
+        /* 指标库导入 */
+        businessDomain: '', // 业务域
+        businessIndexSet: '', // 指标集
+        businessParamList: [],
+        /* 静态数据 */
+        staticData: JSON.stringify(
+          [
+            { label: '1', value: '1' },
+            { label: '3', value: '3' }
+          ],
+          null,
+          4
+        ), //  Array or Map 序列化的字符串
+        /* 自定义API */
+        apiUrl: '',
+        apiUrlParamList: [{ key: '', value: '' }]
+      }
     }
   }
 };

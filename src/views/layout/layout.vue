@@ -1,8 +1,8 @@
 <template>
   <el-container>
-    <el-header  class="hsa-header_container"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
+    <el-header v-show="false" class="hsa-header_container"><span style="font-size:24px;color:#fff;"><i class="el-icon-first-aid-kit"></i>海南医保管家</span></el-header>
     <el-container>
-      <el-aside  class="hsa-aside_container" width="200px">
+      <el-aside v-show="false" class="hsa-aside_container" width="200px">
         <el-row class="tac">
           <el-col>
             <el-menu router :default-active="defaultActive" class="el-menu-vertical-demo" background-color="#104895" text-color="#fff" active-text-color="#ffd04b">
@@ -81,7 +81,7 @@
                   </template>
                 </el-menu-item>
               </el-submenu>
-              <el-submenu index="5">
+              <!-- <el-submenu index="5">
                 <template slot="title">
                   <i class="el-icon-menu"></i>
                   <span>指标管理</span>
@@ -109,7 +109,7 @@
                 <el-menu-item-group>
                   <el-menu-item index="4-1"><router-link to="/logQuery"><span style="color:#fff">日志查询</span></router-link></el-menu-item>
                 </el-menu-item-group>
-              </el-submenu>
+              </el-submenu> -->
             </el-menu>
           </el-col>
         </el-row>

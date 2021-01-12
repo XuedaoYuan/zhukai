@@ -18,10 +18,10 @@
                  v-model="value"
                  value-format="yyyy-MM-dd"
                  @change="handleChange">
-        <el-option value="1"
-                   label="1"></el-option>
-        <el-option value="2"
-                   label="2"></el-option>
+        <el-option v-for="item in options"
+                   :key="item.value"
+                   :value="item.value"
+                   :label="item.label"></el-option>
       </el-select>
 
     </div>
@@ -30,6 +30,7 @@
 
 <script>
 import throttle from 'lodash/throttle';
+import { fetch } from '../../axios/index';
 export default {
   name: 'Select1',
   props: {
@@ -46,17 +47,20 @@ export default {
         fontFamily: 'Microsoft Yahei',
         fontWeight: 'normal',
         showStatus: true,
-        scale: 1
+        scale: 1,
+        data: null
       })
     }
   },
   components: {},
   data() {
     return {
-      value: ''
+      value: '',
+      options: []
     };
   },
   created() {
+    this.initData();
     this.handleChange();
     this._resizehandlerThrottle = throttle(this.resizehandler, 100);
   },
@@ -71,6 +75,49 @@ export default {
     }
   },
   methods: {
+    /* 初始化下拉框的数据 */
+    initData() {
+      if (this.componentConfig && this.componentConfig.data) {
+        const data = this.componentConfig.data;
+        switch (data.businessType) {
+          case '指标库导入': {
+            // ...
+            break;
+          }
+
+          case '静态数据': {
+            try {
+              this.options = JSON.parse(data.staticData);
+            } catch (error) {
+              this.options = [];
+            }
+            break;
+          }
+
+          case '自定义API': {
+            const params = {};
+            if (data.apiUrlParamList && data.apiUrlParamList.length > 0) {
+              for (let item of data.apiUrlParamList) {
+                if (item.key && item.value) {
+                  params[item.key] = item.value;
+                }
+              }
+            }
+            fetch({
+              url: data.apiUrl,
+              method: 'GET',
+              params: params
+            }).then((res) => {
+              this.options = [];
+            });
+            break;
+          }
+
+          default:
+            break;
+        }
+      }
+    },
     resizehandler(entries) {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;

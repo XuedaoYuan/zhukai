@@ -189,10 +189,11 @@
           </el-tab-pane>
           <el-tab-pane label="数据来源配置"
                        name="dataConfig">
-            <data-config v-if="handlingIndex >= 0 "
-                         :data="boardConfig.components[handlingIndex].componentConfig.data"
-                         @staticDataChange="handleStaticDataChange" />
-            <p v-else class="not-need-data-source">无需配置数据源</p>
+            <data-config v-if="showDataConfig"
+                         :componentData="boardConfig.components[handlingIndex].componentConfig.data"
+                         @dataChange="onDataConfigChange" />
+            <p v-else
+               class="not-need-data-source">无需配置数据源</p>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -358,6 +359,21 @@ export default {
         };
       }
       return style;
+    },
+    showDataConfig: function () {
+      if (this.handlingIndex >= 0) {
+        const ins = this.boardConfig.components[this.handlingIndex];
+        if (ins) {
+          if (ins.componentConfig && ins.componentConfig.data) {
+            return true;
+          }
+          return false;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
     }
   },
   created() {
@@ -418,10 +434,12 @@ export default {
       }
     },
     // 静态数据变更时触发
-    handleStaticDataChange(data) {
-      this.boardConfig.components[this.handlingIndex].componentConfig.data = {
-        ...data
-      };
+    onDataConfigChange(data) {
+      if (this.handlingIndex >= 0) {
+        this.boardConfig.components[this.handlingIndex].componentConfig.data = {
+          ...data
+        };
+      }
     },
     /* 计算组件的初始 top(y) 值 */
     getInitialYVal(component) {
@@ -767,6 +785,7 @@ export default {
     },
     handleBack() {
       // this.$router.go(-1)
+      this.$router.replace("/")
     }
   }
 };

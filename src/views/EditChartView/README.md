@@ -107,6 +107,22 @@
 `componentConfig.data`属性里面定义这些内容
 
 **业务类型**`componentConfig.data.businessType`, 有三个值 *指标库导入、静态数据、自定义API*
-如果 `componentConfig.data.businessType===指标库导入`那么需要定义*业务域、指标集*。
-`businessDomain、businessIndexSet`
+数据可以先定义好默认的格式一些
+
+```js
+{
+  data: {
+    businessType: '', // 指标库导入、静态数据、自定义API
+    /* 指标库导入 */
+    businessDomain: '', // 业务域
+    businessIndexSet: '', // 指标集
+    businessParamList: [{ key: '', value: '' }]
+    /* 静态数据 */
+    staticData: '', //  Array or Map 序列化的字符串
+    /* 自定义API */
+    apiUrl: '',
+    apiUrlParamList: [{ key: '', value: '' }]
+  }
+}
+```
 

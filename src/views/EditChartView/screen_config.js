@@ -106,7 +106,7 @@ const componentConfig = {
     /* 指标库导入 */
     businessDomain: '', // 业务域
     businessIndexSet: '', // 指标集
-    businessParamList: [{ key: '', value: '' }]
+    businessParamList: [{ key: '', value: '' }],
     /* 静态数据 */
     staticData: '', //  Array or Map 序列化的字符串
     /* 自定义API */
