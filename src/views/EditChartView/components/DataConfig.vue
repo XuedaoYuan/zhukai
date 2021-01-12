@@ -103,7 +103,6 @@ export default {
   watch: {
     componentData: {
       handler: function (newData) {
-        debugger;
         if (newData) {
           this.componentDataConfig = { ...newData };
         } else {
