@@ -1,15 +1,17 @@
 <template>
   <div class="wrapper" ref="WrapperRef">
-    <div v-if="componentConfig.titleShow" class="title" :style="titleStyle">
-      {{ componentConfig.title || "医保支出" }}
+    <div v-if="componentConfig.titleShow" class="title">
+      {{ componentConfig.title || "海南地图" }}
     </div>
     <div class="container" ref="ChartContainer"></div>
   </div>
 </template>
 <script>
 import _omit from "lodash/omit";
+import axios from "axios";
+import { hainan } from "./data";
 export default {
-  name: "Pie1",
+  name: "Map1",
   props: ["componentConfig"],
   data() {
     return {
@@ -18,27 +20,37 @@ export default {
     };
   },
   watch: {
-    "componentConfig.titleShow": function (val, oldVal) {
-      this.resize();
-    },
-    "componentConfig.fontSize": function (val, oldVal) {
-      this.resize();
-    },
-    "componentConfig.data": function(val, oldVal){
-      this.chartInstance.setOption(this.componentConfig.data);
-    },
+    // "componentConfig.titleShow": function (val, oldVal) {
+    //   this.resize();
+    // },
+    // "componentConfig.fontSize": function (val, oldVal) {
+    //   this.resize();
+    // },
+    // "componentConfig.data": function(val, oldVal){
+    //   this.chartInstance.setOption(this.componentConfig.data);
+    // },
   },
   computed: {
-    titleStyle: function () {
-      return _omit(this.componentConfig, ["title", "titleShow"]);
-    },
+    // titleStyle: function () {
+    //   return _omit(this.componentConfig, ["title", "titleShow"]);
+    // },
   },
   mounted() {
     const chartContainerDOM = this.$refs["ChartContainer"];
     this.chartContainerDOM = chartContainerDOM;
     this.$nextTick(() => {
       this.chartInstance = this.$echarts.init(chartContainerDOM);
-      this.chartInstance.setOption(this.componentConfig.data);
+      this.chartInstance.showLoading();
+      const zoomData = 4;
+      const centerData = [110.037218, 18.505006];
+      // const option = ;
+      console.log('configMa ==> ', this.componentConfig);
+      axios.get(hainan).then(({ data }) => {
+        console.log("result ==> ", data);
+        this.$echarts.registerMap("hainan", data);
+        this.chartInstance.hideLoading();
+        this.chartInstance.setOption(this.componentConfig.data);
+      });
     });
   },
   methods: {

@@ -194,6 +194,114 @@ const COMPONENT_CONFIG = {
         apiUrlParamList: [{ key: '', value: '' }]
       }
     }
+  },
+  map1: {
+    x: 160,
+    w: 80,
+    h: 80,
+    i: 0,
+    static: true,
+    /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
+        根据不同的类型还要存储不同结构的数据 */
+    type: '',
+    /* 业务类型，可用于筛选，不一定要 */
+    businessType: '',
+    /* 业务主题， 同上 */
+    businessTheme: '',
+    // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
+    componentName: 'Map1',
+    componentAliasName: '海南省地图',
+    componentConfig: {
+      titleShow: true,
+      title: '海南省地图',
+      data: {
+        tooltip: {
+          trigger: "item",
+          formatter: function (params) {
+            if (params.name && params.data.value) {
+              return params.name + " : " + params.data.value;
+            }
+          },
+        },
+        // geo:{
+        //     map: 'hainan',
+        //     zoom: zoomData,
+        //     roam: true,
+        //     center: centerData,
+        //     itemStyle: {
+        //         normal: {
+        //             areaColor: '#013C62',
+        //             shadowColor: '#182f68',
+        //             shadowOffsetX: 0,
+        //             shadowOffsetY: 10
+        //         },
+        //         emphasis: {
+        //             areaColor: '#2AB8FF',
+        //             borderWidth: 0,
+        //             color: 'green',
+        //             label: {
+        //                 show: false
+        //             }
+        //         }
+        //     }
+        // },
+        series: [
+          {
+            type: "map",
+            roam: true,
+            label: {
+              normal: {
+                show: true,
+                textStyle: {
+                  color: "#fff",
+                },
+              },
+              emphasis: {
+                textStyle: {
+                  color: "#fff",
+                },
+              },
+            },
+            itemStyle: {
+              normal: {
+                borderColor: "#2ab8ff",
+                borderWidth: 1.5,
+                areaColor: "#12235c",
+              },
+              emphasis: {
+                areaColor: "#2AB8FF",
+                borderWidth: 0,
+                color: "green",
+              },
+            },
+            zoom: 4,
+            roam: true,
+            center: [110.037218, 18.505006],
+            map: "hainan", //使用
+            // data: data,
+          },
+          {
+            type: "effectScatter",
+            coordinateSystem: "geo",
+            showEffectOn: "render",
+            rippleEffect: {
+              period: 15,
+              scale: 4,
+              brushType: "fill",
+            },
+            hoverAnimation: true,
+            itemStyle: {
+              normal: {
+                color: "rgba(220,180,150,0.7)",
+                shadowBlur: 10,
+                shadowColor: "#333",
+              },
+            },
+            // data: mapDate,
+          },
+        ],
+      }
+    }
   }
 };
 export default COMPONENT_CONFIG;
