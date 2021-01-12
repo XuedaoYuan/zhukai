@@ -53,7 +53,6 @@ xxxDate yyyy-MM-dd 流程改变的日期，有需要可以记录下来，比如�
 boardConfig String ，主要用于保存看板的各种配置项，需要数据库一个比较长的类型，比如varchar或者text
 */
 
-
 // 图表存储的数据
 /* const a = {
   data: {
@@ -100,3 +99,18 @@ boardConfig String ，主要用于保存看板的各种配置项，需要数据�
     ]
   }
 }; */
+
+const componentConfig = {
+  data: {
+    businessType: '', // 指标库导入、静态数据、自定义API
+    /* 指标库导入 */
+    businessDomain: '', // 业务域
+    businessIndexSet: '', // 指标集
+    businessParamList: [{ key: '', value: '' }]
+    /* 静态数据 */
+    staticData: '', //  Array or Map 序列化的字符串
+    /* 自定义API */
+    apiUrl: '',
+    apiUrlParamList: [{ key: '', value: '' }]
+  }
+};

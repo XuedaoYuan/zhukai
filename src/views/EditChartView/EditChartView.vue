@@ -189,9 +189,10 @@
           </el-tab-pane>
           <el-tab-pane label="数据来源配置"
                        name="dataConfig">
-            <data-config v-if="handlingIndex >= 0"
+            <data-config v-if="handlingIndex >= 0 "
                          :data="boardConfig.components[handlingIndex].componentConfig.data"
                          @staticDataChange="handleStaticDataChange" />
+            <p v-else class="not-need-data-source">无需配置数据源</p>
           </el-tab-pane>
         </el-tabs>
       </div>

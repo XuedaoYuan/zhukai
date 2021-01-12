@@ -94,7 +94,7 @@ export default {
     },
   },
   mounted() {
-    console.log("data ==> ", this.data);
+    console.log("%c data ==> ", "color: red", this.data);
   },
   methods: {
     // handleStaticDataChange(val) {

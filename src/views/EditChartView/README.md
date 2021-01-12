@@ -100,7 +100,13 @@
 
 6. 到此为止基本的一个组件就完成了
 
-7. DatePicker、Select1等组件的等比例缩放
-   在 `handleComponentInsert` 里面初始化scale和h
+7. DatePicker1、Select1等组件的等比例缩放，需要组件自己新建`ResizeObserver`实例，观察父元素的**size**变化， 一旦变化就触发`resize`事件。在编辑页注册了 resize事件，命名叫做`onComponentResize`，定义在`src/views/EditChartView/EditChartViewMixin.js`。通过mixin的方式编辑页和预览页同时要用的
 
-   在`handleResizedEvent`里面更新scale和h
+##### 5、组件的data（也就是数据源配置）·
+
+`componentConfig.data`属性里面定义这些内容
+
+**业务类型**`componentConfig.data.businessType`, 有三个值 *指标库导入、静态数据、自定义API*
+如果 `componentConfig.data.businessType===指标库导入`那么需要定义*业务域、指标集*。
+`businessDomain、businessIndexSet`
+

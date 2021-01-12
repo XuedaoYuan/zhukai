@@ -2,7 +2,8 @@ import findIndex from 'lodash/findIndex';
 export default {
   methods: {
     // 组件的大小(size)变化
-    onComponentResize({ contentRect, i, componentName }) {
+    // initialW  initialH 为组件定义是的具体宽高。比如Select1的宽高为248*36 这是在css写死的，后续缩放全部通过transform
+    onComponentResize({ contentRect, i, componentName, initialW, initialH }) {
       // console.log(contentRect, i);
       const index = findIndex(this.boardConfig.components, (o) => o.i === i);
       const component = this.boardConfig.components[index];
