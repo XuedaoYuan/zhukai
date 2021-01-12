@@ -101,7 +101,7 @@
               </template>
               <div :class="['mask_container',index === handlingIndex ? 'component-selected' : '', isMoved ? 'component-moved' : '']"
                    @click.stop="handleComponentClick(index)"
-                   @mouseenter="handleMaskEnter(index)">
+                   @mouseenter.stop="handleMaskEnter(index)">
                 <div @click.stop="handleDelete(index)"
                      class="delete-icon">
                   <img class="delete-img"
@@ -181,6 +181,10 @@
                   boardConfig.components[handlingIndex].componentName ==='Select1'"
                              :componentConfig="boardConfig.components[handlingIndex].componentConfig"
                              @change="handleSelect1Change"></Select1Config>
+              <DatePicker1Config v-if="handlingIndex >= 0 &&
+                  boardConfig.components[handlingIndex].componentName ==='DatePicker1'"
+                                 :componentConfig="boardConfig.components[handlingIndex].componentConfig"
+                                 @change="handleDatePicker1Change"></DatePicker1Config>
             </el-collapse>
           </el-tab-pane>
           <el-tab-pane label="数据来源配置"
@@ -243,6 +247,8 @@ export default {
     Pie1: () => import('./components/Pie1/Pie1'),
     Pie1Config: () => import('./components/Pie1/Pie1Config'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
+    DatePicker1Config: () =>
+      import('./components/DatePicker1/DatePicker1Config.vue'),
     Select1: () => import('./components/Select1/Select1.vue'),
     Select1Config: () => import('./components/Select1/Select1Config.vue'),
     DataConfig: () => import('./components/DataConfig')
@@ -609,6 +615,13 @@ export default {
       };
     },
     handleSelect1Change(config) {
+      const component = this.boardConfig.components[this.handlingIndex];
+      this.boardConfig.components[this.handlingIndex].componentConfig = {
+        ...config,
+        scale: component.scale
+      };
+    },
+    handleDatePicker1Change(config) {
       const component = this.boardConfig.components[this.handlingIndex];
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...config,

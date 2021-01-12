@@ -141,6 +141,10 @@ const COMPONENT_CONFIG = {
     componentAliasName: '日期选择器1',
     componentConfig: {
       title: '选择日期',
+      color: '#e2f8ff',
+      fontSize: 14,
+      fontFamily: 'Microsoft Yahei',
+      fontWeight: 'normal',
       showStatus: true,
       scale: 1
     }

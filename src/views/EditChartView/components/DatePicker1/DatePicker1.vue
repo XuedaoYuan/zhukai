@@ -5,7 +5,12 @@
          :style="{
         transform: 'scale('+componentConfig.scale+')'
     }">
-      <div class="title">选择日期：</div>
+      <div class="title"
+           v-if="componentConfig.showStatus"
+           :style="{color: componentConfig.color,
+              fontSize: componentConfig.fontSize + 'px',
+              fontFamily: componentConfig.fontFamily,
+              fontWeight: componentConfig.fontWeight}">{{componentConfig.title}}：</div>
       <el-date-picker clearable
                       size="medium"
                       type="date"
@@ -31,6 +36,10 @@ export default {
       type: Object,
       default: () => ({
         title: '选择日期',
+        color: '#e2f8ff',
+        fontSize: 14,
+        fontFamily: 'Microsoft Yahei',
+        fontWeight: 'normal',
         showStatus: true,
         scale: 1
       })
@@ -96,7 +105,7 @@ export default {
     line-height: 1;
     color: #e2f8ff;
     // margin-right: 20px;
-    flex: 0 0 80px;
+    // flex: 0 0 80px;
     height: 36px;
     line-height: 36px;
   }
