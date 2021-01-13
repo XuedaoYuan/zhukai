@@ -16,9 +16,11 @@
       </div>
     </el-popover>
     <el-popover placement="right-start"
-                width="400"
+                width="220"
                 :visible-arrow="false"
+                popper-class="bg-popover"
                 @show="activeItem = 'config'">
+      <slot name="configPopover"></slot>
       <div class="side-item"
            slot="reference">
         <img src="../../assets/size.png"
@@ -65,7 +67,7 @@
 import { Popover } from 'element-ui';
 export default {
   components: {
-    'el-popover': Popover,
+    'el-popover': Popover
   },
   data() {
     return {

@@ -32,15 +32,6 @@
         <div class="check-btn header-btn"
              @click="handleSubmitCheck">提交审核</div>
       </div>
-
-      <!--<div>
-        <el-button @click="handleAddNewDatePicker">add DatePicker</el-button>
-        <el-button @click="handleAddTestLink">add testLink</el-button>
-        <span>---尺寸</span>
-        
-
-      </div>
-     -->
     </div>
     <div class="content">
       <SideBar>
@@ -58,6 +49,11 @@
         <!-- 组件 -->
         <template v-slot:componentPopover>
           <component-popover @component-insert="handleComponentInsert"></component-popover>
+        </template>
+        <!-- 定时刷新 -->
+        <template v-slot:configPopover>
+          <config-popover :configRefreshPeriod="boardConfig.configRefreshPeriod"
+                          @change="onConfigRefreshPeriodChange"></config-popover>
         </template>
       </SideBar>
       <div class="main">
@@ -241,6 +237,7 @@ export default {
     'bg-popover': () => import('./components/SideBar/BgPopover'),
     'size-popover': () => import('./components/SideBar/SizePopover'),
     'component-popover': () => import('./components/SideBar/ComponentPopover'),
+    'config-popover': () => import('./components/SideBar/ConfigPopover'),
     ChartBar1: () => import('./components/ChartBar1'),
     Title1: () => import('./components/Title1/Title1'),
     Title1Config: () => import('./components/Title1/Title1Config'),
@@ -254,7 +251,7 @@ export default {
     Select1: () => import('./components/Select1/Select1.vue'),
     Select1Config: () => import('./components/Select1/Select1Config.vue'),
     DataConfig: () => import('./components/DataConfig'),
-    Map1: () => import('./components/Map1/Map1.vue'),
+    Map1: () => import('./components/Map1/Map1.vue')
   },
   mixins: [mixin],
   data() {
@@ -316,6 +313,8 @@ export default {
         },
         /* 组件的id， 每次都会自增 */
         componentIdIndex: 0,
+        /* 定时刷新配置的时间间隔，单位毫秒 */
+        configRefreshPeriod: '300000',
         // 组件的一些配置选项, 必然是多个组件
         components: [
           {
@@ -472,6 +471,9 @@ export default {
         // 拷贝一份配置
       }
     },
+    onConfigRefreshPeriodChange(period) {
+      this.boardConfig.configRefreshPeriod = period;
+    },
     handleSetBgColor(color) {
       this.boardConfig.background.backgroundColor = color;
       this.boardConfig.background.backgroundImage = null;
@@ -545,11 +547,7 @@ export default {
         });
       }
     },
-    handleAddTestLink() {
-      const component = cloneDeep(COMPONENT_CONFIG['testLink']);
-      component.i = ++this.boardConfig.componentIdIndex;
-      this.boardConfig.components.push(component);
-    },
+
     /* 删除组件 */
     handleDelete(index) {
       this.boardConfig.components.splice(index, 1);
@@ -786,7 +784,7 @@ export default {
     },
     handleBack() {
       // this.$router.go(-1)
-      this.$router.replace("/")
+      this.$router.replace('/');
     }
   }
 };
