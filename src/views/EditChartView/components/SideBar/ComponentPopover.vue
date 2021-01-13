@@ -47,6 +47,12 @@
           width="182"
           alt="datePicker1"
         />
+        <img
+          src="./imgs/chinaMap1.png"
+          @click="handleComponentClick('chinaMap1')"
+          width="182"
+          alt="chinaMap1"
+        />
       </div>
     </div>
   </div>
