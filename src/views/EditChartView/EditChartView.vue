@@ -609,19 +609,19 @@ export default {
     // i, newH, newW, newHPx, newWPx
     /* 正在调整大小 */
     handleResizeEvent(i, newH, newW, newHPx, newWPx) {
-      console.log(
-        `%c resize, newH=${newH}, newW=${newW}, newHPx=${newHPx}, newWPx=${newWPx}`,
-        'color: green;'
-      );
+      // console.log(
+      //   `%c resize, newH=${newH}, newW=${newW}, newHPx=${newHPx}, newWPx=${newWPx}`,
+      //   'color: green;'
+      // );
       // this.$refs[`Component${i}Ref`][0].resize();
       // let index = findIndex(this.boardConfig.components, (o) => o.i === i);
     },
     /* 大小调整完成 */
     handleResizedEvent(i, newH, newW, newHPx, newWPx) {
-      console.log(
-        `%c resized, newH=${newH}, newW=${newW}, newHPx=${newHPx}, newWPx=${newWPx}`,
-        'color: red;'
-      );
+      // console.log(
+      //   `%c resized, newH=${newH}, newW=${newW}, newHPx=${newHPx}, newWPx=${newWPx}`,
+      //   'color: red;'
+      // );
       const index = findIndex(this.boardConfig.components, (o) => o.i === i);
       const component = this.boardConfig.components[index];
       if (index > -1) {
@@ -662,8 +662,11 @@ export default {
       };
     },
     handlePie1ConfigChange(config) {
+      const component = this.boardConfig.components[this.handlingIndex];
+      console.log('component ==> ', component);
       this.boardConfig.components[this.handlingIndex].componentConfig = {
-        ...config
+        ...config,
+        scale: component.scale
       };
     },
     handleTestLinkConfigChange(val) {

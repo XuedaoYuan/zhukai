@@ -56,6 +56,17 @@ export default {
           this.boardConfig.components[index].componentConfig.scale = scale;
           break;
         }
+        case 'Pie1': {
+          const scale = width / initialW;
+          const h = (initialH * scale) / this.rowHeight;
+          console.log('this.index ==> ', index);
+          this.$nextTick(() => {
+            this.boardConfig.components[index].h = h;
+            this.h = h;
+          });
+          this.boardConfig.components[index].componentConfig.scale = scale;
+          break;
+        }
 
         default:
           break;
