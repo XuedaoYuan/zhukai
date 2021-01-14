@@ -9,14 +9,14 @@
 <script>
 import _omit from "lodash/omit";
 import axios from "axios";
-import { hainan } from "./data";
 export default {
-  name: "Map1",
+  name: "ChinaMap1",
   props: ["componentConfig"],
   data() {
     return {
       chartInstance: null,
       chartContainerDOM: null,
+      chinaJSON: '/static/mapData/china.json'
     };
   },
   watch: {
@@ -41,8 +41,8 @@ export default {
     this.$nextTick(() => {
       this.chartInstance = this.$echarts.init(chartContainerDOM);
       this.chartInstance.showLoading();
-      axios.get(hainan).then(({ data }) => {
-        this.$echarts.registerMap("hainan", data);
+      axios.get(this.chinaJSON).then(({ data }) => {
+        this.$echarts.registerMap("china", data);
         this.chartInstance.hideLoading();
         this.chartInstance.setOption(this.componentConfig.data);
       });

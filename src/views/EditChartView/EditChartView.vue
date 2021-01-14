@@ -251,7 +251,8 @@ export default {
     Select1: () => import('./components/Select1/Select1.vue'),
     Select1Config: () => import('./components/Select1/Select1Config.vue'),
     DataConfig: () => import('./components/DataConfig'),
-    Map1: () => import('./components/Map1/Map1.vue')
+    Map1: () => import('./components/Map1/Map1.vue'),
+    ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
   },
   mixins: [mixin],
   data() {
