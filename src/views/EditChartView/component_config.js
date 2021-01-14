@@ -1,5 +1,6 @@
 /* =======注意： 是 >>>初始<<< 配置项 */
 /* 对于所有组件的初始配置项, 也就是默认值 */
+import bar1DefaultConfig from "@/views/EditChartView/components/Bar1/bar1DefaultConfig.js"
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: {
@@ -394,33 +395,6 @@ const COMPONENT_CONFIG = {
       }
     }
   },
-  bar1: {
-    x: 180,
-    w: 60,
-    h: 36,
-    i: 0,
-    static: true,
-    /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
-        根据不同的类型还要存储不同结构的数据 */
-    type: '',
-    /* 业务类型，可用于筛选，不一定要 */
-    businessType: '',
-    /* 业务主题， 同上 */
-    businessTheme: '',
-    // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-    componentName: 'Bar1',
-    componentAliasName: '柱状图1',
-    componentConfig: {
-      // 标题的配置
-      titleLabel: '标题',
-      titleColor: 'rgb(83, 226, 255)',
-      titleFontSize: 18,
-      titleFamily: 'Microsoft Yahei',
-      titleTextAlign: 'left',
-      titleFontWeight: 'normal',
-      titleShowStatus: true,
-      scale: 1
-    }
-  }
+  bar1: bar1DefaultConfig
 };
 export default COMPONENT_CONFIG;

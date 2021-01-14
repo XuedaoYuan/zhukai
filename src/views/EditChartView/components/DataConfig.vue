@@ -34,6 +34,25 @@
           </el-option>
         </el-select>
       </el-row>
+      <div class="title param-add">参数配置<i class="el-icon-plus"
+           @click.stop="handleAddBusinessParam"></i></div>
+      <template v-if="componentDataConfig && componentDataConfig.businessParamList">
+        <div class="api-param-row"
+             v-for="(item, index) in componentDataConfig.businessParamList"
+             :key="index">
+          <el-input type="text"
+                    :style="{marginRight: '10px'}"
+                    class="api-url-param__input"
+                    v-model="componentDataConfig.businessParamList[index]['key']"
+                    placeholder="key"></el-input>
+          <el-input type="text"
+                    class="api-url-param__input"
+                    v-model="componentDataConfig.businessParamList[index]['value']"
+                    placeholder="value"></el-input>
+          <i class="el-icon-delete"
+             @click="handleDeleteBusinessParam(index)"></i>
+        </div>
+      </template>
     </div>
     <div v-show="componentDataConfig.businessType === '静态数据'">
       <el-input type="textarea"
@@ -72,6 +91,7 @@
       <el-button v-if="componentDataConfig.businessType"
                  size="small"
                  type="primary"
+                 :loading="saveLoading"
                  @click="handleSave">保存</el-button>
     </div>
   </div>
@@ -114,6 +134,7 @@ export default {
   },
   data() {
     return {
+      saveLoading: false,
       componentDataConfig: {
         businessType: '', // 指标库导入、静态数据、自定义API
         /* 指标库导入 */
@@ -174,7 +195,12 @@ export default {
   },
   methods: {
     handleSave() {
+      if (this.saveLoading) return;
+      this.saveLoading = true;
       this.$emit('dataChange', this.componentDataConfig);
+      setTimeout(() => {
+        this.saveLoading = false;
+      }, 1200);
     },
     /* 添加url api的参数 */
     handleAddUrlParam() {
@@ -188,6 +214,18 @@ export default {
     },
     handleDeleteApiUrlParam(index) {
       this.componentDataConfig.apiUrlParamList.splice(index, 1);
+    },
+    handleAddBusinessParam() {
+      if (!this.componentDataConfig.businessParamList) {
+        this.componentDataConfig.businessParamList = [];
+      }
+      this.componentDataConfig.businessParamList.push({
+        key: '',
+        value: ''
+      });
+    },
+    handleDeleteBusinessParam(index) {
+      this.componentDataConfig.businessParamList.splice(index, 1);
     }
   }
 };

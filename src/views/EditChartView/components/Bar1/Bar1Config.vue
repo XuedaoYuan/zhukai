@@ -45,6 +45,183 @@
                             false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="副标题">
+      <el-row type="flex"
+              justify="space-between">
+        副标题
+        <el-checkbox v-model="config.subTitleShowStatus"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row>
+        <el-input v-model="config.subTitleLabel"
+                  @change="handleChange"></el-input>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.subTitleColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.subTitleFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.subTitleFamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
+        </el-select>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.subTitleTextAlign"
+                        @change="handleChange">
+          <el-radio-button label="left">左</el-radio-button>
+          <el-radio-button label="center">中</el-radio-button>
+          <el-radio-button label="right">右</el-radio-button>
+        </el-radio-group>
+        <el-checkbox-button v-model="config.subTitleFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
+      </el-row>
+    </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="注释">
+      <el-row type="flex"
+              justify="space-between">
+        注释
+        <el-checkbox v-model="config.noteShowStatus"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row>
+        <el-input v-model="config.noteLabel"
+                  @change="handleChange"></el-input>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.noteColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.noteFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.noteFamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
+        </el-select>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.noteTextAlign"
+                        @change="handleChange">
+          <el-radio-button label="left">左</el-radio-button>
+          <el-radio-button label="center">中</el-radio-button>
+          <el-radio-button label="right">右</el-radio-button>
+        </el-radio-group>
+        <el-checkbox-button v-model="config.noteFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
+      </el-row>
+    </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="折线样式配置">
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.chartOption.lineSmooth"
+                        @change="handleChange">
+          <el-radio-button class="radio-button-plr10"
+                           :label="true">曲线</el-radio-button>
+          <el-radio-button class="radio-button-plr10"
+                           :label="false">折线</el-radio-button>
+        </el-radio-group>
+        <el-radio-group v-model="config.chartOption.lineStyleType"
+                        @change="handleChange">
+          <el-radio-button class="radio-button-plr10"
+                           label="solid">实线</el-radio-button>
+          <el-radio-button class="radio-button-plr10"
+                           label="dashed">虚线</el-radio-button>
+        </el-radio-group>
+      </el-row>
+      <div class="line-color-label">折线颜色</div>
+      <div>
+        <el-radio-group v-model="config.chartOption.lineStyleColorType"
+                        @change="handlelineStyleColorTypeChange">
+          <el-radio label="single">单色</el-radio>
+          <el-radio label="gradient">渐变色</el-radio>
+        </el-radio-group>
+      </div>
+      <div class="color-select"
+           v-if="config.chartOption.lineStyleColorType === 'single'">
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.lineStyleColor"
+                         @change="handleChange"></el-color-picker>
+
+        <div v-for="(color) in singleList"
+             :key="color"
+             :class="['single-color-span',config.chartOption.lineStyleColor === color ? 'active' : '']">
+          <span @click="handleSingleColorClick(color)"
+                :style="{backgroundColor: color}"></span>
+        </div>
+      </div>
+      <div class="color-select"
+           v-if="config.chartOption.lineStyleColorType === 'gradient'">
+
+        <div v-for="(item, index) in gradientList"
+             :key="index"
+             :class="['color-img_con', index === currentGradientIndex ? 'active' : '']"
+             @click="handleGradientColorClick(item, index)">
+          <img :src="item.url"
+               alt=""
+               class="color-img">
+        </div>
+
+      </div>
+    </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="柱状样式配置">
+      <div class="flex">
+        <label>显示数：</label>
+        <el-input-number :min="1"
+                         :max="30"
+                         :precision="0"
+                         style="width: 90px"
+                         controls-position="right"
+                         v-model="config.chartOption.barNum"
+                         @change="handleChange"></el-input-number>
+      </div>
+      <div class="line-color-label">柱状颜色</div>
+      <div>
+        <el-radio-group v-model="config.chartOption.barStyleColorType"
+                        @change="handleBarStyleColorTypeChange">
+          <el-radio label="single">单色</el-radio>
+          <el-radio label="gradient">渐变色</el-radio>
+        </el-radio-group>
+      </div>
+      <div class="select-bar-color"
+           v-if="config.chartOption.barStyleColorType === 'single'">
+        <div v-for="(item, index) in gradientList"
+             :key="index"
+             :class="['choose-bar-color', currentBarColorIndex === index ? 'active' : '']"
+             @click="handleSelecSingletBarColor(item, index)">
+          <img :src="item.url"
+               width="20"
+               height="20"
+               alt="">
+        </div>
+      </div>
+    </el-collapse-item>
   </div>
 </template>
 
@@ -56,8 +233,15 @@ import {
   InputNumber,
   RadioGroup,
   RadioButton,
-  CheckboxButton
+  CheckboxButton,
+  Radio
 } from 'element-ui';
+import cloneDeep from 'lodash/cloneDeep';
+import gradient1 from './imgs/1.png';
+import gradient2 from './imgs/2.png';
+import gradient3 from './imgs/3.png';
+import gradient4 from './imgs/4.png';
+import gradient5 from './imgs/5.png';
 export default {
   name: 'Bar1Config',
   components: {
@@ -67,33 +251,95 @@ export default {
     'el-input-number': InputNumber,
     'el-radio-group': RadioGroup,
     'el-radio-button': RadioButton,
-    'el-checkbox-button': CheckboxButton
+    'el-checkbox-button': CheckboxButton,
+    'el-radio': Radio
   },
   props: {
     componentConfig: {
       type: Object,
       required: true,
       default: () => ({
+        //   标题
         titleLabel: '标题',
         titleColor: 'rgb(83, 226, 255)',
         titleFontSize: 18,
         titleFamily: 'Microsoft Yahei',
         titleTextAlign: 'left',
         titleFontWeight: 'normal',
-        titleShowStatus: true
+        titleShowStatus: true,
+        // 副标题
+        subTitleLabel: '副标题',
+        subTitleColor: '#04c1ff',
+        subTitleFontSize: 16,
+        subTitleFamily: 'Microsoft Yahei',
+        subTitleTextAlign: 'left',
+        subTitleFontWeight: 'normal',
+        subTitleShowStatus: false,
+        // 注释的配置
+        noteLabel: '注释',
+        noteColor: '#fff',
+        noteFontSize: 16,
+        noteFamily: 'Microsoft Yahei',
+        noteTextAlign: 'left',
+        noteFontWeight: 'normal',
+        noteShowStatus: false,
+        // 图表的一些配置
+        chartOption: {
+          lineSmooth: true, // 曲线 折线
+          lineStyleType: 'solid', // 实线solid、虚线dashed
+          // 折线的颜色
+          lineStyleColorType: 'single', // 单色single、渐变 gradient
+          lineStyleColor: '#F0AB4C',
+          lineWidth: 2, // 线粗细
+          barNum: 12,
+          barStyleColorType: 'single',
+          bar1StyleColor: 'rgb(239, 187, 76)',
+          bar2StyleColor: 'rgb(121, 212, 255)'
+        }
       })
     }
   },
   watch: {
     componentConfig: {
       handler: function (newConfig) {
-        this.config = { ...this.componentConfig };
+        this.config = cloneDeep(this.componentConfig);
       },
       deep: true
     }
   },
   data() {
     return {
+      currentBarColorIndex: -1,
+      currentGradientIndex: -1,
+      singleList: [
+        '#F0AB4C',
+        'rgb(186, 144, 255)',
+        'rgb(123, 229, 199)',
+        'rgb(208, 85, 255)'
+      ],
+      gradientList: [
+        { url: gradient1, color1: '#F0AB4C', color2: 'rgb(121, 212, 255)' },
+        {
+          url: gradient2,
+          color1: 'rgb(186, 144, 255)',
+          color2: 'rgb(253, 155, 180)'
+        },
+        {
+          url: gradient3,
+          color1: 'rgb(123, 229, 199)',
+          color2: 'rgb(252, 133, 245)'
+        },
+        {
+          url: gradient4,
+          color1: 'rgb(208, 85, 255)',
+          color2: 'rgb(71, 153, 255)'
+        },
+        {
+          url: gradient5,
+          color1: 'rgb(115, 239, 212)',
+          color2: 'rgb(69, 150, 255)'
+        }
+      ],
       fontFamilyOptions: [
         {
           value: 'Microsoft Yahei',
@@ -116,11 +362,47 @@ export default {
     };
   },
   created() {
-    this.config = { ...this.componentConfig };
+    this.config = cloneDeep(this.componentConfig);
   },
   methods: {
     handleChange() {
       this.$emit('change', this.config);
+    },
+    handlelineStyleColorTypeChange() {},
+
+    handleSingleColorClick(color) {
+      this.config.chartOption.lineStyleColor = color;
+      this.currentGradientIndex = -1;
+      this.handleChange();
+    },
+    handleGradientColorClick(item, index) {
+      this.config.chartOption.lineStyleColor = {
+        type: 'linear',
+        x: 0,
+        y: 0,
+        x2: 0,
+        y2: 1,
+        colorStops: [
+          {
+            offset: 0,
+            color: item.color1 // 0% 处的颜色
+          },
+          {
+            offset: 1,
+            color: item.color2 // 100% 处的颜色
+          }
+        ],
+        global: false // 缺省为 false
+      };
+      this.currentGradientIndex = index;
+      this.handleChange();
+    },
+    handleBarStyleColorTypeChange() {},
+    handleSelecSingletBarColor(item, index) {
+      this.config.chartOption.bar1StyleColor = item.color1;
+      this.config.chartOption.bar2StyleColor = item.color2;
+      this.currentBarColorIndex = index;
+      this.handleChange();
     }
   }
 };
@@ -151,6 +433,86 @@ export default {
         margin-right: 0;
       }
     }
+  }
+}
+
+.line-color-label {
+  color: #b0cdeb;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.color-select {
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+
+  .single-color-span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    cursor: pointer;
+    padding: 2px;
+    box-sizing: content-box;
+    border-radius: 2px;
+
+    &.active {
+      border: 1px solid #74b9ff;
+    }
+
+    span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+    }
+  }
+
+  .color-img_con {
+    box-sizing: content-box;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    cursor: pointer;
+    padding: 2px;
+    box-sizing: content-box;
+    border-radius: 2px;
+
+    &.active {
+      border: 1px solid #74b9ff;
+    }
+
+    .color-img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.select-bar-color {
+  margin: 8px 0;
+}
+
+.choose-bar-color {
+  box-sizing: content-box;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  cursor: pointer;
+  padding: 2px;
+  box-sizing: content-box;
+  border-radius: 2px;
+
+  &.active {
+    border: 1px solid #74b9ff;
   }
 }
 </style>
