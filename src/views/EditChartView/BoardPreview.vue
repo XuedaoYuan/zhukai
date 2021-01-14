@@ -54,7 +54,8 @@ export default {
     ChartBar1,
     Pie1: () => import('./components/Pie1/Pie1'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
-    Select1: () => import('./components/Select1/Select1.vue')
+    Select1: () => import('./components/Select1/Select1.vue'),
+    Bar1: () => import('./components/Bar1/Bar1.vue')
   },
   mixins: [mixin],
   data() {

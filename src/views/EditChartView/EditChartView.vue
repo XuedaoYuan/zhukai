@@ -2,49 +2,33 @@
   <div class="TestVueGridLayout__container">
     <div class="header__container">
       <div class="left_container">
-        <div class="back_icon"
-             @click="handleBack">
+        <div class="back_icon" @click="handleBack">
           <span>&lt;</span>
         </div>
         <div class="label">大屏名称：</div>
-        <input type="text"
-               placeholder="请输入大屏名称"
-               :style="{ width: '200px' }"
-               v-model="boardConfig.boardTitle" />
+        <input type="text" placeholder="请输入大屏名称" :style="{ width: '200px' }" v-model="boardConfig.boardTitle" />
         <div class="label ml40">code标识：</div>
-        <input type="text"
-               placeholder="请输入code标识"
-               :style="{ width: '200px' }"
-               v-model="boardConfig.boardCode" />
+        <input type="text" placeholder="请输入code标识" :style="{ width: '200px' }" v-model="boardConfig.boardCode" />
       </div>
 
       <div class="right_container">
-        <div class="preview-btn header-btn"
-             @click="handlePreview">
-          <img src="./assets/eye.png"
-               alt="">
+        <div class="preview-btn header-btn" @click="handlePreview">
+          <img src="./assets/eye.png" alt="">
           预览
         </div>
-        <div :class="['save-btn', 'header-btn', saveLoading ? 'save-btn-disabled' : '']"
-             @click="handleSave"> <i v-show="saveLoading"
-             :style="{marginRight: '4px'}"
-             class="el-icon-loading"></i>保存</div>
-        <div class="check-btn header-btn"
-             @click="handleSubmitCheck">提交审核</div>
+        <div :class="['save-btn', 'header-btn', saveLoading ? 'save-btn-disabled' : '']" @click="handleSave"> <i v-show="saveLoading" :style="{marginRight: '4px'}" class="el-icon-loading"></i>保存</div>
+        <div class="check-btn header-btn" @click="handleSubmitCheck">提交审核</div>
       </div>
     </div>
     <div class="content">
       <SideBar>
         <!-- 背景 -->
         <template v-slot:bgPopover>
-          <bg-popover :background="boardConfig.background"
-                      @setBgColor="handleSetBgColor"
-                      @setBgImage="handleSetBgImage"></bg-popover>
+          <bg-popover :background="boardConfig.background" @setBgColor="handleSetBgColor" @setBgImage="handleSetBgImage"></bg-popover>
         </template>
         <!-- 尺寸 -->
         <template v-slot:sizePopover>
-          <size-popover :screenRatio="boardConfig.screenRatio"
-                        @change="handleSizeChange"></size-popover>
+          <size-popover :screenRatio="boardConfig.screenRatio" @change="handleSizeChange"></size-popover>
         </template>
         <!-- 组件 -->
         <template v-slot:componentPopover>
@@ -52,57 +36,23 @@
         </template>
         <!-- 定时刷新 -->
         <template v-slot:configPopover>
-          <config-popover :configRefreshPeriod="boardConfig.configRefreshPeriod"
-                          @change="onConfigRefreshPeriodChange"></config-popover>
+          <config-popover :configRefreshPeriod="boardConfig.configRefreshPeriod" @change="onConfigRefreshPeriodChange"></config-popover>
         </template>
       </SideBar>
       <div class="main">
-        <div class="mian-board__container"
-             :style="boardBgStyle"
-             @click="handleBoardClick"
-             ref="MaintBoardRef">
-          <grid-layout :layout.sync="boardConfig.components"
-                       :col-num="colNum"
-                       :row-height="rowHeight"
-                       :is-draggable="true"
-                       :is-resizable="true"
-                       :is-mirrored="false"
-                       :vertical-compact="false"
-                       :margin="[0, 0]"
-                       :use-css-transforms="false"
-                       :auto-size="false"
-                       :responsive="false">
+        <div class="mian-board__container" :style="boardBgStyle" @click="handleBoardClick" ref="MaintBoardRef">
+          <grid-layout :layout.sync="boardConfig.components" :col-num="colNum" :row-height="rowHeight" :is-draggable="true" :is-resizable="true" :is-mirrored="false" :vertical-compact="false" :margin="[0, 0]" :use-css-transforms="false" :auto-size="false" :responsive="false">
             <!--   @resize="resizeEvent"
                  @move="moveEvent"
                 "
                   -->
-            <grid-item v-for="(item, index) in boardConfig.components"
-                       :x="item.x"
-                       :y="item.y"
-                       :w="item.w"
-                       :h="item.h"
-                       :i="item.i"
-                       :key="item.i"
-                       :static="item.static ? true : false"
-                       @resize="handleResizeEvent"
-                       @resized="handleResizedEvent"
-                       @move="handleMoveEvent"
-                       @moved="handleMovedEvent">
+            <grid-item v-for="(item, index) in boardConfig.components" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" :key="item.i" :static="item.static ? true : false" @resize="handleResizeEvent" @resized="handleResizedEvent" @move="handleMoveEvent" @moved="handleMovedEvent">
               <template v-if="item.componentName">
-                <component :is="item.componentName"
-                           :ref="'Component' + item.i + 'Ref'"
-                           :i="item.i"
-                           :componentConfig="item.componentConfig"
-                           @resize="onComponentResize"></component>
+                <component :is="item.componentName" :ref="'Component' + item.i + 'Ref'" :i="item.i" :componentConfig="item.componentConfig" @resize="onComponentResize"></component>
               </template>
-              <div :class="['mask_container',index === handlingIndex ? 'component-selected' : '', isMoved ? 'component-moved' : '']"
-                   @click.stop="handleComponentClick(index)"
-                   @mouseenter.stop="handleMaskEnter(index)">
-                <div @click.stop="handleDelete(index)"
-                     class="delete-icon">
-                  <img class="delete-img"
-                       src="./assets/delete.png"
-                       alt="">
+              <div :class="['mask_container',index === handlingIndex ? 'component-selected' : '', isMoved ? 'component-moved' : '']" @click.stop="handleComponentClick(index)" @mouseenter.stop="handleMaskEnter(index)">
+                <div @click.stop="handleDelete(index)" class="delete-icon">
+                  <img class="delete-img" src="./assets/delete.png" alt="">
                 </div>
               </div>
             </grid-item>
@@ -110,31 +60,19 @@
         </div>
       </div>
       <div class="right">
-        <el-tabs v-model="configType"
-                 class="custom-tabs"
-                 type="card">
-          <el-tab-pane label="组件配置"
-                       name="componentConfig">
+        <el-tabs v-model="configType" class="custom-tabs" type="card">
+          <el-tab-pane label="组件配置" name="componentConfig">
             <el-collapse class="custom-collapse">
-              <el-collapse-item title="组件全局配置"
-                                name="1">
+              <el-collapse-item title="组件全局配置" name="1">
                 <div class="xywh-config__container">
                   <div class="position-label">位置</div>
                   <div class="input_container">
-                    <el-input v-model.number="x"
-                              type="number"
-                              :min="0"
-                              class="position-size-input"
-                              @change="handleXchange">
+                    <el-input v-model.number="x" type="number" :min="0" class="position-size-input" @change="handleXchange">
                       <template v-slot:suffix>X</template>
                     </el-input>
                   </div>
                   <div class="input_container">
-                    <el-input v-model.number="y"
-                              :min="0"
-                              type="number"
-                              class="position-size-input"
-                              @change="handleYchange">
+                    <el-input v-model.number="y" :min="0" type="number" class="position-size-input" @change="handleYchange">
                       <template v-slot:suffix>Y</template>
                     </el-input>
                   </div>
@@ -142,54 +80,31 @@
                 <div class="xywh-config__container mt10">
                   <div class="position-label">大小</div>
                   <div class="input_container">
-                    <el-input v-model.number="w"
-                              type="number"
-                              :min="0"
-                              class="position-size-input"
-                              @change="handleWchange">
+                    <el-input v-model.number="w" type="number" :min="0" class="position-size-input" @change="handleWchange">
                       <template v-slot:suffix>W</template>
                     </el-input>
                   </div>
                   <div class="input_container">
-                    <el-input v-model.number="h"
-                              type="number"
-                              :min="0"
-                              class="position-size-input"
-                              @change="handleHchange">
+                    <el-input v-model.number="h" type="number" :min="0" class="position-size-input" @change="handleHchange">
                       <template v-slot:suffix>H</template>
                     </el-input>
                   </div>
                 </div>
               </el-collapse-item>
-              <Pie1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'Pie1'"
-                          :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                          :handlingIndex="handlingIndex"
-                          @change="handlePie1ConfigChange" />
-              <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName ==='Title1'"
-                            :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                            @change="handleTitleConfigChange"></Title1Config>
+              <Pie1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'Pie1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig" :handlingIndex="handlingIndex" @change="handlePie1ConfigChange" />
+              <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName ==='Title1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig" @change="handleTitleConfigChange"></Title1Config>
               <TestLinkConfig v-if=" 
                   handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='TestLink'"
-                              :components="boardConfig.components"
-                              @change="handleTestLinkConfigChange"></TestLinkConfig>
+                  boardConfig.components[handlingIndex].componentName ==='TestLink'" :components="boardConfig.components" @change="handleTestLinkConfigChange"></TestLinkConfig>
               <Select1Config v-if="handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='Select1'"
-                             :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                             @change="handleSelect1Change"></Select1Config>
+                  boardConfig.components[handlingIndex].componentName ==='Select1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig" @change="handleSelect1Change"></Select1Config>
               <DatePicker1Config v-if="handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='DatePicker1'"
-                                 :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                                 @change="handleDatePicker1Change"></DatePicker1Config>
+                  boardConfig.components[handlingIndex].componentName ==='DatePicker1'" :componentConfig="boardConfig.components[handlingIndex].componentConfig" @change="handleDatePicker1Change"></DatePicker1Config>
             </el-collapse>
           </el-tab-pane>
-          <el-tab-pane label="数据来源配置"
-                       name="dataConfig">
-            <data-config v-if="showDataConfig"
-                         :componentData="boardConfig.components[handlingIndex].componentConfig.data"
-                         @dataChange="onDataConfigChange" />
-            <p v-else
-               class="not-need-data-source">无需配置数据源</p>
+          <el-tab-pane label="数据来源配置" name="dataConfig">
+            <data-config v-if="showDataConfig" :componentData="boardConfig.components[handlingIndex].componentConfig.data" @dataChange="onDataConfigChange" />
+            <p v-else class="not-need-data-source">无需配置数据源</p>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -253,6 +168,7 @@ export default {
     DataConfig: () => import('./components/DataConfig'),
     Map1: () => import('./components/Map1/Map1.vue'),
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
+    Bar1: () => import('./components/Bar1/Bar1')
   },
   mixins: [mixin],
   data() {

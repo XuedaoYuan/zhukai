@@ -37,16 +37,23 @@ export default {
           break;
         }
         case 'Title1': {
-          const scale = width / 1000;
-          const h = (33 * scale) / this.rowHeight;
+          const scale = width / initialW;
+          const h = (initialH * scale) / this.rowHeight;
           this.$nextTick(() => {
             this.boardConfig.components[index].h = h;
             this.h = h;
           });
-          this.boardConfig.components[index].componentConfig = {
-            ...component.componentConfig,
-            scale: scale
-          };
+          this.boardConfig.components[index].componentConfig.scale = scale;
+          break;
+        }
+        case 'Bar1': {
+          const scale = width / initialW;
+          const h = (initialH * scale) / this.rowHeight;
+          this.$nextTick(() => {
+            this.boardConfig.components[index].h = h;
+            this.h = h;
+          });
+          this.boardConfig.components[index].componentConfig.scale = scale;
           break;
         }
 

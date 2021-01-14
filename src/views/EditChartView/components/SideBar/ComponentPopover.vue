@@ -2,57 +2,61 @@
   <div class="component-list-wrapper">
     <div class="component-select">
       <label>业务类型</label>
-      <el-select v-model="value">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
+      <el-select v-model="value"
+                 :popper-append-to-body="false"
+                 :style="{width: '120px'}"
+                 class="chart-custom-select">
+        <el-option v-for="item in options"
+                   :key="item.value"
+                   :label="item.label"
+                   :value="item.value">
+        </el-option>
+      </el-select>
+      <label :style="{marginLeft: '12px'}">业务主题</label>
+      <el-select v-model="value"
+                 :popper-append-to-body="false"
+                 :style="{width: '120px'}"
+                 class="chart-custom-select">
+        <el-option v-for="item in options"
+                   :key="item.value"
+                   :label="item.label"
+                   :value="item.value">
         </el-option>
       </el-select>
     </div>
-    <el-divider></el-divider>
+    <!-- <el-divider></el-divider> -->
     <div class="component-list">
       <div class="left-container">
-        <img
-          src="./imgs/pie1.png"
-          @click="handleComponentClick('pie1')"
-          width="182"
-          alt="pie1"
-        />
-        <img
-          src="./imgs/map1.png"
-          @click="handleComponentClick('map1')"
-          width="182"
-          alt="map1"
-        />
+        <img src="./imgs/pie1.png"
+             @click="handleComponentClick('pie1')"
+             width="182"
+             alt="pie1" />
+        <img src="./imgs/map1.png"
+             @click="handleComponentClick('map1')"
+             width="182"
+             alt="map1" />
       </div>
       <div class="right-container">
-        <img
-          src="./imgs/title1.png"
-          @click="handleComponentClick('title1')"
-          width="100%"
-          alt="title1"
-        />
-        <img
-          src="./imgs/select1.png"
-          @click="handleComponentClick('select1')"
-          width="182"
-          alt="select1"
-        />
-        <img
-          src="./imgs/datePicker1.png"
-          @click="handleComponentClick('datePicker1')"
-          width="182"
-          alt="datePicker1"
-        />
-        <img
-          src="./imgs/chinaMap1.png"
-          @click="handleComponentClick('chinaMap1')"
-          width="182"
-          alt="chinaMap1"
-        />
+        <img src="./imgs/title1.png"
+             @click="handleComponentClick('title1')"
+             width="100%"
+             alt="title1" />
+        <img src="./imgs/select1.png"
+             @click="handleComponentClick('select1')"
+             width="182"
+             alt="select1" />
+        <img src="./imgs/datePicker1.png"
+             @click="handleComponentClick('datePicker1')"
+             width="182"
+             alt="datePicker1" />
+        <img src="./imgs/chinaMap1.png"
+             @click="handleComponentClick('chinaMap1')"
+             width="182"
+             alt="chinaMap1" />
+        <img src="./imgs/bar1.png"
+             @click="handleComponentClick('bar1')"
+             width="182"
+             alt="bar1" />
       </div>
     </div>
   </div>
@@ -62,7 +66,7 @@ import { Divider } from 'element-ui';
 export default {
   name: 'ComponentPopover',
   components: {
-    'el-divider': Divider,
+    'el-divider': Divider
   },
   data() {
     return {
@@ -70,29 +74,50 @@ export default {
       options: [
         {
           value: '折线图',
-          label: '折线图',
+          label: '折线图'
         },
         {
           value: '柱状图',
-          label: '柱状图',
+          label: '柱状图'
         },
         {
           value: '地图',
-          label: '地图',
-        },
-      ],
+          label: '地图'
+        }
+      ]
     };
   },
   methods: {
     handleComponentClick(componentName) {
       this.$emit('component-insert', componentName);
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="stylus">
+.component-list-wrapper {
+}
+
+.component-select {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cde6ff;
+
+  label {
+    font-size: 12px;
+    color: #cde6ff;
+    margin-right: 10px;
+  }
+}
+
 .component-list {
   display: flex;
+  max-height: 420px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   > div {
     flex: 1;
