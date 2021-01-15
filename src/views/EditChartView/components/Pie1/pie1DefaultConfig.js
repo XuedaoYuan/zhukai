@@ -4,6 +4,7 @@ const bar1DefaultConfig = {
   h: 36,
   i: 0,
   static: true,
+  lock: false,
   /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
   type: '',
@@ -55,7 +56,7 @@ const bar1DefaultConfig = {
         { value: 234, name: '联盟广告' },
         { value: 135, name: '视频广告' },
         { value: 1548, name: '搜索引擎' }
-      ]), /* JSON.stringify(
+      ], null, 2), /* JSON.stringify(
         [
           { label: '1', value: '1' },
           { label: '3', value: '3' }

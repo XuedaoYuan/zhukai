@@ -98,9 +98,19 @@
               <div :class="['mask_container',index === handlingIndex ? 'component-selected' : '', isMoved ? 'component-moved' : '']"
                    @click.stop="handleComponentClick(index)"
                    @mouseenter.stop="handleMaskEnter(index)">
-                <div @click.stop="handleDelete(index)"
-                     class="delete-icon">
-                  <img class="delete-img"
+                <div class="delete-icon">
+                  <img src="./assets/lock.png"
+                       class="lock-img"
+                       @click="handleLock(index)"
+                       v-show="!item.lock"
+                       alt="">
+                  <img src="./assets/unlock.png"
+                       class="lock-img"
+                       @click="handleUnlock(index)"
+                        v-show="item.lock === true"
+                       alt="">
+                  <img @click.stop="handleDelete(index)"
+                       class="delete-img"
                        src="./assets/delete.png"
                        alt="">
                 </div>
@@ -563,6 +573,14 @@ export default {
       }
       this.$forceUpdate();
     },
+    handleLock(index) {
+      this.$set(this.boardConfig.components[index], 'static', true);
+      this.$set(this.boardConfig.components[index], 'lock', true);
+    },
+    handleUnlock(index) {
+      this.$set(this.boardConfig.components[index], 'static', false);
+      this.$set(this.boardConfig.components[index], 'lock', false);
+    },
     handleBoardClick() {
       // this.handlingIndex = -1;
     },
@@ -577,6 +595,7 @@ export default {
 
     handleMaskEnter(index) {
       const layoutInstance = this.boardConfig.components[index];
+      if (layoutInstance.lock) return;
       if (layoutInstance.static === false) {
         return;
       }

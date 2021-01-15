@@ -211,12 +211,13 @@
       </div>
       <div class="select-bar-color"
            v-if="config.chartOption.barStyleColorType === 'single'">
-        <div v-for="(item, index) in gradientList"
+        <div v-for="(url, index) in singleBarBgcImgs"
              :key="index"
              :class="['choose-bar-color', currentBarColorIndex === index ? 'active' : '']"
-             @click="handleSelecSingletBarColor(item, index)">
-          <img :src="item.url"
-               width="20"
+             @click="handleSelecSingletBarColor(url, index)">
+          <p>单色组{{index + 1}}</p>
+          <img :src="url"
+               width="94"
                height="20"
                alt="">
         </div>
@@ -242,6 +243,38 @@ import gradient2 from './imgs/2.png';
 import gradient3 from './imgs/3.png';
 import gradient4 from './imgs/4.png';
 import gradient5 from './imgs/5.png';
+import g1 from './imgs/g1.png';
+import g2 from './imgs/g2.png';
+import g3 from './imgs/g3.png';
+import g4 from './imgs/g4.png';
+
+// bar背景色单色组
+const barSingleBgcGroupList = [
+  [
+    'rgb(239, 187, 76)',
+    'rgb(121, 212, 255)',
+    'rgb(186, 144, 255)',
+    'rgb(239, 155, 149)'
+  ],
+  [
+    'rgb(186, 144, 255)',
+    'rgb(121, 212, 255)',
+    'rgb(239, 155, 149)',
+    'rgb(123, 229, 199)'
+  ],
+  [
+    'rgb(239, 187, 76)',
+    'rgb(186, 144, 255)',
+    'rgb(121, 212, 255)',
+    'rgb(239, 155, 149)'
+  ],
+  [
+    'rgb(239, 155, 149)',
+    'rgb(123, 229, 199)',
+    'rgb(121, 212, 255)',
+    'rgb(147, 213, 69)'
+  ]
+];
 export default {
   name: 'Bar1Config',
   components: {
@@ -293,8 +326,12 @@ export default {
           lineWidth: 2, // 线粗细
           barNum: 12,
           barStyleColorType: 'single',
-          bar1StyleColor: 'rgb(239, 187, 76)',
-          bar2StyleColor: 'rgb(121, 212, 255)'
+          barBackgroundColorList: [
+            'rgb(239, 187, 76)',
+            'rgb(121, 212, 255)',
+            'rgb(186, 144, 255)',
+            'rgb(239, 155, 149)'
+          ]
         }
       })
     }
@@ -317,6 +354,7 @@ export default {
         'rgb(123, 229, 199)',
         'rgb(208, 85, 255)'
       ],
+      singleBarBgcImgs: [g1, g2, g3, g4],
       gradientList: [
         { url: gradient1, color1: '#F0AB4C', color2: 'rgb(121, 212, 255)' },
         {
@@ -399,8 +437,10 @@ export default {
     },
     handleBarStyleColorTypeChange() {},
     handleSelecSingletBarColor(item, index) {
-      this.config.chartOption.bar1StyleColor = item.color1;
-      this.config.chartOption.bar2StyleColor = item.color2;
+      // this.config.chartOption.bar1StyleColor = item.color1;
+      // this.config.chartOption.bar2StyleColor = item.color2;
+      const colorList = barSingleBgcGroupList[index];
+      this.config.chartOption.barBackgroundColorList = [...colorList];
       this.currentBarColorIndex = index;
       this.handleChange();
     }
@@ -503,13 +543,20 @@ export default {
 .choose-bar-color {
   box-sizing: content-box;
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 94px;
+  height: 38px;
   margin-right: 8px;
   cursor: pointer;
-  padding: 2px;
+  padding: 4px;
   box-sizing: content-box;
   border-radius: 2px;
+
+  p {
+    font-size: 12px;
+    color: #b0cdeb;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
 
   &.active {
     border: 1px solid #74b9ff;

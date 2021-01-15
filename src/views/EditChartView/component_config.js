@@ -11,6 +11,7 @@ const COMPONENT_CONFIG = {
     h: 3, // h和row-height有关
     i: '',
     static: true,
+    lock: false,
     type: '',
     businessType: '',
     businessTheme: '',
@@ -55,6 +56,7 @@ const COMPONENT_CONFIG = {
     h: 6,
     i: 0,
     static: true,
+    lock: false,
     /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
     type: '',
@@ -82,6 +84,7 @@ const COMPONENT_CONFIG = {
     h: 6,
     i: 0,
     static: true,
+    lock: false,
     /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
     type: '',
@@ -127,6 +130,7 @@ const COMPONENT_CONFIG = {
     h: 80,
     i: 0,
     static: true,
+    lock: false,
     /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
     type: '',
@@ -236,6 +240,7 @@ const COMPONENT_CONFIG = {
     h: 80,
     i: 0,
     static: true,
+    lock: false,
     /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
     type: '',

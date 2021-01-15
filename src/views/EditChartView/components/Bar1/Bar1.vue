@@ -116,8 +116,12 @@ export default {
           lineWidth: 2, // 线粗细
           barNum: 12, //  显示柱状的个数
           barStyleColorType: 'single',
-          bar1StyleColor: 'rgb(239, 187, 76)',
-          bar2StyleColor: 'rgb(121, 212, 255)'
+          barBackgroundColorList: [
+            'rgb(239, 187, 76)',
+            'rgb(121, 212, 255)',
+            'rgb(186, 144, 255)',
+            'rgb(239, 155, 149)'
+          ]
         }
       })
     }
@@ -170,21 +174,7 @@ export default {
         this.chartIns = echarts.init(this.$refs['ChartDomRef']);
       }
       const _vm = this;
-      let legendData = ['蒸发量', '降水量', '平均温度'];
-      let xAxisData = [
-        '1月',
-        '2月',
-        '3月',
-        '4月',
-        '5月',
-        '6月',
-        '7月',
-        '8月',
-        '9月',
-        '10月',
-        '11月',
-        '12月'
-      ];
+      // 模拟数据
       let series1Data = [
         2.0,
         4.9,
@@ -215,6 +205,34 @@ export default {
       ];
       let series3Data = [
         2.0,
+        4.9,
+        7.0,
+        23.2,
+        25.6,
+        76.7,
+        135.6,
+        162.2,
+        32.6,
+        20.0,
+        6.4,
+        3.3
+      ];
+      let series4Data = [
+        2.6,
+        5.9,
+        9.0,
+        26.4,
+        28.7,
+        70.7,
+        175.6,
+        182.2,
+        48.7,
+        18.8,
+        6.0,
+        2.3
+      ];
+      let lineSeriesData = [
+        2.0,
         2.2,
         3.3,
         4.5,
@@ -227,13 +245,84 @@ export default {
         12.0,
         6.2
       ];
+      let xAxisData = [
+        '1月',
+        '2月',
+        '3月',
+        '4月',
+        '5月',
+        '6月',
+        '7月',
+        '8月',
+        '9月',
+        '10月',
+        '11月',
+        '12月'
+      ];
+
+      // 显示的柱状数量
       const barNum = this.componentConfig.chartOption.barNum;
+      /* 
       if (barNum > 0 && barNum <= xAxisData.length) {
         xAxisData = xAxisData.slice(0, barNum);
         series1Data = series1Data.slice(0, barNum);
         series2Data = series2Data.slice(0, barNum);
         series3Data = series3Data.slice(0, barNum);
-      }
+      } */
+      const mockData = [
+        {
+          label: '蒸发量',
+          type: 'bar',
+          seriesData: series1Data
+        },
+        {
+          label: '降水量',
+          type: 'bar',
+          seriesData: series2Data
+        },
+        {
+          label: '其他水量',
+          type: 'bar',
+          seriesData: series3Data
+        },
+        {
+          label: '平均温度',
+          type: 'line',
+          seriesData: lineSeriesData
+        }
+      ];
+      let legendData = [];
+      let series = [];
+      mockData.forEach((item, index) => {
+        legendData.push(item.label);
+        if (item.type === 'bar') {
+          series.push({
+            name: item.label,
+            type: 'bar',
+            data: item.seriesData.slice(0, barNum),
+            itemStyle: {
+              color: this.componentConfig.chartOption.barBackgroundColorList[
+                index
+              ]
+            }
+          });
+        } else if (item.type === 'line') {
+          series.push({
+            name: item.label,
+            type: 'line',
+            yAxisIndex: 1,
+            data: item.seriesData.slice(0, barNum),
+            // 线的样式
+            lineStyle: {
+              color: _vm.componentConfig.chartOption.lineStyleColor,
+              type: _vm.componentConfig.chartOption.lineStyleType, // 实线solid、虚线dashed
+              width: _vm.componentConfig.chartOption.lineWidth
+            },
+            // 折线是否光滑
+            smooth: _vm.componentConfig.chartOption.lineSmooth
+          });
+        }
+      });
 
       const option = {
         tooltip: {
@@ -308,43 +397,7 @@ export default {
             }
           }
         ],
-        series: [
-          {
-            name: '蒸发量',
-            type: 'bar',
-            data: series1Data,
-            itemStyle: {
-              /* color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: '#83bff6' },
-                { offset: 0.5, color: '#188df0' },
-                { offset: 1, color: '#188df0' }
-              ]) */
-              color: this.componentConfig.chartOption.bar1StyleColor
-            }
-          },
-          {
-            name: '降水量',
-            type: 'bar',
-            data: series2Data,
-            itemStyle: {
-              color: this.componentConfig.chartOption.bar2StyleColor
-            }
-          },
-          {
-            name: '平均温度',
-            type: 'line',
-            yAxisIndex: 1,
-            data: series3Data,
-            // 线的样式
-            lineStyle: {
-              color: _vm.componentConfig.chartOption.lineStyleColor,
-              type: _vm.componentConfig.chartOption.lineStyleType, // 实线solid、虚线dashed
-              width: _vm.componentConfig.chartOption.lineWidth
-            },
-            // 折线是否光滑
-            smooth: _vm.componentConfig.chartOption.lineSmooth
-          }
-        ]
+        series: series
       };
       this.chartIns.setOption(option, true);
     },

@@ -4,6 +4,7 @@ const bar1DefaultConfig = {
   h: 36,
   i: 0,
   static: true,
+  lock: false,
   /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
   type: '',
@@ -70,8 +71,10 @@ const bar1DefaultConfig = {
       lineWidth: 2, // 线粗细
       barNum: 12, //  柱状显示数
       barStyleColorType: 'single', // 柱状图的样式
-      bar1StyleColor: 'rgb(239, 187, 76)',
-      bar2StyleColor: 'rgb(121, 212, 255)'
+      barBackgroundColorList: [ 'rgb(239, 187, 76)',
+      'rgb(121, 212, 255)',
+      'rgb(186, 144, 255)',
+      'rgb(239, 155, 149)'],
     }
   }
 };
