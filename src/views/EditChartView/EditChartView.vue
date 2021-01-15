@@ -550,9 +550,6 @@ export default {
         'color: red;'
       );
       this.isMoved = false;
-      /* console.log(i);
-      console.log(newX);
-      console.log(newY); */
       // 说明超出了
       const index = findIndex(this.boardConfig.components, (_) => _.i === i);
       // debugger;
@@ -682,8 +679,8 @@ export default {
     },
     handlePie1ConfigChange(config) {
       const component = this.boardConfig.components[this.handlingIndex];
-      console.log('component ==> ', component);
       this.boardConfig.components[this.handlingIndex].componentConfig = {
+        ...component.componentConfig,
         ...config,
         scale: component.scale
       };

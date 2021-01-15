@@ -34,7 +34,7 @@
           <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
                 stroke="transparent"></path>
         </svg>
-        <span class="title">{{componentConfig.titleLabel}}</span>
+        <span class="title">{{componentConfig.titleLabel}}{{componentConfig.scale}}</span>
       </div>
       <div class="chart__container">
         <div class="sub-title__container"
@@ -124,11 +124,11 @@ export default {
           ],
           // 图例的配置
           legendShow: true,
-          legendColor: '#fff',
+          legendColor: '#ffffff',
           legendPosition: 'top', // top bottom
           legendFontSize: 12,
           legendFontWeight: 'normal',
-          legendFontFamily: 'sans-serif,sans-serif,Microsoft YaHei'
+          legendFontFamily: 'sans-serif,Microsoft YaHei'
         }
       })
     }
@@ -159,6 +159,7 @@ export default {
       }, 400)
     );
     this._chartObserver.observe(this.$refs['ChartDomRef']);
+    
   },
   beforeDestroy() {
     if (this._resizeObserver) {
@@ -359,17 +360,27 @@ export default {
           }
         },
         grid: {
-          bottom: '10%'
+          // bottom: '10%'
         },
         toolbox: {
           show: false
         },
         legend: {
-          // bottom: 10,
-          top: 10,
+          show: _vm.componentConfig.chartOption.legendShow,
+          bottom:
+            _vm.componentConfig.chartOption.legendPosition === 'bottom'
+              ? 10
+              : 'auto',
+          top:
+            _vm.componentConfig.chartOption.legendPosition === 'top'
+              ? 10
+              : 'auto',
           data: legendData,
           textStyle: {
-            color: '#fff'
+            color: _vm.componentConfig.chartOption.legendColor,
+            fontSize: _vm.componentConfig.chartOption.legendFontSize,
+            fontWeight: _vm.componentConfig.chartOption.legendFontWeight,
+            fontFamil: _vm.componentConfig.chartOption.legendFontFamily
           }
         },
         xAxis: [

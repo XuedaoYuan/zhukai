@@ -251,6 +251,7 @@
       </el-row>
       <el-row type="flex"
               align="middle">
+        <label>位置：</label>
         <el-radio-group v-model="config.chartOption.legendPosition"
                         @change="handleChange">
           <el-radio-button label="top">上</el-radio-button>
@@ -389,7 +390,7 @@ export default {
           ],
           // 图例的配置
           legendShow: true,
-          legendColor: '#fff',
+          legendColor: '#ffffff',
           legendPosition: 'top', // top bottom
           legendFontSize: 12,
           legendFontWeight: 'normal',

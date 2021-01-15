@@ -77,11 +77,11 @@ const bar1DefaultConfig = {
       'rgb(239, 155, 149)'],
       // 图例的配置
       legendShow: true,
-      legendColor: '#fff',
+      legendColor: '#ffffff',
       legendPosition: 'top', // top bottom
       legendFontSize: 12,
       legendFontWeight : 'normal',
-      legendFontFamily: 'sans-serif,sans-serif,Microsoft YaHei'
+      legendFontFamily: 'sans-serif,Microsoft YaHei'
     }
   }
 };

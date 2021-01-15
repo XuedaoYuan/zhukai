@@ -1,83 +1,67 @@
 <template>
-  <div class="pie1__wrapper" ref="Pie1WrapperRef">
-    <div
-      class="pie1__container"
-      :style="{
-        transform: 'scale(' + componentConfig.scale + ')',
-      }"
-    >
-      <div
-        class="header"
-        v-if="componentConfig.titleShowStatus"
-        :style="{
+  <div class="pie1__wrapper"
+       ref="Pie1WrapperRef">
+    <div class="pie1__container"
+         :style="{
+        transform: 'scale(' + scale + ')',
+      }">
+      <div class="header"
+           v-if="componentConfig.titleShowStatus"
+           :style="{
           color: componentConfig.titleColor,
           fontSize: componentConfig.titleFontSize + 'px',
           fontFamily: componentConfig.titleFamily,
           textAlign: componentConfig.titleTextAlign,
           fontWeight: componentConfig.titleFontWeight,
-        }"
-      >
-        <svg
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          class="iconStyle"
-          style="opacity: 0.3"
-        >
-          <path
-            d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
-            stroke="transparent"
-          ></path>
+        }">
+        <svg version="1.1"
+             viewBox="0 0 1024 1024"
+             class="iconStyle"
+             style="opacity: 0.3">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
+                stroke="transparent"></path>
         </svg>
-        <svg
-          version="1.1"
-          viewBox="0 0 1024 1024"
-          class="iconStyle"
-          style="opacity: 0.7"
-        >
-          <path
-            d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
-            stroke="transparent"
-          ></path>
+        <svg version="1.1"
+             viewBox="0 0 1024 1024"
+             class="iconStyle"
+             style="opacity: 0.7">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
+                stroke="transparent"></path>
         </svg>
-        <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle">
-          <path
-            d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
-            stroke="transparent"
-          ></path>
+        <svg version="1.1"
+             viewBox="0 0 1024 1024"
+             class="iconStyle">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
+                stroke="transparent"></path>
         </svg>
         <span class="title">{{ componentConfig.titleLabel }}</span>
       </div>
       <div class="chart__container">
-        <div
-          class="sub-title__container"
-          v-if="componentConfig.subTitleShowStatus"
-          :style="{
+        <div class="sub-title__container"
+             v-if="componentConfig.subTitleShowStatus"
+             :style="{
             color: componentConfig.subTitleColor,
             fontSize: componentConfig.subTitleFontSize + 'px',
             fontFamily: componentConfig.subTitleFamily,
             textAlign: componentConfig.subTitleTextAlign,
             fontWeight: componentConfig.subTitleFontWeight,
-          }"
-        >
-          <span
-            class="icon"
-            :style="{ backgroundColor: componentConfig.subTitleColor }"
-          ></span>
+          }">
+          <span class="icon"
+                :style="{ backgroundColor: componentConfig.subTitleColor }"></span>
           {{ componentConfig.subTitleLabel }}
         </div>
-        <div class="chart-dom" ref="ChartDomRef"></div>
+        <div class="chart-dom"
+             ref="ChartDomRef"></div>
 
-        <div
-          class="note"
-          v-if="componentConfig.noteShowStatus"
-          :style="{
+        <div class="note"
+             v-if="componentConfig.noteShowStatus"
+             :style="{
             color: componentConfig.noteColor,
             fontSize: componentConfig.noteFontSize + 'px',
             fontFamily: componentConfig.noteFamily,
             textAlign: componentConfig.noteTextAlign,
             fontWeight: componentConfig.noteFontWeight,
-          }"
-        >
+          }">
           {{ componentConfig.noteLabel }}
         </div>
       </div>
@@ -94,7 +78,7 @@ export default {
   props: {
     i: {
       type: String | Number,
-      required: true,
+      required: true
     },
     componentConfig: {
       type: Object,
@@ -135,16 +119,17 @@ export default {
           barNum: 12, //  显示柱状的个数
           barStyleColorType: 'single',
           bar1StyleColor: 'rgb(239, 187, 76)',
-          bar2StyleColor: 'rgb(121, 212, 255)',
-        },
-      }),
-    },
+          bar2StyleColor: 'rgb(121, 212, 255)'
+        }
+      })
+    }
   },
   data() {
     return {
+      scale: 1,
       chartIns: null,
       chartContainerDOM: null,
-      componentData: [],
+      componentData: []
     };
   },
   watch: {
@@ -163,8 +148,8 @@ export default {
         this.$nextTick(() => {
           this.initChart();
         });
-      },
-    },
+      }
+    }
   },
   created() {
     this._resizehandlerThrottle = _throttle(this.resizehandler, 100);
@@ -204,15 +189,15 @@ export default {
       const options = {
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         legend: {
           orient: 'vertical',
           left: 10,
           data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
           textStyle: {
-            color: '#fff',
-          },
+            color: '#fff'
+          }
         },
         series: [
           {
@@ -222,36 +207,40 @@ export default {
             avoidLabelOverlap: false,
             label: {
               show: false,
-              position: 'center',
+              position: 'center'
             },
             emphasis: {
               label: {
                 show: true,
                 fontSize: '30',
-                fontWeight: 'bold',
-              },
+                fontWeight: 'bold'
+              }
             },
             labelLine: {
-              show: false,
+              show: false
             },
-            data: this.componentData,
-          },
-        ],
+            data: this.componentData
+          }
+        ]
       };
       this.chartIns.setOption(options, true);
     },
     resizehandler(entries) {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
+      const width = contentRect.width;
+      const scale = width / 388;
+      this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
+        scaleNew: scale,
         initialW: 388,
         initialH: 291,
-        componentName: 'Pie1',
+        componentName: 'Pie1'
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="stylus">
