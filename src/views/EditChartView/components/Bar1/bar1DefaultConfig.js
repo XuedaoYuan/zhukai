@@ -20,7 +20,7 @@ const bar1DefaultConfig = {
     titleLabel: '标题',
     titleColor: 'rgb(83, 226, 255)',
     titleFontSize: 18,
-    titleFamily: 'Microsoft Yahei',
+    titleFamily: 'sans-serif,Microsoft YaHei',
     titleTextAlign: 'left',
     titleFontWeight: 'normal',
     titleShowStatus: true,
@@ -28,7 +28,7 @@ const bar1DefaultConfig = {
     subTitleLabel: '副标题',
     subTitleColor: '#04c1ff',
     subTitleFontSize: 16,
-    subTitleFamily: 'Microsoft Yahei',
+    subTitleFamily: 'sans-serif,Microsoft YaHei',
     subTitleTextAlign: 'left',
     subTitleFontWeight: 'normal',
     subTitleShowStatus: false,
@@ -36,7 +36,7 @@ const bar1DefaultConfig = {
     noteLabel: '注释',
     noteColor: '#fff',
     noteFontSize: 16,
-    noteFamily: 'Microsoft Yahei',
+    noteFamily: 'sans-serif,Microsoft YaHei',
     noteTextAlign: 'left',
     noteFontWeight: 'normal',
     noteShowStatus: false,
@@ -75,6 +75,13 @@ const bar1DefaultConfig = {
       'rgb(121, 212, 255)',
       'rgb(186, 144, 255)',
       'rgb(239, 155, 149)'],
+      // 图例的配置
+      legendShow: true,
+      legendColor: '#fff',
+      legendPosition: 'top', // top bottom
+      legendFontSize: 12,
+      legendFontWeight : 'normal',
+      legendFontFamily: 'sans-serif,sans-serif,Microsoft YaHei'
     }
   }
 };

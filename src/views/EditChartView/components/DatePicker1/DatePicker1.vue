@@ -38,7 +38,7 @@ export default {
         title: '选择日期',
         color: '#e2f8ff',
         fontSize: 14,
-        fontFamily: 'Microsoft Yahei',
+        fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
         showStatus: true,
         scale: 1

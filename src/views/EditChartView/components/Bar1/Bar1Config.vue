@@ -209,8 +209,7 @@
           <el-radio label="gradient">渐变色</el-radio>
         </el-radio-group>
       </div>
-      <div class="select-bar-color"
-           v-if="config.chartOption.barStyleColorType === 'single'">
+      <div class="select-bar-color">
         <div v-for="(url, index) in singleBarBgcImgs"
              :key="index"
              :class="['choose-bar-color', currentBarColorIndex === index ? 'active' : '']"
@@ -222,6 +221,46 @@
                alt="">
         </div>
       </div>
+    </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="图例">
+      <el-row type="flex"
+              justify="space-between">
+        图例
+        <el-checkbox v-model="config.chartOption.legendShow"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.legendColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.chartOption.legendFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.chartOption.legendFontFamily"
+                   @change="handleChange">
+          <el-option label="微软雅黑"
+                     value="sans-serif,Microsoft YaHei"></el-option>
+          <el-option label="宋体"
+                     value="serif,Simsun"></el-option>
+        </el-select>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.chartOption.legendPosition"
+                        @change="handleChange">
+          <el-radio-button label="top">上</el-radio-button>
+          <el-radio-button label="bottom">下</el-radio-button>
+        </el-radio-group>
+        <el-checkbox-button v-model="config.chartOption.legendFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
+      </el-row>
     </el-collapse-item>
   </div>
 </template>
@@ -254,25 +293,41 @@ const barSingleBgcGroupList = [
     'rgb(239, 187, 76)',
     'rgb(121, 212, 255)',
     'rgb(186, 144, 255)',
-    'rgb(239, 155, 149)'
+    'rgb(239, 155, 149)',
+    'rgb(246, 239, 118)',
+    'rgb(243, 132, 245)',
+    'rgb(123, 229, 199)',
+    'rgb(121, 212, 255)'
   ],
   [
     'rgb(186, 144, 255)',
     'rgb(121, 212, 255)',
     'rgb(239, 155, 149)',
-    'rgb(123, 229, 199)'
+    'rgb(123, 229, 199)',
+    'rgb(239, 187, 76)',
+    'rgb(147, 213, 69)',
+    'rgb(246, 239, 118)',
+    'rgb(243, 132, 245)'
   ],
   [
     'rgb(239, 187, 76)',
     'rgb(186, 144, 255)',
     'rgb(121, 212, 255)',
-    'rgb(239, 155, 149)'
+    'rgb(239, 155, 149)',
+    'rgb(147, 213, 69)',
+    'rgb(246, 239, 118)',
+    'rgb(243, 132, 245)',
+    'rgb(123, 229, 199)'
   ],
   [
     'rgb(239, 155, 149)',
     'rgb(123, 229, 199)',
     'rgb(121, 212, 255)',
-    'rgb(147, 213, 69)'
+    'rgb(147, 213, 69)',
+    'rgb(239, 187, 76)',
+    'rgb(243, 132, 245)',
+    'rgb(186, 144, 255)',
+    'rgb(246, 239, 118)'
   ]
 ];
 export default {
@@ -296,7 +351,7 @@ export default {
         titleLabel: '标题',
         titleColor: 'rgb(83, 226, 255)',
         titleFontSize: 18,
-        titleFamily: 'Microsoft Yahei',
+        titleFamily: 'sans-serif,Microsoft YaHei',
         titleTextAlign: 'left',
         titleFontWeight: 'normal',
         titleShowStatus: true,
@@ -304,7 +359,7 @@ export default {
         subTitleLabel: '副标题',
         subTitleColor: '#04c1ff',
         subTitleFontSize: 16,
-        subTitleFamily: 'Microsoft Yahei',
+        subTitleFamily: 'sans-serif,Microsoft YaHei',
         subTitleTextAlign: 'left',
         subTitleFontWeight: 'normal',
         subTitleShowStatus: false,
@@ -312,7 +367,7 @@ export default {
         noteLabel: '注释',
         noteColor: '#fff',
         noteFontSize: 16,
-        noteFamily: 'Microsoft Yahei',
+        noteFamily: 'sans-serif,Microsoft YaHei',
         noteTextAlign: 'left',
         noteFontWeight: 'normal',
         noteShowStatus: false,
@@ -331,7 +386,14 @@ export default {
             'rgb(121, 212, 255)',
             'rgb(186, 144, 255)',
             'rgb(239, 155, 149)'
-          ]
+          ],
+          // 图例的配置
+          legendShow: true,
+          legendColor: '#fff',
+          legendPosition: 'top', // top bottom
+          legendFontSize: 12,
+          legendFontWeight: 'normal',
+          legendFontFamily: 'sans-serif,Microsoft YaHei'
         }
       })
     }
@@ -380,22 +442,63 @@ export default {
       ],
       fontFamilyOptions: [
         {
-          value: 'Microsoft Yahei',
+          value: 'sans-serif,Microsoft YaHei',
           label: '微软雅黑'
         },
         {
-          value: '宋体',
+          value: 'serif,Simsun',
           label: '宋体'
         }
       ],
       config: {
+        //   标题
         titleLabel: '标题',
         titleColor: 'rgb(83, 226, 255)',
         titleFontSize: 18,
-        titleFamily: 'Microsoft Yahei',
+        titleFamily: 'sans-serif,Microsoft YaHei',
         titleTextAlign: 'left',
         titleFontWeight: 'normal',
-        titleShowStatus: false
+        titleShowStatus: true,
+        // 副标题
+        subTitleLabel: '副标题',
+        subTitleColor: '#04c1ff',
+        subTitleFontSize: 16,
+        subTitleFamily: 'sans-serif,Microsoft YaHei',
+        subTitleTextAlign: 'left',
+        subTitleFontWeight: 'normal',
+        subTitleShowStatus: false,
+        // 注释的配置
+        noteLabel: '注释',
+        noteColor: '#fff',
+        noteFontSize: 16,
+        noteFamily: 'sans-serif,Microsoft YaHei',
+        noteTextAlign: 'left',
+        noteFontWeight: 'normal',
+        noteShowStatus: false,
+        // 图表的一些配置
+        chartOption: {
+          lineSmooth: true, // 曲线 折线
+          lineStyleType: 'solid', // 实线solid、虚线dashed
+          // 折线的颜色
+          lineStyleColorType: 'single', // 单色single、渐变 gradient
+          lineStyleColor: '#F0AB4C',
+          lineWidth: 2, // 线粗细
+          barNum: 12,
+          barStyleColorType: 'single',
+          barBackgroundColorList: [
+            'rgb(239, 187, 76)',
+            'rgb(121, 212, 255)',
+            'rgb(186, 144, 255)',
+            'rgb(239, 155, 149)'
+          ],
+          // 图例的配置
+          legendShow: true,
+          legendColor: '#fff',
+          legendPosition: 'top', // top bottom
+          legendFontSize: 12,
+          legendFontWeight: 'normal',
+          legendFontFamily: 'sans-serif,Microsoft YaHei'
+        }
       }
     };
   },
@@ -435,12 +538,16 @@ export default {
       this.currentGradientIndex = index;
       this.handleChange();
     },
-    handleBarStyleColorTypeChange() {},
+    handleBarStyleColorTypeChange() {
+      this.currentBarColorIndex = -1;
+    },
     handleSelecSingletBarColor(item, index) {
       // this.config.chartOption.bar1StyleColor = item.color1;
       // this.config.chartOption.bar2StyleColor = item.color2;
       const colorList = barSingleBgcGroupList[index];
+
       this.config.chartOption.barBackgroundColorList = [...colorList];
+
       this.currentBarColorIndex = index;
       this.handleChange();
     }
@@ -550,6 +657,7 @@ export default {
   padding: 4px;
   box-sizing: content-box;
   border-radius: 2px;
+  border: 1px solid transparent;
 
   p {
     font-size: 12px;
@@ -559,7 +667,7 @@ export default {
   }
 
   &.active {
-    border: 1px solid #74b9ff;
+    border-color: #74b9ff;
   }
 }
 </style>

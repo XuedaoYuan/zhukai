@@ -24,7 +24,7 @@ const COMPONENT_CONFIG = {
       color: '#fff',
       textAlign: 'center',
       fontSize: 16,
-      fontFamily: 'Microsoft Yahei',
+      fontFamily: 'sans-serif,Microsoft YaHei',
       fontWeight: 'normal',
       showStatus: true,
       scale: 1
@@ -71,7 +71,7 @@ const COMPONENT_CONFIG = {
       title: '选择日期',
       color: '#e2f8ff',
       fontSize: 14,
-      fontFamily: 'Microsoft Yahei',
+      fontFamily: 'sans-serif,Microsoft YaHei',
       fontWeight: 'normal',
       showStatus: true,
       scale: 1
@@ -99,7 +99,7 @@ const COMPONENT_CONFIG = {
       title: '选择',
       color: '#fff',
       fontSize: 14,
-      fontFamily: 'Microsoft Yahei',
+      fontFamily: 'sans-serif,Microsoft YaHei',
       fontWeight: 'normal',
       showStatus: true,
       scale: 1,

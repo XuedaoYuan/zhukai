@@ -85,7 +85,7 @@ export default {
         titleLabel: '标题',
         titleColor: 'rgb(83, 226, 255)',
         titleFontSize: 18,
-        titleFamily: 'Microsoft Yahei',
+        titleFamily: 'sans-serif,Microsoft YaHei',
         titleTextAlign: 'left',
         titleFontWeight: 'normal',
         titleShowStatus: true,
@@ -93,7 +93,7 @@ export default {
         subTitleLabel: '副标题',
         subTitleColor: '#04c1ff',
         subTitleFontSize: 16,
-        subTitleFamily: 'Microsoft Yahei',
+        subTitleFamily: 'sans-serif,Microsoft YaHei',
         subTitleTextAlign: 'left',
         subTitleFontWeight: 'normal',
         subTitleShowStatus: false,
@@ -101,7 +101,7 @@ export default {
         noteLabel: '注释',
         noteColor: '#fff',
         noteFontSize: 16,
-        noteFamily: 'Microsoft Yahei',
+        noteFamily: 'sans-serif,Microsoft YaHei',
         noteTextAlign: 'left',
         noteFontWeight: 'normal',
         noteShowStatus: false,
@@ -121,7 +121,14 @@ export default {
             'rgb(121, 212, 255)',
             'rgb(186, 144, 255)',
             'rgb(239, 155, 149)'
-          ]
+          ],
+          // 图例的配置
+          legendShow: true,
+          legendColor: '#fff',
+          legendPosition: 'top', // top bottom
+          legendFontSize: 12,
+          legendFontWeight: 'normal',
+          legendFontFamily: 'sans-serif,sans-serif,Microsoft YaHei'
         }
       })
     }
@@ -291,6 +298,25 @@ export default {
           seriesData: lineSeriesData
         }
       ];
+
+      /* 先设定好亚瑟 */
+      let barBackgroundColorListResult = [];
+      if (this.componentConfig.chartOption.barStyleColorType === 'gradient') {
+        const colorList = this.componentConfig.chartOption
+          .barBackgroundColorList;
+        for (let i = 0, len = colorList.length; i < len; i += 2) {
+          barBackgroundColorListResult.push(
+            new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: colorList[i] },
+              { offset: 1, color: colorList[i + 1] }
+            ])
+          );
+        }
+      } else {
+        barBackgroundColorListResult = this.componentConfig.chartOption
+          .barBackgroundColorList;
+      }
+
       let legendData = [];
       let series = [];
       mockData.forEach((item, index) => {
@@ -301,9 +327,7 @@ export default {
             type: 'bar',
             data: item.seriesData.slice(0, barNum),
             itemStyle: {
-              color: this.componentConfig.chartOption.barBackgroundColorList[
-                index
-              ]
+              color: barBackgroundColorListResult[index]
             }
           });
         } else if (item.type === 'line') {

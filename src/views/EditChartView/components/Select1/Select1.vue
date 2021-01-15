@@ -44,7 +44,7 @@ export default {
         title: '选择',
         color: '#fff',
         fontSize: 14,
-        fontFamily: 'Microsoft Yahei',
+        fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
         showStatus: true,
         scale: 1,

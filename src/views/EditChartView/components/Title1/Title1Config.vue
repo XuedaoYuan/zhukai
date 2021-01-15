@@ -76,7 +76,7 @@ export default {
         color: '#fff',
         textAlign: 'center',
         fontSize: 16,
-        fontFamily: 'Microsoft Yahei',
+        fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
         showStatus: true,
         scale: 1
@@ -95,11 +95,11 @@ export default {
     return {
       fontFamilyOptions: [
         {
-          value: 'Microsoft Yahei',
+          value: 'sans-serif,Microsoft YaHei',
           label: '微软雅黑'
         },
         {
-          value: '宋体',
+          value: 'serif,Simsun',
           label: '宋体'
         }
       ],
@@ -108,7 +108,7 @@ export default {
         color: '#fff',
         textAlign: 'center',
         fontSize: 16,
-        fontFamily: 'Microsoft Yahei',
+        fontFamily: 'sans-serif,Microsoft YaHei',
         showStatus: true,
         scale: 1
       }

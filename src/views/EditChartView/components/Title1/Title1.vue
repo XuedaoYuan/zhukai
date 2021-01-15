@@ -37,7 +37,7 @@ export default {
         textAlign: 'center',
         fontSize: 16,
         fontWeight: 'normal',
-        fontFamily: 'Microsoft Yahei, sans-serif',
+        fontFamily: 'sans-serif,Microsoft YaHei, sans-serif',
         showStatus: true,
         scale: 1
       })
@@ -119,7 +119,7 @@ export default {
   }
 
   span {
-    font-family: Microsoft Yahei, sans-serif;
+    font-family: sans-serif,Microsoft YaHei, sans-serif;
     position: relative;
     z-index: 2;
   }

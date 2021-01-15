@@ -74,7 +74,7 @@ export default {
         title: '选择',
         color: '#ffffff',
         fontSize: 14,
-        fontFamily: 'Microsoft Yahei',
+        fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
         showStatus: true,
         scale: 1
@@ -93,11 +93,11 @@ export default {
     return {
       fontFamilyOptions: [
         {
-          value: 'Microsoft Yahei',
+          value: 'sans-serif,Microsoft YaHei',
           label: '微软雅黑'
         },
         {
-          value: '宋体',
+          value: 'serif,Simsun',
           label: '宋体'
         }
       ],
@@ -105,7 +105,7 @@ export default {
         title: '看板标题',
         color: '#fff',
         fontSize: 14,
-        fontFamily: 'Microsoft Yahei',
+        fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
         showStatus: true,
         scale: 1

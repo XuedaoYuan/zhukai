@@ -163,7 +163,7 @@ export default {
         titleLabel: '标题1',
         titleColor: 'rgb(83, 226, 255)',
         titleFontSize: 18,
-        titleFamily: 'Microsoft Yahei',
+        titleFamily: 'sans-serif,Microsoft YaHei',
         titleTextAlign: 'left',
         titleFontWeight: 'normal',
         titleShowStatus: true,
@@ -171,7 +171,7 @@ export default {
         subTitleLabel: '副标题',
         subTitleColor: '#04c1ff',
         subTitleFontSize: 16,
-        subTitleFamily: 'Microsoft Yahei',
+        subTitleFamily: 'sans-serif,Microsoft YaHei',
         subTitleTextAlign: 'left',
         subTitleFontWeight: 'normal',
         subTitleShowStatus: false,
@@ -179,7 +179,7 @@ export default {
         noteLabel: '注释',
         noteColor: '#fff',
         noteFontSize: 16,
-        noteFamily: 'Microsoft Yahei',
+        noteFamily: 'sans-serif,Microsoft YaHei',
         noteTextAlign: 'left',
         noteFontWeight: 'normal',
         noteShowStatus: false,
@@ -204,11 +204,11 @@ export default {
     return {
       fontFamilyOptions: [
         {
-          value: 'Microsoft Yahei',
+          value: 'sans-serif,Microsoft YaHei',
           label: '微软雅黑',
         },
         {
-          value: '宋体',
+          value: 'serif,Simsun',
           label: '宋体',
         },
       ],

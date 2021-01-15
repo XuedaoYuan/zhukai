@@ -60,7 +60,7 @@
          color: '#fff',
          textAlign: 'center',
          fontSize: 16,
-         fontFamily: 'Microsoft Yahei',
+         fontFamily: 'Microsoft YaHei',
          fontWeight: 'normal',
          showStatus: true
        }
