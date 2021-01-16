@@ -1,7 +1,7 @@
-const bar1DefaultConfig = {
-  x: 180,
-  w: 60,
-  h: 36,
+const map1DefaultConfig = {
+  x: 120,
+  w: 120,
+  h: 72,
   i: 0,
   static: true,
   lock: false,
@@ -13,8 +13,8 @@ const bar1DefaultConfig = {
   /* 业务主题， 同上 */
   businessTheme: '',
   // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-  componentName: 'Pie1',
-  componentAliasName: '饼图1',
+  componentName: 'Map1',
+  componentAliasName: '海南省地图1',
   componentConfig: {
     // 标题的配置
     titleLabel: '标题',
@@ -81,4 +81,4 @@ const bar1DefaultConfig = {
   }
 };
 
-export default bar1DefaultConfig;
+export default map1DefaultConfig;

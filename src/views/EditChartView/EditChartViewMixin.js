@@ -65,6 +65,16 @@ export default {
           // this.boardConfig.components[index].componentConfig.scale = scale;
           break;
         }
+        case 'ChinaMap1': {
+          // const scale = width / initialW;
+          const h = (initialH * scaleNew) / this.rowHeight;
+          this.$nextTick(() => {
+            this.boardConfig.components[index].h = h;
+            this.h = h;
+          });
+          // this.boardConfig.components[index].componentConfig.scale = scale;
+          break;
+        }
 
         default:
           break;

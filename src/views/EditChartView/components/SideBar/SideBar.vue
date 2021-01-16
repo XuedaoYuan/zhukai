@@ -75,9 +75,9 @@ export default {
     };
   },
   watch: {
-    activeItem: function (newVal, oldVal) {
-      console.log('old ==> ', oldVal, 'ac', newVal);
-    }
+    // activeItem: function (newVal, oldVal) {
+    //   console.log('old ==> ', oldVal, 'ac', newVal);
+    // }
   }
 };
 </script>

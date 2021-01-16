@@ -212,6 +212,7 @@
 </template>
 
 <script>
+import './components/common.styl';
 import VueGridLayout from 'vue-grid-layout';
 
 import { Collapse, CollapseItem } from 'element-ui';
@@ -827,3 +828,4 @@ export default {
 <style scoped lang="stylus">
 @import './EditChartView.styl';
 </style>
+
