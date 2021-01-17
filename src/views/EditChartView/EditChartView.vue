@@ -171,30 +171,16 @@
                   </div>
                 </div>
               </el-collapse-item>
-              <Pie1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === 'Pie1'"
-                          :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                          :handlingIndex="handlingIndex"
-                          @change="handlePie1ConfigChange" />
-              <Title1Config v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName ==='Title1'"
-                            :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                            @change="handleTitleConfigChange"></Title1Config>
-              <TestLinkConfig v-if=" 
-                  handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='TestLink'"
-                              :components="boardConfig.components"
-                              @change="handleTestLinkConfigChange"></TestLinkConfig>
-              <Select1Config v-if="handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='Select1'"
-                             :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                             @change="handleSelect1Change"></Select1Config>
-              <DatePicker1Config v-if="handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='DatePicker1'"
-                                 :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                                 @change="handleDatePicker1Change"></DatePicker1Config>
-              <Bar1Config v-if="handlingIndex >= 0 &&
-                  boardConfig.components[handlingIndex].componentName ==='Bar1'"
-                          :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                          @change="handleBar1Change"></Bar1Config>
+              <template v-for="item in componentConfigs">
+                <component
+                  :key="item"
+                  :is="item"
+                  v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === item.replace('Config', '')"
+                  :componentConfig="boardConfig.components[handlingIndex].componentConfig"
+                  :handlingIndex="handlingIndex"
+                  @change="handleConfigChange"
+                />
+              </template>
             </el-collapse>
           </el-tab-pane>
           <el-tab-pane label="数据来源配置"
@@ -256,8 +242,6 @@ export default {
     ChartBar1: () => import('./components/ChartBar1'),
     Title1: () => import('./components/Title1/Title1'),
     Title1Config: () => import('./components/Title1/Title1Config'),
-    // TestLink: () => import('./components/TestLink/TestLink'),
-    // TestLinkConfig: () => import('./components/TestLink/TestLinkConfig'),
     Pie1: () => import('./components/Pie1/Pie1'),
     Pie1Config: () => import('./components/Pie1/Pie1Config'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
@@ -267,7 +251,9 @@ export default {
     Select1Config: () => import('./components/Select1/Select1Config.vue'),
     DataConfig: () => import('./components/DataConfig'),
     Map1: () => import('./components/Map1/Map1.vue'),
+    Map1Config: () => import('./components/Map1/Map1Config.vue'),
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
+    ChinaMap1Config: () => import('./components/ChinaMap1/ChinaMap1Config.vue'),
     Bar1: () => import('./components/Bar1/Bar1'),
     Bar1Config: () => import('./components/Bar1/Bar1Config')
   },
@@ -346,8 +332,18 @@ export default {
             componentName: '',
             componentConfig: {}
           }
-        ]
-      }
+        ],
+      },
+      // 组件配置，在这里注册后，会动态渲染
+      componentConfigs: [
+        'Pie1Config',
+        'Title1Config',
+        'ChinaMap1Config',
+        'Map1Config',
+        'Select1Config',
+        'DatePicker1Config',
+        'Bar1Config',
+      ],
     };
   },
   computed: {
@@ -647,49 +643,14 @@ export default {
         this.handlingIndex = index;
       }
     },
-
-    handleTitleConfigChange(config) {
-      // this.handlingIndex;
-      const component = this.boardConfig.components[this.handlingIndex];
-      this.boardConfig.components[this.handlingIndex].componentConfig = {
-        ...config,
-        scale: component.scale
-      };
-    },
-    handleSelect1Change(config) {
-      const component = this.boardConfig.components[this.handlingIndex];
-      this.boardConfig.components[this.handlingIndex].componentConfig = {
-        ...config,
-        scale: component.scale
-      };
-    },
-    handleDatePicker1Change(config) {
-      const component = this.boardConfig.components[this.handlingIndex];
-      this.boardConfig.components[this.handlingIndex].componentConfig = {
-        ...config,
-        scale: component.scale
-      };
-    },
-    handleBar1Change(config) {
+    // 组件配置修改时触发
+    handleConfigChange(config) {
       const component = this.boardConfig.components[this.handlingIndex];
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...component.componentConfig,
         ...config,
         scale: component.scale
       };
-    },
-    handlePie1ConfigChange(config) {
-      const component = this.boardConfig.components[this.handlingIndex];
-      this.boardConfig.components[this.handlingIndex].componentConfig = {
-        ...component.componentConfig,
-        ...config,
-        scale: component.scale
-      };
-    },
-    handleTestLinkConfigChange(val) {
-      this.boardConfig.components[
-        this.handlingIndex
-      ].componentConfig.linkedListKey.push(val);
     },
     /* 预览 */
     handlePreview() {

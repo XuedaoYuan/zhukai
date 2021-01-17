@@ -66,3 +66,31 @@
     padding: 0 10px;
   }
 }
+
+// config__container 类可实现组件配置通用样式，包含输入框、折叠框、边距等
+.config__container {
+  .el-collapse-item__content {
+    color: #b0cdeb;
+  }
+
+  .el-input__inner {
+    background: transparent;
+    color: #b0cdeb;
+  }
+
+  .el-row {
+    margin-bottom: 10px;
+
+    .el-input-number.is-controls-right .el-input__inner {
+      padding-right: 40px;
+    }
+
+    >div {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

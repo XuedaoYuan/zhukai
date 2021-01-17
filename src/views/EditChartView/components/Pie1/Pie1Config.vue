@@ -1,5 +1,5 @@
 <template>
-  <div class="pie1-config">
+  <div class="config__container">
     <el-collapse-item title="标题">
       <el-row type="flex" justify="space-between">
         标题
@@ -243,30 +243,4 @@ export default {
 };
 </script>
 <style scoped lang="stylus">
-.pie1-config {
-  /deep/ .el-collapse-item__content {
-    color: #b0cdeb;
-  }
-
-  /deep/ .el-input__inner {
-    background: transparent;
-    color: #b0cdeb;
-  }
-
-  /deep/ .el-row {
-    margin-bottom: 10px;
-
-    .el-input-number.is-controls-right .el-input__inner {
-      padding-right: 40px;
-    }
-
-    >div {
-      margin-right: 10px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-}
 </style>
