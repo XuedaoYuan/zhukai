@@ -113,20 +113,21 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="bizSbjInfoDTOList"
         width="200"
         show-overflow-tooltip
         header-align="center"
         align="center"
         label="相关主题"
-      >{{this.arr1}}</el-table-column>
+      ></el-table-column>
       <el-table-column
-        prop="bizDimName"
+        prop="bizDimInfoDTOList"
         width="200"
         show-overflow-tooltip
         header-align="center"
         align="center"
         label="维度"
-      >{{this.arr}}</el-table-column>
+      ></el-table-column>
       <el-table-column
         prop="updtTime"
         header-align="center"
@@ -195,12 +196,44 @@ export default {
       ],
       bizSbjNameList: [
         {
-          value: 1,
-          label: "实时",
+          value: "1",
+          label: "业务总体经办情况监测",
         },
         {
-          value: 0,
-          label: "非实时",
+          value: "10",
+          label: "三医费用结构分析监测",
+        },
+        {
+          value: "2",
+          label: "公共服务情况监测",
+        },
+        {
+          value: "4",
+          label: "药品与医用耗材使用排名",
+        },
+        {
+          value: "5",
+          label: "定点医疗机构住院基本指标分析监测",
+        },
+        {
+          value: "3",
+          label: "定点医药机构结算情况监测",
+        },
+        {
+          value: "9",
+          label: "异地就医情况监测",
+        },
+        {
+          value: "8",
+          label: "门诊慢特病分析监测",
+        },
+        {
+          value: "6",
+          label: "DRGs指标分析评价",
+        },
+        {
+          value: "7",
+          label: "住院单病种分析监测",
         },
       ],
       dataListLoading: false,
@@ -216,7 +249,7 @@ export default {
       let params = {
         bizKpiCodg: this.dataForm.bizKpiName,
         bizKpiName: this.dataForm.bizKpiName,
-        bizSbjName: this.dataForm.bizSbjName,
+        bizSbjId: this.dataForm.bizSbjName,
         rtFlag: this.dataForm.rtFlag,
         pageSize: this.pageSize,
         currentPage: this.pageIndex,
@@ -226,24 +259,31 @@ export default {
           if (data && data.dataList != "") {
             console.log(data, "data");
             this.dataList = data.dataList;
-            var arrs = [];
-            var arrss = [];
+            var net = [];
+            var nets = [];
             var newNum = this.dataList.map((ele, index) => {
+              var arrs = [];
+              var arrss = [];
               console.log(ele, index, "index");
               ele.bizDimInfoDTOList.map((el, inde) => {
                 console.log(el, inde, "111inde");
                 arrs.push(el.bizDimName);
                 // arrs.unshift(arrs[inde]);
               });
+              net[index] = arrs;
+              this.dataList[index].bizDimInfoDTOList = net[index].join()
+              console.log(this.dataList)
               ele.bizSbjInfoDTOList.map((le, indx) => {
                 console.log(le, indx, "le");
                 arrss.push(le.bizSbjName);
                 // arrs.unshift(arrs[inde]);
               });
+              nets[index] = arrss;
+              this.dataList[index].bizSbjInfoDTOList = nets[index].join()
             });
-            console.log(arrs, "arrs");
-            this.arr = arrs.join()
-            this.arr1 = arrss.join()
+            // console.log(arrs, "arrs");
+            // this.arr = arrs.join()
+            // this.arr1 = arrss.join()
             this.totalPage = data.totalCount;
           } else {
             this.dataList = [];
