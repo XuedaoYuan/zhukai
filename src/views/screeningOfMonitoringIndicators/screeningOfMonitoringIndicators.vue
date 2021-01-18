@@ -184,7 +184,7 @@ export default {
           // y: "bottom",
           bottom: 10,
           left: "center",
-          data: ["实施指标 "+this.datas.realTime+"个 "+this.datas.realTimePercentage,"非实施指标 "+this.datas.nonrealTime+"个 "+this.datas.nonrealTimePercentage],
+          data: ["实时指标 "+this.datas.realTime+"个 "+this.datas.realTimePercentage,"非实时指标 "+this.datas.nonrealTime+"个 "+this.datas.nonrealTimePercentage],
           // data: this.opinion,
         },
         series: [
@@ -224,8 +224,8 @@ export default {
               },
             },
             data: [
-              { value: this.datas.realTime, name: "实施指标 "+this.datas.realTime+"个 "+this.datas.realTimePercentage },
-              { value: this.datas.nonrealTime, name: "非实施指标 "+this.datas.nonrealTime+"个 "+this.datas.nonrealTimePercentage },
+              { value: this.datas.realTime, name: "实时指标 "+this.datas.realTime+"个 "+this.datas.realTimePercentage },
+              { value: this.datas.nonrealTime, name: "非实时指标 "+this.datas.nonrealTime+"个 "+this.datas.nonrealTimePercentage },
             ],
             color: ["#1964B9", "#2DC0C0"],
           },
