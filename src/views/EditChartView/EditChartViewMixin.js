@@ -45,34 +45,14 @@ export default {
           this.boardConfig.components[index].componentConfig.scale = scale;
           break;
         }
-        case 'Bar1': {
-          const scale = width / initialW;
-          const h = (initialH * scale) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          this.boardConfig.components[index].componentConfig.scale = scale;
-          break;
-        }
-        case 'Pie1': {
-          // const scale = width / initialW;
-          const h = (initialH * scaleNew) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          // this.boardConfig.components[index].componentConfig.scale = scale;
-          break;
-        }
+        case 'Bar1':
+        case 'Pie1':
         case 'ChinaMap1': {
-          // const scale = width / initialW;
           const h = (initialH * scaleNew) / this.rowHeight;
           this.$nextTick(() => {
             this.boardConfig.components[index].h = h;
             this.h = h;
           });
-          // this.boardConfig.components[index].componentConfig.scale = scale;
           break;
         }
 

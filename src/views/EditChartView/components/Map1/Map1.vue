@@ -97,8 +97,7 @@ export default {
   data() {
     return {
       scale: 1,
-      chartInstance: null,
-      chartContainerDOM: null,
+      chartIns: null,
     };
   },
   watch: {

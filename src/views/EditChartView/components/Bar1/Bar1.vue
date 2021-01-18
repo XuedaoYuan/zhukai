@@ -1,9 +1,9 @@
 <template>
   <div class="bar1__wrapper"
        ref="Bar1WrapperRef">
-    <div class="bar1__container"
+    <div class="component__container bar1__container"
          :style="{
-            transform: 'scale('+componentConfig.scale+')'
+            transform: 'scale(' + scale + ')',
          }">
       <div class="header"
            v-if="componentConfig.titleShowStatus"
@@ -143,7 +143,9 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      scale: 1,
+    };
   },
   created() {
     this._resizehandlerThrottle = throttle(this.resizehandler, 100);
@@ -439,9 +441,13 @@ export default {
     resizehandler(entries) {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
+      const width = contentRect.width;
+      const scale = width / 480;
+      this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
+        scaleNew: scale,
         initialW: 480,
         initialH: 360,
         componentName: 'Bar1'
@@ -452,78 +458,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.bar1__wrapper {
-  width: 100%;
-  height: 100%;
-}
-
 .bar1__container {
   width: 480px;
   height: 360px;
-  transform-origin: left top;
-  display: flex;
-  flex-direction: column;
-
-  .header {
-    flex: 0 0 40px;
-    line-height: 40px;
-    color: rgb(83, 226, 255);
-    font-size: 18px;
-    text-align: left;
-    font-weight: normal;
-
-    .iconStyle {
-      width: 9px;
-      height: 15px;
-      display: inline-block;
-      vertical-align: baseline;
-      fill: currentColor;
-    }
-
-    .title {
-      margin-left: 6px;
-      display: inline-block;
-      line-height: 1;
-    }
-  }
-
-  .chart__container {
-    flex: 1;
-    width: 100%;
-    overflow: hidden;
-    background-image: url('../../assets/bg-border.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: center center;
-    display: flex;
-    flex-direction: column;
-
-    .sub-title__container {
-      flex: 0 0 30px;
-      line-height: 30px;
-      padding-left: 0px;
-      position: relative;
-
-      .icon {
-        display: inline-block;
-        width: 4px;
-        height: 12px;
-        background: #04c1ff;
-        margin-right: 8px;
-      }
-    }
-
-    .chart-dom {
-      flex: 1;
-      width: 100%;
-      overflow: hidden;
-    }
-  }
-
-  .note {
-    flex: 0 0 40px;
-    line-height: 40px;
-    padding: 0 10px;
-  }
 }
 </style>
