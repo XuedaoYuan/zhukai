@@ -14,23 +14,23 @@
     <div v-show="componentDataConfig.businessType === '指标库导入'">
       <el-row type="flex"
               align="middle">
-        <label class="title">业务域</label>
-        <el-select v-model="componentDataConfig.businessDomain">
-          <el-option v-for="item in sourceTypeOptions"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value">
+        <label class="title">主题信息</label>
+        <el-select v-model="componentDataConfig.businessDomain" @change="fetchBusinessInfo">
+          <el-option v-for="item in bizSbjInfoDTOList"
+                     :key="item.kpiSbjId"
+                     :label="item.kpiSbjName"
+                     :value="item.kpiSbjId">
           </el-option>
         </el-select>
       </el-row>
       <el-row type="flex"
               align="middle">
-        <label class="title">指标集</label>
-        <el-select v-model="componentDataConfig.businessIndexSet">
-          <el-option v-for="item in sourceTypeOptions"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value">
+        <label class="title">指标信息</label>
+        <el-select v-model="componentDataConfig.businessIndexSet" @change="fetchBusinessInfo">
+          <el-option v-for="item in kpiInfoDTOList"
+                     :key="item.kpiSbjId"
+                     :label="item.kpiSbjName"
+                     :value="item.kpiSbjId">
           </el-option>
         </el-select>
       </el-row>
@@ -99,10 +99,20 @@
 <script>
 import _attempt from 'lodash/attempt';
 import _isError from 'lodash/isError';
+import _get from 'lodash/get';
 import cloneDeep from 'lodash/cloneDeep';
+import {
+  getBusinessInfo,
+} from '../api';
 export default {
   name: 'DataConfig',
   props: {
+    moduleId: { 
+      // 需要组件的模块 ID，用来查询指标集，当前 moduleId 暂未入库，后续 required 需为 true
+      type: String,
+      required: false,
+      default: '0011a239-3357-4b7e-bde8-ede0920d0e01',
+    },
     componentData: {
       type: Object,
       required: false,
@@ -147,6 +157,8 @@ export default {
         apiUrl: '',
         apiUrlParamList: []
       },
+      bizSbjInfoDTOList: [], // 主题
+      kpiInfoDTOList: [], // 指标
       sourceTypeOptions: [
         {
           value: '指标库导入',
@@ -191,9 +203,28 @@ export default {
     }
   }, */
   mounted() {
-    // console.log('%c data ==> ', 'color: red', this.data);
+    // getBusinessInfo({ moduId: this.moduleId }).then(({ data }) => {
+    //   // 主题
+    //   this.bizSbjInfoDTOList = _get(data, 'bizSbjInfoDTOList');
+    //   // 指标
+    //   this.kpiInfoDTOList = _get(data, 'kpiInfoDTOList');
+    // })
+    this.fetchBusinessInfo();
   },
   methods: {
+    fetchBusinessInfo() {
+      // 请求指标库数据
+      getBusinessInfo({ 
+        moduId: this.moduleId,
+        bizSbjId: this.componentDataConfig.businessDomain,
+        kpiId: this.componentDataConfig.businessIndexSet,
+      }).then(({ data }) => {
+        // 主题
+        this.bizSbjInfoDTOList = _get(data, 'bizSbjInfoDTOList');
+        // 指标
+        this.kpiInfoDTOList = _get(data, 'kpiInfoDTOList');
+      })
+    },
     handleSave() {
       if (this.saveLoading) return;
       this.saveLoading = true;

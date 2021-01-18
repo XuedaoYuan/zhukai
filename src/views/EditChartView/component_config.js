@@ -1,6 +1,7 @@
 /* =======注意： 是 >>>初始<<< 配置项 */
 /* 对于所有组件的初始配置项, 也就是默认值 */
 import bar1DefaultConfig from "@/views/EditChartView/components/Bar1/bar1DefaultConfig.js"
+import bar2DefaultConfig from "@/views/EditChartView/components/Bar2/bar2DefaultConfig.js"
 import pie1DefaultConfig from "@/views/EditChartView/components/Pie1/pie1DefaultConfig.js"
 import chinaMap1DefaultConfig from "@/views/EditChartView/components/ChinaMap1/chinaMap1DefaultConfig.js"
 import map1DefaultConfig from "@/views/EditChartView/components/Map1/map1DefaultConfig.js"
@@ -129,6 +130,7 @@ const COMPONENT_CONFIG = {
   map1: map1DefaultConfig,
   chinaMap1: chinaMap1DefaultConfig,
   bar1: bar1DefaultConfig,
+  bar2: bar2DefaultConfig,
   pie1: pie1DefaultConfig,
 };
 export default COMPONENT_CONFIG;

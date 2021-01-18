@@ -101,3 +101,20 @@ export function getBoardConfigDetail(scrId) {
     params: { scrId }
   });
 }
+
+
+/**
+ * 获取主题信息和指标信息
+ *
+ * @export
+ * @param {*} scrId
+ * @returns
+ */
+export function getBusinessInfo(data) {
+  return fetch({
+    url: '/web/manage/modulist/getByModuId',
+    method: 'POST',
+    data,
+  });
+}
+

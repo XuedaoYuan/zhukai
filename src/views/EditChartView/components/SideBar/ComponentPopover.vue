@@ -35,6 +35,10 @@
              @click="handleComponentClick('map1')"
              width="182"
              alt="map1" />
+        <img src="./imgs/bar2.png"
+             @click="handleComponentClick('bar2')"
+             width="182"
+             alt="bar2" />
       </div>
       <div class="right-container">
         <img src="./imgs/title1.png"

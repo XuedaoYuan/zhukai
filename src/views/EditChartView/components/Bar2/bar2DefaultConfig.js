@@ -1,4 +1,4 @@
-const pie1DefaultConfig = {
+const bar2DefaultConfig = {
   x: 180,
   w: 60,
   h: 36,
@@ -13,8 +13,8 @@ const pie1DefaultConfig = {
   /* 业务主题， 同上 */
   businessTheme: '',
   // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-  componentName: 'Pie1',
-  componentAliasName: '饼图1',
+  componentName: 'Bar2',
+  componentAliasName: '折线图2',
   componentConfig: {
     // 标题的配置
     titleLabel: '标题',
@@ -81,4 +81,4 @@ const pie1DefaultConfig = {
   }
 };
 
-export default pie1DefaultConfig;
+export default bar2DefaultConfig;

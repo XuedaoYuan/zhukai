@@ -255,7 +255,9 @@ export default {
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
     ChinaMap1Config: () => import('./components/ChinaMap1/ChinaMap1Config.vue'),
     Bar1: () => import('./components/Bar1/Bar1'),
-    Bar1Config: () => import('./components/Bar1/Bar1Config')
+    Bar1Config: () => import('./components/Bar1/Bar1Config'),
+    Bar2: () => import('./components/Bar2/Bar2'),
+    Bar2Config: () => import('./components/Bar2/Bar2Config')
   },
   mixins: [mixin],
   data() {

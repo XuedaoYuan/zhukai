@@ -46,6 +46,7 @@ export default {
           break;
         }
         case 'Bar1':
+        case 'Bar2':
         case 'Pie1':
         case 'ChinaMap1': {
           const h = (initialH * scaleNew) / this.rowHeight;
