@@ -107,10 +107,10 @@ export function getBoardConfigDetail(scrId) {
  * 获取主题信息和指标信息
  *
  * @export
- * @param {*} scrId
+ * @param {*} data
  * @returns
  */
-export function getBusinessInfo(data) {
+export function getKpiInfo(data) {
   return fetch({
     url: '/web/manage/modulist/getByModuId',
     method: 'POST',
@@ -118,3 +118,32 @@ export function getBusinessInfo(data) {
   });
 }
 
+/**
+ * 通过指标id获取指标字段，用于自定义x轴和y轴
+ *
+ * @export
+ * @param {*} data
+ * @returns
+ */
+export function getKpiFields(data) {
+  return fetch({
+    url: '/web/manage/kpifldinfo/selectAll',
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 通过主题id和指标id获取指标数据
+ *
+ * @export
+ * @param {*} data
+ * @returns
+ */
+export function getKpiData(data) {
+  return fetch({
+    url: '/web/manage/data/result',
+    method: 'GET',
+    params: data,
+  });
+}

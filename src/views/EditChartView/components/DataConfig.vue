@@ -15,7 +15,7 @@
       <el-row type="flex"
               align="middle">
         <label class="title">主题信息</label>
-        <el-select v-model="componentDataConfig.businessDomain" @change="fetchBusinessInfo">
+        <el-select v-model="componentDataConfig.businessDomain" @change="fetchKpiInfo">
           <el-option v-for="item in bizSbjInfoDTOList"
                      :key="item.kpiSbjId"
                      :label="item.kpiSbjName"
@@ -26,11 +26,33 @@
       <el-row type="flex"
               align="middle">
         <label class="title">指标信息</label>
-        <el-select v-model="componentDataConfig.businessIndexSet" @change="fetchBusinessInfo">
+        <el-select v-model="componentDataConfig.businessIndexSet" @change="fetchKpiFields">
           <el-option v-for="item in kpiInfoDTOList"
                      :key="item.kpiSbjId"
                      :label="item.kpiSbjName"
                      :value="item.kpiSbjId">
+          </el-option>
+        </el-select>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <label class="title">x轴字段</label>
+        <el-select v-model="componentDataConfig.businessX">
+          <el-option v-for="item in kpiFields"
+                     :key="item.fld"
+                     :label="item.fldName"
+                     :value="item.fld">
+          </el-option>
+        </el-select>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <label class="title">y轴字段</label>
+        <el-select v-model="componentDataConfig.businessY">
+          <el-option v-for="item in kpiFields"
+                     :key="item.fld"
+                     :label="item.fldName"
+                     :value="item.fld">
           </el-option>
         </el-select>
       </el-row>
@@ -102,7 +124,9 @@ import _isError from 'lodash/isError';
 import _get from 'lodash/get';
 import cloneDeep from 'lodash/cloneDeep';
 import {
-  getBusinessInfo,
+  getKpiInfo,
+  getKpiFields,
+  getKpiData,
 } from '../api';
 export default {
   name: 'DataConfig',
@@ -122,6 +146,8 @@ export default {
         businessDomain: '', // 业务域
         businessIndexSet: '', // 指标集
         businessParamList: [],
+        businessX: '', // x 轴字段
+        businessY: '', // y 轴字段
         /* 静态数据 */
         staticData: '', //  Array or Map 序列化的字符串
         /* 自定义API */
@@ -151,6 +177,8 @@ export default {
         businessDomain: '', // 业务域
         businessIndexSet: '', // 指标集
         businessParamList: [],
+        businessX: '', // x 轴字段
+        businessY: '', // y 轴字段
         /* 静态数据 */
         staticData: '', //  Array or Map 序列化的字符串
         /* 自定义API */
@@ -172,7 +200,8 @@ export default {
           value: '自定义API',
           label: '自定义API'
         }
-      ]
+      ],
+      kpiFields: [],
     };
   },
   created() {
@@ -203,18 +232,12 @@ export default {
     }
   }, */
   mounted() {
-    // getBusinessInfo({ moduId: this.moduleId }).then(({ data }) => {
-    //   // 主题
-    //   this.bizSbjInfoDTOList = _get(data, 'bizSbjInfoDTOList');
-    //   // 指标
-    //   this.kpiInfoDTOList = _get(data, 'kpiInfoDTOList');
-    // })
-    this.fetchBusinessInfo();
+    this.fetchKpiInfo();
   },
   methods: {
-    fetchBusinessInfo() {
+    fetchKpiInfo() {
       // 请求指标库数据
-      getBusinessInfo({ 
+      getKpiInfo({ 
         moduId: this.moduleId,
         bizSbjId: this.componentDataConfig.businessDomain,
         kpiId: this.componentDataConfig.businessIndexSet,
@@ -223,6 +246,21 @@ export default {
         this.bizSbjInfoDTOList = _get(data, 'bizSbjInfoDTOList');
         // 指标
         this.kpiInfoDTOList = _get(data, 'kpiInfoDTOList');
+      })
+    },
+    fetchKpiFields() {
+      // 获取指标字段
+      getKpiFields({ kpiId: this.componentDataConfig.businessIndexSet }).then(({ data }) => {
+        this.kpiFields = data;
+      })
+    },
+    fetchKpiData() {
+      // 获取指标字段
+      getKpiData({ 
+        moduId: this.moduleId,
+        kpiId: this.componentDataConfig.businessIndexSet,
+      }).then(({ data }) => {
+        // this.kpiFields = data;
       })
     },
     handleSave() {
@@ -263,7 +301,7 @@ export default {
 </script>
 <style scoped lang="stylus">
 .container {
-  padding: 10px;
+  padding: 0 10px 10px;
 
   .title {
     width: 48px;
@@ -286,6 +324,7 @@ export default {
   }
 
   /deep/ .el-row {
+    margin-top: 10px;
     margin-bottom: 10px;
 
     .el-input__inner {

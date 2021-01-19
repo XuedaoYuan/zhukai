@@ -88,12 +88,21 @@
 import _throttle from 'lodash/throttle';
 import _attempt from 'lodash/attempt';
 import _isError from 'lodash/isError';
+import _get from 'lodash/get';
+import _map from 'lodash/map';
+import { getKpiData } from '../../api';
 export default {
   name: 'Bar2',
   props: {
     i: {
       type: String | Number,
       required: true,
+    },
+    moduleId: {
+      // 需要组件的模块 ID，用来查询指标集，当前 moduleId 暂未入库，后续 required 需为 true
+      type: String,
+      required: false,
+      default: '0011a239-3357-4b7e-bde8-ede0920d0e01',
     },
     componentConfig: {
       type: Object,
@@ -164,6 +173,25 @@ export default {
         });
       },
     },
+    'componentConfig.data': {
+      immediate: true,
+      handler: function (val, oldVal) {
+        if (_get(val, 'businessIndexSet')) {
+          this.fetchKpiData();
+        }
+        // const data = _attempt(() => {
+        //   return JSON.parse(val);
+        // });
+        // if (_isError(data)) {
+        //   this.componentData = [];
+        // } else {
+        //   this.componentData = data;
+        // }
+        // this.$nextTick(() => {
+        //   this.initChart();
+        // });
+      },
+    },
   },
   created() {
     this._resizehandlerThrottle = _throttle(this.resizehandler, 100);
@@ -196,73 +224,50 @@ export default {
     }
   },
   methods: {
+    fetchKpiData() {
+      // 获取指标字段
+      getKpiData({ 
+        moduId: this.moduleId,
+        kpiId: this.componentConfig.data.businessIndexSet,
+      }).then(({ data }) => {
+        const xField = _get(this.componentConfig.data, 'businessX');
+        const yField = _get(this.componentConfig.data, 'businessY');
+        const seriesData = 
+        this.chartIns.setOption({
+          xAxis: {
+            name: _get(data, ['propNames', xField]) + (_get(data, ['propUnits', xField]) || ''),
+          },
+          yAxis: {
+            name: _get(data, ['propNames', yField]) + (_get(data, ['propUnits', yField]) || ''),
+          },
+          grid: {
+            left: _get(data, ['propNames', yField], '').length * 6 + 16,
+            right: _get(data, ['propNames', xField], '').length * 12 + 32,
+          },
+          series: [{
+            type: 'line',
+            data: _map(_get(data, 'data'), item => (
+              [_get(item, xField), _get(item, yField)]
+            ))
+          }]
+        })
+      })
+    },
     initChart() {
       if (!this.chartIns) {
         this.chartIns = this.$echarts.init(this.$refs['ChartDomRef']);
       }
       const options = {
-        tooltip: {
-          trigger: 'axis',
-        },
-        // legend: {
-        //   data: ['最高气温', '最低气温'],
-        // },
         xAxis: {
           type: 'category',
-          boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
         },
         yAxis: {
           type: 'value',
-          axisLabel: {
-            formatter: '{value} °C',
-          },
         },
-        series: [
-          {
-            name: '最高气温',
-            type: 'line',
-            data: [11, 11, 15, 13, 12, 13, 10],
-            markPoint: {
-              data: [
-                { type: 'max', name: '最大值' },
-                { type: 'min', name: '最小值' },
-              ],
-            },
-            markLine: {
-              data: [{ type: 'average', name: '平均值' }],
-            },
-          },
-          {
-            name: '最低气温',
-            type: 'line',
-            data: [1, -2, 2, 5, 3, 2, 0],
-            markPoint: {
-              data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }],
-            },
-            markLine: {
-              data: [
-                { type: 'average', name: '平均值' },
-                [
-                  {
-                    symbol: 'none',
-                    x: '90%',
-                    yAxis: 'max',
-                  },
-                  {
-                    symbol: 'circle',
-                    label: {
-                      position: 'start',
-                      formatter: '最大值',
-                    },
-                    type: 'max',
-                    name: '最高点',
-                  },
-                ],
-              ],
-            },
-          },
-        ],
+        series: [{
+          type: 'line',
+          data: [['周一', 20], ['周二', 30], ['周三', 10], ['周四', 44], ['周五', 88], ['周六', 33], ['周日', 47]]
+        }],
       };
       this.chartIns.setOption(options, true);
     },
