@@ -161,13 +161,13 @@
                     </el-input>
                   </div>
                   <div class="input_container">
-                    <el-input v-model.number="h"
+                   <!--  <el-input v-model.number="h"
                               type="number"
                               :min="0"
                               class="position-size-input"
                               @change="handleHchange">
                       <template v-slot:suffix>H</template>
-                    </el-input>
+                    </el-input> -->
                   </div>
                 </div>
               </el-collapse-item>
@@ -710,6 +710,8 @@ export default {
                     for (let key in this.editForm) {
                       postData[key] = this.editForm[key];
                     }
+                    // judge 1表示保存 2表示审核
+                    postData.judge = 1
                     postData.cfg = JSON.stringify(this.boardConfig);
                     postData.scrName = this.boardConfig.boardTitle;
                     postData.scrCodg = this.boardConfig.boardCode;
@@ -734,6 +736,8 @@ export default {
                       scrCodg: this.boardConfig.boardCode,
                       scrThum
                     };
+                    // judge 1表示保存 2表示审核
+                    postData.judge = 1
                     saveBoard(postData)
                       .then((boardRes) => {
                         if (

@@ -81,7 +81,23 @@ const bar1DefaultConfig = {
       legendPosition: 'top', // top bottom
       legendFontSize: 12,
       legendFontWeight : 'normal',
-      legendFontFamily: 'sans-serif,Microsoft YaHei'
+      legendFontFamily: 'sans-serif,Microsoft YaHei',
+      // x轴的一些配置
+      xAxisLabelShow: true,
+      xAxisLabelColor: "#5B5D66",
+      xAxisLabelFontSize: 12,
+      xAxisLabelFontFamily: "sans-serif,Microsoft YaHei",
+      xAxisLineShow: true,
+      xAxisLineColor: "#5B5D66",
+      xAxisLineWidth: 1,
+      // y轴的一些配置
+      yAxisLabelShow: true,
+      yAxisLabelColor: "#5B5D66",
+      yAxisLabelFontSize: 12,
+      yAxisLabelFontFamily: "sans-serif,Microsoft YaHei",
+      yAxisLineShow: true,
+      yAxisLineColor: "#5B5D66",
+      yAxisLineWidth: 1,
     }
   }
 };

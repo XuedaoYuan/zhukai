@@ -1,61 +1,40 @@
 <template>
-  <div class="bar1__wrapper"
-       ref="Bar1WrapperRef">
-    <div class="component__container bar1__container"
-         :style="{
+  <div class="bar1__wrapper" ref="Bar1WrapperRef">
+    <div class="component__container bar1__container" :style="{
             transform: 'scale(' + scale + ')',
          }">
-      <div class="header"
-           v-if="componentConfig.titleShowStatus"
-           :style="{
+      <div class="header" v-if="componentConfig.titleShowStatus" :style="{
                 color: componentConfig.titleColor,
                 fontSize: componentConfig.titleFontSize + 'px',
                 fontFamily: componentConfig.titleFamily,
                 textAlign: componentConfig.titleTextAlign,
                 fontWeight: componentConfig.titleFontWeight
       }">
-        <svg version="1.1"
-             viewBox="0 0 1024 1024"
-             class="iconStyle"
-             style="opacity: 0.3;">
-          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
-                stroke="transparent"></path>
+        <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle" style="opacity: 0.3;">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z" stroke="transparent"></path>
         </svg>
-        <svg version="1.1"
-             viewBox="0 0 1024 1024"
-             class="iconStyle"
-             style="opacity: 0.7;">
-          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
-                stroke="transparent"></path>
+        <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle" style="opacity: 0.7;">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z" stroke="transparent"></path>
         </svg>
-        <svg version="1.1"
-             viewBox="0 0 1024 1024"
-             class="iconStyle">
-          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
-                stroke="transparent"></path>
+        <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z" stroke="transparent"></path>
         </svg>
         <span class="title">{{componentConfig.titleLabel}}{{componentConfig.scale}}</span>
       </div>
       <div class="chart__container">
-        <div class="sub-title__container"
-             v-if="componentConfig.subTitleShowStatus"
-             :style="{
+        <div class="sub-title__container" v-if="componentConfig.subTitleShowStatus" :style="{
             color: componentConfig.subTitleColor,
             fontSize: componentConfig.subTitleFontSize + 'px',
             fontFamily: componentConfig.subTitleFamily,
             textAlign: componentConfig.subTitleTextAlign,
             fontWeight: componentConfig.subTitleFontWeight,
       }">
-          <span class="icon"
-                :style="{backgroundColor: componentConfig.subTitleColor}"></span>
+          <span class="icon" :style="{backgroundColor: componentConfig.subTitleColor}"></span>
           {{componentConfig.subTitleLabel}}
         </div>
-        <div class="chart-dom"
-             ref="ChartDomRef"></div>
+        <div class="chart-dom" ref="ChartDomRef"></div>
 
-        <div class="note"
-             v-if="componentConfig.noteShowStatus"
-             :style="{
+        <div class="note" v-if="componentConfig.noteShowStatus" :style="{
             color: componentConfig.noteColor,
             fontSize: componentConfig.noteFontSize + 'px',
             fontFamily: componentConfig.noteFamily,
@@ -128,7 +107,23 @@ export default {
           legendPosition: 'top', // top bottom
           legendFontSize: 12,
           legendFontWeight: 'normal',
-          legendFontFamily: 'sans-serif,Microsoft YaHei'
+          legendFontFamily: 'sans-serif,Microsoft YaHei',
+          // x轴
+          xAxisLabelShow: true,
+          xAxisLabelColor: '#5B5D66',
+          xAxisLabelFontSize: 12,
+          xAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
+          xAxisLineShow: true,
+          xAxisLineColor: '#5B5D66',
+          xAxisLineWidth: 1,
+          // y轴的一些配置
+          yAxisLabelShow: true,
+          yAxisLabelColor: '#5B5D66',
+          yAxisLabelFontSize: 12,
+          yAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
+          yAxisLineShow: true,
+          yAxisLineColor: '#5B5D66',
+          yAxisLineWidth: 1
         }
       })
     }
@@ -144,7 +139,7 @@ export default {
   },
   data() {
     return {
-      scale: 1,
+      scale: 1
     };
   },
   created() {
@@ -161,7 +156,6 @@ export default {
       }, 400)
     );
     this._chartObserver.observe(this.$refs['ChartDomRef']);
-    
   },
   beforeDestroy() {
     if (this._resizeObserver) {
@@ -391,6 +385,22 @@ export default {
             data: xAxisData,
             axisPointer: {
               type: 'shadow'
+            },
+            axisLabel: {
+              show: _vm.componentConfig.chartOption.xAxisLabelShow,
+              color: _vm.componentConfig.chartOption.xAxisLabelColor,
+              fontSize: _vm.componentConfig.chartOption.xAxisLabelFontSize,
+              fontFamily: _vm.componentConfig.chartOption.xAxisLabelFontFamily
+            },
+            axisLine: {
+              show: _vm.componentConfig.chartOption.xAxisLineShow,
+              lineStyle: {
+                color: _vm.componentConfig.chartOption.xAxisLineColor,
+                width: _vm.componentConfig.chartOption.xAxisLineWidth
+              }
+            },
+            axisTick: {
+              show: _vm.componentConfig.chartOption.xAxisLineShow
             }
           }
         ],
@@ -402,16 +412,24 @@ export default {
             // max: 250,
             // interval: 50,
             axisLine: {
-              show: true
+              show: _vm.componentConfig.chartOption.yAxisLineShow,
+              lineStyle: {
+                color: _vm.componentConfig.chartOption.yAxisLineColor,
+                width: _vm.componentConfig.chartOption.yAxisLineWidth
+              }
             },
             splitLine: {
               show: false
             },
             axisTick: {
-              show: true
+              show: _vm.componentConfig.chartOption.yAxisLineShow
             },
             axisLabel: {
-              formatter: '{value}'
+              formatter: '{value}',
+              show: _vm.componentConfig.chartOption.yAxisLabelShow,
+              color: _vm.componentConfig.chartOption.yAxisLabelColor,
+              fontSize: _vm.componentConfig.chartOption.yAxisLabelFontSize,
+              fontFamily: _vm.componentConfig.chartOption.yAxisLabelFontFamily
             }
           },
           {
@@ -421,16 +439,24 @@ export default {
             // max: 25,
             // interval: 5,
             axisLine: {
-              show: true
+              show: _vm.componentConfig.chartOption.yAxisLineShow,
+              lineStyle: {
+                color: _vm.componentConfig.chartOption.yAxisLineColor,
+                width: _vm.componentConfig.chartOption.yAxisLineWidth
+              }
             },
             splitLine: {
               show: false
             },
             axisTick: {
-              show: true
+              show: _vm.componentConfig.chartOption.yAxisLineShow
             },
             axisLabel: {
-              formatter: '{value}'
+              formatter: '{value}',
+              show: _vm.componentConfig.chartOption.yAxisLabelShow,
+              color: _vm.componentConfig.chartOption.yAxisLabelColor,
+              fontSize: _vm.componentConfig.chartOption.yAxisLabelFontSize,
+              fontFamily: _vm.componentConfig.chartOption.yAxisLabelFontFamily
             }
           }
         ],
