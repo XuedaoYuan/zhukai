@@ -118,7 +118,7 @@
     businessIndexSet: '', // 指标集
     businessParamList: [{ key: '', value: '' }]
     /* 静态数据 */
-    staticData: '', //  Array or Map 序列化的字符串
+    staticData: '', //  Array or Map 序列化的字符串 JSON.stringify(jsonData, null, 2)
     /* 自定义API */
     apiUrl: '',
     apiUrlParamList: [{ key: '', value: '' }]

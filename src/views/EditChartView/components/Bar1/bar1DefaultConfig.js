@@ -98,6 +98,8 @@ const bar1DefaultConfig = {
       yAxisLineShow: true,
       yAxisLineColor: "#5B5D66",
       yAxisLineWidth: 1,
+      // 浮框
+      tooltipShow: true,
     }
   }
 };

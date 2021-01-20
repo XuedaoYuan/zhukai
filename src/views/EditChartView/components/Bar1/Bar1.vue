@@ -123,7 +123,9 @@ export default {
           yAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
           yAxisLineShow: true,
           yAxisLineColor: '#5B5D66',
-          yAxisLineWidth: 1
+          yAxisLineWidth: 1,
+          // 浮框
+          tooltipShow: true
         }
       })
     }
@@ -347,6 +349,7 @@ export default {
 
       const option = {
         tooltip: {
+          show: _vm.componentConfig.chartOption.tooltipShow,
           trigger: 'axis',
           axisPointer: {
             type: 'cross',

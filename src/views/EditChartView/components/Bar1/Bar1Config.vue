@@ -192,6 +192,12 @@
         <el-input-number :min="1" :precision="0" controls-position="right" :style="{width: '80px'}" v-model="config.chartOption.yAxisLineWidth" @change="handleChange"></el-input-number>
       </el-row>
     </el-collapse-item>
+    <el-collapse-item class="select1-config" title="浮框">
+      <el-row type="flex" justify="space-between">
+        浮框
+        <el-checkbox v-model="config.chartOption.tooltipShow" @change="handleChange">显示</el-checkbox>
+      </el-row>
+    </el-collapse-item>
   </div>
 </template>
 
@@ -339,7 +345,9 @@ export default {
           yAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
           yAxisLineShow: true,
           yAxisLineColor: '#5B5D66',
-          yAxisLineWidth: 1
+          yAxisLineWidth: 1,
+          // 浮框
+          tooltipShow: true
         }
       })
     }
@@ -459,7 +467,9 @@ export default {
           yAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
           yAxisLineShow: true,
           yAxisLineColor: '#5B5D66',
-          yAxisLineWidth: 1
+          yAxisLineWidth: 1,
+          // 浮框
+          tooltipShow: true
         }
       }
     };
