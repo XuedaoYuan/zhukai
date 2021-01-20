@@ -1,4 +1,4 @@
-const bar2DefaultConfig = {
+const line1DefaultConfig = {
   x: 180,
   w: 60,
   h: 36,
@@ -13,8 +13,8 @@ const bar2DefaultConfig = {
   /* 业务主题， 同上 */
   businessTheme: '',
   // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-  componentName: 'Bar2',
-  componentAliasName: '折线图2',
+  componentName: 'Line1',
+  componentAliasName: '折线图1',
   componentConfig: {
     // 标题的配置
     titleLabel: '标题',
@@ -48,20 +48,7 @@ const bar2DefaultConfig = {
       businessIndexSet: '', // 指标集
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: JSON.stringify([
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 234, name: '联盟广告' },
-        { value: 135, name: '视频广告' },
-        { value: 1548, name: '搜索引擎' }
-      ], null, 2), /* JSON.stringify(
-        [
-          { label: '1', value: '1' },
-          { label: '3', value: '3' }
-        ],
-        null,
-        4
-      ) */ //  Array or Map 序列化的字符串
+      staticData: JSON.stringify([['周一', 20], ['周二', 30], ['周三', 10], ['周四', 44], ['周五', 88], ['周六', 33], ['周日', 47]], null, 2),
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]
@@ -81,4 +68,4 @@ const bar2DefaultConfig = {
   }
 };
 
-export default bar2DefaultConfig;
+export default line1DefaultConfig;

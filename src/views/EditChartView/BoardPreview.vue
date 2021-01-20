@@ -56,7 +56,7 @@ export default {
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
     Select1: () => import('./components/Select1/Select1.vue'),
     Bar1: () => import('./components/Bar1/Bar1.vue'),
-    Bar2: () => import('./components/Bar2/Bar2.vue'),
+    Line1: () => import('./components/Line1/Line1.vue'),
     Map1: () => import('./components/Map1/Map1.vue'),
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
   },
@@ -170,5 +170,10 @@ export default {
 <style scoped lang="stylus">
 .BoardPreview__container {
   width: 100%;
+
+  // 预览时，组件不需要展示背景框
+  /deep/ .chart__container {
+    background-image: none;
+  }
 }
 </style>    

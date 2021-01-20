@@ -1,7 +1,7 @@
 <template>
-  <div class="bar2__wrapper" ref="Bar2WrapperRef">
+  <div class="line1__wrapper" ref="Line1WrapperRef">
     <div
-      class="component__container bar2__container"
+      class="component__container line1__container"
       :style="{
         transform: 'scale(' + scale + ')',
       }"
@@ -91,8 +91,9 @@ import _isError from 'lodash/isError';
 import _get from 'lodash/get';
 import _map from 'lodash/map';
 import { getKpiData } from '../../api';
+import { sourceTypeOptions } from '../../constant';
 export default {
-  name: 'Bar2',
+  name: 'Line1',
   props: {
     i: {
       type: String | Number,
@@ -143,7 +144,7 @@ export default {
           barNum: 12, //  显示柱状的个数
           barStyleColorType: 'single',
           bar1StyleColor: 'rgb(239, 187, 76)',
-          bar2StyleColor: 'rgb(121, 212, 255)',
+          line1StyleColor: 'rgb(121, 212, 255)',
         },
       }),
     },
@@ -156,40 +157,32 @@ export default {
     };
   },
   watch: {
-    // 监听静态数据是否变化
-    'componentConfig.data.staticData': {
-      immediate: true,
-      handler: function (val, oldVal) {
-        const data = _attempt(() => {
-          return JSON.parse(val);
-        });
-        if (_isError(data)) {
-          this.componentData = [];
-        } else {
-          this.componentData = data;
-        }
-        this.$nextTick(() => {
-          this.initChart();
-        });
-      },
-    },
     'componentConfig.data': {
       immediate: true,
       handler: function (val, oldVal) {
-        if (_get(val, 'businessIndexSet')) {
-          this.fetchKpiData();
+        const type = _get(val, 'businessType');
+        if (type === sourceTypeOptions[0].value) {
+          // 指标库导入
+          if (_get(val, 'businessIndexSet')) {
+            this.fetchKpiData();
+          }
+        } else if (type === sourceTypeOptions[2].value) {
+          // 自定义 API
+        } else {
+          // 静态数据
+          const staticData = _get(val, 'staticData', '');
+          const data = _attempt(() => {
+            return JSON.parse(staticData);
+          });
+          if (_isError(data)) {
+            this.componentData = [];
+          } else {
+            this.componentData = data;
+          }
+          this.$nextTick(() => {
+            this.initChart();
+          });
         }
-        // const data = _attempt(() => {
-        //   return JSON.parse(val);
-        // });
-        // if (_isError(data)) {
-        //   this.componentData = [];
-        // } else {
-        //   this.componentData = data;
-        // }
-        // this.$nextTick(() => {
-        //   this.initChart();
-        // });
       },
     },
   },
@@ -198,7 +191,7 @@ export default {
   },
   mounted() {
     this._resizeObserver = new ResizeObserver(this._resizehandlerThrottle);
-    this._resizeObserver.observe(this.$refs['Bar2WrapperRef']);
+    this._resizeObserver.observe(this.$refs['Line1WrapperRef']);
     this.initChart();
     // dom大小改变需要resize图表
     this._chartObserver = new ResizeObserver(
@@ -266,7 +259,7 @@ export default {
         },
         series: [{
           type: 'line',
-          data: [['周一', 20], ['周二', 30], ['周三', 10], ['周四', 44], ['周五', 88], ['周六', 33], ['周日', 47]]
+          data: this.componentData,
         }],
       };
       this.chartIns.setOption(options, true);
@@ -283,14 +276,14 @@ export default {
         scaleNew: scale,
         initialW: 388,
         initialH: 291,
-        componentName: 'Bar2',
+        componentName: 'Line1',
       });
     },
   },
 };
 </script>
 <style scoped lang="stylus">
-.bar2__container {
+.line1__container {
   width: 388px;
   height: 291px;
 }

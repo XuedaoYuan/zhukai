@@ -26,7 +26,7 @@
       <el-row type="flex"
               align="middle">
         <label class="title">指标信息</label>
-        <el-select v-model="componentDataConfig.businessIndexSet" @change="fetchKpiFields">
+        <el-select v-model="componentDataConfig.businessIndexSet">
           <el-option v-for="item in kpiInfoDTOList"
                      :key="item.kpiSbjId"
                      :label="item.kpiSbjName"
@@ -128,6 +128,7 @@ import {
   getKpiFields,
   getKpiData,
 } from '../api';
+import { sourceTypeOptions } from '../constant';
 export default {
   name: 'DataConfig',
   props: {
@@ -166,6 +167,13 @@ export default {
         }
       },
       deep: true
+    },
+    'componentDataConfig.businessIndexSet': {
+      immediate: true,
+      handler: function(val) {
+        // 改用监听回调里触发，否则回显时，会因为没有存 Fields 映射表而显示 value
+        val && this.fetchKpiFields();
+      },
     }
   },
   data() {
@@ -187,20 +195,7 @@ export default {
       },
       bizSbjInfoDTOList: [], // 主题
       kpiInfoDTOList: [], // 指标
-      sourceTypeOptions: [
-        {
-          value: '指标库导入',
-          label: '指标库导入'
-        },
-        {
-          value: '静态数据',
-          label: '静态数据'
-        },
-        {
-          value: '自定义API',
-          label: '自定义API'
-        }
-      ],
+      sourceTypeOptions,
       kpiFields: [],
     };
   },
