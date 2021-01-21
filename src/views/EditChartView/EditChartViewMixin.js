@@ -48,6 +48,7 @@ export default {
         case 'Bar1':
         case 'Line1':
         case 'Pie1':
+        case 'Pie2':
         case 'ChinaMap1': {
           const h = (initialH * scaleNew) / this.rowHeight;
           this.$nextTick(() => {

@@ -1,10 +1,11 @@
 /* =======注意： 是 >>>初始<<< 配置项 */
 /* 对于所有组件的初始配置项, 也就是默认值 */
-import bar1DefaultConfig from "@/views/EditChartView/components/Bar1/bar1DefaultConfig.js"
-import line1DefaultConfig from "@/views/EditChartView/components/Line1/line1DefaultConfig.js"
-import pie1DefaultConfig from "@/views/EditChartView/components/Pie1/pie1DefaultConfig.js"
-import chinaMap1DefaultConfig from "@/views/EditChartView/components/ChinaMap1/chinaMap1DefaultConfig.js"
-import map1DefaultConfig from "@/views/EditChartView/components/Map1/map1DefaultConfig.js"
+import bar1DefaultConfig from '@/views/EditChartView/components/Bar1/bar1DefaultConfig.js';
+import line1DefaultConfig from '@/views/EditChartView/components/Line1/line1DefaultConfig.js';
+import pie1DefaultConfig from '@/views/EditChartView/components/Pie1/pie1DefaultConfig.js';
+import chinaMap1DefaultConfig from '@/views/EditChartView/components/ChinaMap1/chinaMap1DefaultConfig.js';
+import map1DefaultConfig from '@/views/EditChartView/components/Map1/map1DefaultConfig.js';
+import pie2DefaultConfig from '@/views/EditChartView/components/Pie2/pie2DefaultConfig.js';
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: {
@@ -132,6 +133,7 @@ const COMPONENT_CONFIG = {
   bar1: bar1DefaultConfig,
   line1: line1DefaultConfig,
   pie1: pie1DefaultConfig,
+  pie2: pie2DefaultConfig
 };
 
 // console.log('line1DefaultConfig ==> ', COMPONENT_CONFIG);

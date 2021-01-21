@@ -107,7 +107,7 @@
                   <img src="./assets/unlock.png"
                        class="lock-img"
                        @click="handleUnlock(index)"
-                        v-show="item.lock === true"
+                       v-show="item.lock === true"
                        alt="">
                   <img @click.stop="handleDelete(index)"
                        class="delete-img"
@@ -161,25 +161,24 @@
                     </el-input>
                   </div>
                   <div class="input_container">
-                   <!--  <el-input v-model.number="h"
+                    <el-input v-model.number="h"
                               type="number"
                               :min="0"
                               class="position-size-input"
+                              disabled
                               @change="handleHchange">
                       <template v-slot:suffix>H</template>
-                    </el-input> -->
+                    </el-input>
                   </div>
                 </div>
               </el-collapse-item>
               <template v-for="item in componentConfigs">
-                <component
-                  :key="item"
-                  :is="item"
-                  v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === item.replace('Config', '')"
-                  :componentConfig="boardConfig.components[handlingIndex].componentConfig"
-                  :handlingIndex="handlingIndex"
-                  @change="handleConfigChange"
-                />
+                <component :key="item"
+                           :is="item"
+                           v-if="handlingIndex >= 0 && boardConfig.components[handlingIndex].componentName === item.replace('Config', '')"
+                           :componentConfig="boardConfig.components[handlingIndex].componentConfig"
+                           :handlingIndex="handlingIndex"
+                           @change="handleConfigChange" />
               </template>
             </el-collapse>
           </el-tab-pane>
@@ -257,7 +256,9 @@ export default {
     Bar1: () => import('./components/Bar1/Bar1'),
     Bar1Config: () => import('./components/Bar1/Bar1Config'),
     Line1: () => import('./components/Line1/Line1'),
-    Line1Config: () => import('./components/Line1/Line1Config')
+    Line1Config: () => import('./components/Line1/Line1Config'),
+    Pie2: () => import('./components/Pie2/Pie2'),
+    Pie2Config: () => import('./components/Pie2/Pie2Config')
   },
   mixins: [mixin],
   data() {
@@ -334,7 +335,7 @@ export default {
             componentName: '',
             componentConfig: {}
           }
-        ],
+        ]
       },
       // 组件配置，在这里注册后，会动态渲染
       componentConfigs: [
@@ -346,7 +347,8 @@ export default {
         'DatePicker1Config',
         'Bar1Config',
         'Line1Config',
-      ],
+        'Pie2Config'
+      ]
     };
   },
   computed: {
@@ -480,6 +482,7 @@ export default {
           }
 
           default: {
+            debugger;
             component.y = this.getInitialYVal(component);
             break;
           }
@@ -712,7 +715,7 @@ export default {
                       postData[key] = this.editForm[key];
                     }
                     // judge 1表示保存 2表示审核
-                    postData.judge = 1
+                    postData.judge = 1;
                     postData.cfg = JSON.stringify(this.boardConfig);
                     postData.scrName = this.boardConfig.boardTitle;
                     postData.scrCodg = this.boardConfig.boardCode;
@@ -738,7 +741,7 @@ export default {
                       scrThum
                     };
                     // judge 1表示保存 2表示审核
-                    postData.judge = 1
+                    postData.judge = 1;
                     saveBoard(postData)
                       .then((boardRes) => {
                         if (

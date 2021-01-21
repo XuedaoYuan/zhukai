@@ -19,7 +19,7 @@
         <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle">
           <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z" stroke="transparent"></path>
         </svg>
-        <span class="title">{{componentConfig.titleLabel}}{{componentConfig.scale}}</span>
+        <span class="title">{{componentConfig.titleLabel}}</span>
       </div>
       <div class="chart__container">
         <div class="sub-title__container" v-if="componentConfig.subTitleShowStatus" :style="{
@@ -137,6 +137,13 @@ export default {
         this.initChart();
       },
       deep: true
+    },
+     //  监听data
+    'componentConfig.data': {
+      handler: function (newVal) {
+        this.initChart();
+      },
+      deep: true
     }
   },
   data() {
@@ -175,97 +182,14 @@ export default {
     }
   },
   methods: {
-    initChart() {
+    async initChart(chartData) {
       if (!this.chartIns) {
         this.chartIns = echarts.init(this.$refs['ChartDomRef']);
       }
       const _vm = this;
       // 模拟数据
-      let series1Data = [
-        2.0,
-        4.9,
-        7.0,
-        23.2,
-        25.6,
-        76.7,
-        135.6,
-        162.2,
-        32.6,
-        20.0,
-        6.4,
-        3.3
-      ];
-      let series2Data = [
-        2.6,
-        5.9,
-        9.0,
-        26.4,
-        28.7,
-        70.7,
-        175.6,
-        182.2,
-        48.7,
-        18.8,
-        6.0,
-        2.3
-      ];
-      let series3Data = [
-        2.0,
-        4.9,
-        7.0,
-        23.2,
-        25.6,
-        76.7,
-        135.6,
-        162.2,
-        32.6,
-        20.0,
-        6.4,
-        3.3
-      ];
-      let series4Data = [
-        2.6,
-        5.9,
-        9.0,
-        26.4,
-        28.7,
-        70.7,
-        175.6,
-        182.2,
-        48.7,
-        18.8,
-        6.0,
-        2.3
-      ];
-      let lineSeriesData = [
-        2.0,
-        2.2,
-        3.3,
-        4.5,
-        6.3,
-        10.2,
-        20.3,
-        23.4,
-        23.0,
-        16.5,
-        12.0,
-        6.2
-      ];
-      let xAxisData = [
-        '1月',
-        '2月',
-        '3月',
-        '4月',
-        '5月',
-        '6月',
-        '7月',
-        '8月',
-        '9月',
-        '10月',
-        '11月',
-        '12月'
-      ];
-
+      let xAxisData = [],
+        mockData = [];
       // 显示的柱状数量
       const barNum = this.componentConfig.chartOption.barNum;
       /* 
@@ -275,30 +199,25 @@ export default {
         series2Data = series2Data.slice(0, barNum);
         series3Data = series3Data.slice(0, barNum);
       } */
-      const mockData = [
-        {
-          label: '蒸发量',
-          type: 'bar',
-          seriesData: series1Data
-        },
-        {
-          label: '降水量',
-          type: 'bar',
-          seriesData: series2Data
-        },
-        {
-          label: '其他水量',
-          type: 'bar',
-          seriesData: series3Data
-        },
-        {
-          label: '平均温度',
-          type: 'line',
-          seriesData: lineSeriesData
-        }
-      ];
 
-      /* 先设定好亚瑟 */
+      /* 处理数据来源 */
+      const businessType = _vm.componentConfig.data.businessType;
+      if (businessType === '静态数据') {
+        try {
+          const staticData = JSON.parse(_vm.componentConfig.data.staticData);
+          xAxisData = staticData.xAxisData;
+          mockData = staticData.yAxisData;
+        } catch (error) {
+          this.$message.error('静态数据错误');
+          return;
+        }
+      } else if (businessType === '指标库导入') {
+        
+        // await getFromUrl()
+      } else if (businessType === '自定义API') {
+        // await getFromUrl()
+      }
+      /* 先设定好颜色 */
       let barBackgroundColorListResult = [];
       if (this.componentConfig.chartOption.barStyleColorType === 'gradient') {
         const colorList = this.componentConfig.chartOption
