@@ -173,8 +173,8 @@ export default {
   width: 100%;
 
   // 预览时，组件不需要展示背景框
-  /* /deep/ .chart__container {
+  /deep/ .chart__container {
     background-image: none;
-  } */
+  }
 }
 </style>    
