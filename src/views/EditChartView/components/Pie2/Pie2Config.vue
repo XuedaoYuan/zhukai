@@ -1,89 +1,229 @@
 <template>
   <div>
-    <el-collapse-item class="select1-config" title="标题">
-      <el-row type="flex" justify="space-between">
+    <el-collapse-item class="select1-config"
+                      title="标题">
+      <el-row type="flex"
+              justify="space-between">
         标题
-        <el-checkbox v-model="config.titleShowStatus" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.titleShowStatus"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
       <el-row>
-        <el-input v-model="config.titleLabel" @change="handleChange"></el-input>
+        <el-input v-model="config.titleLabel"
+                  @change="handleChange"></el-input>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.titleColor" @change="handleChange"></el-color-picker>
-        <el-input-number :min="10" :max="30" :precision="0" controls-position="right" v-model="config.titleFontSize" @change="handleChange"></el-input-number>
-        <el-select v-model="config.titleFamily" @change="handleChange">
-          <el-option v-for="item in fontFamilyOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.titleColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.titleFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.titleFamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
         </el-select>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-radio-group v-model="config.titleTextAlign" @change="handleChange">
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.titleTextAlign"
+                        @change="handleChange">
           <el-radio-button label="left">左</el-radio-button>
           <el-radio-button label="center">中</el-radio-button>
           <el-radio-button label="right">右</el-radio-button>
         </el-radio-group>
-        <el-checkbox-button v-model="config.titleFontWeight" @change="handleChange" true-label="bold" false-label="normal">B</el-checkbox-button>
+        <el-checkbox-button v-model="config.titleFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
-    <el-collapse-item class="select1-config" title="注释">
-      <el-row type="flex" justify="space-between">
+    <el-collapse-item class="select1-config"
+                      title="注释">
+      <el-row type="flex"
+              justify="space-between">
         注释
-        <el-checkbox v-model="config.noteShowStatus" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.noteShowStatus"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
       <el-row>
-        <el-input v-model="config.noteLabel" @change="handleChange"></el-input>
+        <el-input v-model="config.noteLabel"
+                  @change="handleChange"></el-input>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.noteColor" @change="handleChange"></el-color-picker>
-        <el-input-number :min="10" :max="30" :precision="0" controls-position="right" v-model="config.noteFontSize" @change="handleChange"></el-input-number>
-        <el-select v-model="config.noteFamily" @change="handleChange">
-          <el-option v-for="item in fontFamilyOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.noteColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.noteFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.noteFamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
         </el-select>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-radio-group v-model="config.noteTextAlign" @change="handleChange">
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.noteTextAlign"
+                        @change="handleChange">
           <el-radio-button label="left">左</el-radio-button>
           <el-radio-button label="center">中</el-radio-button>
           <el-radio-button label="right">右</el-radio-button>
         </el-radio-group>
-        <el-checkbox-button v-model="config.noteFontWeight" @change="handleChange" true-label="bold" false-label="normal">B</el-checkbox-button>
+        <el-checkbox-button v-model="config.noteFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
-    <el-collapse-item class="select1-config" title="tab配置">
-      <el-row type="flex" justify="space-between">
+    <el-collapse-item class="select1-config"
+                      title="tab配置">
+      <el-row type="flex"
+              justify="space-between">
         tab
-        <el-checkbox v-model="config.tabsShow" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.tabsShow"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
-      <el-row type="flex" align="middle">
+      <el-row type="flex"
+              align="middle">
         <span>轮播间隔：</span>
-        <el-input-number :style="{width: '100px'}" :min="1" :max="1000" :precision="0" controls-position="right" v-model="config.tabSlidePeriod" @change="handleChange"></el-input-number>
+        <el-input-number :style="{width: '100px'}"
+                         :min="1"
+                         :max="1000"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.tabSlidePeriod"
+                         @change="handleChange"></el-input-number>
         <span>(秒)</span>
       </el-row>
-      <el-row type="flex" align="middle">
+      <el-row type="flex"
+              align="middle">
         <span>高亮状态：</span>
-        <el-input-number :style="{width: '100px'}" :min="0" :max="config.tabs.length - 1" :precision="0" controls-position="right" v-model="config.tabActiveIndex" @change="handletabActiveIndexChange"></el-input-number>
+        <el-input-number :style="{width: '100px'}"
+                         :min="0"
+                         :max="config.tabs.length - 1"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.tabActiveIndex"
+                         @change="handletabActiveIndexChange"></el-input-number>
       </el-row>
-      <el-row type="flex" align="middle">
+      <el-row type="flex"
+              align="middle">
         <span>key：</span>
-        <el-input v-model="config.tabKey" @change="handleChange"></el-input>
+        <el-input v-model="config.tabKey"
+                  @change="handleChange"></el-input>
       </el-row>
       <div style="border-bottom: 1px solid #b0cdeb; margin: 8px 0;"></div>
-      <div v-for="(tab, index) in config.tabs" :key="index" style="border-bottom: 1px solid #b0cdeb; padding-top: 8px;">
+      <div v-for="(tab, index) in config.tabs"
+           :key="index"
+           style="border-bottom: 1px solid #b0cdeb; padding-top: 8px;">
         <div class="flexrow">
           <span>Tab{{index + 1}}</span>
           <span>
-            <img v-if="!(config.tabs.length === 1)" src="../../assets/delete.png" width="16" alt="" @click="handleDeleteTab(index)">
-            <img v-if="index + 1 === config.tabs.length" class="add-img" @click="handleAddTab" src="../../../../assets/add.png" width="16" alt="">
+            <img v-if="!(config.tabs.length === 1)"
+                 src="../../assets/delete.png"
+                 width="16"
+                 alt=""
+                 @click="handleDeleteTab(index)">
+            <img v-if="index + 1 === config.tabs.length"
+                 class="add-img"
+                 @click="handleAddTab"
+                 src="../../../../assets/add.png"
+                 width="16"
+                 alt="">
           </span>
         </div>
         <div class="flex">
           <span>label: </span>
-          <el-input v-model="config.tabs[index]['label']" @change="handleChange"></el-input>
+          <el-input v-model="config.tabs[index]['label']"
+                    @change="handleChange"></el-input>
         </div>
         <div class="flex">
           <span>value: </span>
-          <el-input v-model="config.tabs[index]['value']" @change="handleChange"></el-input>
+          <el-input v-model="config.tabs[index]['value']"
+                    @change="handleChange"></el-input>
         </div>
       </div>
+
+    </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="环形图注释1">
+      <el-row type="flex"
+              justify="space-between">
+        注释1
+        <el-checkbox v-model="config.annotation1Show"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row>
+        <el-input v-model="config.annotation1Label"
+                  @change="handleChange"></el-input>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.annotation1Color"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.annotation1FontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.annotation1Fontfamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
+        </el-select>
+      </el-row>
+
+    </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="环形图注释2">
+      <el-row type="flex"
+              justify="space-between">
+        注释2
+        <el-checkbox v-model="config.annotation2Show"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row>
+        <el-input v-model="config.annotation2Label"
+                  @change="handleChange"></el-input>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.annotation2Color"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.annotation2FontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.annotation2Fontfamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
+        </el-select>
+      </el-row>
 
     </el-collapse-item>
   </div>
@@ -146,7 +286,20 @@ export default {
           { label: '标签1', value: '1' },
           { label: '标签2', value: '2' },
           { label: '标签3', value: '3' }
-        ]
+        ],
+        // 环形图注释1
+        annotation1Show: true,
+        annotation1Label: '环形图注释1',
+        annotation1Color: '#5ab3fe',
+        annotation1FontSize: 14,
+        annotation1Fontfamily: 'sans-serif,Microsoft YaHei',
+
+        // 环形图注释2
+        annotation2Show: true,
+        annotation2Label: '环形图注释2',
+        annotation2Color: '#5ab3fe',
+        annotation2FontSize: 14,
+        annotation2Fontfamily: 'sans-serif,Microsoft YaHei'
       })
     }
   },
@@ -188,7 +341,20 @@ export default {
           { label: '标签1', value: '1' },
           { label: '标签2', value: '2' },
           { label: '标签3', value: '3' }
-        ]
+        ],
+        // 环形图注释1
+        annotation1Show: true,
+        annotation1Label: '环形图注释1',
+        annotation1Color: '#5ab3fe',
+        annotation1FontSize: 14,
+        annotation1Fontfamily: 'sans-serif,Microsoft YaHei',
+
+        // 环形图注释2
+        annotation2Show: true,
+        annotation2Label: '环形图注释2',
+        annotation2Color: '#5ab3fe',
+        annotation2FontSize: 14,
+        annotation2Fontfamily: 'sans-serif,Microsoft YaHei'
       },
       fontFamilyOptions: fontFamilyOptions
     };

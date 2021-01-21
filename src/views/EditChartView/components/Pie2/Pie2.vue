@@ -1,32 +1,71 @@
 <template>
-  <div class="pie1__wrapper" ref="Pie2WrapperRef">
-    <div class="component__container" :style="{
+  <div class="pie1__wrapper"
+       ref="Pie2WrapperRef">
+    <div class="component__container"
+         :style="{
             transform: 'scale(' + scale + ')',
          }">
-      <div class="header" v-if="componentConfig.titleShowStatus" :style="{
+      <div class="header"
+           v-if="componentConfig.titleShowStatus"
+           :style="{
                 color: componentConfig.titleColor,
                 fontSize: componentConfig.titleFontSize + 'px',
                 fontFamily: componentConfig.titleFamily,
                 textAlign: componentConfig.titleTextAlign,
                 fontWeight: componentConfig.titleFontWeight
       }">
-        <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle" style="opacity: 0.3;">
-          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z" stroke="transparent"></path>
+        <svg version="1.1"
+             viewBox="0 0 1024 1024"
+             class="iconStyle"
+             style="opacity: 0.3;">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
+                stroke="transparent"></path>
         </svg>
-        <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle" style="opacity: 0.7;">
-          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z" stroke="transparent"></path>
+        <svg version="1.1"
+             viewBox="0 0 1024 1024"
+             class="iconStyle"
+             style="opacity: 0.7;">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
+                stroke="transparent"></path>
         </svg>
-        <svg version="1.1" viewBox="0 0 1024 1024" class="iconStyle">
-          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z" stroke="transparent"></path>
+        <svg version="1.1"
+             viewBox="0 0 1024 1024"
+             class="iconStyle">
+          <path d="M475.428571 0H182.857143l365.714286 512-365.714286 512h292.571428l365.714286-502.857143z"
+                stroke="transparent"></path>
         </svg>
         <span class="title">{{componentConfig.titleLabel}}</span>
       </div>
       <div class="chart__container">
-        <div class="sub-title__container" v-if="componentConfig.tabsShow">
-          <div :class="['tab', tabActiveIndex === index ?  'active' : '']" v-for="(tab, index) in componentConfig.tabs" :key="index">{{tab.label}}</div>
+        <div class="sub-title__container"
+             v-if="componentConfig.tabsShow">
+          <div :class="['tab', tabActiveIndex === index ?  'active' : '']"
+               v-for="(tab, index) in componentConfig.tabs"
+               :key="index">{{tab.label}}</div>
         </div>
-        <div class="chart-dom" ref="ChartDomRef"></div>
-        <div class="note" v-if="componentConfig.noteShowStatus" :style="{
+        <div class="chart-dom">
+          <div class="chart-dom__container"
+               ref="ChartDomRef"></div>
+          <div class="chart-title__container">
+            <div class="note1"
+                 :style="{
+                   color: componentConfig.annotation1Color,
+                   fontSize: componentConfig.annotation1FontSize + 'px',
+                   fontFamily: componentConfig.annotation1Fontfamily
+                 }"
+                 v-if="componentConfig.annotation1Show">{{componentConfig.annotation1Label}}</div>
+            <div class="note2"
+                 :style="{
+                   color: componentConfig.annotation2Color,
+                   fontSize: componentConfig.annotation2FontSize + 'px',
+                   fontFamily: componentConfig.annotation2Fontfamily
+                 }"
+                 v-if="componentConfig.annotation2Show">{{componentConfig.annotation2Label}}</div>
+          </div>
+        </div>
+        <div class="note"
+             v-if="componentConfig.noteShowStatus"
+             :style="{
             color: componentConfig.noteColor,
             fontSize: componentConfig.noteFontSize + 'px',
             fontFamily: componentConfig.noteFamily,
@@ -81,7 +120,22 @@ export default {
           { label: '标签3', value: '3' }
         ],
 
+        // 环形图注释1
+        annotation1Show: true,
+        annotation1Label: '环形图注释1',
+        annotation1Color: '#5ab3fe',
+        annotation1FontSize: 14,
+        annotation1Fontfamily: 'sans-serif,Microsoft YaHei',
+
+        // 环形图注释2
+        annotation2Show: true,
+        annotation2Label: '环形图注释2',
+        annotation2Color: '#5ab3fe',
+        annotation2FontSize: 14,
+        annotation2Fontfamily: 'sans-serif,Microsoft YaHei',
+
         data: {},
+
         chartOption: {}
       })
     }
@@ -175,11 +229,22 @@ export default {
         this.chartIns = echarts.init(this.$refs['ChartDomRef']);
       }
       const _vm = this;
-      const pieData = [
+      let pieData = [
         { value: 335, name: '主指标1' },
         { value: 310, name: '主指标2' },
         { value: 234, name: '主指标3' }
       ];
+      const data = this.componentConfig.data;
+      if (data.businessType === '指标库导入') {
+      } else if (data.businessType === '静态数据') {
+        try {
+          pieData = JSON.parse(data.staticData);
+        } catch (error) {
+          this.$message.error('静态数据解析出错');
+          return;
+        }
+      } else if (data.businessType === '自定义API') {
+      }
       const legendData = pieData.map((_) => _.name);
       const option = {
         tooltip: {
@@ -187,7 +252,7 @@ export default {
           formatter: '{b} : {c} ({d}%)'
         },
         legend: {
-          top: 10,
+          bottom: 6,
           data: legendData,
           textStyle: {
             color: '#fff'
@@ -202,7 +267,7 @@ export default {
         series: [
           {
             type: 'pie',
-            radius: ['32%', '50%'],
+            radius: ['38%', '52%'],
             label: {
               show: true,
               color: '#ffffff',
@@ -297,5 +362,40 @@ export default {
       display: none;
     }
   }
+}
+
+.chart-dom {
+  position: relative;
+}
+
+.chart-dom__container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chart-title__container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.note1 {
+  color: #5ab3fe;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.note2 {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #5ab3fe;
+  line-height: 1;
 }
 </style>

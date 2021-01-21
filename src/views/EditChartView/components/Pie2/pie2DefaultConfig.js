@@ -45,9 +45,24 @@ const pie2DefaultConfig = {
       { label: '标签2', value: '2' },
       { label: '标签3', value: '3' }
     ],
+
+    // 环形图注释1
+    annotation1Show: true,
+    annotation1Label: '环形图注释1',
+    annotation1Color: '#5ab3fe',
+    annotation1FontSize: 14,
+    annotation1Fontfamily: 'sans-serif,Microsoft YaHei',
+
+    // 环形图注释2
+    annotation2Show: true,
+    annotation2Label: '环形图注释2',
+    annotation2Color: '#5ab3fe',
+    annotation2FontSize: 14,
+    annotation2Fontfamily: 'sans-serif,Microsoft YaHei',
+
     // 数据源配置
     data: {
-      businessType: '', // 指标库导入、静态数据、自定义API
+      businessType: '静态数据', // 指标库导入、静态数据、自定义API
       /* 指标库导入 */
       businessDomain: '', // 业务域
       businessIndexSet: '', // 指标集
@@ -55,7 +70,15 @@ const pie2DefaultConfig = {
       businessY: '', // y 轴字段
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: null, // JSON.stringify(chartData, null, 2), //  Array or Map 序列化的字符串
+      staticData: JSON.stringify(
+        [
+          { value: 335, name: '主指标1' },
+          { value: 310, name: '主指标2' },
+          { value: 234, name: '主指标3' }
+        ],
+        null,
+        2
+      ), // //  Array or Map 序列化的字符串
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]

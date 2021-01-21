@@ -59,6 +59,7 @@ export default {
     Line1: () => import('./components/Line1/Line1.vue'),
     Map1: () => import('./components/Map1/Map1.vue'),
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
+    Pie2: () => import('./components/Pie2/Pie2'),
   },
   mixins: [mixin],
   data() {
@@ -172,8 +173,8 @@ export default {
   width: 100%;
 
   // 预览时，组件不需要展示背景框
-  /deep/ .chart__container {
+  /* /deep/ .chart__container {
     background-image: none;
-  }
+  } */
 }
 </style>    

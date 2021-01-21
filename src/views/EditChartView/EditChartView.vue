@@ -482,7 +482,6 @@ export default {
           }
 
           default: {
-            debugger;
             component.y = this.getInitialYVal(component);
             break;
           }
