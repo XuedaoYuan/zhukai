@@ -6,6 +6,7 @@ import pie1DefaultConfig from '@/views/EditChartView/components/Pie1/pie1Default
 import chinaMap1DefaultConfig from '@/views/EditChartView/components/ChinaMap1/chinaMap1DefaultConfig.js';
 import map1DefaultConfig from '@/views/EditChartView/components/Map1/map1DefaultConfig.js';
 import pie2DefaultConfig from '@/views/EditChartView/components/Pie2/pie2DefaultConfig.js';
+import line2DefaultConfig from "@/views/EditChartView/components/Line2/line2DefaultConfig.js"
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: {
@@ -31,7 +32,6 @@ const COMPONENT_CONFIG = {
       fontFamily: 'sans-serif,Microsoft YaHei',
       fontWeight: 'normal',
       showStatus: true,
-      scale: 1
     }
   },
   testLink: {
@@ -78,7 +78,6 @@ const COMPONENT_CONFIG = {
       fontFamily: 'sans-serif,Microsoft YaHei',
       fontWeight: 'normal',
       showStatus: true,
-      scale: 1
     }
   },
   select1: {
@@ -106,7 +105,6 @@ const COMPONENT_CONFIG = {
       fontFamily: 'sans-serif,Microsoft YaHei',
       fontWeight: 'normal',
       showStatus: true,
-      scale: 1,
       data: {
         businessType: '静态数据', // 指标库导入、静态数据、自定义API
         /* 指标库导入 */
@@ -133,7 +131,8 @@ const COMPONENT_CONFIG = {
   bar1: bar1DefaultConfig,
   line1: line1DefaultConfig,
   pie1: pie1DefaultConfig,
-  pie2: pie2DefaultConfig
+  pie2: pie2DefaultConfig,
+  line2: line2DefaultConfig
 };
 
 // console.log('line1DefaultConfig ==> ', COMPONENT_CONFIG);

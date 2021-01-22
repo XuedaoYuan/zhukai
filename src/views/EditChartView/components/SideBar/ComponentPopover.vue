@@ -43,6 +43,10 @@
              @click="handleComponentClick('pie2')"
              width="182"
              alt="pie2" />
+        <img src="./imgs/line2.png"
+             @click="handleComponentClick('line2')"
+             width="182"
+             alt="line2" />
       </div>
       <div class="right-container">
         <img src="./imgs/title1.png"

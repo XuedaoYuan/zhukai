@@ -3,7 +3,7 @@
        ref="DatePicker1WrapperRef">
     <div class="date-picker__container__0975qsae"
          :style="{
-        transform: 'scale('+componentConfig.scale+')'
+        transform: 'scale('+scale+')'
     }">
       <div class="title"
            v-if="componentConfig.showStatus"
@@ -40,8 +40,7 @@ export default {
         fontSize: 14,
         fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
-        showStatus: true,
-        scale: 1
+        showStatus: true
       })
     }
   },
@@ -50,7 +49,8 @@ export default {
   },
   data() {
     return {
-      date: new Date()
+      date: new Date(),
+      scale: 1
     };
   },
   created() {
@@ -71,11 +71,15 @@ export default {
     resizehandler(entries) {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
+      const width = contentRect.width;
+      const scale = width / 248;
+      this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
         initialW: 248,
         initialH: 36,
+        scaleNew: scale,
         componentName: 'DatePicker1'
       });
     },

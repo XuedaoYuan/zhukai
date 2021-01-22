@@ -79,7 +79,6 @@ export default {
         fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
         showStatus: true,
-        scale: 1
       })
     }
   },
@@ -110,7 +109,6 @@ export default {
         fontSize: 16,
         fontFamily: 'sans-serif,Microsoft YaHei',
         showStatus: true,
-        scale: 1
       }
     };
   },

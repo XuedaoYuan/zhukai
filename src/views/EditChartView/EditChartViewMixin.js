@@ -7,48 +7,17 @@ export default {
       // console.log(contentRect, i);
       const index = findIndex(this.boardConfig.components, (o) => o.i === i);
       const component = this.boardConfig.components[index];
-      const width = contentRect.width;
+      // const width = contentRect.width;
       // const height = contentRect.height;
       switch (componentName) {
-        case 'Select1': {
-          const h = (36 * scaleNew) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          /* this.boardConfig.components[index].componentConfig = {
-            ...component.componentConfig,
-            scale: scale
-          }; */
-          break;
-        }
-        case 'DatePicker1': {
-          const scale = width / 248;
-          const h = (36 * scale) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          this.boardConfig.components[index].componentConfig = {
-            ...component.componentConfig,
-            scale: scale
-          };
-          break;
-        }
-        case 'Title1': {
-          const scale = width / initialW;
-          const h = (initialH * scale) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          this.boardConfig.components[index].componentConfig.scale = scale;
-          break;
-        }
+        case 'Select1':
+        case 'DatePicker1':
+        case 'Title1':
         case 'Bar1':
         case 'Line1':
         case 'Pie1':
         case 'Pie2':
+        case 'Line2':
         case 'ChinaMap1': {
           const h = (initialH * scaleNew) / this.rowHeight;
           this.$nextTick(() => {
@@ -58,8 +27,14 @@ export default {
           break;
         }
 
-        default:
+        default: {
+          const h = (initialH * scaleNew) / this.rowHeight;
+          this.$nextTick(() => {
+            this.boardConfig.components[index].h = h;
+            this.h = h;
+          });
           break;
+        }
       }
     }
   }

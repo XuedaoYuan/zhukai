@@ -56,6 +56,17 @@
           </el-option>
         </el-select>
       </el-row>
+      <el-row type="flex"
+              align="middle">
+        <label class="title">y轴多选</label>
+        <el-select multiple v-model="componentDataConfig.businessYList">
+          <el-option v-for="item in kpiFields"
+                     :key="item.fld"
+                     :label="item.fldName"
+                     :value="item.fld">
+          </el-option>
+        </el-select>
+      </el-row>
       <div class="title param-add">参数配置<i class="el-icon-plus"
            @click.stop="handleAddBusinessParam"></i></div>
       <template v-if="componentDataConfig && componentDataConfig.businessParamList">
@@ -149,6 +160,7 @@ export default {
         businessParamList: [],
         businessX: '', // x 轴字段
         businessY: '', // y 轴字段
+        businessYList: [], // y轴字段多选
         /* 静态数据 */
         staticData: '', //  Array or Map 序列化的字符串
         /* 自定义API */

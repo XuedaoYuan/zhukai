@@ -47,7 +47,6 @@ export default {
         fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
         showStatus: true,
-        scale: 1,
         data: null
       })
     }
@@ -124,10 +123,12 @@ export default {
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
       const scale = width / 248;
-      this.scale = scale
+      this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
+        initialW: 248,
+        initialH: 36,
         scaleNew: scale,
         componentName: 'Select1'
       });

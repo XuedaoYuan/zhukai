@@ -258,7 +258,9 @@ export default {
     Line1: () => import('./components/Line1/Line1'),
     Line1Config: () => import('./components/Line1/Line1Config'),
     Pie2: () => import('./components/Pie2/Pie2'),
-    Pie2Config: () => import('./components/Pie2/Pie2Config')
+    Pie2Config: () => import('./components/Pie2/Pie2Config'),
+    Line2: () => import('./components/Line2/Line2'),
+    Line2Config: () => import('./components/Line2/Line2Config')
   },
   mixins: [mixin],
   data() {
@@ -347,7 +349,8 @@ export default {
         'DatePicker1Config',
         'Bar1Config',
         'Line1Config',
-        'Pie2Config'
+        'Pie2Config',
+        'Line2Config'
       ]
     };
   },
@@ -590,15 +593,21 @@ export default {
       this.y = layoutInstance.y;
       this.w = layoutInstance.w;
       this.h = layoutInstance.h;
-    },
 
-    handleMaskEnter(index) {
-      const layoutInstance = this.boardConfig.components[index];
       if (layoutInstance.lock) return;
       if (layoutInstance.static === false) {
         return;
       }
       this.$set(this.boardConfig.components[index], 'static', false);
+    },
+
+    handleMaskEnter(index) {
+      /* const layoutInstance = this.boardConfig.components[index];
+      if (layoutInstance.lock) return;
+      if (layoutInstance.static === false) {
+        return;
+      }
+      this.$set(this.boardConfig.components[index], 'static', false); */
     },
     handleXchange() {
       const ins = this.boardConfig.components[this.handlingIndex];

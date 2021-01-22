@@ -4,7 +4,7 @@
     <div class="title1__container"
          :style="{
           justifyContent: justifyContent,
-          transform: 'scale('+componentConfig.scale+')'
+          transform: 'scale('+scale+')'
         }">
       <div class="bg"></div>
       <span v-show="componentConfig.showStatus"
@@ -38,13 +38,14 @@ export default {
         fontSize: 16,
         fontWeight: 'normal',
         fontFamily: 'sans-serif,Microsoft YaHei, sans-serif',
-        showStatus: true,
-        scale: 1
+        showStatus: true
       })
     }
   },
   data() {
-    return {};
+    return {
+      scale: 1
+    };
   },
   computed: {
     justifyContent: function () {
@@ -78,11 +79,15 @@ export default {
     resizehandler(entries) {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
+      const width = contentRect.width;
+      const scale = width / 1000;
+      this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
         initialW: 1000,
         initialH: 33,
+        scaleNew: scale,
         componentName: 'Title1'
       });
     }
@@ -119,7 +124,7 @@ export default {
   }
 
   span {
-    font-family: sans-serif,Microsoft YaHei, sans-serif;
+    font-family: sans-serif, Microsoft YaHei, sans-serif;
     position: relative;
     z-index: 2;
   }

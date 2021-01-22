@@ -88,6 +88,12 @@ export default {
       type: String | Number,
       required: true
     },
+    moduleId: {
+      // 需要组件的模块 ID，用来查询指标集，当前 moduleId 暂未入库，后续 required 需为 true
+      type: String,
+      required: false,
+      default: '0011a239-3357-4b7e-bde8-ede0920d0e01'
+    },
     componentConfig: {
       type: Object,
       default: () => ({
