@@ -8,6 +8,7 @@ import map1DefaultConfig from '@/views/EditChartView/components/Map1/map1Default
 import pie2DefaultConfig from '@/views/EditChartView/components/Pie2/pie2DefaultConfig.js';
 import line2DefaultConfig from "@/views/EditChartView/components/Line2/line2DefaultConfig.js"
 import headTitle1DefaultConfig from "@/views/EditChartView/components/HeadTitle1/headTitle1DefaultConfig.js"
+import bar2DefaultConfig from "@/views/EditChartView/components/Bar2/bar2DefaultConfig.js"
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: {
@@ -130,6 +131,7 @@ const COMPONENT_CONFIG = {
   map1: map1DefaultConfig,
   chinaMap1: chinaMap1DefaultConfig,
   bar1: bar1DefaultConfig,
+  bar2: bar2DefaultConfig,
   line1: line1DefaultConfig,
   pie1: pie1DefaultConfig,
   pie2: pie2DefaultConfig,

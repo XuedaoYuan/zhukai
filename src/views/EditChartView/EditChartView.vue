@@ -255,6 +255,7 @@ export default {
     ChinaMap1Config: () => import('./components/ChinaMap1/ChinaMap1Config.vue'),
     Bar1: () => import('./components/Bar1/Bar1'),
     Bar1Config: () => import('./components/Bar1/Bar1Config'),
+    Bar2: () => import('./components/Bar2/Bar2'),
     Line1: () => import('./components/Line1/Line1'),
     Line1Config: () => import('./components/Line1/Line1Config'),
     Pie2: () => import('./components/Pie2/Pie2'),
