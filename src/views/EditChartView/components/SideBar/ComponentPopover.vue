@@ -69,6 +69,12 @@
              @click="handleComponentClick('bar1')"
              width="182"
              alt="bar1" />
+
+        <img src="./imgs/headTitle1.png"
+             @click="handleComponentClick('headTitle1')"
+             width="182"
+             alt="headTitle1" />
+
       </div>
     </div>
   </div>

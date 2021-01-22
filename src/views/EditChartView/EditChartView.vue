@@ -260,7 +260,9 @@ export default {
     Pie2: () => import('./components/Pie2/Pie2'),
     Pie2Config: () => import('./components/Pie2/Pie2Config'),
     Line2: () => import('./components/Line2/Line2'),
-    Line2Config: () => import('./components/Line2/Line2Config')
+    Line2Config: () => import('./components/Line2/Line2Config'),
+    HeadTitle1: () => import("./components/HeadTitle1/HeadTitle1"),
+    HeadTitle1Config: () => import("./components/HeadTitle1/HeadTitle1Config")
   },
   mixins: [mixin],
   data() {
@@ -350,7 +352,8 @@ export default {
         'Bar1Config',
         'Line1Config',
         'Pie2Config',
-        'Line2Config'
+        'Line2Config',
+        'HeadTitle1Config'
       ]
     };
   },
