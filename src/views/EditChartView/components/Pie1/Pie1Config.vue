@@ -215,16 +215,6 @@ export default {
       config: {},
     };
   },
-  computed: {
-    fontSize: {
-      get() {
-        return parseInt(this.config.fontSize);
-      },
-      set(val) {
-        this.config.fontSize = val + 'px';
-      },
-    },
-  },
   watch: {
     // handlingIndex: function (val, oldVal) {
     //   // 监听被选中组件，刷新 config
@@ -238,6 +228,7 @@ export default {
     },
   },
   created() {
+    console.log('hello');
     this.config = { ...this.componentConfig };
   },
 };
