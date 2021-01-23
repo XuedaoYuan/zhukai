@@ -40,7 +40,6 @@ import throttle from 'lodash/throttle';
 /* 展示组件 */
 import Title1 from './components/Title1/Title1';
 import DatePicker from './components/DatePicker';
-import TestLink from './components/TestLink/TestLink';
 import ChartBar1 from './components/ChartBar1';
 import mixin from './EditChartViewMixin';
 export default {
@@ -50,7 +49,6 @@ export default {
     GridItem: VueGridLayout.GridItem,
     Title1,
     DatePicker,
-    TestLink,
     ChartBar1,
     Pie1: () => import('./components/Pie1/Pie1'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
