@@ -92,6 +92,7 @@
                 <component :is="item.componentName"
                            :ref="'Component' + item.i + 'Ref'"
                            :i="item.i"
+                           :moduleId="item.moduleId"
                            :componentConfig="item.componentConfig"
                            @resize="onComponentResize"></component>
               </template>
@@ -185,6 +186,7 @@
           <el-tab-pane label="数据来源配置"
                        name="dataConfig">
             <data-config v-if="showDataConfig"
+                         :moduleId="boardConfig.components[handlingIndex].moduleId"
                          :componentData="boardConfig.components[handlingIndex].componentConfig.data"
                          @dataChange="onDataConfigChange" />
             <p v-else
@@ -265,6 +267,7 @@ export default {
     HeadTitle1: () => import("./components/HeadTitle1/HeadTitle1"),
     HeadTitle1Config: () => import("./components/HeadTitle1/HeadTitle1Config"),    
     Pie3: () => import("./components/Pie3/Pie3"),
+    Pie3Config: () => import("./components/Pie3/Pie3Config"),
   },
   mixins: [mixin],
   data() {
@@ -355,7 +358,8 @@ export default {
         'Line1Config',
         'Pie2Config',
         'Line2Config',
-        'HeadTitle1Config'
+        'HeadTitle1Config',
+        'Pie3Config'
       ]
     };
   },

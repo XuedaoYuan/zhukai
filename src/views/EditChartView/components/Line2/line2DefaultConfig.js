@@ -41,6 +41,7 @@ const line2DefaultConfig = {
   // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
   componentName: 'Line2',
   componentAliasName: '折线图2',
+  moduleId: '1c62cff8682349218e0fdf78fbe9647f',
   componentConfig: {
     // 标题的配置
     titleLabel: '标题',

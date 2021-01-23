@@ -9,6 +9,7 @@ import pie2DefaultConfig from '@/views/EditChartView/components/Pie2/pie2Default
 import line2DefaultConfig from "@/views/EditChartView/components/Line2/line2DefaultConfig.js"
 import headTitle1DefaultConfig from "@/views/EditChartView/components/HeadTitle1/headTitle1DefaultConfig.js"
 import bar2DefaultConfig from "@/views/EditChartView/components/Bar2/bar2DefaultConfig.js"
+import pie3DefaultConfig from "@/views/EditChartView/components/Pie3/pie3DefaultConfig.js"
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: {
@@ -137,19 +138,7 @@ const COMPONENT_CONFIG = {
   pie2: pie2DefaultConfig,
   line2: line2DefaultConfig,
   headTitle1: headTitle1DefaultConfig,
-  pie3: {
-    x: 180,
-    y: 0,
-    w: 47,
-    h: 47,
-    i: '',
-    static: true,
-    lock: false,
-    type: '',
-    businessType: '',
-    businessTheme: '',
-    componentName: 'Pie3',
-  },
+  pie3: pie3DefaultConfig,
 };
 
 // console.log('line1DefaultConfig ==> ', COMPONENT_CONFIG);

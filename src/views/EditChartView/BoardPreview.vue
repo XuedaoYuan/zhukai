@@ -25,6 +25,7 @@
                      :ref="'Component' + index + 'Ref'"
                      :i="item.i"
                      @resize="onComponentResize"
+                     :moduleId="item.moduleId"
                      :componentConfig="item.componentConfig"></component>
         </template>
       </grid-item>
@@ -123,6 +124,7 @@ export default {
     this.handleInit();
   },
   mounted() {
+    console.log('boardConfig ==> ', this.boardConfig);
     this.initResize();
   },
   beforeDestroy() {
