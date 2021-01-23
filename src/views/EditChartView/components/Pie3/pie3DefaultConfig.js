@@ -6,7 +6,7 @@ export default {
   i: '',
   static: true,
   lock: false,
-  type: '',
+  type: 'pie',
   businessType: '',
   businessTheme: '',
   componentName: 'Pie3',
@@ -20,10 +20,12 @@ export default {
     titleFontWeight: 'normal',
     titleShowStatus: true,
     data: {
+      type: 'common',
       businessType: '静态数据',
       businessDomain: '',
       businessIndexSet: '',
       businessParamList: [{ key: '', value: '' }],
+      fieldList: [],
       staticData: JSON.stringify([{
         title: '采集数',
         number: '12.1',

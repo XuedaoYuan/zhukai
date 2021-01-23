@@ -186,6 +186,7 @@
           <el-tab-pane label="数据来源配置"
                        name="dataConfig">
             <data-config v-if="showDataConfig"
+                         :type="boardConfig.components[handlingIndex].type"
                          :moduleId="boardConfig.components[handlingIndex].moduleId"
                          :componentData="boardConfig.components[handlingIndex].componentConfig.data"
                          @dataChange="onDataConfigChange" />

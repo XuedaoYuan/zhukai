@@ -34,39 +34,54 @@
           </el-option>
         </el-select>
       </el-row>
-      <el-row type="flex"
+      <template v-if="['line', 'bar'].includes(type)">
+        <el-row type="flex"
               align="middle">
-        <label class="title">x轴字段</label>
-        <el-select v-model="componentDataConfig.businessX">
-          <el-option v-for="item in kpiFields"
-                     :key="item.fld"
-                     :label="item.fldName"
-                     :value="item.fld">
-          </el-option>
-        </el-select>
-      </el-row>
-      <el-row type="flex"
-              align="middle">
-        <label class="title">y轴字段</label>
-        <el-select v-model="componentDataConfig.businessY">
-          <el-option v-for="item in kpiFields"
-                     :key="item.fld"
-                     :label="item.fldName"
-                     :value="item.fld">
-          </el-option>
-        </el-select>
-      </el-row>
-      <el-row type="flex"
-              align="middle">
-        <label class="title">y轴多选</label>
-        <el-select multiple v-model="componentDataConfig.businessYList">
-          <el-option v-for="item in kpiFields"
-                     :key="item.fld"
-                     :label="item.fldName"
-                     :value="item.fld">
-          </el-option>
-        </el-select>
-      </el-row>
+          <label class="title">x轴字段</label>
+          <el-select v-model="componentDataConfig.businessX">
+            <el-option v-for="item in kpiFields"
+                      :key="item.fld"
+                      :label="item.fldName"
+                      :value="item.fld">
+            </el-option>
+          </el-select>
+        </el-row>
+        <!-- <el-row type="flex"
+                align="middle">
+          <label class="title">y轴字段</label>
+          <el-select v-model="componentDataConfig.businessY">
+            <el-option v-for="item in kpiFields"
+                      :key="item.fld"
+                      :label="item.fldName"
+                      :value="item.fld">
+            </el-option>
+          </el-select>
+        </el-row> -->
+        <el-row type="flex"
+                align="middle">
+          <label class="title">y轴多选</label>
+          <el-select multiple v-model="componentDataConfig.businessYList">
+            <el-option v-for="item in kpiFields"
+                      :key="item.fld"
+                      :label="item.fldName"
+                      :value="item.fld">
+            </el-option>
+          </el-select>
+        </el-row>
+      </template>
+      <template v-else>
+        <el-row type="flex"
+                align="middle">
+          <label class="title">字段多选</label>
+          <el-select multiple v-model="componentDataConfig.fieldList">
+            <el-option v-for="item in kpiFields"
+                      :key="item.fld"
+                      :label="item.fldName"
+                      :value="item.fld">
+            </el-option>
+          </el-select>
+        </el-row>
+      </template>
       <div class="title param-add">参数配置<i class="el-icon-plus"
            @click.stop="handleAddBusinessParam"></i></div>
       <template v-if="componentDataConfig && componentDataConfig.businessParamList">
@@ -143,11 +158,15 @@ import { sourceTypeOptions } from '../constant';
 export default {
   name: 'DataConfig',
   props: {
+    type: {
+      // 组件类型，当组件带坐标轴时，显示x/y轴配置，其他则显示字段多选配置
+      type: String,
+      required: false,
+    },
     moduleId: { 
       // 需要组件的模块 ID，用来查询指标集，当前 moduleId 暂未入库，后续 required 需为 true
       type: String,
       required: false,
-      default: '0011a239-3357-4b7e-bde8-ede0920d0e01',
     },
     componentData: {
       type: Object,
@@ -161,6 +180,7 @@ export default {
         businessX: '', // x 轴字段
         businessY: '', // y 轴字段
         businessYList: [], // y轴字段多选
+        fieldList: [], // 任意字段多选，带排序功能
         /* 静态数据 */
         staticData: '', //  Array or Map 序列化的字符串
         /* 自定义API */
@@ -199,6 +219,7 @@ export default {
         businessParamList: [],
         businessX: '', // x 轴字段
         businessY: '', // y 轴字段
+        fieldList: [],
         /* 静态数据 */
         staticData: '', //  Array or Map 序列化的字符串
         /* 自定义API */
@@ -259,15 +280,6 @@ export default {
       // 获取指标字段
       getKpiFields({ kpiId: this.componentDataConfig.businessIndexSet }).then(({ data }) => {
         this.kpiFields = data;
-      })
-    },
-    fetchKpiData() {
-      // 获取指标字段
-      getKpiData({ 
-        moduId: this.moduleId,
-        kpiId: this.componentDataConfig.businessIndexSet,
-      }).then(({ data }) => {
-        // this.kpiFields = data;
       })
     },
     handleSave() {

@@ -228,7 +228,6 @@ export default {
     },
   },
   created() {
-    console.log('hello');
     this.config = { ...this.componentConfig };
   },
 };

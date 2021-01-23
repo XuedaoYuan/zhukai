@@ -69,11 +69,12 @@ import _throttle from 'lodash/throttle';
 import _attempt from 'lodash/attempt';
 import _isError from 'lodash/isError';
 import _get from 'lodash/get';
+import _set from 'lodash/set';
 import _map from 'lodash/map';
 import { getKpiData } from '../../api';
 import { sourceTypeOptions } from '../../constant';
 export default {
-  name: 'Pie1',
+  name: 'Pie3',
   props: {
     moduleId: {
       type: String,
@@ -96,7 +97,7 @@ export default {
       scale: 1,
       chartIns: null,
       chartContainerDOM: null,
-      componentData: [],
+      componentData: [{}, {}],
     };
   },
   watch: {
@@ -162,28 +163,16 @@ export default {
         moduId: this.moduleId,
         kpiId: this.componentConfig.data.businessIndexSet,
       }).then(({ data }) => {
-        console.log('data ==> ', data);
-        // const xField = _get(this.componentConfig.data, 'businessX');
-        // const yField = _get(this.componentConfig.data, 'businessY');
-        // const seriesData =
-        // this.chartIns.setOption({
-        //   xAxis: {
-        //     name: _get(data, ['propNames', xField]) + (_get(data, ['propUnits', xField]) || ''),
-        //   },
-        //   yAxis: {
-        //     name: _get(data, ['propNames', yField]) + (_get(data, ['propUnits', yField]) || ''),
-        //   },
-        //   grid: {
-        //     left: _get(data, ['propNames', yField], '').length * 6 + 16,
-        //     right: _get(data, ['propNames', xField], '').length * 12 + 32,
-        //   },
-        //   series: [{
-        //     type: 'line',
-        //     data: _map(_get(data, 'data'), item => (
-        //       [_get(item, xField), _get(item, yField)]
-        //     ))
-        //   }]
-        // })
+        const fieldList = _get(this.componentConfig.data, 'fieldList');
+        const arr = [];
+        fieldList.forEach((field, index) => {
+          arr.push({
+            title: _get(data, ['propNames', field]),
+            number: _get(data, ['data', '0', field]),
+            unit:  _get(data, ['propUnits', field])
+          });
+        });
+        this.componentData = arr;
       });
     },
     resizehandler(entries) {

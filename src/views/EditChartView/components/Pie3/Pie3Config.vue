@@ -43,93 +43,6 @@
         >
       </el-row>
     </el-collapse-item>
-    <el-collapse-item title="副标题">
-      <el-row type="flex" justify="space-between">
-        副标题
-        <el-checkbox v-model="config.subTitleShowStatus">显示</el-checkbox>
-      </el-row>
-      <el-row>
-        <el-input v-model="config.subTitleLabel"></el-input>
-      </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker
-          show-alpha
-          v-model="config.subTitleColor"
-        ></el-color-picker>
-        <el-input-number
-          :min="10"
-          :max="30"
-          :precision="0"
-          controls-position="right"
-          v-model="config.subTitleFontSize"
-        ></el-input-number>
-        <el-select v-model="config.subTitleFamily">
-          <el-option
-            v-for="item in fontFamilyOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-row>
-      <el-row type="flex" align="middle">
-        <el-radio-group v-model="config.subTitleTextAlign">
-          <el-radio-button label="left">左</el-radio-button>
-          <el-radio-button label="center">中</el-radio-button>
-          <el-radio-button label="right">右</el-radio-button>
-        </el-radio-group>
-        <el-checkbox-button
-          v-model="config.subTitleFontWeight"
-          true-label="bold"
-          false-label="normal"
-          >B</el-checkbox-button
-        >
-      </el-row>
-    </el-collapse-item>
-    <el-collapse-item title="注释">
-      <el-row type="flex" justify="space-between">
-        注释
-        <el-checkbox v-model="config.noteShowStatus">显示</el-checkbox>
-      </el-row>
-      <el-row>
-        <el-input v-model="config.noteLabel"></el-input>
-      </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker
-          show-alpha
-          v-model="config.noteColor"
-        ></el-color-picker>
-        <el-input-number
-          :min="10"
-          :max="30"
-          :precision="0"
-          controls-position="right"
-          v-model="config.noteFontSize"
-        ></el-input-number>
-        <el-select v-model="config.noteFamily">
-          <el-option
-            v-for="item in fontFamilyOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-row>
-      <el-row type="flex" align="middle">
-        <el-radio-group v-model="config.noteTextAlign">
-          <el-radio-button label="left">左</el-radio-button>
-          <el-radio-button label="center">中</el-radio-button>
-          <el-radio-button label="right">右</el-radio-button>
-        </el-radio-group>
-        <el-checkbox-button
-          v-model="config.noteFontWeight"
-          true-label="bold"
-          false-label="normal"
-        >
-          B
-        </el-checkbox-button>
-      </el-row>
-    </el-collapse-item>
   </div>
 </template>
 <script>
@@ -156,6 +69,10 @@ export default {
     'el-checkbox-button': CheckboxButton,
   },
   props: {
+    handlingIndex: {
+      type: Number,
+      required: true,
+    },
     componentConfig: {
       type: Object,
       default: () => ({
@@ -216,10 +133,10 @@ export default {
     };
   },
   watch: {
-    // handlingIndex: function (val, oldVal) {
-    //   // 监听被选中组件，刷新 config
-    //   this.config = { ...this.componentConfig };
-    // },
+    handlingIndex: function (val, oldVal) {
+      // 监听被选中组件，刷新 config
+      this.config = { ...this.componentConfig };
+    },
     config: {
       deep: true,
       handler: function (val, oldVal) {
@@ -228,7 +145,6 @@ export default {
     },
   },
   created() {
-    console.log('hello');
     this.config = { ...this.componentConfig };
   },
 };
