@@ -17,6 +17,7 @@ export default {
         case 'Line1':
         case 'Pie1':
         case 'Pie2':
+        case 'Pie3':
         case 'Line2':
         case 'ChinaMap1': {
           const h = (initialH * scaleNew) / this.rowHeight;

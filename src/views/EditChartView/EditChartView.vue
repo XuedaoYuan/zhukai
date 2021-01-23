@@ -263,7 +263,8 @@ export default {
     Line2: () => import('./components/Line2/Line2'),
     Line2Config: () => import('./components/Line2/Line2Config'),
     HeadTitle1: () => import("./components/HeadTitle1/HeadTitle1"),
-    HeadTitle1Config: () => import("./components/HeadTitle1/HeadTitle1Config")
+    HeadTitle1Config: () => import("./components/HeadTitle1/HeadTitle1Config"),    
+    Pie3: () => import("./components/Pie3/Pie3"),
   },
   mixins: [mixin],
   data() {

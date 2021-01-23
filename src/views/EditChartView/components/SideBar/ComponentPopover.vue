@@ -78,6 +78,10 @@
              @click="handleComponentClick('bar2')"
              width="182"
              alt="bar2" />
+        <img src="./imgs/pie3.png"
+             @click="handleComponentClick('pie3')"
+             width="182"
+             alt="pie3" />
 
       </div>
     </div>

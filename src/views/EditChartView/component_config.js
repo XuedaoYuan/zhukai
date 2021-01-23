@@ -136,7 +136,20 @@ const COMPONENT_CONFIG = {
   pie1: pie1DefaultConfig,
   pie2: pie2DefaultConfig,
   line2: line2DefaultConfig,
-  headTitle1: headTitle1DefaultConfig
+  headTitle1: headTitle1DefaultConfig,
+  pie3: {
+    x: 180,
+    y: 0,
+    w: 47,
+    h: 47,
+    i: '',
+    static: true,
+    lock: false,
+    type: '',
+    businessType: '',
+    businessTheme: '',
+    componentName: 'Pie3',
+  },
 };
 
 // console.log('line1DefaultConfig ==> ', COMPONENT_CONFIG);

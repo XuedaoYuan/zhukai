@@ -58,6 +58,7 @@ export default {
     Map1: () => import('./components/Map1/Map1.vue'),
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
     Pie2: () => import('./components/Pie2/Pie2'),
+    Pie3: () => import('./components/Pie3/Pie3'),
     Line2: () => import('./components/Line2/Line2'),
     HeadTitle1: () => import("./components/HeadTitle1/HeadTitle1")
   },
