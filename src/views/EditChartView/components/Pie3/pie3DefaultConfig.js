@@ -1,8 +1,8 @@
 export default {
-  x: 180,
+  x: 200,
   y: 0,
-  w: 47,
-  h: 47,
+  w: 40,
+  h: 32,
   i: '',
   static: true,
   lock: false,

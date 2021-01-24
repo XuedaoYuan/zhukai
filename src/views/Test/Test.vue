@@ -1,11 +1,13 @@
 <template>
-  <div ref="TestRef" class="test_container">
+  <div ref="TestRef"
+       class="test_container">
     <h1 class="h1_title">test</h1>
     <div>
       <el-divider content-position="left">测试全局el注册组件</el-divider>
       <el-button>button</el-button>
       <el-button type="primary">button</el-button>
-      <el-input v-model="value" placeholder="please input"></el-input>
+      <el-input v-model="value"
+                placeholder="please input"></el-input>
       <div>{{value}}</div>
       <el-divider content-position="left">Vuex Demo</el-divider>
       <h2>count: {{count}}-----doubleCount:{{doubleCount}}</h2>
@@ -19,7 +21,10 @@
         <el-button @click="handleCapture">Capture</el-button>
       </div>
     </div>
-    <div class="canvas_container" v-if="canvasShow" @click="canvasShow = false" ref="CanvasContainerRef"></div>
+    <div class="canvas_container"
+         v-if="canvasShow"
+         @click="canvasShow = false"
+         ref="CanvasContainerRef"></div>
   </div>
 </template>
 
@@ -82,21 +87,32 @@ export default {
       }
       return new Blob([u8arr], { type: mime });
     },
-
+    /* 截图 */
     handleCapture() {
+      const vm = this;
       html2canvas(this.$refs['TestRef'], {
+        scale: 1,
         useCORS: true
       }).then((canvas) => {
         this.canvasShow = true;
         this.$nextTick(() => {
-          /* const imgUrl = canvas.toDataURL('image/png');
-          const formData = new FormData();
-          const blob = this.dataURLtoBlob(imgUrl)
-          formData.append('file', blob)
+          const imgUrl = canvas.toDataURL('image/png');
+          // const formData = new FormData();
+          // const blob = this.dataURLtoBlob(imgUrl)
+          // formData.append('file', blob)
           const img = document.createElement('img');
           img.setAttribute('src', imgUrl);
-          this.$refs['CanvasContainerRef'].appendChild(img); */
-          this.$refs['CanvasContainerRef'].appendChild(canvas);
+          img.onload = () => {
+            const canvasDom = document.createElement('canvas');
+            // canvasDom.setAttribute('width', 192)
+            // canvasDom.width = 192
+            // canvasDom.height = 108
+            // canvasDom.setAttribute('height', 108)
+            const context = canvasDom.getContext('2d');
+            context.drawImage(img, 0, 0, 192, 108);
+            // vm.$refs['CanvasContainerRef'].appendChild(img);
+            vm.$refs['CanvasContainerRef'].appendChild(canvasDom);
+          };
         });
       });
     }

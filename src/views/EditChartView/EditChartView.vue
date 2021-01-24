@@ -268,7 +268,10 @@ export default {
     HeadTitle1: () => import('./components/HeadTitle1/HeadTitle1'),
     HeadTitle1Config: () => import('./components/HeadTitle1/HeadTitle1Config'),
     Pie3: () => import('./components/Pie3/Pie3'),
-    Pie3Config: () => import('./components/Pie3/Pie3Config')
+    Pie3Config: () => import('./components/Pie3/Pie3Config'),
+    LabelValue1: () => import('./components/LabelValue1/LabelValue1'),
+    LabelValue1Config: () =>
+      import('./components/LabelValue1/LabelValue1Config')
   },
   mixins: [mixin],
   data() {
@@ -360,7 +363,8 @@ export default {
         'Pie2Config',
         'Line2Config',
         'HeadTitle1Config',
-        'Pie3Config'
+        'Pie3Config',
+        'LabelValue1Config'
       ]
     };
   },
@@ -707,6 +711,7 @@ export default {
     },
     /* 保存 */
     handleSave() {
+      const _vm = this;
       if (this.saveLoading) return;
       if (this.boardConfig.boardCode && this.boardConfig.boardTitle) {
         /* 1、先生成图片上传 */
@@ -717,73 +722,86 @@ export default {
             useCORS: true
           }).then((canvas) => {
             const imgDataURL = canvas.toDataURL('image/png');
-            const formData = new FormData();
-            const blob = this.dataURLtoBlob(imgDataURL);
-            const fileName = new Date().getTime() + '.png';
-            formData.append('file', blob, fileName);
-            uploadFile(formData)
-              .then((res) => {
-                if (res && res.code === 0 && res.data) {
-                  // 图片的缩略图
-                  const scrThum = process.env.VUE_APP_IMG_HOST + res.data;
-                  /* 判断是不是编辑, 存在scrId即认为是编辑 */
-                  if (this.editForm.rid || this.editForm.scrId) {
-                    const postData = {};
-                    for (let key in this.editForm) {
-                      postData[key] = this.editForm[key];
+            const img = document.createElement('img');
+            img.setAttribute('src', imgDataURL);
+            img.onload = () => {
+              const canvasDom = document.createElement('canvas');
+              const width = parseInt(this.boardConfig.screenRatio.width / 5);
+              const height = parseInt(this.boardConfig.screenRatio.height / 5);
+              canvasDom.width = width;
+              canvasDom.height = height;
+              const context = canvasDom.getContext('2d');
+              context.drawImage(img, 0, 0, width, height);
+              const ImgDataURLCompressed = canvasDom.toDataURL('image/png');
+              const formData = new FormData();
+              const blob = this.dataURLtoBlob(ImgDataURLCompressed);
+              const fileName = new Date().getTime() + '.png';
+              formData.append('file', blob, fileName);
+
+              uploadFile(formData)
+                .then((res) => {
+                  if (res && res.code === 0 && res.data) {
+                    // 图片的缩略图
+                    const scrThum = process.env.VUE_APP_IMG_HOST + res.data;
+                    /* 判断是不是编辑, 存在scrId即认为是编辑 */
+                    if (this.editForm.rid || this.editForm.scrId) {
+                      const postData = {};
+                      for (let key in this.editForm) {
+                        postData[key] = this.editForm[key];
+                      }
+                      // judge 1表示保存 2表示审核
+                      postData.judge = 1;
+                      postData.cfg = JSON.stringify(this.boardConfig);
+                      postData.scrName = this.boardConfig.boardTitle;
+                      postData.scrCodg = this.boardConfig.boardCode;
+                      postData.scrThum = scrThum;
+                      updateBoard(postData)
+                        .then((boardRes) => {
+                          if (
+                            boardRes.code === 0 &&
+                            boardRes.type === 'success'
+                          ) {
+                            this.$message.success('保存成功');
+                          }
+                        })
+                        .finally(() => {
+                          this.saveLoading = false;
+                        });
+                    } else {
+                      // 保存
+                      const postData = {
+                        cfg: JSON.stringify(this.boardConfig),
+                        scrName: this.boardConfig.boardTitle,
+                        scrCodg: this.boardConfig.boardCode,
+                        scrThum
+                      };
+                      // judge 1表示保存 2表示审核
+                      postData.judge = 1;
+                      saveBoard(postData)
+                        .then((boardRes) => {
+                          if (
+                            boardRes.code === 0 &&
+                            boardRes.type === 'success'
+                          ) {
+                            this.editForm.rid = boardRes.data;
+                            this.$message.success('保存成功');
+                          }
+                        })
+                        .finally(() => {
+                          this.saveLoading = false;
+                        });
                     }
-                    // judge 1表示保存 2表示审核
-                    postData.judge = 1;
-                    postData.cfg = JSON.stringify(this.boardConfig);
-                    postData.scrName = this.boardConfig.boardTitle;
-                    postData.scrCodg = this.boardConfig.boardCode;
-                    postData.scrThum = scrThum;
-                    updateBoard(postData)
-                      .then((boardRes) => {
-                        if (
-                          boardRes.code === 0 &&
-                          boardRes.type === 'success'
-                        ) {
-                          this.$message.success('保存成功');
-                        }
-                      })
-                      .finally(() => {
-                        this.saveLoading = false;
-                      });
                   } else {
-                    // 保存
-                    const postData = {
-                      cfg: JSON.stringify(this.boardConfig),
-                      scrName: this.boardConfig.boardTitle,
-                      scrCodg: this.boardConfig.boardCode,
-                      scrThum
-                    };
-                    // judge 1表示保存 2表示审核
-                    postData.judge = 1;
-                    saveBoard(postData)
-                      .then((boardRes) => {
-                        if (
-                          boardRes.code === 0 &&
-                          boardRes.type === 'success'
-                        ) {
-                          this.editForm.rid = boardRes.data;
-                          this.$message.success('保存成功');
-                        }
-                      })
-                      .finally(() => {
-                        this.saveLoading = false;
-                      });
+                    this.saveLoading = false;
                   }
-                } else {
+                })
+                .catch((err) => {
                   this.saveLoading = false;
-                }
-              })
-              .catch((err) => {
-                this.saveLoading = false;
-              })
-              .finally(() => {
-                // this.saveLoading = false;
-              });
+                })
+                .finally(() => {
+                  // this.saveLoading = false;
+                });
+            };
           });
         } catch (error) {
           this.saveLoading = false;
@@ -809,7 +827,7 @@ export default {
     },
     handleBack() {
       // this.$router.go(-1)
-      this.$router.replace('/');
+      this.$router.replace('/board-config-manage/index');
     }
   }
 };

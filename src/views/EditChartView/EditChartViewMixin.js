@@ -28,6 +28,10 @@ export default {
           break;
         }
 
+        /* case "LabelValue1": {
+          break
+        } */
+
         default: {
           const h = (initialH * scaleNew) / this.rowHeight;
           this.$nextTick(() => {
