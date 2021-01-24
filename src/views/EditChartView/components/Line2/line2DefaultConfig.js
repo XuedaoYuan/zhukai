@@ -27,7 +27,7 @@ const line2DefaultConfig = {
   x: 180,
   y: 0,
   w: 60,
-  h: 22,
+  h: 36,
   i: 0,
   static: true,
   lock: false,

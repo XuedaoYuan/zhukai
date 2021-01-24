@@ -265,10 +265,10 @@ export default {
     Pie2Config: () => import('./components/Pie2/Pie2Config'),
     Line2: () => import('./components/Line2/Line2'),
     Line2Config: () => import('./components/Line2/Line2Config'),
-    HeadTitle1: () => import("./components/HeadTitle1/HeadTitle1"),
-    HeadTitle1Config: () => import("./components/HeadTitle1/HeadTitle1Config"),    
-    Pie3: () => import("./components/Pie3/Pie3"),
-    Pie3Config: () => import("./components/Pie3/Pie3Config"),
+    HeadTitle1: () => import('./components/HeadTitle1/HeadTitle1'),
+    HeadTitle1Config: () => import('./components/HeadTitle1/HeadTitle1Config'),
+    Pie3: () => import('./components/Pie3/Pie3'),
+    Pie3Config: () => import('./components/Pie3/Pie3Config')
   },
   mixins: [mixin],
   data() {
@@ -766,6 +766,7 @@ export default {
                           boardRes.code === 0 &&
                           boardRes.type === 'success'
                         ) {
+                          this.editForm.rid = boardRes.data;
                           this.$message.success('保存成功');
                         }
                       })

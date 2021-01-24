@@ -404,14 +404,14 @@ export default {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
-      const scale = width / 480;
+      const scale = width / 400;
       this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
         scaleNew: scale,
-        initialW: 480,
-        initialH: 220,
+        initialW: 400,
+        initialH: 300,
         componentName: 'Line2'
       });
     }
@@ -421,7 +421,7 @@ export default {
 
 <style scoped lang="stylus">
 .bar1__container {
-  width: 480px;
-  height: 220px;
+  width: 400px;
+  height: 300px;
 }
 </style>
