@@ -50,9 +50,9 @@ import throttle from 'lodash/throttle';
 import * as echarts from 'echarts';
 import { getKpiData } from '../../api';
 const lineColors = [
+  '#D0021B',
   '#FDC94F',
   '#B7A0F8',
-  '#D0021B',
   '#61a0a8',
   '#d48265',
   '#91c7ae',

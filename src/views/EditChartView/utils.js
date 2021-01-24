@@ -1,3 +1,9 @@
+/**
+ * 返回格式化的时间
+ *
+ * @export
+ * @returns return 2020年10月10日 23：59：59
+ */
 export function formatDateTime() {
   let now = new Date();
   let year = now.getFullYear();

@@ -17,10 +17,17 @@ const title1DefaultConfig = {
     title: '看板标题',
     color: '#fff',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: 'sans-serif,Microsoft YaHei',
     fontWeight: 'normal',
-    showStatus: true
+    showStatus: true,
+    // 时间的一些设定
+    timeShowStatus: true,
+    timeFontFamily: 'sans-serif,Microsoft YaHei',
+    timeColor: '#62D2FF',
+    timefontSize: 14,
+    timeTextAlign: 'right',
+    timeFontWeight: 'normal'
   }
 };
 

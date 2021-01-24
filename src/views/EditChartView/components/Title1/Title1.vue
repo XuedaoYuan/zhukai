@@ -8,13 +8,24 @@
       <div class="bg"></div>
       <div class="text_container"
            v-if="componentConfig.showStatus"
-           :style="{textAlign: componentConfig.textAlign}"
-           >
+           :style="{textAlign: componentConfig.textAlign}">
         <span :style="{
         fontWeight: componentConfig.fontWeight,
         color: componentConfig.color,
         fontSize: componentConfig.fontSize + 'px',
         fontFamily: componentConfig.fontFamily}">{{componentConfig.title}}</span>
+      </div>
+      <div class="time-container"
+           v-if="componentConfig.timeShowStatus"
+           :style="{
+        textAlign: componentConfig.timeTextAlign,
+      }">
+        <span :style="{
+            fontFamily: componentConfig.timeFontFamily,
+            color: componentConfig.timeColor,
+            fontSize: componentConfig.timefontSize + 'px',
+            fontWeight: componentConfig.timeFontWeight
+        }">当前时间：{{time}}</span>
       </div>
 
     </div>
@@ -23,6 +34,7 @@
 
 <script>
 import throttle from 'lodash/throttle';
+import { formatDateTime } from '@/views/EditChartView/utils.js';
 export default {
   name: 'Title1',
   props: {
@@ -40,31 +52,26 @@ export default {
         fontSize: 16,
         fontWeight: 'normal',
         fontFamily: 'sans-serif,Microsoft YaHei, sans-serif',
-        showStatus: true
+        showStatus: true,
+        // 时间的一些设定
+        timeShowStatus: true,
+        timeFontFamily: 'sans-serif,Microsoft YaHei',
+        timeColor: '#62D2FF',
+        timefontSize: 14,
+        timeTextAlign: 'right',
+        timeFontWeight: 'normal'
       })
     }
   },
   data() {
     return {
-      scale: 1
+      scale: 1,
+      time: formatDateTime()
     };
   },
-  computed: {
-    justifyContent: function () {
-      switch (this.componentConfig.textAlign) {
-        case 'left':
-          return 'flex-start';
-        case 'center':
-          return 'center';
-        case 'right':
-          return 'flex-end';
-
-        default:
-          return 'center';
-      }
-    }
-  },
+  computed: {},
   created() {
+    this.initTimer();
     this._resizehandlerThrottle = throttle(this.resizehandler, 100);
   },
   mounted() {
@@ -76,8 +83,20 @@ export default {
       this._resizeObserver.disconnect();
       this._resizeObserver = null;
     }
+    this.clearTimer();
   },
   methods: {
+    initTimer() {
+      this.clearTimer();
+      this.timer = setInterval(() => {
+        this.time = formatDateTime();
+      }, 1000);
+    },
+    clearTimer() {
+      if (this.timer) {
+        clearInterval(this.timer);
+      }
+    },
     resizehandler(entries) {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
@@ -125,9 +144,26 @@ export default {
     z-index: 1;
   }
 
+  .time-container {
+    position: absolute;
+    z-index: 3;
+    left: 20px;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    line-height: 30px;
+    text-align: right;
+
+    span {
+      font-family: sans-serif, Microsoft YaHei;
+      color: #62D2FF;
+      font-size: 16px;
+    }
+  }
+
   .text_container {
     position: absolute;
-    z-index: 2;
+    z-index: 4;
     left: 0;
     right: 0;
     top: 0;
