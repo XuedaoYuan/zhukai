@@ -301,6 +301,7 @@ export default {
         } else if (item.type === 'line') {
           series.push({
             name: item.label,
+            symbol: _vm.componentConfig.chartOption.symbol,
             type: 'line',
             data: item.seriesData,
             // 线的样式

@@ -100,7 +100,9 @@ const line2DefaultConfig = {
       yAxisLineColor: '#5B5D66',
       yAxisLineWidth: 1,
       // 浮框
-      tooltipShow: true
+      tooltipShow: true,
+      // symbol
+      symbol: 'none'
     }
   }
 };

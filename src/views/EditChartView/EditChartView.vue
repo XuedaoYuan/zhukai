@@ -221,6 +221,7 @@ import mixin from './EditChartViewMixin';
 /* 背景图片 */
 const darkBackground = require('./assets/darkBackground.png');
 const lightBackground = require('./assets/lightBackground.png');
+const background1 = require('./assets/background1.png');
 
 /* 布局容器的高度 */
 let layoutContainerHeight = 0;
@@ -533,6 +534,12 @@ export default {
           lightBackground
         );
         // this.boardConfig.background.backgroundImage = lightBackground;
+      } else if (type === 'background1') {
+        this.$set(
+          this.boardConfig.background,
+          'backgroundImage',
+          background1
+        );
       }
       this.boardConfig.background.backgroundColor = '';
     },

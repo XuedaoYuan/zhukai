@@ -46,7 +46,7 @@
       </el-row>
     </el-collapse-item>
     <el-collapse-item class="title1-config"
-                      title="时间">
+                    title="时间">
       <el-row type="flex"
               justify="space-between">
         时间

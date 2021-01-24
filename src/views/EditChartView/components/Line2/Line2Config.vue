@@ -243,6 +243,20 @@
                      @change="handleChange">显示</el-checkbox>
       </el-row>
     </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="symbol">
+      <el-row type="flex"
+              justify="space-between">
+        <span>symbol</span>
+        <el-select v-model="config.chartOption.symbol"
+                   @change="handleChange">
+          <el-option v-for="symbol in symbols"
+                     :key="symbol"
+                     :value="symbol"
+                     :label="symbol"></el-option>
+        </el-select>
+      </el-row>
+    </el-collapse-item>
   </div>
 </template>
 
@@ -370,7 +384,9 @@ export default {
           yAxisLineColor: '#5B5D66',
           yAxisLineWidth: 1,
           // 浮框
-          tooltipShow: true
+          tooltipShow: true,
+          // symbol
+          symbol: 'none'
         }
       })
     }
@@ -387,6 +403,16 @@ export default {
     return {
       currentBarColorIndex: -1,
       currentGradientIndex: -1,
+      symbols: [
+        'none',
+        'circle',
+        'rect',
+        'roundRect',
+        'triangle',
+        'diamond',
+        'pin',
+        'arrow'
+      ],
       singleList: [
         '#F0AB4C',
         'rgb(186, 144, 255)',
@@ -492,7 +518,9 @@ export default {
           yAxisLineColor: '#5B5D66',
           yAxisLineWidth: 1,
           // 浮框
-          tooltipShow: true
+          tooltipShow: true,
+          // symbol
+          symbol: 'none'
         }
       }
     };

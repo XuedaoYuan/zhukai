@@ -31,6 +31,13 @@
            :class="{active: backgroundType==='light'}"
            @click="handleSetBgImage('light')">
     </div>
+    <div class="img_container">
+      <img :src="background1"
+           alt=""
+           :class="{active: backgroundType==='background1'}"
+           @click="handleSetBgImage('background1')">
+    </div>
+
     <div>
       <el-button type="primary"
                  size="small">上传图片</el-button>
@@ -41,6 +48,7 @@
 <script>
 const darkDemo = require('../../assets/darkDemo.png');
 const lightDemo = require('../../assets/lightBackground.png');
+const background1 = require('../../assets/background1.png');
 export default {
   name: 'BgPopover',
   props: {
@@ -78,6 +86,7 @@ export default {
   created() {
     this.darkDemo = darkDemo;
     this.lightDemo = lightDemo;
+    this.background1 = background1;
   },
   methods: {
     handleSetBgColor(color) {
