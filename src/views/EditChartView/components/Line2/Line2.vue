@@ -49,6 +49,20 @@
 import throttle from 'lodash/throttle';
 import * as echarts from 'echarts';
 import { getKpiData } from '../../api';
+const lineColors = [
+  '#FDC94F',
+  '#B7A0F8',
+  '#D0021B',
+  '#61a0a8',
+  '#d48265',
+  '#91c7ae',
+  '#749f83',
+  '#ca8622',
+  '#bda29a',
+  '#6e7074',
+  '#546570',
+  '#c4ccd3'
+];
 export default {
   name: 'Line2',
   props: {
@@ -59,7 +73,7 @@ export default {
     moduleId: {
       // 需要组件的模块 ID，用来查询指标集，当前 moduleId 暂未入库，后续 required 需为 true
       type: String,
-      required: false,
+      required: false
     },
     componentConfig: {
       type: Object,
@@ -237,7 +251,8 @@ export default {
           mockData = [];
           yAxisKeys.forEach((yAxisKey) => {
             mockData.push({
-              label:  `${propNames[yAxisKey]}(${propUnits[yAxisKey]})`,
+              // label: `${propNames[yAxisKey]}(${propUnits[yAxisKey]})`,
+              label: `${propNames[yAxisKey]}`,
               type: 'line',
               seriesData: dataFromApi.map((_) => _[yAxisKey])
             });
@@ -270,7 +285,10 @@ export default {
       let legendData = [];
       let series = [];
       mockData.forEach((item, index) => {
-        legendData.push(item.label);
+        legendData.push({
+          name: item.label,
+          icon: 'rect'
+        });
         if (item.type === 'bar') {
           series.push({
             name: item.label,
@@ -286,10 +304,13 @@ export default {
             type: 'line',
             data: item.seriesData,
             // 线的样式
-             lineStyle: {
-            //   color: _vm.componentConfig.chartOption.lineStyleColor,
+            lineStyle: {
+              color: lineColors[index],
               type: _vm.componentConfig.chartOption.lineStyleType, // 实线solid、虚线dashed
               width: _vm.componentConfig.chartOption.lineWidth
+            },
+            itemStyle: {
+              color: lineColors[index]
             },
             // 折线是否光滑
             smooth: _vm.componentConfig.chartOption.lineSmooth
@@ -319,7 +340,10 @@ export default {
         },
         grid: {
           left: '7%',
-          bottom: 28,
+          bottom:
+            _vm.componentConfig.chartOption.legendPosition === 'bottom'
+              ? 48
+              : 28,
           right: 20,
           top: 20
         },
@@ -337,6 +361,8 @@ export default {
               ? 0
               : 'auto',
           data: legendData,
+          itemWidth: 10,
+          itemHeight: 4,
           textStyle: {
             color: _vm.componentConfig.chartOption.legendColor,
             fontSize: _vm.componentConfig.chartOption.legendFontSize,

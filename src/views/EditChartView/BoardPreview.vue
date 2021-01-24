@@ -61,8 +61,9 @@ export default {
     Pie2: () => import('./components/Pie2/Pie2'),
     Pie3: () => import('./components/Pie3/Pie3'),
     Line2: () => import('./components/Line2/Line2'),
-    HeadTitle1: () => import("./components/HeadTitle1/HeadTitle1"),
-    LabelValue1: () => import('./components/LabelValue1/LabelValue1')
+    HeadTitle1: () => import('./components/HeadTitle1/HeadTitle1'),
+    LabelValue1: () => import('./components/LabelValue1/LabelValue1'),
+    LabelValue2: () => import('./components/LabelValue2/LabelValue2')
   },
   mixins: [mixin],
   data() {

@@ -3,20 +3,22 @@
        ref="Title1WrapperRef">
     <div class="title1__container"
          :style="{
-          justifyContent: justifyContent,
           transform: 'scale('+scale+')'
         }">
       <div class="bg"></div>
-      <span v-show="componentConfig.showStatus"
-            :style="{
+      <div class="text_container"
+           v-if="componentConfig.showStatus"
+           :style="{textAlign: componentConfig.textAlign}"
+           >
+        <span :style="{
         fontWeight: componentConfig.fontWeight,
         color: componentConfig.color,
         fontSize: componentConfig.fontSize + 'px',
         fontFamily: componentConfig.fontFamily}">{{componentConfig.title}}</span>
+      </div>
 
     </div>
   </div>
-
 </template>
 
 <script>
@@ -80,13 +82,13 @@ export default {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
-      const scale = width / 1000;
+      const scale = width / 1200;
       this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
-        initialW: 1000,
-        initialH: 33,
+        initialW: 1200,
+        initialH: 30,
         scaleNew: scale,
         componentName: 'Title1'
       });
@@ -102,8 +104,8 @@ export default {
 }
 
 .title1__container {
-  width: 1000px;
-  height: 33px;
+  width: 1200px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,19 +116,27 @@ export default {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 10%;
-    right: 10%;
+    left: 200px;
+    right: 200px;
     background-image: url('../../assets/title1_bg.png');
     background-size: 100% 100%;
-    background-origin: center center;
+    background-position: center center;
     background-repeat: no-repeat;
     z-index: 1;
   }
 
-  span {
-    font-family: sans-serif, Microsoft YaHei, sans-serif;
-    position: relative;
+  .text_container {
+    position: absolute;
     z-index: 2;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    line-height: 30px;
+
+    span {
+      font-family: sans-serif, Microsoft YaHei;
+    }
   }
 }
 </style>

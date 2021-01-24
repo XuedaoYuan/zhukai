@@ -1,6 +1,6 @@
 <template>
   <div class="head-title1__wrapper"
-       ref="LabelValue1WrapperRef">
+       ref="LabelValue2WrapperRef">
     <!-- <div class="title1__container"
          :style="{
           transform: 'scale('+scale+')'
@@ -8,22 +8,38 @@
     </div> -->
     <div class="label-value__container"
          :style="{ transform: 'scale('+scale+')'}">
-      <span class="label"
-            v-if="componentConfig.titleShowStatus"
-            :style="{
+      <div class="label"
+           v-if="componentConfig.titleShowStatus"
+           :style="{
           color: componentConfig.titleColor,
           fontSize: componentConfig.titleFontSize  + 'px',
           fontFamily: componentConfig.titleFamily,
           fontWeight: componentConfig.titleFontWeight,
-      }">{{componentConfig.titleLabel}}</span>
-      <span class="value"
-            v-if="componentConfig.valueShowStatus"
-            :style="{
+          textAlign: componentConfig.titleTextAlign
+      }">{{componentConfig.titleLabel}}</div>
+      <div class="value"
+           v-if="componentConfig.valueShowStatus"
+           :style="{
           color: componentConfig.valueColor,
           fontSize: componentConfig.valueFontSize  + 'px',
           fontFamily: componentConfig.valueFamily,
           fontWeight: componentConfig.valueFontWeight,
-      }">{{value | seperator}}</span>
+      }">
+        <div class="text_container"
+             :style="valueContainerStyle">
+          <span class="value-text"
+                :style="{
+          color: componentConfig.valueColor,
+          fontSize: componentConfig.valueFontSize  + 'px',
+          fontFamily: componentConfig.valueFamily,
+          fontWeight: componentConfig.valueFontWeight,
+        }">{{value | seperator}}</span>
+          <span class="unit-name"
+                :style="{
+          fontSize: parseInt(componentConfig.valueFontSize / 1.7)  + 'px',
+        }">万人</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -33,7 +49,7 @@
 import throttle from 'lodash/throttle';
 import { getKpiData } from '../../api';
 export default {
-  name: 'LabelValue1',
+  name: 'LabelValue2',
   props: {
     i: {
       type: String | Number,
@@ -50,16 +66,18 @@ export default {
         // 标题的配置
         titleLabel: '评价数',
         titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 14,
+        titleFontSize: 21,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
+        titleTextAlign: 'center',
         titleShowStatus: true,
         // 值的配置
         value: '23456',
         valueColor: '#87E7FF',
-        valueFontSize: 20,
+        valueFontSize: 36,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
+        valueTextAlign: 'center',
         valueShowStatus: true,
         data: {}
       })
@@ -79,7 +97,45 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    valueContainerStyle: function () {
+      let style = {
+        left: '-60px',
+        textAlign: 'center'
+      };
+      switch (this.componentConfig.valueTextAlign) {
+        case 'left':
+          style = {
+            left: 0,
+            right: 'auto',
+            textAlign: 'left'
+          };
+          break;
+        case 'center':
+          style = {
+            left: '-60px',
+            right: 'auto',
+            textAlign: 'center'
+          };
+          break;
+        case 'right':
+          style = {
+            left: 'auto',
+            right: 0,
+            textAlign: 'right'
+          };
+          break;
+
+        default:
+          style = {
+            left: '-60px',
+            textAlign: 'center'
+          };
+          break;
+      }
+      return style;
+    }
+  },
   filters: {
     seperator: function (str) {
       if (str) {
@@ -101,7 +157,7 @@ export default {
   mounted() {
     this._resizeObserver = new ResizeObserver(this._resizehandlerThrottle);
     this.$nextTick(() => {
-      this._resizeObserver.observe(this.$refs['LabelValue1WrapperRef']);
+      this._resizeObserver.observe(this.$refs['LabelValue2WrapperRef']);
     });
   },
   beforeDestroy() {
@@ -152,15 +208,15 @@ export default {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
-      const scale = width / 150;
+      const scale = width / 120;
       this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
-        initialW: 150,
-        initialH: 32,
+        initialW: 120,
+        initialH: 88,
         scaleNew: scale,
-        componentName: 'LabelValue1'
+        componentName: 'LabelValue2'
       });
     }
   }
@@ -176,29 +232,41 @@ export default {
 .label-value__container {
   // background-color: #ccc;
   transform-origin: left top;
-  width: 150px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  width: 120px;
+  height: 88px;
   white-space: nowrap;
 
-  > span {
-    display: block;
+  > div {
+    text-align: center;
     line-height: 1;
   }
 
   .label {
-    font-size: 14px;
+    font-size: 21px;
     font-weight: normal;
     color: #FFFFFF;
-    margin-right: 20px;
   }
 
   .value {
-    font-size: 20px;
     font-weight: bold;
     color: #87E7FF;
+    margin-top: 30px;
+    position: relative;
+    height: 36px;
+
+    .text_container {
+      width: 240px;
+      position: absolute;
+      top: 0;
+      left: -60px;
+    }
+
+    .value-text {
+    }
+
+    .unit-name {
+      margin-left: 7px;
+    }
   }
 }
 </style>

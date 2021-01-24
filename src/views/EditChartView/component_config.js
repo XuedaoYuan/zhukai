@@ -1,43 +1,21 @@
 /* =======注意： 是 >>>初始<<< 配置项 */
 /* 对于所有组件的初始配置项, 也就是默认值 */
+import title1DefaultConfig from '@/views/EditChartView/components/Title1/title1DefaultConfig.js';
 import bar1DefaultConfig from '@/views/EditChartView/components/Bar1/bar1DefaultConfig.js';
 import line1DefaultConfig from '@/views/EditChartView/components/Line1/line1DefaultConfig.js';
 import pie1DefaultConfig from '@/views/EditChartView/components/Pie1/pie1DefaultConfig.js';
 import chinaMap1DefaultConfig from '@/views/EditChartView/components/ChinaMap1/chinaMap1DefaultConfig.js';
 import map1DefaultConfig from '@/views/EditChartView/components/Map1/map1DefaultConfig.js';
 import pie2DefaultConfig from '@/views/EditChartView/components/Pie2/pie2DefaultConfig.js';
-import line2DefaultConfig from "@/views/EditChartView/components/Line2/line2DefaultConfig.js"
-import headTitle1DefaultConfig from "@/views/EditChartView/components/HeadTitle1/headTitle1DefaultConfig.js"
-import bar2DefaultConfig from "@/views/EditChartView/components/Bar2/bar2DefaultConfig.js"
-import pie3DefaultConfig from "@/views/EditChartView/components/Pie3/pie3DefaultConfig.js"
-import labelValue1DefaultConfig from "@/views/EditChartView/components/LabelValue1/labelValue1DefaultConfig.js"
+import line2DefaultConfig from '@/views/EditChartView/components/Line2/line2DefaultConfig.js';
+import headTitle1DefaultConfig from '@/views/EditChartView/components/HeadTitle1/headTitle1DefaultConfig.js';
+import bar2DefaultConfig from '@/views/EditChartView/components/Bar2/bar2DefaultConfig.js';
+import pie3DefaultConfig from '@/views/EditChartView/components/Pie3/pie3DefaultConfig.js';
+import labelValue1DefaultConfig from '@/views/EditChartView/components/LabelValue1/labelValue1DefaultConfig.js';
+import labelValue2DefaultConfig from '@/views/EditChartView/components/LabelValue2/labelValue2DefaultConfig.js';
 const COMPONENT_CONFIG = {
   // 标题1的配置项
-  title1: {
-    x: 60,
-    y: 0,
-    w: 120, // w和col-num有关
-    h: 3, // h和row-height有关
-    i: '',
-    static: true,
-    lock: false,
-    type: '',
-    businessType: '',
-    businessTheme: '',
-    // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-    componentName: 'Title1',
-    // 组件的中文名
-    componentAliasName: '标题1',
-    componentConfig: {
-      title: '看板标题',
-      color: '#fff',
-      textAlign: 'center',
-      fontSize: 16,
-      fontFamily: 'sans-serif,Microsoft YaHei',
-      fontWeight: 'normal',
-      showStatus: true,
-    }
-  },
+  title1: title1DefaultConfig,
   testLink: {
     x: 180,
     y: 2,
@@ -81,7 +59,7 @@ const COMPONENT_CONFIG = {
       fontSize: 14,
       fontFamily: 'sans-serif,Microsoft YaHei',
       fontWeight: 'normal',
-      showStatus: true,
+      showStatus: true
     }
   },
   select1: {
@@ -140,7 +118,8 @@ const COMPONENT_CONFIG = {
   line2: line2DefaultConfig,
   headTitle1: headTitle1DefaultConfig,
   pie3: pie3DefaultConfig,
-  labelValue1: labelValue1DefaultConfig
+  labelValue1: labelValue1DefaultConfig,
+  labelValue2: labelValue2DefaultConfig
 };
 
 // console.log('line1DefaultConfig ==> ', COMPONENT_CONFIG);

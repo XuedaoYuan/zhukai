@@ -271,7 +271,10 @@ export default {
     Pie3Config: () => import('./components/Pie3/Pie3Config'),
     LabelValue1: () => import('./components/LabelValue1/LabelValue1'),
     LabelValue1Config: () =>
-      import('./components/LabelValue1/LabelValue1Config')
+      import('./components/LabelValue1/LabelValue1Config'),
+    LabelValue2: () => import('./components/LabelValue2/LabelValue2'),
+    LabelValue2Config: () =>
+      import('./components/LabelValue2/LabelValue2Config')
   },
   mixins: [mixin],
   data() {
@@ -364,7 +367,8 @@ export default {
         'Line2Config',
         'HeadTitle1Config',
         'Pie3Config',
-        'LabelValue1Config'
+        'LabelValue1Config',
+        'LabelValue2Config'
       ]
     };
   },

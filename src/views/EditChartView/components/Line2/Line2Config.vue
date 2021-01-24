@@ -1,41 +1,80 @@
 <template>
   <div>
-    <el-collapse-item class="select1-config" title="标题">
-      <el-row type="flex" justify="space-between">
+    <el-collapse-item class="select1-config"
+                      title="标题">
+      <el-row type="flex"
+              justify="space-between">
         标题
-        <el-checkbox v-model="config.titleShowStatus" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.titleShowStatus"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
       <el-row>
-        <el-input v-model="config.titleLabel" @change="handleChange"></el-input>
+        <el-input v-model="config.titleLabel"
+                  @change="handleChange"></el-input>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.titleColor" @change="handleChange"></el-color-picker>
-        <el-input-number :min="10" :max="30" :precision="0" controls-position="right" v-model="config.titleFontSize" @change="handleChange"></el-input-number>
-        <el-select v-model="config.titleFamily" @change="handleChange">
-          <el-option v-for="item in fontFamilyOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.titleColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.titleFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.titleFamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
         </el-select>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-radio-group v-model="config.titleTextAlign" @change="handleChange">
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.titleTextAlign"
+                        @change="handleChange">
           <el-radio-button label="left">左</el-radio-button>
           <el-radio-button label="center">中</el-radio-button>
           <el-radio-button label="right">右</el-radio-button>
         </el-radio-group>
-        <el-checkbox-button v-model="config.titleFontWeight" @change="handleChange" true-label="bold" false-label="normal">B</el-checkbox-button>
+        <el-checkbox-button v-model="config.titleFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
-   
-    
-    <el-collapse-item class="select1-config" title="折线样式配置">
-      <el-row type="flex" align="middle">
-        <el-radio-group v-model="config.chartOption.lineSmooth" @change="handleChange">
-          <el-radio-button class="radio-button-plr10" :label="true">曲线</el-radio-button>
-          <el-radio-button class="radio-button-plr10" :label="false">折线</el-radio-button>
+
+    <el-collapse-item class="select1-config"
+                      title="折线样式配置">
+      <el-row type="flex"
+              align="middle">
+        <el-radio-group v-model="config.chartOption.lineSmooth"
+                        @change="handleChange">
+          <el-radio-button class="radio-button-plr10"
+                           :label="true">曲线</el-radio-button>
+          <el-radio-button class="radio-button-plr10"
+                           :label="false">折线</el-radio-button>
         </el-radio-group>
-        <el-radio-group v-model="config.chartOption.lineStyleType" @change="handleChange">
-          <el-radio-button class="radio-button-plr10" label="solid">实线</el-radio-button>
-          <el-radio-button class="radio-button-plr10" label="dashed">虚线</el-radio-button>
+        <el-radio-group v-model="config.chartOption.lineStyleType"
+                        @change="handleChange">
+          <el-radio-button class="radio-button-plr10"
+                           label="solid">实线</el-radio-button>
+          <el-radio-button class="radio-button-plr10"
+                           label="dashed">虚线</el-radio-button>
         </el-radio-group>
+      </el-row>
+
+      <el-row type="flex"
+              align="middle">
+        <span>粗细：</span>
+        <el-input-number :min="1"
+                         :precision="0"
+                         controls-position="right"
+                         :style="{width: '80px'}"
+                         v-model="config.chartOption.lineWidth"
+                         @change="handleChange"></el-input-number>
       </el-row>
       <!-- <div class="line-color-label">折线颜色</div>
       <div>
@@ -59,79 +98,149 @@
 
       </div> -->
     </el-collapse-item>
-   
-    <el-collapse-item class="select1-config" title="图例">
-      <el-row type="flex" justify="space-between">
+
+    <el-collapse-item class="select1-config"
+                      title="图例">
+      <el-row type="flex"
+              justify="space-between">
         图例
-        <el-checkbox v-model="config.chartOption.legendShow" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.chartOption.legendShow"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.chartOption.legendColor" @change="handleChange"></el-color-picker>
-        <el-input-number :min="10" :max="30" :precision="0" controls-position="right" v-model="config.chartOption.legendFontSize" @change="handleChange"></el-input-number>
-        <el-select v-model="config.chartOption.legendFontFamily" @change="handleChange">
-          <el-option label="微软雅黑" value="sans-serif,Microsoft YaHei"></el-option>
-          <el-option label="宋体" value="serif,Simsun"></el-option>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.legendColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.chartOption.legendFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.chartOption.legendFontFamily"
+                   @change="handleChange">
+          <el-option label="微软雅黑"
+                     value="sans-serif,Microsoft YaHei"></el-option>
+          <el-option label="宋体"
+                     value="serif,Simsun"></el-option>
         </el-select>
       </el-row>
-      <el-row type="flex" align="middle">
+      <el-row type="flex"
+              align="middle">
         <label>位置：</label>
-        <el-radio-group v-model="config.chartOption.legendPosition" @change="handleChange">
+        <el-radio-group v-model="config.chartOption.legendPosition"
+                        @change="handleChange">
           <el-radio-button label="top">上</el-radio-button>
           <el-radio-button label="bottom">下</el-radio-button>
         </el-radio-group>
-        <el-checkbox-button v-model="config.chartOption.legendFontWeight" @change="handleChange" true-label="bold" false-label="normal">B</el-checkbox-button>
+        <el-checkbox-button v-model="config.chartOption.legendFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
-    <el-collapse-item class="select1-config" title="x轴">
-      <el-row type="flex" justify="space-between">
+    <el-collapse-item class="select1-config"
+                      title="x轴">
+      <el-row type="flex"
+              justify="space-between">
         轴文字
-        <el-checkbox v-model="config.chartOption.xAxisLabelShow" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.chartOption.xAxisLabelShow"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.chartOption.xAxisLabelColor" @change="handleChange"></el-color-picker>
-        <el-input-number :min="10" :max="30" :precision="0" controls-position="right" v-model="config.chartOption.xAxisLabelFontSize" @change="handleChange"></el-input-number>
-        <el-select v-model="config.chartOption.xAxisLabelFontFamily" @change="handleChange">
-          <el-option label="微软雅黑" value="sans-serif,Microsoft YaHei"></el-option>
-          <el-option label="宋体" value="serif,Simsun"></el-option>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.xAxisLabelColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.chartOption.xAxisLabelFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.chartOption.xAxisLabelFontFamily"
+                   @change="handleChange">
+          <el-option label="微软雅黑"
+                     value="sans-serif,Microsoft YaHei"></el-option>
+          <el-option label="宋体"
+                     value="serif,Simsun"></el-option>
         </el-select>
       </el-row>
-      <el-row type="flex" justify="space-between">
+      <el-row type="flex"
+              justify="space-between">
         轴线
-        <el-checkbox v-model="config.chartOption.xAxisLineShow" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.chartOption.xAxisLineShow"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.chartOption.xAxisLineColor" @change="handleChange"></el-color-picker>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.xAxisLineColor"
+                         @change="handleChange"></el-color-picker>
         <span>粗细：</span>
-        <el-input-number :min="1" :precision="0" controls-position="right" :style="{width: '80px'}" v-model="config.chartOption.xAxisLineWidth" @change="handleChange"></el-input-number>
+        <el-input-number :min="1"
+                         :precision="0"
+                         controls-position="right"
+                         :style="{width: '80px'}"
+                         v-model="config.chartOption.xAxisLineWidth"
+                         @change="handleChange"></el-input-number>
       </el-row>
     </el-collapse-item>
-    <el-collapse-item class="select1-config" title="y轴">
-      <el-row type="flex" justify="space-between">
+    <el-collapse-item class="select1-config"
+                      title="y轴">
+      <el-row type="flex"
+              justify="space-between">
         轴文字
-        <el-checkbox v-model="config.chartOption.yAxisLabelShow" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.chartOption.yAxisLabelShow"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.chartOption.yAxisLabelColor" @change="handleChange"></el-color-picker>
-        <el-input-number :min="10" :max="30" :precision="0" controls-position="right" v-model="config.chartOption.yAxisLabelFontSize" @change="handleChange"></el-input-number>
-        <el-select v-model="config.chartOption.yAxisLabelFontFamily" @change="handleChange">
-          <el-option label="微软雅黑" value="sans-serif,Microsoft YaHei"></el-option>
-          <el-option label="宋体" value="serif,Simsun"></el-option>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.yAxisLabelColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.chartOption.yAxisLabelFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.chartOption.yAxisLabelFontFamily"
+                   @change="handleChange">
+          <el-option label="微软雅黑"
+                     value="sans-serif,Microsoft YaHei"></el-option>
+          <el-option label="宋体"
+                     value="serif,Simsun"></el-option>
         </el-select>
       </el-row>
-      <el-row type="flex" justify="space-between">
+      <el-row type="flex"
+              justify="space-between">
         轴线
-        <el-checkbox v-model="config.chartOption.yAxisLineShow" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.chartOption.yAxisLineShow"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
-      <el-row type="flex" align="middle">
-        <el-color-picker show-alpha v-model="config.chartOption.yAxisLineColor" @change="handleChange"></el-color-picker>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.yAxisLineColor"
+                         @change="handleChange"></el-color-picker>
         <span>粗细：</span>
-        <el-input-number :min="1" :precision="0" controls-position="right" :style="{width: '80px'}" v-model="config.chartOption.yAxisLineWidth" @change="handleChange"></el-input-number>
+        <el-input-number :min="1"
+                         :precision="0"
+                         controls-position="right"
+                         :style="{width: '80px'}"
+                         v-model="config.chartOption.yAxisLineWidth"
+                         @change="handleChange"></el-input-number>
       </el-row>
     </el-collapse-item>
-    <el-collapse-item class="select1-config" title="浮框">
-      <el-row type="flex" justify="space-between">
+    <el-collapse-item class="select1-config"
+                      title="浮框">
+      <el-row type="flex"
+              justify="space-between">
         浮框
-        <el-checkbox v-model="config.chartOption.tooltipShow" @change="handleChange">显示</el-checkbox>
+        <el-checkbox v-model="config.chartOption.tooltipShow"
+                     @change="handleChange">显示</el-checkbox>
       </el-row>
     </el-collapse-item>
   </div>
@@ -227,7 +336,7 @@ export default {
         titleTextAlign: 'left',
         titleFontWeight: 'normal',
         titleShowStatus: true,
-       
+
         // 图表的一些配置
         chartOption: {
           lineSmooth: true, // 曲线 折线
@@ -236,7 +345,7 @@ export default {
           lineStyleColorType: 'single', // 单色single、渐变 gradient
           lineStyleColor: '#F0AB4C',
           lineWidth: 2, // 线粗细
-         
+
           // 图例的配置
           legendShow: true,
           legendColor: '#ffffff',
