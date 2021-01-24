@@ -80,13 +80,13 @@ export default {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
-      const scale = width / 1042;
+      const scale = width / 1000;
       this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
-        initialW: 1042,
-        initialH: 40,
+        initialW: 1000,
+        initialH: 33,
         scaleNew: scale,
         componentName: 'Title1'
       });
@@ -102,8 +102,8 @@ export default {
 }
 
 .title1__container {
-  width: 1042px;
-  height: 40px;
+  width: 1000px;
+  height: 33px;
   display: flex;
   align-items: center;
   justify-content: center;

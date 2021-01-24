@@ -55,7 +55,8 @@ export default {
         valueFontSize: 20,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
-        valueShowStatus: true
+        valueShowStatus: true,
+        data: {}
       })
     }
   },
@@ -113,6 +114,27 @@ export default {
   methods: {
     initValue() {
       this.value = this.componentConfig.value;
+      const data = this.componentConfig.data;
+      if (data) {
+        switch (data.businessType) {
+          case '指标库导入':
+            break;
+          case '静态数据': {
+            try {
+              const staticData = JSON.parse(data.staticData);
+            } catch (error) {
+              this.$message.error('静态数据解析失败');
+            }
+            break;
+          }
+
+          case '自定义API':
+            break;
+
+          default:
+            break;
+        }
+      }
     },
     resizehandler(entries) {
       const dOMRectReadOnly = entries[0];

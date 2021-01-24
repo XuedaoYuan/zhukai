@@ -783,7 +783,7 @@ export default {
                             boardRes.code === 0 &&
                             boardRes.type === 'success'
                           ) {
-                            this.editForm.rid = boardRes.data;
+                            this.editForm.scrId = boardRes.data;
                             this.$message.success('保存成功');
                           }
                         })
