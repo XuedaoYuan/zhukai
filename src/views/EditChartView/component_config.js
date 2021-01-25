@@ -14,6 +14,8 @@ import bar2DefaultConfig from '@/views/EditChartView/components/Bar2/bar2Default
 import pie3DefaultConfig from '@/views/EditChartView/components/Pie3/pie3DefaultConfig.js';
 import labelValue1DefaultConfig from '@/views/EditChartView/components/LabelValue1/labelValue1DefaultConfig.js';
 import labelValue2DefaultConfig from '@/views/EditChartView/components/LabelValue2/labelValue2DefaultConfig.js';
+import labelValue3DefaultConfig from '@/views/EditChartView/components/LabelValue3/labelValue3DefaultConfig.js';
+import labelValue4DefaultConfig from '@/views/EditChartView/components/LabelValue4/labelValue4DefaultConfig.js';
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: title1DefaultConfig,
@@ -121,7 +123,9 @@ const COMPONENT_CONFIG = {
   headTitle2: headTitle2DefaultConfig,
   pie3: pie3DefaultConfig,
   labelValue1: labelValue1DefaultConfig,
-  labelValue2: labelValue2DefaultConfig
+  labelValue2: labelValue2DefaultConfig,
+  labelValue3: labelValue3DefaultConfig,
+  labelValue4: labelValue4DefaultConfig
 };
 
 // console.log('line1DefaultConfig ==> ', COMPONENT_CONFIG);

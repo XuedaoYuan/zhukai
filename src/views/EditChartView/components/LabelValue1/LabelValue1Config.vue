@@ -93,7 +93,7 @@ import {
 } from 'element-ui';
 import { fontFamilyOptions } from '@/views/EditChartView/constant.js';
 export default {
-  name: 'HeadTitle1Config',
+  name: 'LabelValue1Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,

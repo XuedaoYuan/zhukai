@@ -1,7 +1,7 @@
-const labelValue2DefaultConfig = {
-  x: 222,
+const labelValue3DefaultConfig = {
+  x: 215,
   y: 0,
-  w: 18,
+  w: 25,
   h: 10,
   i: 0,
   static: true,
@@ -15,25 +15,31 @@ const labelValue2DefaultConfig = {
   /* 业务主题， 同上 */
   businessTheme: '',
   // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-  componentName: 'LabelValue2',
-  componentAliasName: '标题与值2',
+  componentName: 'LabelValue3',
+  componentAliasName: '标题与值3',
   componentConfig: {
     // 标题的配置
-    titleLabel: '评价数',
-    titleColor: 'rgb(255, 255, 255)',
-    titleFontSize: 21,
+    titleLabel: '城镇职工基金预算',
+    titleColor: '#FFFFFF',
+    titleFontSize: 14,
     titleFamily: 'sans-serif,Microsoft YaHei',
     titleFontWeight: 'normal',
     titleTextAlign: 'center',
     titleShowStatus: true,
     // 值的配置
-    value: '23456',
-    valueColor: '#87E7FF',
-    valueFontSize: 36,
+    valueColor: '#5AB3FE',
+    valueFontSize: 14,
     valueFamily: 'sans-serif,Microsoft YaHei',
-    valueFontWeight: 'bold',
+    valueFontWeight: 'normal',
     valueTextAlign: 'center',
     valueShowStatus: true,
+    // 框样式
+    backgroundColor: '#142A5D',
+    backgroundShow: true,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#2F4184',
+    borderShow: true,
     data: {
       businessType: '静态数据', // 指标库导入、静态数据、自定义API
       /* 指标库导入 */
@@ -45,7 +51,7 @@ const labelValue2DefaultConfig = {
       fieldList: [],
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: JSON.stringify({ value: 345 }, null, 2), //  Array or Map 序列化的字符串
+      staticData: JSON.stringify({ value: 123.23 }, null, 2), //  Array or Map 序列化的字符串
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]
@@ -53,4 +59,4 @@ const labelValue2DefaultConfig = {
   }
 };
 
-export default labelValue2DefaultConfig;
+export default labelValue3DefaultConfig;

@@ -53,10 +53,6 @@
         <el-checkbox v-model="config.valueShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
-      <!--  <el-row>
-        <el-input v-model="config.value"
-                  @change="handleChange"></el-input>
-      </el-row> -->
       <el-row type="flex"
               align="middle">
         <el-color-picker show-alpha
@@ -90,6 +86,56 @@
                             false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
+    <el-collapse-item class="title1-config"
+                      title="框样式">
+      <el-row type="flex"
+              justify="space-between">
+        背景色
+        <el-checkbox v-model="config.backgroundShow"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row type="flex">
+        <span>背景色：</span>
+        <el-color-picker show-alpha
+                         v-model="config.backgroundColor"
+                         @change="handleChange"></el-color-picker>
+      </el-row>
+
+      <el-row type="flex"
+              justify="space-between">
+        边框
+        <el-checkbox v-model="config.borderShow"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row type="flex"
+              justify="">
+
+        <span>线宽：</span>
+        <el-input-number :min="1"
+                         :max="100"
+                         :precision="0"
+                         :style="{width: '80px'}"
+                         controls-position="right"
+                         v-model="config.borderWidth"
+                         @change="handleChange"></el-input-number>
+        <span>颜色：</span>
+        <el-color-picker show-alpha
+                         v-model="config.borderColor"
+                         @change="handleChange"></el-color-picker>
+
+      </el-row>
+      <el-row type="flex"
+              justify="space-between">
+        边框样式
+        <el-radio-group v-model="config.borderStyle"
+                        @change="handleChange">
+          <el-radio-button label="solid">实线</el-radio-button>
+          <el-radio-button label="dashed">虚线</el-radio-button>
+          <el-radio-button label="dotted">点线</el-radio-button>
+        </el-radio-group>
+      </el-row>
+
+    </el-collapse-item>
   </div>
 </template>
 
@@ -105,7 +151,7 @@ import {
 } from 'element-ui';
 import { fontFamilyOptions } from '@/views/EditChartView/constant.js';
 export default {
-  name: 'HeadTitle1Config',
+  name: 'LabelValue3Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,
@@ -121,20 +167,27 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '评价数',
-        titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 21,
+        titleLabel: '城镇职工基金预算',
+        titleColor: '#FFFFFF',
+        titleFontSize: 14,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
+        titleTextAlign: 'center',
         titleShowStatus: true,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 36,
+        valueColor: '#5AB3FE',
+        valueFontSize: 14,
         valueFamily: 'sans-serif,Microsoft YaHei',
+        valueFontWeight: 'normal',
         valueTextAlign: 'center',
-        valueFontWeight: 'bold',
-        valueShowStatus: true
+        valueShowStatus: true,
+        // 框样式
+        backgroundColor: '#142A5D',
+        backgroundShow: true,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#2F4184',
+        borderShow: true
       })
     }
   },
@@ -151,21 +204,27 @@ export default {
       fontFamilyOptions: fontFamilyOptions,
       config: {
         // 标题的配置
-        titleLabel: '评价数',
-        titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 21,
+        titleLabel: '城镇职工基金预算',
+        titleColor: '#FFFFFF',
+        titleFontSize: 14,
         titleFamily: 'sans-serif,Microsoft YaHei',
-        titleTextAlign: 'center',
         titleFontWeight: 'normal',
+        titleTextAlign: 'center',
         titleShowStatus: true,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 36,
+        valueColor: '#5AB3FE',
+        valueFontSize: 14,
         valueFamily: 'sans-serif,Microsoft YaHei',
+        valueFontWeight: 'normal',
         valueTextAlign: 'center',
-        valueFontWeight: 'bold',
-        valueShowStatus: true
+        valueShowStatus: true,
+        // 框样式
+        backgroundColor: '#142A5D',
+        backgroundShow: true,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#2F4184',
+        borderShow: true
       }
     };
   },
