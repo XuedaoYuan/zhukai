@@ -63,6 +63,10 @@
              @click="handleComponentClick('labelValue4')"
              width="182"
              alt="labelValue4" />
+        <img src="./imgs/labelValue5.png"
+             @click="handleComponentClick('labelValue5')"
+             width="182"
+             alt="labelValue5" />
 
       </div>
       <div class="right-container">

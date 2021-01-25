@@ -282,9 +282,12 @@ export default {
     LabelValue3: () => import('./components/LabelValue3/LabelValue3'),
     LabelValue3Config: () =>
       import('./components/LabelValue3/LabelValue3Config'),
-      LabelValue4: () => import('./components/LabelValue4/LabelValue4'),
+    LabelValue4: () => import('./components/LabelValue4/LabelValue4'),
     LabelValue4Config: () =>
-      import('./components/LabelValue4/LabelValue4Config')
+      import('./components/LabelValue4/LabelValue4Config'),
+    LabelValue5: () => import('./components/LabelValue5/LabelValue5'),
+    LabelValue5Config: () =>
+      import('./components/LabelValue5/LabelValue5Config')
   },
   mixins: [mixin],
   data() {
@@ -382,7 +385,8 @@ export default {
         'LabelValue1Config',
         'LabelValue2Config',
         'LabelValue3Config',
-        'LabelValue4Config'
+        'LabelValue4Config',
+        'LabelValue5Config'
       ]
     };
   },
