@@ -1,4 +1,8 @@
-
+const chartData = {
+  seriesData: [10, 20, 30, 40, 50],
+  titleList: ['医院1', '医院2名字长一点', '医院3', '医院4', '医院5'],
+  unitName: '天'
+};
 
 const bar2DefaultConfig = {
   x: 180,
@@ -43,11 +47,9 @@ const bar2DefaultConfig = {
     noteTextAlign: 'left',
     noteFontWeight: 'normal',
     noteShowStatus: false,
-    // 缩放比例
-    scale: 1,
     // 数据源配置
     data: {
-      businessType: '', // 指标库导入、静态数据、自定义API
+      businessType: '静态数据', // 指标库导入、静态数据、自定义API
       /* 指标库导入 */
       businessDomain: '', // 业务域
       businessIndexSet: '', // 指标集
@@ -55,30 +57,14 @@ const bar2DefaultConfig = {
       businessY: '', // y 轴字段
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: null, // JSON.stringify(chartData, null, 2), //  Array or Map 序列化的字符串
+      staticData: JSON.stringify(chartData, null, 2), //  Array or Map 序列化的字符串
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]
     },
     chartOption: {
-      lineSmooth: true, // 曲线 折线
-      lineStyleType: 'solid', // 实线solid、虚线dashed
-      // 折线的颜色
-      lineStyleColorType: 'single', // 单色single、渐变 gradient
-      lineStyleColor: '#F0AB4C',
-      lineWidth: 2, // 线粗细
-      barNum: 12, //  柱状显示数
-      barStyleColorType: 'single', // 柱状图的样式
-      barBackgroundColorList: ['rgb(239, 187, 76)', 'rgb(121, 212, 255)', 'rgb(186, 144, 255)', 'rgb(239, 155, 149)'],
-      // 图例的配置
-      legendShow: true,
-      legendColor: '#ffffff',
-      legendPosition: 'top', // top bottom
-      legendFontSize: 12,
-      legendFontWeight: 'normal',
-      legendFontFamily: 'sans-serif,Microsoft YaHei',
       // x轴的一些配置
-      xAxisLabelShow: true,
+      xAxisLabelShow: false,
       xAxisLabelColor: '#5B5D66',
       xAxisLabelFontSize: 12,
       xAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
@@ -87,7 +73,7 @@ const bar2DefaultConfig = {
       xAxisLineWidth: 1,
       // y轴的一些配置
       yAxisLabelShow: true,
-      yAxisLabelColor: '#5B5D66',
+      yAxisLabelColor: '#FFFFFF',
       yAxisLabelFontSize: 12,
       yAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
       yAxisLineShow: true,

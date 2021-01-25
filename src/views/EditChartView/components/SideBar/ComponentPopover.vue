@@ -74,6 +74,10 @@
              @click="handleComponentClick('headTitle1')"
              width="182"
              alt="headTitle1" />
+        <img src="./imgs/headTitle2.png"
+             @click="handleComponentClick('headTitle2')"
+             width="182"
+             alt="headTitle2" />
         <img src="./imgs/chinaMap1.png"
              @click="handleComponentClick('chinaMap1')"
              width="182"

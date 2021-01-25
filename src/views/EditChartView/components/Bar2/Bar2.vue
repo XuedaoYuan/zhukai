@@ -52,11 +52,20 @@
         </div>
         <div class="chart-dom">
           <div class="left-title__container"
+               v-show="componentConfig.chartOption.yAxisLabelShow"
+               :style="{
+                  paddingBottom: componentConfig.chartOption.xAxisLabelShow ? '30px' : 0
+                }"
                v-if="titleList && titleList.length > 0">
             <div class="title-text "
                  v-for="(title, index) in titleList"
                  :key="index">
-              <div :class="{active: title.length * 16 > 70}">{{title}}</div>
+              <div :style="{
+                color: componentConfig.chartOption.yAxisLabelColor,
+                fontSize: componentConfig.chartOption.yAxisLabelFontSize + 'px',
+                fontFamily: componentConfig.chartOption.yAxisLabelFontFamily
+              }"
+                   :class="{active: title.length * 16 > 70}">{{title}}</div>
             </div>
           </div>
           <div class="chart-canvas-dom"
@@ -121,7 +130,7 @@ export default {
         titleTextAlign: 'left',
         titleFontWeight: 'normal',
         titleShowStatus: true,
-        // 副标题的配置
+        // 副标题
         subTitleLabel: '副标题',
         subTitleColor: '#04c1ff',
         subTitleFontSize: 16,
@@ -137,31 +146,10 @@ export default {
         noteTextAlign: 'left',
         noteFontWeight: 'normal',
         noteShowStatus: false,
-        scale: 1,
+        // 数据源配置
         data: {},
         chartOption: {
-          lineSmooth: true, // 曲线 折线
-          lineStyleType: 'solid', // 实线solid、虚线dashed
-          // 折线的颜色
-          lineStyleColorType: 'single', // 单色single、渐变 gradient
-          lineStyleColor: '#F0AB4C',
-          lineWidth: 2, // 线粗细
-          barNum: 12, //  显示柱状的个数
-          barStyleColorType: 'single',
-          barBackgroundColorList: [
-            'rgb(239, 187, 76)',
-            'rgb(121, 212, 255)',
-            'rgb(186, 144, 255)',
-            'rgb(239, 155, 149)'
-          ],
-          // 图例的配置
-          legendShow: true,
-          legendColor: '#ffffff',
-          legendPosition: 'top', // top bottom
-          legendFontSize: 12,
-          legendFontWeight: 'normal',
-          legendFontFamily: 'sans-serif,Microsoft YaHei',
-          // x轴
+          // x轴的一些配置
           xAxisLabelShow: true,
           xAxisLabelColor: '#5B5D66',
           xAxisLabelFontSize: 12,
@@ -172,7 +160,7 @@ export default {
           // y轴的一些配置
           yAxisLabelShow: true,
           yAxisLabelColor: '#5B5D66',
-          yAxisLabelFontSize: 16,
+          yAxisLabelFontSize: 12,
           yAxisLabelFontFamily: 'sans-serif,Microsoft YaHei',
           yAxisLineShow: true,
           yAxisLineColor: '#5B5D66',
@@ -242,16 +230,40 @@ export default {
       }
       const _vm = this;
 
-      let yAxisData = ['50天', '40天', '30天', '20天', '10天'];
+      const data = this.componentConfig.data;
+      let yAxisData = ['10天', '20天', '30天', '40天', '50天'];
       let seriesData = [10, 20, 30, 40, 50];
-      let titleList = [
-        '医院1',
-        '医院2医院3医院3医院4医院5医院6医院7医院8',
-        '医院3',
-        '医院4',
-        '医院5'
-      ];
+      let titleList = ['医院1', '医院2名字长一点', '医院3', '医院4', '医院5'];
       this.titleList = [...titleList];
+      switch (data.businessType) {
+        case '指标库导入': {
+          break;
+        }
+        case '静态数据': {
+          try {
+            const staticData = JSON.parse(data.staticData);
+            seriesData = [...staticData.seriesData];
+            yAxisData = staticData.seriesData.map(
+              (item) => item + staticData.unitName
+            );
+            this.titleList = staticData.titleList;
+          } catch (error) {
+            this.$message.error('静态数据解析出错');
+          }
+
+          break;
+        }
+        case '自定义API': {
+          // data.apiUrl
+          // data.apiUrlParamList
+          break;
+        }
+
+        default:
+          break;
+      }
+
+      const xAxisLabelShow = _vm.componentConfig.chartOption.xAxisLabelShow;
 
       const option = {
         title: {
@@ -260,6 +272,7 @@ export default {
           subtext: '数据来自网络'
         },
         tooltip: {
+          show: _vm.componentConfig.chartOption.tooltipShow,
           trigger: 'axis',
           axisPointer: {
             type: 'shadow'
@@ -269,26 +282,48 @@ export default {
           show: false
         },
         grid: {
-          left: 0,
+          left: 10,
           top: 0,
-          right: '9%',
-          bottom: 0
-          // containLabel: true
+          right: '10%',
+          bottom: xAxisLabelShow ? 30 : 0
         },
         xAxis: {
-          show: false,
+          show: xAxisLabelShow,
           type: 'value',
-          boundaryGap: [0, 0.01]
+          boundaryGap: [0, 0.01],
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            color: _vm.componentConfig.chartOption.xAxisLabelColor
+          },
+          axisLine: {
+            show: _vm.componentConfig.chartOption.xAxisLineShow,
+            lineStyle: {
+              color: _vm.componentConfig.chartOption.xAxisLineColor,
+              width: _vm.componentConfig.chartOption.xAxisLineWidth
+            }
+          },
+          axisTick: {
+            show: _vm.componentConfig.chartOption.xAxisLineShow,
+            lineStyle: {
+              color: _vm.componentConfig.chartOption.xAxisLineColor,
+              width: _vm.componentConfig.chartOption.xAxisLineWidth
+            }
+          }
         },
         yAxis: {
           show: true,
           position: 'right',
           type: 'category',
-          axisLine: {
+          /*  axisLine: {
             show: false
           },
           axisTick: {
             show: false
+          }, */
+          axisLabel: {
+            color: '#fff'
           },
           data: yAxisData
         },
@@ -388,7 +423,7 @@ export default {
   }
 
   to {
-    left: -180%;
+    left: -140%;
   }
 }
 </style>

@@ -260,6 +260,7 @@ export default {
     Bar1: () => import('./components/Bar1/Bar1'),
     Bar1Config: () => import('./components/Bar1/Bar1Config'),
     Bar2: () => import('./components/Bar2/Bar2'),
+    Bar2Config: () => import('./components/Bar2/Bar2Config'),
     Line1: () => import('./components/Line1/Line1'),
     Line1Config: () => import('./components/Line1/Line1Config'),
     Pie2: () => import('./components/Pie2/Pie2'),
@@ -268,6 +269,8 @@ export default {
     Line2Config: () => import('./components/Line2/Line2Config'),
     HeadTitle1: () => import('./components/HeadTitle1/HeadTitle1'),
     HeadTitle1Config: () => import('./components/HeadTitle1/HeadTitle1Config'),
+    HeadTitle2: () => import('./components/HeadTitle2/HeadTitle2'),
+    HeadTitle2Config: () => import('./components/HeadTitle2/HeadTitle2Config'),
     Pie3: () => import('./components/Pie3/Pie3'),
     Pie3Config: () => import('./components/Pie3/Pie3Config'),
     LabelValue1: () => import('./components/LabelValue1/LabelValue1'),
@@ -363,10 +366,12 @@ export default {
         'Select1Config',
         'DatePicker1Config',
         'Bar1Config',
+        'Bar2Config',
         'Line1Config',
         'Pie2Config',
         'Line2Config',
         'HeadTitle1Config',
+        'HeadTitle2Config',
         'Pie3Config',
         'LabelValue1Config',
         'LabelValue2Config'
@@ -490,6 +495,7 @@ export default {
     },
     /* 新增组件 */
     handleComponentInsert(componentName) {
+      console.log(`%c>>>>>   ${componentName}   <<<<<`, 'color: red;');
       /* 获取配置好的默认配置 */
       const componentDefaultConfig = COMPONENT_CONFIG[componentName];
       if (componentDefaultConfig) {
@@ -535,11 +541,7 @@ export default {
         );
         // this.boardConfig.background.backgroundImage = lightBackground;
       } else if (type === 'background1') {
-        this.$set(
-          this.boardConfig.background,
-          'backgroundImage',
-          background1
-        );
+        this.$set(this.boardConfig.background, 'backgroundImage', background1);
       }
       this.boardConfig.background.backgroundColor = '';
     },

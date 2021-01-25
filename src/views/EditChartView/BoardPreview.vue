@@ -55,6 +55,7 @@ export default {
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
     Select1: () => import('./components/Select1/Select1.vue'),
     Bar1: () => import('./components/Bar1/Bar1.vue'),
+    Bar2: () => import('./components/Bar2/Bar2.vue'),
     Line1: () => import('./components/Line1/Line1.vue'),
     Map1: () => import('./components/Map1/Map1.vue'),
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
