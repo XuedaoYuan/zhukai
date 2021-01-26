@@ -26,9 +26,11 @@
           预览
         </div>
         <div :class="['save-btn', 'header-btn', saveLoading ? 'save-btn-disabled' : '']"
-             @click="handleSave"> <i v-show="saveLoading"
+             @click="handleSave(1, '保存成功')">
+          <i v-show="saveLoading"
              :style="{marginRight: '4px'}"
-             class="el-icon-loading"></i>保存</div>
+             class="el-icon-loading"></i>保存
+        </div>
         <div class="check-btn header-btn"
              @click="handleSubmitCheck">提交审核</div>
       </div>
@@ -745,7 +747,7 @@ export default {
         );
       }
     },
-    // base64编码的内容变成二进制，同时unit8编码
+    // base64编码的内容变成二进制，格式为unit8编码
     dataURLtoBlob(dataurl) {
       var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -757,8 +759,10 @@ export default {
       }
       return new Blob([u8arr], { type: mime });
     },
-    /* 保存 */
-    handleSave() {
+    /* 保存
+     judge 1表示保存 2表示审核
+    */
+    handleSave(judge = 1, message = '保存成功') {
       const _vm = this;
       if (this.saveLoading) return;
       if (this.boardConfig.boardCode && this.boardConfig.boardTitle) {
@@ -791,54 +795,29 @@ export default {
                   if (res && res.code === 0 && res.data) {
                     // 图片的缩略图
                     const scrThum = process.env.VUE_APP_IMG_HOST + res.data;
-                    /* 判断是不是编辑, 存在scrId即认为是编辑 */
-                    if (this.editForm.rid || this.editForm.scrId) {
-                      const postData = {};
-                      for (let key in this.editForm) {
-                        postData[key] = this.editForm[key];
-                      }
-                      // judge 1表示保存 2表示审核
-                      postData.judge = 1;
-                      postData.cfg = JSON.stringify(this.boardConfig);
-                      postData.scrName = this.boardConfig.boardTitle;
-                      postData.scrCodg = this.boardConfig.boardCode;
-                      postData.scrThum = scrThum;
-                      updateBoard(postData)
-                        .then((boardRes) => {
-                          if (
-                            boardRes.code === 0 &&
-                            boardRes.type === 'success'
-                          ) {
-                            this.$message.success('保存成功');
-                          }
-                        })
-                        .finally(() => {
-                          this.saveLoading = false;
-                        });
-                    } else {
-                      // 保存
-                      const postData = {
-                        cfg: JSON.stringify(this.boardConfig),
-                        scrName: this.boardConfig.boardTitle,
-                        scrCodg: this.boardConfig.boardCode,
-                        scrThum
-                      };
-                      // judge 1表示保存 2表示审核
-                      postData.judge = 1;
-                      saveBoard(postData)
-                        .then((boardRes) => {
-                          if (
-                            boardRes.code === 0 &&
-                            boardRes.type === 'success'
-                          ) {
-                            this.editForm.scrId = boardRes.data;
-                            this.$message.success('保存成功');
-                          }
-                        })
-                        .finally(() => {
-                          this.saveLoading = false;
-                        });
+                    const postData = {};
+                    for (let key in this.editForm) {
+                      postData[key] = this.editForm[key];
                     }
+                    // judge 1表示保存 2表示审核
+                    postData.judge = judge;
+                    postData.cfg = JSON.stringify(this.boardConfig);
+                    postData.scrName = this.boardConfig.boardTitle;
+                    postData.scrCodg = this.boardConfig.boardCode;
+                    postData.scrThum = scrThum;
+                    saveBoard(postData)
+                      .then((boardRes) => {
+                        if (
+                          boardRes.code === 0 &&
+                          boardRes.type === 'success'
+                        ) {
+                          this.editForm.scrId = boardRes.data;
+                          this.$message.success(message);
+                        }
+                      })
+                      .finally(() => {
+                        this.saveLoading = false;
+                      });
                   } else {
                     this.saveLoading = false;
                   }
@@ -856,10 +835,6 @@ export default {
           this.$message.warning('缩略图生成失败');
         } finally {
         }
-        /* localStorage.setItem(
-          this.boardConfig.boardCode,
-          JSON.stringify(this.boardConfig)
-        ); */
       } else {
         this.$message.warning('请填写大屏名称和Code标识');
       }
@@ -867,10 +842,9 @@ export default {
     /* 提交审核 */
     handleSubmitCheck() {
       if (this.boardConfig.boardCode && this.boardConfig.boardTitle) {
-        //  ...
-        this.$message.success('提交审核成功');
+        this.handleSave(2, '提交审核成功');
       } else {
-        this.$message.warning('请先填写Code标识');
+        this.$message.warning('请填写大屏名称和Code标识');
       }
     },
     handleBack() {
