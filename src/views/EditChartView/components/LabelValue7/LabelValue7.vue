@@ -1,22 +1,10 @@
 <template>
   <div class="head-title1__wrapper"
-       ref="LabelValue1WrapperRef">
-    <!-- <div class="title1__container"
-         :style="{
-          transform: 'scale('+scale+')'
-        }">
-    </div> -->
+       ref="LabelValue7WrapperRef">
     <div class="label-value__container"
          :style="{ transform: 'scale('+scale+')'}">
-      <div class="label-value--wrapper">
-        <span class="label"
-              v-if="componentConfig.titleShowStatus"
-              :style="{
-          color: componentConfig.titleColor,
-          fontSize: componentConfig.titleFontSize  + 'px',
-          fontFamily: componentConfig.titleFamily,
-          fontWeight: componentConfig.titleFontWeight,
-      }">{{componentConfig.titleLabel}}</span>
+
+      <div class="value-unit">
         <span class="value"
               v-if="componentConfig.valueShowStatus"
               :style="{ 
@@ -34,16 +22,24 @@
           fontWeight: componentConfig.unitFontWeight,
       }">{{componentConfig.unitName}}</span>
       </div>
+      <span class="label"
+            v-if="componentConfig.titleShowStatus"
+            :style="{
+          color: componentConfig.titleColor,
+          fontSize: componentConfig.titleFontSize  + 'px',
+          fontFamily: componentConfig.titleFamily,
+          fontWeight: componentConfig.titleFontWeight,
+      }">{{componentConfig.titleLabel}}</span>
+
     </div>
   </div>
-
 </template>
 
 <script>
 import throttle from 'lodash/throttle';
 import { getKpiData } from '../../api';
 export default {
-  name: 'LabelValue4',
+  name: 'LabelValue7',
   props: {
     i: {
       type: String | Number,
@@ -58,26 +54,25 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '评价数',
-        titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 14,
+        titleLabel: '结算金额',
+        titleColor: '#ffffff',
+        titleFontSize: 16,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
         titleShowStatus: true,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 20,
+        valueColor: '#99E1FF',
+        valueFontSize: 26,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
+        unitName: '万元',
         unitShowStatus: true,
-        unitName: '亿元',
-        unitColor: '#53E2FF',
-        unitFontSize: 12,
+        unitColor: '#99E1FF',
+        unitFontSize: 16,
         unitFamily: 'sans-serif,Microsoft YaHei',
-        unitFontWeight: 'bold',
+        unitFontWeight: 'normal',
         data: {}
       })
     }
@@ -118,7 +113,7 @@ export default {
   mounted() {
     this._resizeObserver = new ResizeObserver(this._resizehandlerThrottle);
     this.$nextTick(() => {
-      this._resizeObserver.observe(this.$refs['LabelValue1WrapperRef']);
+      this._resizeObserver.observe(this.$refs['LabelValue7WrapperRef']);
     });
   },
   beforeDestroy() {
@@ -169,13 +164,13 @@ export default {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
-      const scale = width / 160;
+      const scale = width / 205;
       this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
-        initialW: 160,
-        initialH: 40,
+        initialW: 205,
+        initialH: 155,
         scaleNew: scale,
         componentName: 'LabelValue4'
       });
@@ -193,57 +188,40 @@ export default {
 .label-value__container {
   // background-color: #ccc;
   transform-origin: left top;
-  width: 160px;
-  height: 40px;
+  width: 205px;
+  height: 155px;
   position: relative;
-}
+  background-image: url('./imgs/bg.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 
-.label-value--wrapper {
-  min-width: 160px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  white-space: nowrap;
-  padding-left: 12px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, rgba(83, 226, 255, 0.1) 1%, rgba(83, 226, 255, 0.01) 100%);
-
-  &:before {
-    content: ' ';
-    position: absolute;
-    width: 2px;
-    background-color: #53E2FF;
-    top: 0;
-    left: 0;
-    bottom: 0;
-  }
-
-  > span {
-    display: block;
+  .value-unit {
+    padding-top: 42px;
+    text-align: center;
+    font-size: 26px;
     line-height: 1;
+
+    .value {
+      font-size: 26px;
+      font-weight: bold;
+      color: #99E1FF;
+    }
+
+    .unit {
+      color: #99E1FF;
+      font-size: 16px;
+    }
   }
 
   .label {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: normal;
     color: #FFFFFF;
-    margin-right: 5px;
-  }
-
-  .value {
-    font-size: 20px;
-    font-weight: bold;
-    color: #53E2FF;
-  }
-
-  .unit {
-    color: #53E2FF;
-    font-size: 12px;
-    margin-left: 2px;
+    display: block;
+    text-align: center;
+    line-height: 1;
+    margin-top: 44px;
   }
 }
 </style>

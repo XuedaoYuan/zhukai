@@ -82,10 +82,10 @@
         <el-checkbox v-model="config.unitShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
-      <div>
-         <el-input v-model="config.unitName"
+      <el-row>
+        <el-input v-model="config.unitName"
                   @change="handleChange"></el-input>
-      </div>
+      </el-row>
       <el-row type="flex"
               align="middle">
         <el-color-picker show-alpha

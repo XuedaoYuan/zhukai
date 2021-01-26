@@ -1,8 +1,8 @@
-const labelValue4DefaultConfig = {
-  x: 220,
+const labelValue7DefaultConfig = {
+  x: 214,
   y: 0,
-  w: 20,
-  h: 4,
+  w: 26,
+  h: 15,
   i: 0,
   static: true,
   lock: false,
@@ -15,30 +15,30 @@ const labelValue4DefaultConfig = {
   /* 业务主题， 同上 */
   businessTheme: '',
   // 栅格对应的组件名字，必须是已经注册的组件，而且必须唯一
-  componentName: 'LabelValue4',
-  componentAliasName: '标题与值4',
+  componentName: 'LabelValue7',
+  componentAliasName: '标题与值7',
   componentConfig: {
     // 标题的配置
-    titleLabel: '应征缴金额',
-    titleColor: 'rgb(255, 255, 255)',
-    titleFontSize: 12,
+    titleLabel: '结算金额',
+    titleColor: '#ffffff',
+    titleFontSize: 16,
     titleFamily: 'sans-serif,Microsoft YaHei',
     titleFontWeight: 'normal',
     titleShowStatus: true,
     // 值的配置
-    valueColor: '#53E2FF',
-    valueFontSize: 20,
+    valueColor: '#99E1FF',
+    valueFontSize: 26,
     valueFamily: 'sans-serif,Microsoft YaHei',
     valueFontWeight: 'bold',
     valueShowStatus: true,
     // 单位的配置
+    unitName: '万元',
     unitShowStatus: true,
-    unitName: '亿元',
-    unitColor: '#53E2FF',
-    unitFontSize: 12,
+    unitColor: '#99E1FF',
+    unitFontSize: 16,
     unitFamily: 'sans-serif,Microsoft YaHei',
-    unitFontWeight: 'bold',
-
+    unitFontWeight: 'normal',
+    
     data: {
       businessType: '静态数据', // 指标库导入、静态数据、自定义API
       /* 指标库导入 */
@@ -50,7 +50,7 @@ const labelValue4DefaultConfig = {
       fieldList: [],
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: JSON.stringify({ value: 1.2 }, null, 2), //  Array or Map 序列化的字符串
+      staticData: JSON.stringify({ value: 12 }, null, 2), //  Array or Map 序列化的字符串
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]
@@ -58,4 +58,4 @@ const labelValue4DefaultConfig = {
   }
 };
 
-export default labelValue4DefaultConfig;
+export default labelValue7DefaultConfig;

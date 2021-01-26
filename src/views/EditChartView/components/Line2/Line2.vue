@@ -399,7 +399,7 @@ export default {
         yAxis: {
           type: 'value',
           // name: 'y轴1',
-          min: 0,
+          min: 'dataMin',
           // max: 250,
           // interval: 50,
           axisLine: {

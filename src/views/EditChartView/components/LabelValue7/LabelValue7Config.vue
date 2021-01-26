@@ -8,10 +8,10 @@
         <el-checkbox v-model="config.titleShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
-      <div>
+      <el-row>
         <el-input v-model="config.titleLabel"
                   @change="handleChange"></el-input>
-      </div>
+      </el-row>
       <el-row type="flex"
               align="middle">
         <el-color-picker show-alpha
@@ -128,7 +128,7 @@ import {
 } from 'element-ui';
 import { fontFamilyOptions } from '@/views/EditChartView/constant.js';
 export default {
-  name: 'LabelValue4Config',
+  name: 'LabelValue7Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,
@@ -144,26 +144,25 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '评价数',
-        titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 14,
+        titleLabel: '结算金额',
+        titleColor: '#ffffff',
+        titleFontSize: 16,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
         titleShowStatus: true,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 20,
+        valueColor: '#99E1FF',
+        valueFontSize: 26,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
+        unitName: '万元',
         unitShowStatus: true,
-        unitName: '亿元',
-        unitColor: '#53E2FF',
-        unitFontSize: 12,
+        unitColor: '#99E1FF',
+        unitFontSize: 16,
         unitFamily: 'sans-serif,Microsoft YaHei',
-        unitFontWeight: 'bold'
+        unitFontWeight: 'normal'
       })
     }
   },
@@ -180,26 +179,25 @@ export default {
       fontFamilyOptions: fontFamilyOptions,
       config: {
         // 标题的配置
-        titleLabel: '评价数',
-        titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 14,
+        titleLabel: '结算金额',
+        titleColor: '#ffffff',
+        titleFontSize: 16,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
         titleShowStatus: true,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 20,
+        valueColor: '#99E1FF',
+        valueFontSize: 26,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
+        unitName: '万元',
         unitShowStatus: true,
-        unitName: '亿元',
-        unitColor: '#53E2FF',
-        unitFontSize: 12,
+        unitColor: '#99E1FF',
+        unitFontSize: 16,
         unitFamily: 'sans-serif,Microsoft YaHei',
-        unitFontWeight: 'bold'
+        unitFontWeight: 'normal'
       }
     };
   },

@@ -8,10 +8,10 @@
         <el-checkbox v-model="config.titleShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
-      <div>
+      <el-row>
         <el-input v-model="config.titleLabel"
                   @change="handleChange"></el-input>
-      </div>
+      </el-row>
       <el-row type="flex"
               align="middle">
         <el-color-picker show-alpha
@@ -128,7 +128,7 @@ import {
 } from 'element-ui';
 import { fontFamilyOptions } from '@/views/EditChartView/constant.js';
 export default {
-  name: 'LabelValue4Config',
+  name: 'LabelValue6Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,
@@ -158,8 +158,8 @@ export default {
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
+        unitName: '次',
         unitShowStatus: true,
-        unitName: '亿元',
         unitColor: '#53E2FF',
         unitFontSize: 12,
         unitFamily: 'sans-serif,Microsoft YaHei',
@@ -194,8 +194,8 @@ export default {
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
+        unitName: '次',
         unitShowStatus: true,
-        unitName: '亿元',
         unitColor: '#53E2FF',
         unitFontSize: 12,
         unitFamily: 'sans-serif,Microsoft YaHei',

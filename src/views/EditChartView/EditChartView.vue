@@ -287,7 +287,13 @@ export default {
       import('./components/LabelValue4/LabelValue4Config'),
     LabelValue5: () => import('./components/LabelValue5/LabelValue5'),
     LabelValue5Config: () =>
-      import('./components/LabelValue5/LabelValue5Config')
+      import('./components/LabelValue5/LabelValue5Config'),
+    LabelValue6: () => import('./components/LabelValue6/LabelValue6'),
+    LabelValue6Config: () =>
+      import('./components/LabelValue6/LabelValue6Config'),
+    LabelValue7: () => import('./components/LabelValue7/LabelValue7'),
+    LabelValue7Config: () =>
+      import('./components/LabelValue7/LabelValue7Config')
   },
   mixins: [mixin],
   data() {
@@ -386,7 +392,9 @@ export default {
         'LabelValue2Config',
         'LabelValue3Config',
         'LabelValue4Config',
-        'LabelValue5Config'
+        'LabelValue5Config',
+        'LabelValue6Config',
+        'LabelValue7Config'
       ]
     };
   },
@@ -507,7 +515,7 @@ export default {
     },
     /* 新增组件 */
     handleComponentInsert(componentName) {
-      console.log(`%c>>>>>   ${componentName}   <<<<<`, 'color: red;');
+      console.log(`%c>>>>>   ${componentName}   <<<<<`, 'color: #ee8273;');
       /* 获取配置好的默认配置 */
       const componentDefaultConfig = COMPONENT_CONFIG[componentName];
       if (componentDefaultConfig) {
@@ -581,10 +589,10 @@ export default {
       });
     },
     handleMoveEvent(i, newX, newY) {
-      console.log(
+      /* console.log(
         `%c moved, i=${i}, newX=${newX}, newY=${newY}`,
         'color: green;'
-      );
+      ); */
       if (this.isMoved) return;
       this.isMoved = true;
     },
