@@ -1,5 +1,6 @@
 const pie1DefaultConfig = {
   x: 180,
+  y: 0,
   w: 60,
   h: 36,
   i: 0,

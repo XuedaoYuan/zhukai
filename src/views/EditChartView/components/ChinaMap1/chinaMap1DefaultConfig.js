@@ -1,5 +1,6 @@
 const chinaMap1DefaultConfig = {
   x: 120,
+  y: 0,
   w: 120,
   h: 72,
   i: 0,
