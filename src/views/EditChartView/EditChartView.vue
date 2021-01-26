@@ -102,13 +102,13 @@
                 <div class="delete-icon">
                   <img src="./assets/lock.png"
                        class="lock-img"
-                       @click="handleLock(index)"
-                       v-show="!item.lock"
+                       @click="handleUnlock(index)"
+                       v-show="item.lock"
                        alt="">
                   <img src="./assets/unlock.png"
                        class="lock-img"
-                       @click="handleUnlock(index)"
-                       v-show="item.lock === true"
+                       @click="handleLock(index)"
+                       v-show="item.lock === false"
                        alt="">
                   <img @click.stop="handleDelete(index)"
                        class="delete-img"
@@ -293,10 +293,46 @@ export default {
       import('./components/LabelValue6/LabelValue6Config'),
     LabelValue7: () => import('./components/LabelValue7/LabelValue7'),
     LabelValue7Config: () =>
-      import('./components/LabelValue7/LabelValue7Config')
+      import('./components/LabelValue7/LabelValue7Config'),
+    LabelValue8: () => import('./components/LabelValue8/LabelValue8'),
+    LabelValue8Config: () =>
+      import('./components/LabelValue8/LabelValue8Config'),
+    LabelValue9: () => import('./components/LabelValue9/LabelValue9'),
+    LabelValue9Config: () =>
+      import('./components/LabelValue9/LabelValue9Config'),
+    LabelValue10: () => import('./components/LabelValue10/LabelValue10'),
+    LabelValue10Config: () =>
+      import('./components/LabelValue10/LabelValue10Config')
   },
   mixins: [mixin],
   data() {
+    // 提取到这里挨的近 比较容易维护
+    const componentConfigs = [
+      'Pie1Config',
+      'Title1Config',
+      'ChinaMap1Config',
+      'Map1Config',
+      'Select1Config',
+      'DatePicker1Config',
+      'Bar1Config',
+      'Bar2Config',
+      'Line1Config',
+      'Pie2Config',
+      'Line2Config',
+      'HeadTitle1Config',
+      'HeadTitle2Config',
+      'Pie3Config',
+      'LabelValue1Config',
+      'LabelValue2Config',
+      'LabelValue3Config',
+      'LabelValue4Config',
+      'LabelValue5Config',
+      'LabelValue6Config',
+      'LabelValue7Config',
+      'LabelValue8Config',
+      'LabelValue9Config',
+      'LabelValue10Config'
+    ];
     return {
       // 保存的loading
       saveLoading: false,
@@ -373,29 +409,7 @@ export default {
         ]
       },
       // 组件配置，在这里注册后，会动态渲染
-      componentConfigs: [
-        'Pie1Config',
-        'Title1Config',
-        'ChinaMap1Config',
-        'Map1Config',
-        'Select1Config',
-        'DatePicker1Config',
-        'Bar1Config',
-        'Bar2Config',
-        'Line1Config',
-        'Pie2Config',
-        'Line2Config',
-        'HeadTitle1Config',
-        'HeadTitle2Config',
-        'Pie3Config',
-        'LabelValue1Config',
-        'LabelValue2Config',
-        'LabelValue3Config',
-        'LabelValue4Config',
-        'LabelValue5Config',
-        'LabelValue6Config',
-        'LabelValue7Config'
-      ]
+      componentConfigs: componentConfigs
     };
   },
   computed: {
@@ -518,6 +532,7 @@ export default {
       console.log(`%c>>>>>   ${componentName}   <<<<<`, 'color: #ee8273;');
       /* 获取配置好的默认配置 */
       const componentDefaultConfig = COMPONENT_CONFIG[componentName];
+      // componentDefaultConfig.lock = false
       if (componentDefaultConfig) {
         const component = cloneDeep(componentDefaultConfig);
         component.i = ++this.boardConfig.componentIdIndex;
@@ -710,7 +725,7 @@ export default {
       this.boardConfig.components[this.handlingIndex].componentConfig = {
         ...component.componentConfig,
         ...config,
-        scale: component.scale
+        data: component.componentConfig.data
       };
     },
     /* 预览 */

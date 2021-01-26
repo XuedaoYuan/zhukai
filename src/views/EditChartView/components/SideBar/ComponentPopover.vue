@@ -71,10 +71,6 @@
              @click="handleComponentClick('labelValue6')"
              width="182"
              alt="labelValue6" />
-        <img src="./imgs/labelValue7.png"
-             @click="handleComponentClick('labelValue7')"
-             width="182"
-             alt="labelValue7" />
 
       </div>
       <div class="right-container">
@@ -114,6 +110,22 @@
              @click="handleComponentClick('pie3')"
              width="182"
              alt="pie3" />
+        <img src="./imgs/labelValue7.png"
+             @click="handleComponentClick('labelValue7')"
+             width="182"
+             alt="labelValue7" />
+        <img src="./imgs/labelValue8.png"
+             @click="handleComponentClick('labelValue8')"
+             width="182"
+             alt="labelValue8" />
+        <img src="./imgs/labelValue9.png"
+             @click="handleComponentClick('labelValue9')"
+             width="182"
+             alt="labelValue9" />
+        <img src="./imgs/labelValue10.png"
+             @click="handleComponentClick('labelValue10')"
+             width="182"
+             alt="labelValue10" />
 
       </div>
     </div>

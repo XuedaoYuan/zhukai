@@ -29,12 +29,13 @@
                       v-model="form.screenName"></el-input>
           </el-form-item>
           <el-form-item label="创建日期：">
+            <!-- default-time="00:00:00"  HH:mm:ss-->
             <el-date-picker :style="{width: '200px'}"
                             @change="handleGetDataList"
-                            value-format="yyyy-MM-dd HH:mm:ss"
-                            default-time="00:00:00"
+                            value-format="yyyy-MM-dd"
+                            
                             placeholder="请选择日期"
-                            type="datetime"
+                            type="date"
                             v-model="form.crteTime"></el-date-picker>
           </el-form-item>
         </el-form>

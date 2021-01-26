@@ -1,11 +1,49 @@
 <template>
   <div>
-
     <el-collapse-item class="title1-config"
-                      title="值1">
+                      title="标题">
       <el-row type="flex"
               justify="space-between">
-        值1
+        标题
+        <el-checkbox v-model="config.titleShowStatus"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row>
+        <el-input v-model="config.titleLabel"
+                  @change="handleChange"></el-input>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.titleColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.titleFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.titleFamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
+        </el-select>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-checkbox-button v-model="config.titleFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
+      </el-row>
+    </el-collapse-item>
+    <el-collapse-item class="title1-config"
+                      title="值">
+      <el-row type="flex"
+              justify="space-between">
+        值
         <el-checkbox v-model="config.valueShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
@@ -75,50 +113,6 @@
                             false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
-    <el-collapse-item class="title1-config"
-                      title="值2">
-      <el-row type="flex"
-              justify="space-between">
-        值2
-        <el-checkbox v-model="config.titleShowStatus"
-                     @change="handleChange">显示</el-checkbox>
-      </el-row>
-      <el-row>
-        <el-input v-model="config.titleLabel"
-                  @change="handleChange"></el-input>
-      </el-row>
-      <el-row>
-        <el-input v-model="config.titleLabelUnit"
-                  @change="handleChange"></el-input>
-      </el-row>
-
-      <el-row type="flex"
-              align="middle">
-        <el-color-picker show-alpha
-                         v-model="config.titleColor"
-                         @change="handleChange"></el-color-picker>
-        <el-input-number :min="10"
-                         :max="30"
-                         :precision="0"
-                         controls-position="right"
-                         v-model="config.titleFontSize"
-                         @change="handleChange"></el-input-number>
-        <el-select v-model="config.titleFamily"
-                   @change="handleChange">
-          <el-option v-for="item in fontFamilyOptions"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value"></el-option>
-        </el-select>
-      </el-row>
-      <el-row type="flex"
-              align="middle">
-        <el-checkbox-button v-model="config.titleFontWeight"
-                            @change="handleChange"
-                            true-label="bold"
-                            false-label="normal">B</el-checkbox-button>
-      </el-row>
-    </el-collapse-item>
   </div>
 </template>
 
@@ -134,7 +128,7 @@ import {
 } from 'element-ui';
 import { fontFamilyOptions } from '@/views/EditChartView/constant.js';
 export default {
-  name: 'LabelValue6Config',
+  name: 'LabelValue8Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,
@@ -150,8 +144,7 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '征缴率:',
-        titleLabelUnit: '%',
+        titleLabel: '结算金额',
         titleColor: '#ffffff',
         titleFontSize: 16,
         titleFamily: 'sans-serif,Microsoft YaHei',
@@ -164,7 +157,7 @@ export default {
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
+        unitName: '万元',
         unitShowStatus: true,
         unitColor: '#99E1FF',
         unitFontSize: 16,
@@ -186,8 +179,7 @@ export default {
       fontFamilyOptions: fontFamilyOptions,
       config: {
         // 标题的配置
-        titleLabel: '征缴率:',
-        titleLabelUnit: '%',
+        titleLabel: '结算金额',
         titleColor: '#ffffff',
         titleFontSize: 16,
         titleFamily: 'sans-serif,Microsoft YaHei',
@@ -200,7 +192,7 @@ export default {
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
+        unitName: '万元',
         unitShowStatus: true,
         unitColor: '#99E1FF',
         unitFontSize: 16,

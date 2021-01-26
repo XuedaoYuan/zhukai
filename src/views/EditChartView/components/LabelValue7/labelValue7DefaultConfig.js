@@ -2,14 +2,14 @@ const labelValue7DefaultConfig = {
   x: 214,
   y: 0,
   w: 26,
-  h: 15,
+  h: 15.7,
   i: 0,
   static: true,
   lock: false,
   /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
               根据不同的类型还要存储不同结构的数据 */
   type: 'common',
-  moduleId: 'ac64cff8682349218e0fdf78fbe9647f',
+  moduleId: 'fc00cff8682349218e0fdf78fbe9647f',
   /* 业务类型，可用于筛选，不一定要 */
   businessType: '',
   /* 业务主题， 同上 */

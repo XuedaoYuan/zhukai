@@ -1,11 +1,49 @@
 <template>
   <div>
-
     <el-collapse-item class="title1-config"
-                      title="值1">
+                      title="标题">
       <el-row type="flex"
               justify="space-between">
-        值1
+        标题
+        <el-checkbox v-model="config.titleShowStatus"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <div>
+        <el-input v-model="config.titleLabel"
+                  @change="handleChange"></el-input>
+      </div>
+      <el-row type="flex"
+              align="middle">
+        <el-color-picker show-alpha
+                         v-model="config.titleColor"
+                         @change="handleChange"></el-color-picker>
+        <el-input-number :min="10"
+                         :max="30"
+                         :precision="0"
+                         controls-position="right"
+                         v-model="config.titleFontSize"
+                         @change="handleChange"></el-input-number>
+        <el-select v-model="config.titleFamily"
+                   @change="handleChange">
+          <el-option v-for="item in fontFamilyOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"></el-option>
+        </el-select>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <el-checkbox-button v-model="config.titleFontWeight"
+                            @change="handleChange"
+                            true-label="bold"
+                            false-label="normal">B</el-checkbox-button>
+      </el-row>
+    </el-collapse-item>
+    <el-collapse-item class="title1-config"
+                      title="值">
+      <el-row type="flex"
+              justify="space-between">
+        值
         <el-checkbox v-model="config.valueShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
@@ -75,50 +113,6 @@
                             false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
-    <el-collapse-item class="title1-config"
-                      title="值2">
-      <el-row type="flex"
-              justify="space-between">
-        值2
-        <el-checkbox v-model="config.titleShowStatus"
-                     @change="handleChange">显示</el-checkbox>
-      </el-row>
-      <el-row>
-        <el-input v-model="config.titleLabel"
-                  @change="handleChange"></el-input>
-      </el-row>
-      <el-row>
-        <el-input v-model="config.titleLabelUnit"
-                  @change="handleChange"></el-input>
-      </el-row>
-
-      <el-row type="flex"
-              align="middle">
-        <el-color-picker show-alpha
-                         v-model="config.titleColor"
-                         @change="handleChange"></el-color-picker>
-        <el-input-number :min="10"
-                         :max="30"
-                         :precision="0"
-                         controls-position="right"
-                         v-model="config.titleFontSize"
-                         @change="handleChange"></el-input-number>
-        <el-select v-model="config.titleFamily"
-                   @change="handleChange">
-          <el-option v-for="item in fontFamilyOptions"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value"></el-option>
-        </el-select>
-      </el-row>
-      <el-row type="flex"
-              align="middle">
-        <el-checkbox-button v-model="config.titleFontWeight"
-                            @change="handleChange"
-                            true-label="bold"
-                            false-label="normal">B</el-checkbox-button>
-      </el-row>
-    </el-collapse-item>
   </div>
 </template>
 
@@ -134,7 +128,7 @@ import {
 } from 'element-ui';
 import { fontFamilyOptions } from '@/views/EditChartView/constant.js';
 export default {
-  name: 'LabelValue6Config',
+  name: 'LabelValue10Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,
@@ -150,26 +144,26 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '征缴率:',
-        titleLabelUnit: '%',
-        titleColor: '#ffffff',
-        titleFontSize: 16,
+        titleLabel: '评价数',
+        titleColor: 'rgb(255, 255, 255)',
+        titleFontSize: 14,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
         titleShowStatus: true,
         // 值的配置
-        valueColor: '#99E1FF',
-        valueFontSize: 26,
+        value: '23456',
+        valueColor: '#87E7FF',
+        valueFontSize: 20,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
         unitShowStatus: true,
-        unitColor: '#99E1FF',
-        unitFontSize: 16,
+        unitName: '亿元',
+        unitColor: '#53E2FF',
+        unitFontSize: 12,
         unitFamily: 'sans-serif,Microsoft YaHei',
-        unitFontWeight: 'normal'
+        unitFontWeight: 'bold'
       })
     }
   },
@@ -186,26 +180,26 @@ export default {
       fontFamilyOptions: fontFamilyOptions,
       config: {
         // 标题的配置
-        titleLabel: '征缴率:',
-        titleLabelUnit: '%',
-        titleColor: '#ffffff',
-        titleFontSize: 16,
+        titleLabel: '评价数',
+        titleColor: 'rgb(255, 255, 255)',
+        titleFontSize: 14,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
         titleShowStatus: true,
         // 值的配置
-        valueColor: '#99E1FF',
-        valueFontSize: 26,
+        value: '23456',
+        valueColor: '#87E7FF',
+        valueFontSize: 20,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
         unitShowStatus: true,
-        unitColor: '#99E1FF',
-        unitFontSize: 16,
+        unitName: '亿元',
+        unitColor: '#53E2FF',
+        unitFontSize: 12,
         unitFamily: 'sans-serif,Microsoft YaHei',
-        unitFontWeight: 'normal'
+        unitFontWeight: 'bold'
       }
     };
   },

@@ -12,7 +12,7 @@
           fontSize: componentConfig.valueFontSize  + 'px',
           fontFamily: componentConfig.valueFamily,
           fontWeight: componentConfig.valueFontWeight,
-      }">{{value}}</span>
+      }">{{value | separateWithComma}}</span>
         <span class="unit"
               v-if="componentConfig.unitShowStatus"
               :style="{ 
@@ -29,7 +29,7 @@
           fontSize: componentConfig.titleFontSize  + 'px',
           fontFamily: componentConfig.titleFamily,
           fontWeight: componentConfig.titleFontWeight,
-      }">{{componentConfig.titleLabel}}</span>
+      }">{{componentConfig.titleLabel}}{{89}}{{componentConfig.titleLabelUnit}}</span>
 
     </div>
   </div>
@@ -54,26 +54,26 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '评价数',
-        titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 14,
+        titleLabel: '征缴率:',
+        titleLabelUnit: '%',
+        titleColor: '#ffffff',
+        titleFontSize: 16,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
         titleShowStatus: true,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 20,
+        valueColor: '#99E1FF',
+        valueFontSize: 26,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '次',
+        unitName: '万人',
         unitShowStatus: true,
-        unitColor: '#53E2FF',
-        unitFontSize: 12,
+        unitColor: '#99E1FF',
+        unitFontSize: 16,
         unitFamily: 'sans-serif,Microsoft YaHei',
-        unitFontWeight: 'bold',
+        unitFontWeight: 'normal',
         data: {}
       })
     }
@@ -93,28 +93,7 @@ export default {
     }
   },
   computed: {},
-  filters: {
-    seperator: function (str) {
-      str = str.toString();
-      const IntWithFloat = str.split('.');
-      const intValue = IntWithFloat[0];
-      const floatValue = IntWithFloat[1];
-      if (intValue) {
-        const result = intValue
-          .toString()
-          .split('')
-          .reverse()
-          .reduce((prev, next, index) => {
-            return (index % 3 ? next : next + ',') + prev;
-          });
-        if (floatValue) {
-          return result + '.' + floatValue;
-        }
-        return result;
-      }
-      return '0';
-    }
-  },
+  filters: {},
   created() {
     this.initValue();
     this._resizehandlerThrottle = throttle(this.resizehandler, 100);

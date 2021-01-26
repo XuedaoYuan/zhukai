@@ -33,7 +33,7 @@
           fontSize: componentConfig.valueFontSize  + 'px',
           fontFamily: componentConfig.valueFamily,
           fontWeight: componentConfig.valueFontWeight,
-        }">{{value | seperator}}</span>
+        }">{{value | separateWithComma}}</span>
           <span class="unit-name"
                 :style="{
           fontSize: parseInt(componentConfig.valueFontSize / 1.7)  + 'px',
@@ -136,20 +136,7 @@ export default {
       return style;
     }
   },
-  filters: {
-    seperator: function (str) {
-      if (str) {
-        return str
-          .toString()
-          .split('')
-          .reverse()
-          .reduce((prev, next, index) => {
-            return (index % 3 ? next : next + ',') + prev;
-          });
-      }
-      return '0';
-    }
-  },
+ 
   created() {
     this.initValue();
     this._resizehandlerThrottle = throttle(this.resizehandler, 100);

@@ -39,18 +39,14 @@ import VueGridLayout from 'vue-grid-layout';
 import throttle from 'lodash/throttle';
 
 /* 展示组件 */
-import Title1 from './components/Title1/Title1';
-import DatePicker from './components/DatePicker';
-import ChartBar1 from './components/ChartBar1';
 import mixin from './EditChartViewMixin';
 export default {
   name: 'BoardPreview',
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    Title1,
-    DatePicker,
-    ChartBar1,
+    Title1: () => import('./components/Title1/Title1'),
+    ChartBar1: () => import('./components/ChartBar1'),
     Pie1: () => import('./components/Pie1/Pie1'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
     Select1: () => import('./components/Select1/Select1.vue'),
@@ -70,7 +66,10 @@ export default {
     LabelValue4: () => import('./components/LabelValue4/LabelValue4'),
     LabelValue5: () => import('./components/LabelValue5/LabelValue5'),
     LabelValue6: () => import('./components/LabelValue6/LabelValue6'),
-    LabelValue7: () => import('./components/LabelValue7/LabelValue7')
+    LabelValue7: () => import('./components/LabelValue7/LabelValue7'),
+    LabelValue8: () => import('./components/LabelValue8/LabelValue8'),
+    LabelValue9: () => import('./components/LabelValue9/LabelValue9'),
+    LabelValue10: () => import('./components/LabelValue10/LabelValue10'),
   },
   mixins: [mixin],
   data() {

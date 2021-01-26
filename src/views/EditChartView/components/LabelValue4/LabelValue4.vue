@@ -24,7 +24,7 @@
           fontSize: componentConfig.valueFontSize  + 'px',
           fontFamily: componentConfig.valueFamily,
           fontWeight: componentConfig.valueFontWeight,
-      }">{{value}}</span>
+      }">{{value | separateWithComma}}</span>
         <span class="unit"
               v-if="componentConfig.unitShowStatus"
               :style="{ 
@@ -98,18 +98,7 @@ export default {
   },
   computed: {},
   filters: {
-    seperator: function (str) {
-      if (str) {
-        return str
-          .toString()
-          .split('')
-          .reverse()
-          .reduce((prev, next, index) => {
-            return (index % 3 ? next : next + ',') + prev;
-          });
-      }
-      return '0';
-    }
+    
   },
   created() {
     this.initValue();
