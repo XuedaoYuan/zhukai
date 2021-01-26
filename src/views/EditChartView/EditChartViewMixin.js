@@ -37,6 +37,12 @@ export default {
           this.$nextTick(() => {
             this.boardConfig.components[index].h = h;
             this.h = h;
+            if(!this.boardConfig.components[index].initialized) {
+              console.log("----------------------");
+              this.setInitialYVal(this.boardConfig.components[index])
+              this.boardConfig.components[index].initialized = true
+            }
+            
           });
           break;
         }

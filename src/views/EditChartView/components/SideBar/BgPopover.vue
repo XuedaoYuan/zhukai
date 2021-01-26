@@ -24,7 +24,7 @@
     <div class="img_container">
       <img :src="darkDemo"
            alt=""
-           :class="{mr10: true, active: backgroundType==='dark'}"
+           :class="{active: backgroundType==='dark'}"
            @click="handleSetBgImage('dark')">
       <img :src="lightDemo"
            alt=""
@@ -41,6 +41,7 @@
     <div>
       <el-button type="primary"
                  size="small"
+                 :loading="uploading"
                  @click="handleUploadImg">上传图片</el-button>
     </div>
 
@@ -70,6 +71,7 @@ export default {
   },
   data() {
     return {
+      uploading: false,
       singleColorList: [
         '#C3D7E2',
         '#8DBFE6',
@@ -102,7 +104,7 @@ export default {
     },
     handleSetBgImage(type) {
       this.backgroundType = type;
-      this.$emit('setBgImage', type);
+      this.$emit('setBgImage', { type });
     },
     async handleFileChange(event) {
       if (!this.FileRef) {
@@ -115,14 +117,19 @@ export default {
         const fileName = file.name;
         console.log(fileName);
         formData.append('file', file, fileName);
+        this.uploading = true;
         const res = await uploadFile(formData);
         if (res && res.code === 0 && res.data) {
           const imgUrl = process.env.VUE_APP_IMG_HOST + res.data;
+          this.$emit('setBgImage', { type: 'upload', imgUrl });
+          this.uploading = false;
         } else {
           this.FileRef.value = '';
+          this.uploading = false;
         }
       } catch (error) {
         this.FileRef.value = '';
+        this.uploading = false;
       }
     },
     handleUploadImg() {
@@ -154,9 +161,13 @@ export default {
 
   .img_container {
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     img {
       width: 90px;
+      display: block;
 
       &.active {
         border: 1px solid #1c76d6;

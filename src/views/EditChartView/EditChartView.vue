@@ -212,11 +212,7 @@ import findIndex from 'lodash/findIndex';
 import COMPONENT_CONFIG from './component_config';
 /* 侧边栏 */
 import SideBar from './components/SideBar';
-import {
-  saveBoard,
-  uploadFile,
-  getBoardConfigDetail
-} from './api';
+import { saveBoard, uploadFile, getBoardConfigDetail } from './api';
 import html2canvas from 'html2canvas';
 import mixin from './EditChartViewMixin';
 /* 背景图片 */
@@ -524,9 +520,21 @@ export default {
     },
     /* 计算组件的初始 top(y) 值 */
     getInitialYVal(component) {
-      return (
-        (layoutContainerHeight - this.rowHeight * component.h) / this.rowHeight
-      );
+      // console.log("layoutContainerHeight", layoutContainerHeight);
+      const y =
+        (layoutContainerHeight - this.rowHeight * component.h) / this.rowHeight;
+      return y;
+    },
+    setInitialYVal(component) {
+      // console.log("layoutContainerHeight", layoutContainerHeight);
+      if (component.componentName === 'title1') {
+        component.y = 0;
+        return;
+      }
+
+      const y =
+        (layoutContainerHeight - this.rowHeight * component.h) / this.rowHeight;
+      component.y = y;
     },
     /* 新增组件 */
     handleComponentInsert(componentName) {
@@ -538,7 +546,7 @@ export default {
         const component = cloneDeep(componentDefaultConfig);
         component.i = ++this.boardConfig.componentIdIndex;
 
-        switch (componentName) {
+        /*  switch (componentName) {
           // 可以针对不同的组件设定不同的位置
           case 'title1': {
             component.y = 0;
@@ -546,10 +554,10 @@ export default {
           }
 
           default: {
-            component.y = this.getInitialYVal(component);
+            // component.y = this.getInitialYVal(component);
             break;
           }
-        }
+        } */
         this.boardConfig.components.push(component);
         // 拷贝一份配置
       }
@@ -561,7 +569,7 @@ export default {
       this.boardConfig.background.backgroundColor = color;
       this.boardConfig.background.backgroundImage = null;
     },
-    handleSetBgImage(type) {
+    handleSetBgImage({ type, imgUrl }) {
       if (type === 'dark') {
         this.$set(
           this.boardConfig.background,
@@ -578,6 +586,9 @@ export default {
         // this.boardConfig.background.backgroundImage = lightBackground;
       } else if (type === 'background1') {
         this.$set(this.boardConfig.background, 'backgroundImage', background1);
+      } else if (type === 'upload') {
+        //来自于用户自己上传的
+        this.$set(this.boardConfig.background, 'backgroundImage', imgUrl);
       }
       this.boardConfig.background.backgroundColor = '';
     },
