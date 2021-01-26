@@ -19,7 +19,7 @@ const labelValue6DefaultConfig = {
   componentAliasName: '标题与值6',
   componentConfig: {
     // 标题的配置
-    titleLabel: '信访登记次数',
+    titleLabel: '征缴率:',
     titleColor: '#ffffff',
     titleFontSize: 16,
     titleFamily: 'sans-serif,Microsoft YaHei',

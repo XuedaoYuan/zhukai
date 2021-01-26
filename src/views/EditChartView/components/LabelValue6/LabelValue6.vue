@@ -95,14 +95,22 @@ export default {
   computed: {},
   filters: {
     seperator: function (str) {
-      if (str) {
-        return str
+      str = str.toString();
+      const IntWithFloat = str.split('.');
+      const intValue = IntWithFloat[0];
+      const floatValue = IntWithFloat[1];
+      if (intValue) {
+        const result = intValue
           .toString()
           .split('')
           .reverse()
           .reduce((prev, next, index) => {
             return (index % 3 ? next : next + ',') + prev;
           });
+        if (floatValue) {
+          return result + '.' + floatValue;
+        }
+        return result;
       }
       return '0';
     }

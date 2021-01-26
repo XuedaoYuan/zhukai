@@ -9,6 +9,14 @@ import './styles/custom-chart.styl';
 /* 全局自定义指令 */
 import '@/directives/index.js';
 
+/* 全局过滤器 */
+import * as filters from '@/filters';
+for (let filter in filters) {
+  if (Object.hasOwnProperty.call(filters, filter)) {
+    Vue.filter(filter, filters[filter]);
+  }
+}
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$eventBus = new Vue();
@@ -67,7 +75,7 @@ Vue.config.errorHandler = function(err, vm, info) {
   console.log('%c ==================>>>>>>error start<<<<<<=====================', 'color: red');
   console.error(err);
   console.log(vm);
-  console.warn(info)
+  console.warn(info);
   console.log('%c ==================>>>>>>error start<<<<<<=====================', 'color: red');
 };
 
