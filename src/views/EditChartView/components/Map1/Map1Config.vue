@@ -130,6 +130,14 @@
         </el-checkbox-button>
       </el-row>
     </el-collapse-item>
+    <el-collapse-item title="背景色">
+      <el-row type="flex" align="middle">
+        <el-color-picker
+          show-alpha
+          v-model="config.chartOption.seriesItemStyleNormalAreaColor"
+        ></el-color-picker>
+      </el-row>
+    </el-collapse-item>
   </div>
 </template>
 <script>
@@ -186,16 +194,7 @@ export default {
         scale: 1,
         data: {},
         chartOption: {
-          lineSmooth: true, // 曲线 折线
-          lineStyleType: 'solid', // 实线solid、虚线dashed
-          // 折线的颜色
-          lineStyleColorType: 'single', // 单色single、渐变 gradient
-          lineStyleColor: '#F0AB4C',
-          lineWidth: 2, // 线粗细
-          barNum: 12, //  显示柱状的个数
-          barStyleColorType: 'single',
-          bar1StyleColor: 'rgb(239, 187, 76)',
-          bar2StyleColor: 'rgb(121, 212, 255)',
+          seriesItemStyleNormalAreaColor: '#12235c', //地图背景色
         },
       }),
     },
@@ -226,10 +225,10 @@ export default {
     },
   },
   watch: {
-    // handlingIndex: function (val, oldVal) {
-    //   // 监听被选中组件，刷新 config
-    //   this.config = { ...this.componentConfig };
-    // },
+    handlingIndex: function (val, oldVal) {
+      // 监听被选中组件，刷新 config
+      this.config = { ...this.componentConfig };
+    },
     config: {
       deep: true,
       handler: function (val, oldVal) {

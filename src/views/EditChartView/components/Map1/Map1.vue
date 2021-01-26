@@ -107,9 +107,17 @@ export default {
     // "componentConfig.fontSize": function (val, oldVal) {
     //   this.resize();
     // },
-    // "componentConfig.data": function(val, oldVal){
-    //   this.chartInstance.setOption(this.componentConfig.data);
-    // },
+    "componentConfig.chartOption": function(val, oldVal){
+      this.chartIns.setOption({
+        series: [{
+          itemStyle: {
+            normal: {
+              areaColor: val.seriesItemStyleNormalAreaColor
+            }
+          }
+        }]
+      })
+    },
   },
   computed: {
     // titleStyle: function () {

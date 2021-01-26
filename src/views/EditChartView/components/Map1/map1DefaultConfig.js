@@ -43,6 +43,7 @@ const map1DefaultConfig = {
       apiUrlParamList: [{ key: '', value: '' }]
     },
     chartOption: {
+      seriesItemStyleNormalAreaColor: '#12235c'
     }
   }
 };
