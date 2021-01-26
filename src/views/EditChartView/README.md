@@ -3,7 +3,7 @@
 1. `component_config.js` 每个组件的默认配置项
 2. `BoardPreview.vue` 预览页面
 3. `constant.js` 一些常量可以保存在这里
-4. 图片的前缀可以使用`process.env.VUE_APP_IMG_HOST`获取。因为这个后续会变，**发正式的时候需要改成正式**的地址
+4. 图片的前缀可以使用`process.env.VUE_APP_IMG_HOST`获取。后续再`.env.prod`再维护正式的版本即可
 5. `src/views/BoardConfigManage`是大屏配置管理的几个页面
 6. `EditChartView.vue` 大屏编辑的主控件
 
@@ -20,7 +20,7 @@
 
 ##### 3、待办
 
-1. ~~保存的时候可能需要用htmltocanvas生成一个图片传上去，这部分已实现。优化的点在于截的图如何变得小一点~~。
+1. ~~保存的时候可能需要用htmltocanvas生成一个图片传上去，这部分已实现。优化的点在于截的图如何变得小一点~~。（已实现）
 
 
 ##### 4、如何新建一个新的组件，举例新建一个Title2组件

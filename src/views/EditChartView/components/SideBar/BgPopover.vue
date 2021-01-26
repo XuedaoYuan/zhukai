@@ -40,12 +40,19 @@
 
     <div>
       <el-button type="primary"
-                 size="small">上传图片</el-button>
+                 size="small"
+                 @click="handleUploadImg">上传图片</el-button>
     </div>
+
+    <input type="file"
+           ref="InputRef"
+           @change="handleFileChange($event)"
+           style="display: none;">
   </div>
 </template>
 
 <script>
+import { uploadFile } from '@/views/EditChartView/api/index.js';
 const darkDemo = require('../../assets/darkDemo.png');
 const lightDemo = require('../../assets/lightBackground.png');
 const background1 = require('../../assets/background1.png');
@@ -96,6 +103,34 @@ export default {
     handleSetBgImage(type) {
       this.backgroundType = type;
       this.$emit('setBgImage', type);
+    },
+    async handleFileChange(event) {
+      if (!this.FileRef) {
+        const FileRef = this.$refs['InputRef'];
+        this.FileRef = FileRef;
+      }
+      const file = this.FileRef.files[0];
+      try {
+        let formData = new FormData();
+        const fileName = file.name;
+        console.log(fileName);
+        formData.append('file', file, fileName);
+        const res = await uploadFile(formData);
+        if (res && res.code === 0 && res.data) {
+          const imgUrl = process.env.VUE_APP_IMG_HOST + res.data;
+        } else {
+          this.FileRef.value = '';
+        }
+      } catch (error) {
+        this.FileRef.value = '';
+      }
+    },
+    handleUploadImg() {
+      //  formData.append('file', blob, fileName);
+      //
+      const InputRef = this.$refs['InputRef'];
+      InputRef.value = '';
+      InputRef.click();
     }
   }
 };

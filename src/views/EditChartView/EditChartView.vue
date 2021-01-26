@@ -214,7 +214,6 @@ import COMPONENT_CONFIG from './component_config';
 import SideBar from './components/SideBar';
 import {
   saveBoard,
-  updateBoard,
   uploadFile,
   getBoardConfigDetail
 } from './api';
