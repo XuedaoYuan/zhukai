@@ -1,7 +1,7 @@
 <template>
   <div class="fundamental-demo">
     <div>
-      <div style="height:50px">
+      <div style="height:30px">
       <el-breadcrumb separator="/" class="breadcrumbder">
         <el-breadcrumb-item><b>指标管理</b></el-breadcrumb-item>
         <el-breadcrumb-item :to="{path: '/screeningOfMonitoringIndicators'}">监测指标筛选</el-breadcrumb-item>

@@ -9,7 +9,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="起始时间">
+            <el-form-item label="访问时间">
               <el-date-picker
                 v-model="dataForm.acssTime"
                 type="date"
@@ -116,6 +116,7 @@
     <form :action="exportUrl" method="post" target="_self" style="display:none;">
       <input name="modu" v-model="dataForm.modu" />
       <input name="acssTime" v-model="dataForm.acssTime" />
+      <input name="logId" id="logId"/>
       <input name="token" v-model="token" />
       <button type="submit" id="export">立即创建</button>
     </form>
@@ -143,6 +144,7 @@ export default {
       dataForm: {
         modu: "",
         acssTime: "",
+        logId: "",
       },
       dataListLoading: false,
       totalPage:0,
@@ -205,6 +207,18 @@ export default {
       }
     },
     exportXlsxFn() {
+      // console.log(1)
+      // console.log(this.$refs.multipleTable.selection,"this.$refs.multipleTable.selection")
+      const num = this.$refs.multipleTable.selection
+      let numid = [];
+      var newNum = num.map((ele, index) => {
+        // console.log(ele,index,"llll")
+        numid.push(ele.logId);
+      })
+      // console.log(numid,"numid")
+      this.dataForm.logId = numid.join();
+      document.getElementById('logId').value = this.dataForm.logId
+      // console.log(this.dataForm,"logId")
         let dom = document.getElementById("export");
         dom.click();
     },

@@ -18,12 +18,20 @@
         </el-col>
       </el-row>
       <el-row :gutter="20" style="font-weight: bold">
-        <el-col :span="8" :offset="2">
-          服务接入数<span style="color: #2fd4cd">&nbsp;{{this.datas.servCountCnt}}</span>
+        <el-col :span="6" :offset="2">
+          <span class="fuwuicon"><img src="./img/f1.png" alt=""></span>
+          <span class="fuwuName">服务接入数</span>
+          <span class="fuwuNum" style="color:#333333">&nbsp;{{this.datas.servCountCnt}}</span>
         </el-col>
-        <el-col :span="8" :offset="4">
-          服务正常数<span style="color: #27bc20">&nbsp;{{this.datas.servNormalCnt}}</span>
-          服务异常数<span style="color: #cd250e">&nbsp;{{this.datas.servAbnormalCnt}}</span>
+        <el-col :span="6" :offset="2">
+          <span class="fuwuicon"><img src="./img/f2.png" alt=""></span>
+          <span class="fuwuName">服务正常数</span>
+          <span class="fuwuNum" style="color:#49C16D">&nbsp;{{this.datas.servNormalCnt}}</span>
+        </el-col>
+        <el-col :span="6" :offset="2">
+          <span class="fuwuicon"><img src="./img/f3.png" alt=""></span>
+          <span class="fuwuName">服务异常数</span>
+          <span class="fuwuNum" style="color:#F56D6C">&nbsp;{{this.datas.servAbnormalCnt}}</span>
         </el-col>
       </el-row>
     </el-form>
@@ -176,5 +184,19 @@ export default {
 <style scoped>
 .el-pagination {
     text-align: right; 
+}
+.fuwuicon {
+  width:70px;
+  height:70px;
+  margin-right:10px;
+}
+.fuwuName {
+  position: absolute;
+  top: 5px;
+}
+.fuwuNum {
+  bottom:5px;
+  position: absolute;
+  font-size:24px;
 }
 </style>
