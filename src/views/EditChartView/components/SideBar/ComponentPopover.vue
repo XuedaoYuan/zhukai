@@ -114,6 +114,10 @@
              @click="handleComponentClick('bar2')"
              width="182"
              alt="bar2" />
+        <img src="./imgs/bar2.png"
+             @click="handleComponentClick('bar3')"
+             width="182"
+             alt="bar2" />
         <img src="./imgs/pie3.png"
              @click="handleComponentClick('pie3')"
              width="182"

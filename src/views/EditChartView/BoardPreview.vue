@@ -53,6 +53,7 @@ export default {
     Select1: () => import('./components/Select1/Select1.vue'),
     Bar1: () => import('./components/Bar1/Bar1.vue'),
     Bar2: () => import('./components/Bar2/Bar2.vue'),
+    Bar3: () => import('./components/Bar3/Bar3'),
     Line1: () => import('./components/Line1/Line1.vue'),
     Map1: () => import('./components/Map1/Map1.vue'),
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
