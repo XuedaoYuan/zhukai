@@ -97,3 +97,12 @@ export function loginfo(params) {
         data: params
     })
 }
+//主题名称
+export function bizsbjinfoAll(params) {
+    console.log(params)
+    return fetch({
+        url: '/oms/web/manage/bizsbjinfo/selectAll',
+        method: "POST",
+        data: params
+    })
+}

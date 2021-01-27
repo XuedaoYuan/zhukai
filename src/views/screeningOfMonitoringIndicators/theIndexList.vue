@@ -25,10 +25,10 @@
             <el-form-item label="相关主题">
               <el-select size="mini" v-model="dataForm.bizSbjName">
                 <el-option
-                  v-for="option in bizSbjNameList"
-                  :key="option.value"
-                  :label="option.label"
-                  :value="option.value"
+                  v-for="option in this.datanew"
+                  :key="option.bizSbjId"
+                  :label="option.bizSbjName"
+                  :value="option.bizSbjId"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import { bizkpiinfo } from "@/api/oms/new";
+import { bizkpiinfo, bizsbjinfoAll } from "@/api/oms/new";
 import { Breadcrumb, BreadcrumbItem, Divider } from 'element-ui'
 
 export default {
@@ -177,6 +177,7 @@ export default {
   data() {
     return {
       dataList: [],
+      datanew: [],
       arr: {},
       arr1: {},
       dataForm: {
@@ -254,6 +255,11 @@ export default {
         pageSize: this.pageSize,
         currentPage: this.pageIndex,
       };
+      bizsbjinfoAll({}).then(({data}) => {
+        if (data && data.dataList != "") {
+          this.datanew = data;
+        }
+      })
       bizkpiinfo(params)
         .then(({ data }) => {
           if (data && data.dataList != "") {
