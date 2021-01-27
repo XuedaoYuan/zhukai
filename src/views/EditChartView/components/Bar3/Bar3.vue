@@ -92,34 +92,17 @@
 <script>
 import throttle from 'lodash/throttle';
 import * as echarts from 'echarts';
-/* const colors = [
-  new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-    {
-      offset: 0,
-      color: 'rgb(81, 179, 254)'
-    },
-    {
-      offset: 1,
-      color: 'rgb(63, 95, 242)'
-    }
-  ]),
-  new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-    {
-      offset: 0,
-      color: 'rgb(70, 162, 212)'
-    },
-    {
-      offset: 1,
-      color: 'rgb(91, 211, 254)'
-    }
-  ])
-]; */
-const colors = ['#53E2FF', '#53E2FF'];
+import { getKpiData } from '../../api';
+
 export default {
   name: 'Bar3',
   props: {
     i: {
       type: String | Number,
+      required: true
+    },
+    moduleId: {
+      type: String,
       required: true
     },
     componentConfig: {
@@ -169,7 +152,11 @@ export default {
           yAxisLineColor: '#5B5D66',
           yAxisLineWidth: 1,
           // 浮框
-          tooltipShow: true
+          tooltipShow: true,
+          // 柱状图的一些配置
+          barItemColor: '#53E2FF',
+          barBackgroundColor: '#2C547C',
+          barWidth: 10
         }
       })
     }
@@ -240,6 +227,24 @@ export default {
       this.titleList = [...titleList];
       switch (data.businessType) {
         case '指标库导入': {
+          const extraParams = {};
+          try {
+            const businessParamList = this.componentConfig.data
+              .businessParamList;
+            if (businessParamList && businessParamList.length > 0) {
+              businessParamList.forEach((param) => {
+                if (param.key && param.value) {
+                  extraParams[param.key] = param.value;
+                }
+              });
+            }
+            const res = await getKpiData({
+              moduId: this.moduleId,
+              kpiId: this.componentConfig.data.businessIndexSet,
+              ...extraParams
+            });
+          } catch (error) {}
+
           break;
         }
         case '静态数据': {
@@ -332,16 +337,14 @@ export default {
           {
             type: 'bar',
             itemStyle: {
-              color: function (params) {
-                return colors[params.dataIndex % 2];
-              },
-              barBorderRadius: 5
+              color: _vm.componentConfig.chartOption.barItemColor,
+              barBorderRadius: _vm.componentConfig.chartOption.barWidth / 2
             },
-            barWidth: 10,
+            barWidth: _vm.componentConfig.chartOption.barWidth,
             showBackground: true,
             backgroundStyle: {
-              barBorderRadius: 5,
-              color: '#2C547C'
+              barBorderRadius: _vm.componentConfig.chartOption.barWidth / 2,
+              color: _vm.componentConfig.chartOption.barBackgroundColor
             },
             data: seriesData
           }

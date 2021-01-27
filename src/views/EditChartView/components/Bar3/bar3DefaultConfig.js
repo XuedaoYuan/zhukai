@@ -2,21 +2,22 @@ const chartData = [];
 for (let i = 1, len = 21; i < len; i++) {
   chartData.push({
     value: i * 10,
-    name: '材料费'
+    name: i + '.' + '材料费'
   });
 }
 
 const bar3DefaultConfig = {
-  x: 188,
+  x: 210,
   y: 0,
-  w: 52,
-  h: 87,
+  w: 30,
+  h: 50,
   i: 0,
   static: true,
   lock: false,
   /* 组件的类型，主要标明组件的用途，比如说是标题、导航、按钮、日期、图表、地图等。需要一个枚举类。
         根据不同的类型还要存储不同结构的数据 */
   type: 'bar',
+  moduleId: 'fc99cff8682349218e0fdf78fbe9647d',
   /* 业务类型，可用于筛选，不一定要 */
   businessType: '',
   /* 业务主题， 同上 */
@@ -82,7 +83,11 @@ const bar3DefaultConfig = {
       yAxisLineColor: '#5B5D66',
       yAxisLineWidth: 1,
       // 浮框
-      tooltipShow: true
+      tooltipShow: true,
+      // 柱状图的一些配置
+      barItemColor: '#53E2FF',
+      barBackgroundColor: '#2C547C',
+      barWidth: 10
     }
   }
 };

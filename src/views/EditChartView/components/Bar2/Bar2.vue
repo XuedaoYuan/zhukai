@@ -120,6 +120,10 @@ export default {
       type: String | Number,
       required: true
     },
+    moduleId: {
+      type: String,
+      required: true
+    },
     componentConfig: {
       type: Object,
       default: () => ({
@@ -416,7 +420,7 @@ export default {
 .chart-canvas-dom {
   flex: 1;
   height: 100%;
-  overflow hidden
+  overflow: hidden;
 }
 
 @keyframes swiper-animation {

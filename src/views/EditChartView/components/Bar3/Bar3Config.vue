@@ -238,6 +238,30 @@
                      @change="handleChange">显示</el-checkbox>
       </el-row>
     </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="柱状图">
+      <el-row type="flex"
+              align="middle">
+        <span>柱状颜色：</span>
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.barItemColor"
+                         @change="handleChange"></el-color-picker>
+        <span>柱状背景色：</span>
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.barBackgroundColor"
+                         @change="handleChange"></el-color-picker>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <span>宽度：</span>
+        <el-input-number :min="1"
+                         :precision="0"
+                         controls-position="right"
+                         :style="{width: '80px'}"
+                         v-model="config.chartOption.barWidth"
+                         @change="handleChange"></el-input-number>
+      </el-row>
+    </el-collapse-item>
   </div>
 </template>
 
@@ -313,7 +337,11 @@ export default {
           yAxisLineColor: '#5B5D66',
           yAxisLineWidth: 1,
           // 浮框
-          tooltipShow: true
+          tooltipShow: true,
+          // 柱状图的一些配置
+          barItemColor: '#53E2FF',
+          barBackgroundColor: '#2C547C',
+          barWidth: 10
         }
       })
     }
@@ -396,7 +424,11 @@ export default {
           yAxisLineColor: '#5B5D66',
           yAxisLineWidth: 1,
           // 浮框
-          tooltipShow: true
+          tooltipShow: true,
+          // 柱状图的一些配置
+          barItemColor: '#53E2FF',
+          barBackgroundColor: '#2C547C',
+          barWidth: 10
         }
       }
     };
