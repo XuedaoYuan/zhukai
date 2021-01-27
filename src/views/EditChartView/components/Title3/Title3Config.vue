@@ -76,20 +76,13 @@ export default {
       type: Object,
       required: true,
       default: () => ({
-        title: '看板标题',
+        title: '待遇政策基金支出',
         color: '#fff',
         textAlign: 'center',
         fontSize: 16,
         fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
-        showStatus: true,
-        // 时间的一些设定
-        timeShowStatus: true,
-        timeFontFamily: 'sans-serif,Microsoft YaHei',
-        timeColor: '#62D2FF',
-        timefontSize: 14,
-        timeTextAlign: 'right',
-        timeFontWeight: 'normal'
+        showStatus: true
       })
     }
   },
@@ -105,19 +98,13 @@ export default {
     return {
       fontFamilyOptions: fontFamilyOptions,
       config: {
-        title: '看板标题',
+        title: '待遇政策基金支出',
         color: '#fff',
         textAlign: 'center',
         fontSize: 16,
         fontFamily: 'sans-serif,Microsoft YaHei',
-        showStatus: true,
-        // 时间的一些设定
-        timeShowStatus: true,
-        timeFontFamily: 'sans-serif,Microsoft YaHei',
-        timeColor: '#62D2FF',
-        timefontSize: 14,
-        timeTextAlign: 'right',
-        timeFontWeight: 'normal'
+        fontWeight: 'normal',
+        showStatus: true
       }
     };
   },

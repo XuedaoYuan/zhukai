@@ -50,7 +50,7 @@ const labelValue4DefaultConfig = {
       fieldList: [],
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: JSON.stringify({ value: 1.2 }, null, 2), //  Array or Map 序列化的字符串
+      staticData: JSON.stringify({ value: 1.2, unitName: '万元' }, null, 2), //  Array or Map 序列化的字符串
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]

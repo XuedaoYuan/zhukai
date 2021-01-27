@@ -58,6 +58,7 @@ export default {
     ChinaMap1: () => import('./components/ChinaMap1/ChinaMap1.vue'),
     Pie2: () => import('./components/Pie2/Pie2'),
     Pie3: () => import('./components/Pie3/Pie3'),
+    Pie4: () => import('./components/Pie4/Pie4'),
     Line2: () => import('./components/Line2/Line2'),
     HeadTitle1: () => import('./components/HeadTitle1/HeadTitle1'),
     HeadTitle2: () => import('./components/HeadTitle2/HeadTitle2'),
@@ -70,7 +71,7 @@ export default {
     LabelValue7: () => import('./components/LabelValue7/LabelValue7'),
     LabelValue8: () => import('./components/LabelValue8/LabelValue8'),
     LabelValue9: () => import('./components/LabelValue9/LabelValue9'),
-    LabelValue10: () => import('./components/LabelValue10/LabelValue10'),
+    LabelValue10: () => import('./components/LabelValue10/LabelValue10')
   },
   mixins: [mixin],
   data() {

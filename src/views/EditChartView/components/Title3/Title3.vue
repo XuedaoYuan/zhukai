@@ -35,12 +35,12 @@ export default {
       type: Object,
       required: true,
       default: () => ({
-        title: '看板标题',
+        title: '待遇政策基金支出',
         color: '#fff',
         textAlign: 'center',
         fontSize: 16,
+        fontFamily: 'sans-serif,Microsoft YaHei',
         fontWeight: 'normal',
-        fontFamily: 'sans-serif,Microsoft YaHei, sans-serif',
         showStatus: true
       })
     }

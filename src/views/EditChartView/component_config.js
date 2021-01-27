@@ -13,6 +13,7 @@ import headTitle1DefaultConfig from '@/views/EditChartView/components/HeadTitle1
 import headTitle2DefaultConfig from '@/views/EditChartView/components/HeadTitle2/headTitle2DefaultConfig.js';
 import bar2DefaultConfig from '@/views/EditChartView/components/Bar2/bar2DefaultConfig.js';
 import pie3DefaultConfig from '@/views/EditChartView/components/Pie3/pie3DefaultConfig.js';
+import pie4DefaultConfig from '@/views/EditChartView/components/Pie4/pie4DefaultConfig.js';
 import labelValue1DefaultConfig from '@/views/EditChartView/components/LabelValue1/labelValue1DefaultConfig.js';
 import labelValue2DefaultConfig from '@/views/EditChartView/components/LabelValue2/labelValue2DefaultConfig.js';
 import labelValue3DefaultConfig from '@/views/EditChartView/components/LabelValue3/labelValue3DefaultConfig.js';
@@ -130,6 +131,7 @@ const COMPONENT_CONFIG = {
   headTitle1: headTitle1DefaultConfig,
   headTitle2: headTitle2DefaultConfig,
   pie3: pie3DefaultConfig,
+  pie4: pie4DefaultConfig,
   labelValue1: labelValue1DefaultConfig,
   labelValue2: labelValue2DefaultConfig,
   labelValue3: labelValue3DefaultConfig,

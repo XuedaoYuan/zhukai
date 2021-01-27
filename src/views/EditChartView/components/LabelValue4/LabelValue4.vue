@@ -32,7 +32,7 @@
           fontSize: componentConfig.unitFontSize  + 'px',
           fontFamily: componentConfig.unitFamily,
           fontWeight: componentConfig.unitFontWeight,
-      }">{{componentConfig.unitName}}</span>
+      }">{{unitName}}</span>
       </div>
     </div>
   </div>
@@ -85,7 +85,8 @@ export default {
   data() {
     return {
       scale: 1,
-      value: 23456
+      value: 23456,
+      unitName: '万元'
     };
   },
   watch: {
@@ -97,9 +98,7 @@ export default {
     }
   },
   computed: {},
-  filters: {
-    
-  },
+  filters: {},
   created() {
     this.initValue();
     this._resizehandlerThrottle = throttle(this.resizehandler, 100);
@@ -131,6 +130,7 @@ export default {
                 if (res.code == 0 && res.data) {
                   const key = data.fieldList[0];
                   this.value = res.data.data.map((_) => _[key])[0];
+                  this.unitName = res.data.propUnits[key];
                 }
               } catch (error) {}
             });
@@ -140,6 +140,7 @@ export default {
             try {
               const staticData = JSON.parse(data.staticData);
               this.value = staticData.value;
+              this.unitName = staticData.unitName;
             } catch (error) {
               this.$message.error('静态数据解析失败');
             }

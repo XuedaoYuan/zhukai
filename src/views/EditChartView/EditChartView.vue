@@ -272,6 +272,8 @@ export default {
     HeadTitle2Config: () => import('./components/HeadTitle2/HeadTitle2Config'),
     Pie3: () => import('./components/Pie3/Pie3'),
     Pie3Config: () => import('./components/Pie3/Pie3Config'),
+    Pie4: () => import('./components/Pie4/Pie4'),
+    Pie4Config: () => import('./components/Pie4/Pie4Config'),
     LabelValue1: () => import('./components/LabelValue1/LabelValue1'),
     LabelValue1Config: () =>
       import('./components/LabelValue1/LabelValue1Config'),
@@ -307,7 +309,6 @@ export default {
   data() {
     // 提取到这里挨的近 比较容易维护
     const componentConfigs = [
-      'Pie1Config',
       'Title1Config',
       'Title3Config',
       'ChinaMap1Config',
@@ -317,11 +318,13 @@ export default {
       'Bar1Config',
       'Bar2Config',
       'Line1Config',
-      'Pie2Config',
       'Line2Config',
       'HeadTitle1Config',
       'HeadTitle2Config',
+      'Pie1Config',
+      'Pie2Config',
       'Pie3Config',
+      'Pie4Config',
       'LabelValue1Config',
       'LabelValue2Config',
       'LabelValue3Config',
@@ -729,6 +732,7 @@ export default {
         ...config,
         data: component.componentConfig.data
       };
+      localStorage.setItem('preview', JSON.stringify(this.boardConfig));
     },
     /* 预览 */
     handlePreview() {

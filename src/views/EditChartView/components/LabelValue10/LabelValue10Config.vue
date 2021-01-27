@@ -8,10 +8,10 @@
         <el-checkbox v-model="config.titleShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
-      <div>
+      <el-row>
         <el-input v-model="config.titleLabel"
                   @change="handleChange"></el-input>
-      </div>
+      </el-row>
       <el-row type="flex"
               align="middle">
         <el-color-picker show-alpha

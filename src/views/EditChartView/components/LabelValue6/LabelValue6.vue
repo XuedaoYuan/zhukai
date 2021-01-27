@@ -69,7 +69,7 @@ export default {
         valueFontWeight: 'bold',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
+        unitName: '万元',
         unitShowStatus: true,
         unitColor: '#99E1FF',
         unitFontSize: 16,
@@ -82,7 +82,8 @@ export default {
   data() {
     return {
       scale: 1,
-      value: 78
+      value: 78,
+      unitName: '万元'
     };
   },
   watch: {
@@ -125,7 +126,8 @@ export default {
               try {
                 if (res.code == 0 && res.data) {
                   const key = data.fieldList[0];
-                  this.value = res.data.data.map((_) => _[key])[0];
+                  this.value = res.data.data.map((_) => _[key])[0] * 100;
+                  this.unitName = res.data.propUnits[key];
                 }
               } catch (error) {}
             });
@@ -135,6 +137,7 @@ export default {
             try {
               const staticData = JSON.parse(data.staticData);
               this.value = staticData.value;
+              this.unitName = staticData.unitName;
             } catch (error) {
               this.$message.error('静态数据解析失败');
             }
