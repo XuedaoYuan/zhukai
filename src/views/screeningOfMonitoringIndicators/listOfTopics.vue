@@ -1,6 +1,6 @@
 <template>
   <div class="fundamental-demo">
-    <div style="height:50px">
+    <div style="height:30px">
       <el-breadcrumb separator="/" class="breadcrumbder">
         <el-breadcrumb-item><b>指标管理</b></el-breadcrumb-item>
         <el-breadcrumb-item :to="{path: '/screeningOfMonitoringIndicators'}">监测指标筛选</el-breadcrumb-item>
@@ -39,6 +39,7 @@
             label="相关指标数"
           ></el-table-column>
           <el-table-column
+            show-overflow-tooltip
             prop="bizSbjDscr"
             header-align="center"
             align="center"
@@ -112,11 +113,14 @@ created() {
     indexMethod(index) {
       return index + 1 + (this.pageIndex - 1) * this.pageSize;
     },
-    handleCurrentChange() {
-
+    handleCurrentChange(val) {
+      this.pageIndex = val;
+      this.getDataList();
     },
-    handleSizeChange() {
-
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.pageIndex = 1;
+      this.getDataList();
     },
     selectionChangeHandle() {
 
