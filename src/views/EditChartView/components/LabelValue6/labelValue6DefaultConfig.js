@@ -19,7 +19,7 @@ const labelValue6DefaultConfig = {
   componentAliasName: '标题与值6',
   componentConfig: {
     // 标题的配置
-    titleLabel: '征缴率:',
+    titleLabel: '征缴率',
     titleLabelUnit: '%',
     titleColor: '#ffffff',
     titleFontSize: 16,
@@ -33,7 +33,7 @@ const labelValue6DefaultConfig = {
     valueFontWeight: 'bold',
     valueShowStatus: true,
     // 单位的配置
-    unitName: '万人',
+    unitName: '%',
     unitShowStatus: true,
     unitColor: '#99E1FF',
     unitFontSize: 16,
@@ -51,7 +51,7 @@ const labelValue6DefaultConfig = {
       fieldList: [],
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: JSON.stringify({ value: 1321 }, null, 2), //  Array or Map 序列化的字符串
+      staticData: JSON.stringify({ value: 76 }, null, 2), //  Array or Map 序列化的字符串
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]

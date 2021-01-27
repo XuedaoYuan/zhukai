@@ -29,7 +29,8 @@
           fontSize: componentConfig.titleFontSize  + 'px',
           fontFamily: componentConfig.titleFamily,
           fontWeight: componentConfig.titleFontWeight,
-      }">{{componentConfig.titleLabel}}{{89}}{{componentConfig.titleLabelUnit}}</span>
+      }">{{componentConfig.titleLabel}}</span>
+      <!-- {{89}}{{componentConfig.titleLabelUnit}} -->
 
     </div>
   </div>
@@ -81,7 +82,7 @@ export default {
   data() {
     return {
       scale: 1,
-      value: 23456
+      value: 78
     };
   },
   watch: {

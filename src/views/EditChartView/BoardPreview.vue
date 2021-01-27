@@ -46,6 +46,7 @@ export default {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
     Title1: () => import('./components/Title1/Title1'),
+    Title3: () => import('./components/Title3/Title3'),
     ChartBar1: () => import('./components/ChartBar1'),
     Pie1: () => import('./components/Pie1/Pie1'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),

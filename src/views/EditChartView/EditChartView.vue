@@ -242,6 +242,8 @@ export default {
     ChartBar1: () => import('./components/ChartBar1'),
     Title1: () => import('./components/Title1/Title1'),
     Title1Config: () => import('./components/Title1/Title1Config'),
+    Title3: () => import('./components/Title3/Title3'),
+    Title3Config: () => import('./components/Title3/Title3Config'),
     Pie1: () => import('./components/Pie1/Pie1'),
     Pie1Config: () => import('./components/Pie1/Pie1Config'),
     DatePicker1: () => import('./components/DatePicker1/DatePicker1.vue'),
@@ -307,6 +309,7 @@ export default {
     const componentConfigs = [
       'Pie1Config',
       'Title1Config',
+      'Title3Config',
       'ChinaMap1Config',
       'Map1Config',
       'Select1Config',
@@ -527,7 +530,7 @@ export default {
     },
     setInitialYVal(component) {
       // console.log("layoutContainerHeight", layoutContainerHeight);
-      if (component.componentName === 'title1') {
+      if (component.componentName === 'Title1') {
         component.y = 0;
         return;
       }

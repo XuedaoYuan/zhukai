@@ -1,6 +1,7 @@
 /* =======注意： 是 >>>初始<<< 配置项 */
 /* 对于所有组件的初始配置项, 也就是默认值 */
 import title1DefaultConfig from '@/views/EditChartView/components/Title1/title1DefaultConfig.js';
+import title3DefaultConfig from '@/views/EditChartView/components/Title3/title3DefaultConfig.js'
 import bar1DefaultConfig from '@/views/EditChartView/components/Bar1/bar1DefaultConfig.js';
 import line1DefaultConfig from '@/views/EditChartView/components/Line1/line1DefaultConfig.js';
 import pie1DefaultConfig from '@/views/EditChartView/components/Pie1/pie1DefaultConfig.js';
@@ -25,6 +26,7 @@ import labelValue10DefaultConfig from '@/views/EditChartView/components/LabelVal
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: title1DefaultConfig,
+  title3: title3DefaultConfig,
   testLink: {
     x: 180,
     y: 2,

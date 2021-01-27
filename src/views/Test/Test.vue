@@ -2,6 +2,7 @@
   <div ref="TestRef"
        class="test_container">
     <h1 class="h1_title">test</h1>
+    <img  width="200" crossorigin="anonymous" src="http://39.98.35.128:8888/group1/M00/00/02/rBr2j2AP9heAP3CnAACVBIDwf3w03.jpeg" alt="">
     <div>
       <el-divider content-position="left">测试全局el注册组件</el-divider>
       <el-button>button</el-button>
@@ -92,6 +93,7 @@ export default {
       const vm = this;
       html2canvas(this.$refs['TestRef'], {
         scale: 1,
+        allowTaint: false,
         useCORS: true
       }).then((canvas) => {
         this.canvasShow = true;

@@ -78,6 +78,10 @@
              @click="handleComponentClick('title1')"
              width="100%"
              alt="title1" />
+        <img src="./imgs/title3.png"
+             @click="handleComponentClick('title3')"
+             width="100%"
+             alt="title3" />
         <img src="./imgs/select1.png"
              @click="handleComponentClick('select1')"
              width="182"

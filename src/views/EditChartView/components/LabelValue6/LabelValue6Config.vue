@@ -2,10 +2,10 @@
   <div>
 
     <el-collapse-item class="title1-config"
-                      title="值1">
+                      title="值">
       <el-row type="flex"
               justify="space-between">
-        值1
+        值
         <el-checkbox v-model="config.valueShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
@@ -76,10 +76,10 @@
       </el-row>
     </el-collapse-item>
     <el-collapse-item class="title1-config"
-                      title="值2">
+                      title="标题">
       <el-row type="flex"
               justify="space-between">
-        值2
+        标题
         <el-checkbox v-model="config.titleShowStatus"
                      @change="handleChange">显示</el-checkbox>
       </el-row>
@@ -87,10 +87,10 @@
         <el-input v-model="config.titleLabel"
                   @change="handleChange"></el-input>
       </el-row>
-      <el-row>
+     <!--  <el-row>
         <el-input v-model="config.titleLabelUnit"
                   @change="handleChange"></el-input>
-      </el-row>
+      </el-row> -->
 
       <el-row type="flex"
               align="middle">

@@ -207,6 +207,10 @@ export default {
     font-weight: normal;
     color: #FFFFFF;
     text-align: center;
+    background-image: url('./imgs/bg.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
 </style>
