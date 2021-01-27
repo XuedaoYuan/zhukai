@@ -58,7 +58,7 @@
                   paddingBottom: componentConfig.chartOption.xAxisLabelShow ? '30px' : 0
                 }"
                v-if="titleList && titleList.length > 0">
-            <div class="title-text "
+            <div class="title-text"
                  v-for="(title, index) in titleList"
                  :key="index">
               <div :style="{
@@ -92,7 +92,7 @@
 <script>
 import throttle from 'lodash/throttle';
 import * as echarts from 'echarts';
-const colors = [
+/* const colors = [
   new echarts.graphic.LinearGradient(1, 0, 0, 0, [
     {
       offset: 0,
@@ -113,7 +113,8 @@ const colors = [
       color: 'rgb(91, 211, 254)'
     }
   ])
-];
+]; */
+const colors = ['#53E2FF', '#53E2FF'];
 export default {
   name: 'Bar3',
   props: {
@@ -245,7 +246,7 @@ export default {
           try {
             const staticData = JSON.parse(data.staticData);
             seriesData = staticData.map((_) => _.value);
-            yAxisData = seriesData
+            yAxisData = seriesData;
             this.titleList = staticData.map((_) => _.name);
           } catch (error) {
             this.$message.error('静态数据解析出错');
@@ -268,12 +269,12 @@ export default {
       const option = {
         title: {
           show: false,
-          text: '世界人口总量',
-          subtext: '数据来自网络'
+          text: ''
         },
         tooltip: {
           show: _vm.componentConfig.chartOption.tooltipShow,
           trigger: 'axis',
+          formatter: '{b}',
           axisPointer: {
             type: 'shadow'
           }
@@ -316,7 +317,7 @@ export default {
           show: false,
           position: 'right',
           type: 'category',
-           axisLine: {
+          axisLine: {
             show: false
           },
           axisTick: {
@@ -339,7 +340,8 @@ export default {
             barWidth: 10,
             showBackground: true,
             backgroundStyle: {
-              barBorderRadius: 5
+              barBorderRadius: 5,
+              color: '#2C547C'
             },
             data: seriesData
           }
@@ -371,7 +373,7 @@ export default {
 .bar3__container {
   width: 416px;
   height: 876px;
-  background-color: rgba(19, 62, 107, 0.3)
+  background-color: rgba(19, 62, 107, 0.3);
 }
 
 .chart-dom {
