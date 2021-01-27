@@ -12,6 +12,7 @@ import line2DefaultConfig from '@/views/EditChartView/components/Line2/line2Defa
 import headTitle1DefaultConfig from '@/views/EditChartView/components/HeadTitle1/headTitle1DefaultConfig.js';
 import headTitle2DefaultConfig from '@/views/EditChartView/components/HeadTitle2/headTitle2DefaultConfig.js';
 import bar2DefaultConfig from '@/views/EditChartView/components/Bar2/bar2DefaultConfig.js';
+import bar3DefaultConfig from '@/views/EditChartView/components/Bar3/bar3DefaultConfig.js';
 import pie3DefaultConfig from '@/views/EditChartView/components/Pie3/pie3DefaultConfig.js';
 import pie4DefaultConfig from '@/views/EditChartView/components/Pie4/pie4DefaultConfig.js';
 import labelValue1DefaultConfig from '@/views/EditChartView/components/LabelValue1/labelValue1DefaultConfig.js';
@@ -124,6 +125,7 @@ const COMPONENT_CONFIG = {
   chinaMap1: chinaMap1DefaultConfig,
   bar1: bar1DefaultConfig,
   bar2: bar2DefaultConfig,
+  bar3: bar3DefaultConfig,
   line1: line1DefaultConfig,
   pie1: pie1DefaultConfig,
   pie2: pie2DefaultConfig,

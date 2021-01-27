@@ -255,7 +255,7 @@ import {
 import cloneDeep from 'lodash/cloneDeep';
 
 export default {
-  name: 'Bar2Config',
+  name: 'Bar3Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,

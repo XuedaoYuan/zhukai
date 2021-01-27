@@ -1,7 +1,7 @@
 <template>
   <div class="bar1__wrapper"
-       ref="Bar2WrapperRef">
-    <div class="component__container bar1__container"
+       ref="Bar3WrapperRef">
+    <div class="component__container bar3__container"
          :style="{
             transform: 'scale(' + scale + ')',
          }">
@@ -36,7 +36,8 @@
         </svg>
         <span class="title">{{componentConfig.titleLabel}}</span>
       </div>
-      <div class="chart__container grid-bg">
+      <!--  grid-bg -->
+      <div class="chart__container">
         <div class="sub-title__container"
              v-if="componentConfig.subTitleShowStatus"
              :style="{
@@ -66,7 +67,7 @@
                 fontFamily: componentConfig.chartOption.yAxisLabelFontFamily,
                 marginTop: (0 - componentConfig.chartOption.yAxisLabelFontSize / 2) + 'px'
               }"
-                   :class="{active: title.length * componentConfig.chartOption.yAxisLabelFontSize > 80}">{{title}}</div>
+                   :class="{active: (title.length - 2) * componentConfig.chartOption.yAxisLabelFontSize > 80}">{{title}}</div>
             </div>
           </div>
           <div class="chart-canvas-dom"
@@ -114,7 +115,7 @@ const colors = [
   ])
 ];
 export default {
-  name: 'Bar2',
+  name: 'Bar3',
   props: {
     i: {
       type: String | Number,
@@ -199,7 +200,7 @@ export default {
   },
   mounted() {
     this._resizeObserver = new ResizeObserver(this._resizehandlerThrottle);
-    this._resizeObserver.observe(this.$refs['Bar2WrapperRef']);
+    this._resizeObserver.observe(this.$refs['Bar3WrapperRef']);
     this.initChart();
     // dom大小改变需要resize图表
     this._chartObserver = new ResizeObserver(
@@ -243,11 +244,9 @@ export default {
         case '静态数据': {
           try {
             const staticData = JSON.parse(data.staticData);
-            seriesData = [...staticData.seriesData];
-            yAxisData = staticData.seriesData.map(
-              (item) => item + staticData.unitName
-            );
-            this.titleList = staticData.titleList;
+            seriesData = staticData.map((_) => _.value);
+            yAxisData = seriesData
+            this.titleList = staticData.map((_) => _.name);
           } catch (error) {
             this.$message.error('静态数据解析出错');
           }
@@ -285,7 +284,7 @@ export default {
         grid: {
           left: 10,
           top: 0,
-          right: '10%',
+          right: 10,
           bottom: xAxisLabelShow ? 30 : 0
         },
         xAxis: {
@@ -314,15 +313,15 @@ export default {
           }
         },
         yAxis: {
-          show: true,
+          show: false,
           position: 'right',
           type: 'category',
-          /*  axisLine: {
+           axisLine: {
             show: false
           },
           axisTick: {
             show: false
-          }, */
+          },
           axisLabel: {
             color: '#fff'
           },
@@ -335,12 +334,12 @@ export default {
               color: function (params) {
                 return colors[params.dataIndex % 2];
               },
-              barBorderRadius: 7
+              barBorderRadius: 5
             },
-            barWidth: 14,
+            barWidth: 10,
             showBackground: true,
             backgroundStyle: {
-              barBorderRadius: 7
+              barBorderRadius: 5
             },
             data: seriesData
           }
@@ -353,15 +352,15 @@ export default {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
-      const scale = width / 480;
+      const scale = width / 416;
       this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
         scaleNew: scale,
-        initialW: 480,
-        initialH: 360,
-        componentName: 'Bar2'
+        initialW: 416,
+        initialH: 876,
+        componentName: 'Bar3'
       });
     }
   }
@@ -369,9 +368,10 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.bar1__container {
-  width: 480px;
-  height: 360px;
+.bar3__container {
+  width: 416px;
+  height: 876px;
+  background-color: rgba(19, 62, 107, 0.3)
 }
 
 .chart-dom {
@@ -413,10 +413,14 @@ export default {
   }
 }
 
+.chart__container {
+  padding: 30px;
+}
+
 .chart-canvas-dom {
   flex: 1;
   height: 100%;
-  overflow hidden
+  overflow: hidden;
 }
 
 @keyframes swiper-animation {
