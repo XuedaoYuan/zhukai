@@ -9,44 +9,15 @@ export default {
       const component = this.boardConfig.components[index];
       // const width = contentRect.width;
       // const height = contentRect.height;
-      switch (componentName) {
-        case 'Select1':
-        case 'DatePicker1':
-        case 'Title1':
-        case 'Bar1':
-        case 'Line1':
-        case 'Pie1':
-        case 'Pie2':
-        case 'Pie3':
-        case 'Line2':
-        case 'ChinaMap1': {
-          const h = (initialH * scaleNew) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-          });
-          break;
+      const h = (initialH * scaleNew) / this.rowHeight;
+      this.$nextTick(() => {
+        this.boardConfig.components[index].h = h;
+        this.h = h;
+        if (!this.boardConfig.components[index].initialized) {
+          this.setInitialYVal(this.boardConfig.components[index]);
+          this.boardConfig.components[index].initialized = true;
         }
-
-        /* case "LabelValue1": {
-          break
-        } */
-
-        default: {
-          const h = (initialH * scaleNew) / this.rowHeight;
-          this.$nextTick(() => {
-            this.boardConfig.components[index].h = h;
-            this.h = h;
-            if(!this.boardConfig.components[index].initialized) {
-              console.log("----------------------");
-              this.setInitialYVal(this.boardConfig.components[index])
-              this.boardConfig.components[index].initialized = true
-            }
-            
-          });
-          break;
-        }
-      }
+      });
     }
   }
 };

@@ -545,19 +545,6 @@ export default {
       if (componentDefaultConfig) {
         const component = cloneDeep(componentDefaultConfig);
         component.i = ++this.boardConfig.componentIdIndex;
-
-        /*  switch (componentName) {
-          // 可以针对不同的组件设定不同的位置
-          case 'title1': {
-            component.y = 0;
-            break;
-          }
-
-          default: {
-            // component.y = this.getInitialYVal(component);
-            break;
-          }
-        } */
         this.boardConfig.components.push(component);
         // 拷贝一份配置
       }
