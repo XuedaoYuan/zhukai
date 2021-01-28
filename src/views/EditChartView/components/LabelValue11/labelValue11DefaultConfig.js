@@ -57,7 +57,7 @@ const labelValue11DefaultConfig = {
       fieldList: [],
       businessParamList: [{ key: '', value: '' }],
       /* 静态数据 */
-      staticData: JSON.stringify({ value: 35 }, null, 2), //  Array or Map 序列化的字符串
+      staticData: JSON.stringify({ value: 35, rate: 30 }, null, 2), //  Array or Map 序列化的字符串
       /* 自定义API */
       apiUrl: '',
       apiUrlParamList: [{ key: '', value: '' }]

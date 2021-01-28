@@ -63,6 +63,7 @@ export default {
     Line2: () => import('./components/Line2/Line2'),
     HeadTitle1: () => import('./components/HeadTitle1/HeadTitle1'),
     HeadTitle2: () => import('./components/HeadTitle2/HeadTitle2'),
+    HeadTitle3: () => import('./components/HeadTitle3/HeadTitle3'),
     LabelValue1: () => import('./components/LabelValue1/LabelValue1'),
     LabelValue2: () => import('./components/LabelValue2/LabelValue2'),
     LabelValue3: () => import('./components/LabelValue3/LabelValue3'),
@@ -73,7 +74,8 @@ export default {
     LabelValue8: () => import('./components/LabelValue8/LabelValue8'),
     LabelValue9: () => import('./components/LabelValue9/LabelValue9'),
     LabelValue10: () => import('./components/LabelValue10/LabelValue10'),
-    LabelValue11: () => import('./components/LabelValue11/LabelValue11')
+    LabelValue11: () => import('./components/LabelValue11/LabelValue11'),
+    LabelValue12: () => import('./components/LabelValue12/LabelValue12')
   },
   mixins: [mixin],
   data() {

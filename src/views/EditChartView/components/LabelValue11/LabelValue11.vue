@@ -17,14 +17,17 @@
           fontWeight: componentConfig.titleFontWeight,
           textAlign: componentConfig.titleTextAlign
       }">{{componentConfig.titleLabel}}</div>
-      <div class="progress__container" :style="{
+      <div class="progress__container"
+           :style="{
         backgroundColor: componentConfig.barBackgroundColor,
         height: componentConfig.barHeight + 'px',
         borderRadius: componentConfig.barHeight / 2 + 'px'
       }">
-        <div class="foreground-bar" :style="{
+        <div class="foreground-bar"
+             :style="{
           backgroundColor: componentConfig.barForegroundColor,
-          borderRadius: componentConfig.barHeight / 2 + 'px'
+          borderRadius: componentConfig.barHeight / 2 + 'px',
+          width: rate + '%'
         }"></div>
       </div>
       <div class="value"
@@ -109,7 +112,9 @@ export default {
   data() {
     return {
       scale: 1,
-      value: 23456
+      value: 23456,
+      // 比例
+      rate: 30
     };
   },
   watch: {
@@ -148,20 +153,31 @@ export default {
             getKpiData({
               moduId: this.moduleId,
               kpiId: data.businessIndexSet
-            }).then((res) => {
-              try {
-                if (res.code == 0 && res.data) {
-                  const key = data.fieldList[0];
-                  this.value = res.data.data.map((_) => _[key])[0];
+            })
+              .then((res) => {
+                try {
+                  if (res && res.code == 0 && res.data) {
+                    const rateKey = data.fieldList[0];
+                    const valueKey = data.fieldList[1];
+                    const dataFromApi = res.data.data[0];
+                    this.value = dataFromApi[valueKey];
+                    const rate = dataFromApi[rateKey];
+                    this.rate = rate <= 100 ? rate : 100;
+                  }
+                } catch (error) {
+                  this.$message.error('数据设定有误');
                 }
-              } catch (error) {}
-            });
+              })
+              .catch((err) => {
+                this.$message.error('数据设定有误');
+              });
             break;
           }
           case '静态数据': {
             try {
               const staticData = JSON.parse(data.staticData);
               this.value = staticData.value;
+              this.rate = staticData.rate;
             } catch (error) {
               this.$message.error('静态数据解析失败');
             }
@@ -234,7 +250,7 @@ export default {
     font-weight: bold;
     color: #87E7FF;
     position: relative;
-    line-height 1
+    line-height: 1;
     margin-top: 10px;
 
     .value-text {

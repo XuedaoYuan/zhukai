@@ -132,7 +132,7 @@ export default {
     width: 100%;
     height: 40px;
     line-height: 40px;
-    overflow: hidden;
+    // overflow: hidden;
     white-space: nowrap;
     // text-overflow: ellipsis;
     display: flex;
@@ -141,7 +141,7 @@ export default {
     justify-content: flex-start;
 
     .iconStyle {
-      width: 10px;
+      flex: 0 0 10px;
       height: 16px;
       display: inline-block;
       vertical-align: baseline;
@@ -152,10 +152,10 @@ export default {
       margin-left: 6px;
       display: inline-block;
       line-height: 1;
-      flex: 1;
-      overflow: hidden;
+      // flex: 1;
+      // overflow: hidden;
       white-space: nowrap;
-      text-overflow: ellipsis;
+      // text-overflow: ellipsis;
     }
   }
 }

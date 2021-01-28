@@ -102,6 +102,10 @@
              @click="handleComponentClick('headTitle2')"
              width="182"
              alt="headTitle2" />
+        <img src="./imgs/headTitle3.png"
+             @click="handleComponentClick('headTitle3')"
+             width="182"
+             alt="headTitle3" />
         <img src="./imgs/chinaMap1.png"
              @click="handleComponentClick('chinaMap1')"
              width="182"
@@ -142,6 +146,10 @@
              @click="handleComponentClick('labelValue11')"
              width="182"
              alt="labelValue11" />
+        <img src="./imgs/labelValue12.png"
+             @click="handleComponentClick('labelValue12')"
+             width="182"
+             alt="labelValue12" />
 
       </div>
     </div>

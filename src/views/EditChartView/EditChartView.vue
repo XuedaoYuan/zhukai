@@ -272,6 +272,8 @@ export default {
     HeadTitle1Config: () => import('./components/HeadTitle1/HeadTitle1Config'),
     HeadTitle2: () => import('./components/HeadTitle2/HeadTitle2'),
     HeadTitle2Config: () => import('./components/HeadTitle2/HeadTitle2Config'),
+    HeadTitle3: () => import('./components/HeadTitle3/HeadTitle3'),
+    HeadTitle3Config: () => import('./components/HeadTitle3/HeadTitle3Config'),
     Pie3: () => import('./components/Pie3/Pie3'),
     Pie3Config: () => import('./components/Pie3/Pie3Config'),
     Pie4: () => import('./components/Pie4/Pie4'),
@@ -308,7 +310,10 @@ export default {
       import('./components/LabelValue10/LabelValue10Config'),
     LabelValue11: () => import('./components/LabelValue11/LabelValue11'),
     LabelValue11Config: () =>
-      import('./components/LabelValue11/LabelValue11Config')
+      import('./components/LabelValue11/LabelValue11Config'),
+    LabelValue12: () => import('./components/LabelValue12/LabelValue12'),
+    LabelValue12Config: () =>
+      import('./components/LabelValue12/LabelValue12Config')
   },
   mixins: [mixin],
   data() {
@@ -327,6 +332,7 @@ export default {
       'Line2Config',
       'HeadTitle1Config',
       'HeadTitle2Config',
+      'HeadTitle3Config',
       'Pie1Config',
       'Pie2Config',
       'Pie3Config',
@@ -341,7 +347,8 @@ export default {
       'LabelValue8Config',
       'LabelValue9Config',
       'LabelValue10Config',
-      'LabelValue11Config'
+      'LabelValue11Config',
+      'LabelValue12Config'
     ];
     return {
       // 保存的loading

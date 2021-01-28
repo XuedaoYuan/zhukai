@@ -11,6 +11,7 @@ import pie2DefaultConfig from '@/views/EditChartView/components/Pie2/pie2Default
 import line2DefaultConfig from '@/views/EditChartView/components/Line2/line2DefaultConfig.js';
 import headTitle1DefaultConfig from '@/views/EditChartView/components/HeadTitle1/headTitle1DefaultConfig.js';
 import headTitle2DefaultConfig from '@/views/EditChartView/components/HeadTitle2/headTitle2DefaultConfig.js';
+import headTitle3DefaultConfig from '@/views/EditChartView/components/HeadTitle3/headTitle3DefaultConfig.js';
 import bar2DefaultConfig from '@/views/EditChartView/components/Bar2/bar2DefaultConfig.js';
 import bar3DefaultConfig from '@/views/EditChartView/components/Bar3/bar3DefaultConfig.js';
 import pie3DefaultConfig from '@/views/EditChartView/components/Pie3/pie3DefaultConfig.js';
@@ -26,6 +27,7 @@ import labelValue8DefaultConfig from '@/views/EditChartView/components/LabelValu
 import labelValue9DefaultConfig from '@/views/EditChartView/components/LabelValue9/labelValue9DefaultConfig.js';
 import labelValue10DefaultConfig from '@/views/EditChartView/components/LabelValue10/labelValue10DefaultConfig.js';
 import labelValue11DefaultConfig from '@/views/EditChartView/components/LabelValue11/labelValue11DefaultConfig.js';
+import labelValue12DefaultConfig from '@/views/EditChartView/components/LabelValue12/labelValue12DefaultConfig.js';
 const COMPONENT_CONFIG = {
   // 标题1的配置项
   title1: title1DefaultConfig,
@@ -133,6 +135,7 @@ const COMPONENT_CONFIG = {
   line2: line2DefaultConfig,
   headTitle1: headTitle1DefaultConfig,
   headTitle2: headTitle2DefaultConfig,
+  headTitle3: headTitle3DefaultConfig,
   pie3: pie3DefaultConfig,
   pie4: pie4DefaultConfig,
   labelValue1: labelValue1DefaultConfig,
@@ -145,7 +148,8 @@ const COMPONENT_CONFIG = {
   labelValue8: labelValue8DefaultConfig,
   labelValue9: labelValue9DefaultConfig,
   labelValue10: labelValue10DefaultConfig,
-  labelValue11: labelValue11DefaultConfig
+  labelValue11: labelValue11DefaultConfig,
+  labelValue12: labelValue12DefaultConfig,
 };
 
 // console.log('line1DefaultConfig ==> ', COMPONENT_CONFIG);
