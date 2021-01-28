@@ -138,6 +138,10 @@
              @click="handleComponentClick('labelValue10')"
              width="182"
              alt="labelValue10" />
+        <img src="./imgs/labelValue11.png"
+             @click="handleComponentClick('labelValue11')"
+             width="182"
+             alt="labelValue11" />
 
       </div>
     </div>

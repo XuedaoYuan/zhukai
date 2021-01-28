@@ -46,6 +46,39 @@
       </el-row>
     </el-collapse-item>
     <el-collapse-item class="title1-config"
+                      title="进度条">
+      <el-row type="flex"
+              justify="space-between">
+        进度条
+        <el-checkbox v-model="config.barShowStatus"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <span>前景色：</span>
+        <el-color-picker show-alpha
+                         v-model="config.barForegroundColor"
+                         @change="handleChange"></el-color-picker>
+        <span>背景色：</span>
+        <el-color-picker show-alpha
+                         v-model="config.barBackgroundColor"
+                         @change="handleChange"></el-color-picker>
+      </el-row>
+
+      <el-row type="flex"
+              align="middle">
+        <span>高度：</span>
+        <el-input-number :min="1"
+                         :max="100"
+                         :precision="0"
+                         :style="{width: '80px'}"
+                         controls-position="right"
+                         v-model="config.barHeight"
+                         @change="handleChange"></el-input-number>
+      </el-row>
+
+    </el-collapse-item>
+    <el-collapse-item class="title1-config"
                       title="值">
       <el-row type="flex"
               justify="space-between">
@@ -90,7 +123,7 @@
                             false-label="normal">B</el-checkbox-button>
       </el-row>
     </el-collapse-item>
-      <el-collapse-item class="title1-config"
+    <el-collapse-item class="title1-config"
                       title="单位">
       <el-row type="flex"
               justify="space-between">
@@ -144,7 +177,7 @@ import {
 } from 'element-ui';
 import { fontFamilyOptions } from '@/views/EditChartView/constant.js';
 export default {
-  name: 'LabelValue2Config',
+  name: 'LabelValue11Config',
   components: {
     'el-collapse-item': CollapseItem,
     'el-checkbox': Checkbox,
@@ -160,23 +193,29 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '评价数',
+        titleLabel: '医疗服务新增数',
         titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 21,
+        titleFontSize: 14,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
+        titleTextAlign: 'center',
         titleShowStatus: true,
+        // 进度条的配置
+        barForegroundColor: '#53E2FF',
+        barBackgroundColor: '#2C547C',
+        barHeight: 10,
+        barShowStatus: false,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 36,
+        value: '23',
+        valueColor: '#80DFF7',
+        valueFontSize: 20,
         valueFamily: 'sans-serif,Microsoft YaHei',
-        valueTextAlign: 'center',
         valueFontWeight: 'bold',
+        valueTextAlign: 'center',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
-        unitColor: '#53E2FF',
+        unitName: '个',
+        unitColor: '#F3D175',
         unitFontSize: 20,
         unitFamily: 'sans-serif,Microsoft YaHei',
         unitFontWeight: 'bold',
@@ -197,24 +236,29 @@ export default {
       fontFamilyOptions: fontFamilyOptions,
       config: {
         // 标题的配置
-        titleLabel: '评价数',
+        titleLabel: '医疗服务新增数',
         titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 21,
+        titleFontSize: 14,
         titleFamily: 'sans-serif,Microsoft YaHei',
-        titleTextAlign: 'center',
         titleFontWeight: 'normal',
+        titleTextAlign: 'center',
         titleShowStatus: true,
+        // 进度条的配置
+        barForegroundColor: '#53E2FF',
+        barBackgroundColor: '#2C547C',
+        barHeight: 10,
+        barShowStatus: false,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 36,
+        value: '23',
+        valueColor: '#80DFF7',
+        valueFontSize: 20,
         valueFamily: 'sans-serif,Microsoft YaHei',
-        valueTextAlign: 'center',
         valueFontWeight: 'bold',
+        valueTextAlign: 'center',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
-        unitColor: '#53E2FF',
+        unitName: '个',
+        unitColor: '#F3D175',
         unitFontSize: 20,
         unitFamily: 'sans-serif,Microsoft YaHei',
         unitFontWeight: 'bold',

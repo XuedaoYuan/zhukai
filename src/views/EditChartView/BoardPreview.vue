@@ -72,7 +72,8 @@ export default {
     LabelValue7: () => import('./components/LabelValue7/LabelValue7'),
     LabelValue8: () => import('./components/LabelValue8/LabelValue8'),
     LabelValue9: () => import('./components/LabelValue9/LabelValue9'),
-    LabelValue10: () => import('./components/LabelValue10/LabelValue10')
+    LabelValue10: () => import('./components/LabelValue10/LabelValue10'),
+    LabelValue11: () => import('./components/LabelValue11/LabelValue11')
   },
   mixins: [mixin],
   data() {

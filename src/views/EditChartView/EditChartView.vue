@@ -305,7 +305,10 @@ export default {
       import('./components/LabelValue9/LabelValue9Config'),
     LabelValue10: () => import('./components/LabelValue10/LabelValue10'),
     LabelValue10Config: () =>
-      import('./components/LabelValue10/LabelValue10Config')
+      import('./components/LabelValue10/LabelValue10Config'),
+    LabelValue11: () => import('./components/LabelValue11/LabelValue11'),
+    LabelValue11Config: () =>
+      import('./components/LabelValue11/LabelValue11Config')
   },
   mixins: [mixin],
   data() {
@@ -337,7 +340,8 @@ export default {
       'LabelValue7Config',
       'LabelValue8Config',
       'LabelValue9Config',
-      'LabelValue10Config'
+      'LabelValue10Config',
+      'LabelValue11Config'
     ];
     return {
       // 保存的loading

@@ -1,6 +1,6 @@
 <template>
   <div class="head-title1__wrapper"
-       ref="LabelValue2WrapperRef">
+       ref="LabelValue11WrapperRef">
     <!-- <div class="title1__container"
          :style="{
           transform: 'scale('+scale+')'
@@ -17,6 +17,16 @@
           fontWeight: componentConfig.titleFontWeight,
           textAlign: componentConfig.titleTextAlign
       }">{{componentConfig.titleLabel}}</div>
+      <div class="progress__container" :style="{
+        backgroundColor: componentConfig.barBackgroundColor,
+        height: componentConfig.barHeight + 'px',
+        borderRadius: componentConfig.barHeight / 2 + 'px'
+      }">
+        <div class="foreground-bar" :style="{
+          backgroundColor: componentConfig.barForegroundColor,
+          borderRadius: componentConfig.barHeight / 2 + 'px'
+        }"></div>
+      </div>
       <div class="value"
            v-if="componentConfig.valueShowStatus"
            :style="{
@@ -25,24 +35,21 @@
           fontFamily: componentConfig.valueFamily,
           fontWeight: componentConfig.valueFontWeight,
       }">
-        <div class="text_container"
-             :style="valueContainerStyle">
-          <span class="value-text"
-                :style="{
+        <span class="value-text"
+              :style="{
           color: componentConfig.valueColor,
           fontSize: componentConfig.valueFontSize  + 'px',
           fontFamily: componentConfig.valueFamily,
           fontWeight: componentConfig.valueFontWeight,
         }">{{value | separateWithComma}}</span>
-          <span class="unit-name"
-                v-if="componentConfig.unitShowStatus"
-                :style="{
+        <span class="unit-name"
+              v-if="componentConfig.unitShowStatus"
+              :style="{
                 fontSize: componentConfig.unitFontSize + 'px',
                 color: componentConfig.unitColor,
                 fontSFamily: componentConfig.unitFamily,
                 fontWeight: componentConfig.unitFontWeight
         }">{{componentConfig.unitName}}</span>
-        </div>
       </div>
     </div>
   </div>
@@ -53,7 +60,7 @@
 import throttle from 'lodash/throttle';
 import { getKpiData } from '../../api';
 export default {
-  name: 'LabelValue2',
+  name: 'LabelValue11',
   props: {
     i: {
       type: String | Number,
@@ -68,24 +75,29 @@ export default {
       required: true,
       default: () => ({
         // 标题的配置
-        titleLabel: '评价数',
+        titleLabel: '医疗服务新增数',
         titleColor: 'rgb(255, 255, 255)',
-        titleFontSize: 21,
+        titleFontSize: 14,
         titleFamily: 'sans-serif,Microsoft YaHei',
         titleFontWeight: 'normal',
         titleTextAlign: 'center',
         titleShowStatus: true,
+        // 进度条的配置
+        barForegroundColor: '#53E2FF',
+        barBackgroundColor: '#2C547C',
+        barHeight: 10,
+        barShowStatus: false,
         // 值的配置
-        value: '23456',
-        valueColor: '#87E7FF',
-        valueFontSize: 36,
+        value: '23',
+        valueColor: '#80DFF7',
+        valueFontSize: 20,
         valueFamily: 'sans-serif,Microsoft YaHei',
         valueFontWeight: 'bold',
         valueTextAlign: 'center',
         valueShowStatus: true,
         // 单位的配置
-        unitName: '万人',
-        unitColor: '#53E2FF',
+        unitName: '个',
+        unitColor: '#F3D175',
         unitFontSize: 20,
         unitFamily: 'sans-serif,Microsoft YaHei',
         unitFontWeight: 'bold',
@@ -108,45 +120,7 @@ export default {
       }
     }
   },
-  computed: {
-    valueContainerStyle: function () {
-      let style = {
-        left: '-60px',
-        textAlign: 'center'
-      };
-      switch (this.componentConfig.valueTextAlign) {
-        case 'left':
-          style = {
-            left: 0,
-            right: 'auto',
-            textAlign: 'left'
-          };
-          break;
-        case 'center':
-          style = {
-            left: '-60px',
-            right: 'auto',
-            textAlign: 'center'
-          };
-          break;
-        case 'right':
-          style = {
-            left: 'auto',
-            right: 0,
-            textAlign: 'right'
-          };
-          break;
-
-        default:
-          style = {
-            left: '-60px',
-            textAlign: 'center'
-          };
-          break;
-      }
-      return style;
-    }
-  },
+  computed: {},
 
   created() {
     this.initValue();
@@ -155,7 +129,7 @@ export default {
   mounted() {
     this._resizeObserver = new ResizeObserver(this._resizehandlerThrottle);
     this.$nextTick(() => {
-      this._resizeObserver.observe(this.$refs['LabelValue2WrapperRef']);
+      this._resizeObserver.observe(this.$refs['LabelValue11WrapperRef']);
     });
   },
   beforeDestroy() {
@@ -206,15 +180,15 @@ export default {
       const dOMRectReadOnly = entries[0];
       const contentRect = dOMRectReadOnly.contentRect;
       const width = contentRect.width;
-      const scale = width / 120;
+      const scale = width / 270;
       this.scale = scale;
       this.$emit('resize', {
         contentRect,
         i: this.i,
-        initialW: 120,
-        initialH: 88,
+        initialW: 270,
+        initialH: 74,
         scaleNew: scale,
-        componentName: 'LabelValue2'
+        componentName: 'LabelValue11'
       });
     }
   }
@@ -230,40 +204,44 @@ export default {
 .label-value__container {
   // background-color: #ccc;
   transform-origin: left top;
-  width: 120px;
-  height: 88px;
+  width: 270px;
+  height: 74px;
   white-space: nowrap;
 
-  > div {
-    text-align: center;
+  .label {
+    font-size: 14px;
+    text-align: left;
+    font-weight: normal;
+    color: #FFFFFF;
     line-height: 1;
   }
 
-  .label {
-    font-size: 21px;
-    font-weight: normal;
-    color: #FFFFFF;
+  .progress__container {
+    width: 100%;
+    height: 10px;
+    background-color: #2C547C;
+    border-radius: 5px;
+    margin-top: 20px;
+
+    .foreground-bar {
+      width: 30%;
+      height: 100%;
+      background-color: #53E2FF;
+    }
   }
 
   .value {
     font-weight: bold;
     color: #87E7FF;
-    margin-top: 30px;
     position: relative;
-    height: 36px;
-
-    .text_container {
-      width: 240px;
-      position: absolute;
-      top: 0;
-      left: -60px;
-    }
+    line-height 1
+    margin-top: 10px;
 
     .value-text {
     }
 
     .unit-name {
-      margin-left: 7px;
+      margin-left: 2px;
     }
   }
 }
