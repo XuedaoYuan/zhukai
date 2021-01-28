@@ -262,6 +262,30 @@
                          @change="handleChange"></el-input-number>
       </el-row>
     </el-collapse-item>
+    <el-collapse-item class="select1-config"
+                      title="柱状值">
+      <el-row type="flex"
+              justify="space-between">
+        柱状值
+        <el-checkbox v-model="config.chartOption.barLabelShow"
+                     @change="handleChange">显示</el-checkbox>
+      </el-row>
+      <el-row type="flex"
+              align="middle">
+        <span>颜色：</span>
+        <el-color-picker show-alpha
+                         v-model="config.chartOption.barLabelColor"
+                         @change="handleChange"></el-color-picker>
+
+        <span>字号：</span>
+        <el-input-number :min="1"
+                         :precision="0"
+                         controls-position="right"
+                         :style="{width: '80px'}"
+                         v-model="config.chartOption.barLabelFontSize"
+                         @change="handleChange"></el-input-number>
+      </el-row>
+    </el-collapse-item>
   </div>
 </template>
 
@@ -341,7 +365,11 @@ export default {
           // 柱状图的一些配置
           barItemColor: '#53E2FF',
           barBackgroundColor: '#2C547C',
-          barWidth: 10
+          barWidth: 10,
+          // 值的一些配置
+          barLabelShow: false,
+          barLabelColor: '#ffffff',
+          barLabelFontSize: 12
         }
       })
     }
@@ -428,7 +456,11 @@ export default {
           // 柱状图的一些配置
           barItemColor: '#53E2FF',
           barBackgroundColor: '#2C547C',
-          barWidth: 10
+          barWidth: 10,
+          // 值的一些配置
+          barLabelShow: false,
+          barLabelColor: '#ffffff',
+          barLabelFontSize: 12
         }
       }
     };

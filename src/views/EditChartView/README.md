@@ -116,7 +116,10 @@
     /* 指标库导入 */
     businessDomain: '', // 业务域
     businessIndexSet: '', // 指标集
-    businessParamList: [{ key: '', value: '' }]
+    businessParamList: [{ key: '', value: '' }],
+    businessX: '', // x 轴字段
+    businessYList: [], // y轴字段多选  针对柱状和折线
+    fieldList: [], // 任意字段多选，带排序功能 
     /* 静态数据 */
     staticData: '', //  Array or Map 序列化的字符串 JSON.stringify(jsonData, null, 2)
     /* 自定义API */

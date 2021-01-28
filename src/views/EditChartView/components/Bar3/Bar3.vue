@@ -156,7 +156,11 @@ export default {
           // 柱状图的一些配置
           barItemColor: '#53E2FF',
           barBackgroundColor: '#2C547C',
-          barWidth: 10
+          barWidth: 10,
+          // 值的一些配置
+          barLabelShow: false,
+          barLabelColor: '#ffffff',
+          barLabelFontSize: 12
         }
       })
     }
@@ -243,6 +247,14 @@ export default {
               kpiId: this.componentConfig.data.businessIndexSet,
               ...extraParams
             });
+            if (res && res.code === 0 && res.data) {
+              const dataList = res.data.data;
+              const xAxisKey = data.businessX;
+              const yAxisKey = data.businessYList[0];
+              seriesData = dataList.map((_) => _[xAxisKey]);
+              yAxisData = seriesData;
+              this.titleList = dataList.map((_) => _[yAxisKey]);
+            }
           } catch (error) {}
 
           break;
@@ -320,6 +332,7 @@ export default {
         },
         yAxis: {
           show: false,
+          inverse: true,
           position: 'right',
           type: 'category',
           axisLine: {
@@ -345,6 +358,13 @@ export default {
             backgroundStyle: {
               barBorderRadius: _vm.componentConfig.chartOption.barWidth / 2,
               color: _vm.componentConfig.chartOption.barBackgroundColor
+            },
+            // 值的一些配置
+            label: {
+              show: _vm.componentConfig.chartOption.barLabelShow,
+              position: 'insideRight',
+              color: _vm.componentConfig.chartOption.barLabelColor,
+              fontSize: _vm.componentConfig.chartOption.barLabelFontSize
             },
             data: seriesData
           }

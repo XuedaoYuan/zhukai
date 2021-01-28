@@ -1,8 +1,8 @@
 const chartData = [];
-for (let i = 1, len = 21; i < len; i++) {
+for (let i = 20; i > 0; i--) {
   chartData.push({
     value: i * 10,
-    name: i + '.' + '材料费'
+    name: (21 - i) + '.' + '材料费'
   });
 }
 
@@ -87,7 +87,11 @@ const bar3DefaultConfig = {
       // 柱状图的一些配置
       barItemColor: '#53E2FF',
       barBackgroundColor: '#2C547C',
-      barWidth: 10
+      barWidth: 10,
+      // 值的一些配置
+      barLabelShow: false,
+      barLabelColor: '#ffffff',
+      barLabelFontSize: 12,
     }
   }
 };
